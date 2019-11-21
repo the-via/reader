@@ -18,7 +18,7 @@ exports.KeyboardDefinitionSchema = {
     $schema: 'http://json-schema.org/draft-07/schema#',
     defaultProperties: [],
     definitions: {
-        LightingSupport: {
+        LightingTypeDefinition: {
             enum: ['none', 'qmk_backlight', 'wt_rgb_backlight', 'wt_mono_backlight'],
             type: 'string'
         },
@@ -80,7 +80,7 @@ exports.KeyboardDefinitionSchema = {
             type: 'object'
         },
         lighting: {
-            $ref: '#/definitions/LightingSupport'
+            $ref: '#/definitions/LightingTypeDefinition'
         },
         name: {
             type: 'string'

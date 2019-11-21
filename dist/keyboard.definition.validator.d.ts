@@ -6,7 +6,7 @@ export declare const KeyboardDefinitionSchema: {
     $schema: string;
     defaultProperties: never[];
     definitions: {
-        LightingSupport: {
+        LightingTypeDefinition: {
             enum: string[];
             type: string;
         };

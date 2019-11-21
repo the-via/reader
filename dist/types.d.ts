@@ -49,11 +49,11 @@ export declare type Result = {
     h: number;
     w: number;
 } & Formatting & Dimensions & Cursor & MatrixPosition;
-export declare enum LightingSupport {
-    None = 0,
-    QMKLighting = 1,
-    WTRGBBacklight = 2,
-    WTMonoBacklight = 3
+export declare enum LightingTypeDefinition {
+    None = "none",
+    QMKLighting = "qmk_backlight",
+    WTRGBBacklight = "wt_rgb_backlight",
+    WTMonoBacklight = "wt_mono_backlight"
 }
 export declare type KLEFormattingObject = Partial<{
     c: string;
@@ -72,7 +72,7 @@ export declare type KeyboardDefinition = {
     name: string;
     vendorId: string;
     productId: string;
-    lighting: LightingSupport;
+    lighting: LightingTypeDefinition;
     matrix: MatrixInfo;
     layouts: {
         [name: string]: KLELayoutDefinition;
@@ -81,7 +81,7 @@ export declare type KeyboardDefinition = {
 export declare type VIADefinition = {
     name: string;
     vendorProductId: number;
-    lighting: LightingSupport;
+    lighting: LightingTypeDefinition;
     matrix: MatrixInfo;
     layouts: {
         [layoutName: string]: {
