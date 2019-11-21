@@ -1,0 +1,13 @@
+{
+  "name": "via-reader",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:the-via/reader.git",
+  "author": "Olivia B <ofbriggs@gmail.com>",
+  "private": true,
+  "dependencies": {
+    "@types/node": "^12.12.11",
+    "ajv": "^6.10.2",
+    "util": "^0.12.1"
+  }
+}
