@@ -81,6 +81,11 @@ export declare type KeyboardDefinition = {
         [name: string]: KLELayoutDefinition;
     };
 };
+export declare enum KeyColorType {
+    Alpha = "alpha",
+    Mod = "mod",
+    Accent = "accent"
+}
 export declare type VIADefinition = {
     name: string;
     vendorProductId: number;

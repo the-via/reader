@@ -72,6 +72,12 @@ export type KeyboardDefinition = {
   layouts: {[name: string]: KLELayoutDefinition};
 };
 
+export enum KeyColorType {
+  Alpha = 'alpha',
+  Mod = 'mod',
+  Accent = 'accent'
+}
+
 export type VIADefinition = {
   name: string;
   vendorProductId: number;
