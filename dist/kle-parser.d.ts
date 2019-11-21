@@ -15,6 +15,9 @@ export declare function generateParsedKLE(kle: KLEElem[][]): {
         color: string;
         h: number;
         w: number;
+        r: number;
+        rx: number;
+        ry: number;
         row: number;
         col: number;
     }[];

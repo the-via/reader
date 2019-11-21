@@ -48,7 +48,10 @@ export declare type ParsedKLE = {
 export declare type Result = {
     h: number;
     w: number;
-} & Formatting & Dimensions & Cursor & MatrixPosition;
+} & Formatting & Dimensions & Cursor & Rotation & MatrixPosition;
+export declare type VIAKey = Result & {
+    color: string;
+};
 export declare enum LightingTypeDefinition {
     None = "none",
     QMKLighting = "qmk_backlight",
@@ -87,7 +90,7 @@ export declare type VIADefinition = {
         [layoutName: string]: {
             width: number;
             height: number;
-            keys: Result[];
+            keys: VIAKey[];
         };
     };
 };

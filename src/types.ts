@@ -35,7 +35,10 @@ export type ParsedKLE = {
 export type Result = {h: number; w: number} & Formatting &
   Dimensions &
   Cursor &
+  Rotation & 
   MatrixPosition;
+
+export type VIAKey = Result & {color: string};
 
 export enum LightingTypeDefinition {
   None = 'none',
@@ -78,7 +81,7 @@ export type VIADefinition = {
     [layoutName: string]: {
       width: number;
       height: number;
-      keys: Result[];
+      keys: VIAKey[];
     };
   };
 };
