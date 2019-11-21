@@ -76,8 +76,9 @@ export type VIADefinition = {
   matrix: MatrixInfo;
   layouts: {
     [layoutName: string]: {
-      colorMap: ParsedKLE['colorMap'];
-      layout: ParsedKLE['res'];
+      width: number;
+      height: number;
+      keys: Result[];
     };
   };
 };
