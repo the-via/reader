@@ -38,7 +38,7 @@ export type Result = {h: number; w: number} & Formatting &
   Rotation & 
   MatrixPosition;
 
-export type VIAKey = Result & {color: string};
+export type VIAKey = Result & {color: KeyColorType};
 
 export enum LightingTypeDefinition {
   None = 'none',

@@ -50,7 +50,7 @@ export declare type Result = {
     w: number;
 } & Formatting & Dimensions & Cursor & Rotation & MatrixPosition;
 export declare type VIAKey = Result & {
-    color: string;
+    color: KeyColorType;
 };
 export declare enum LightingTypeDefinition {
     None = "none",
