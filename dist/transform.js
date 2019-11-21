@@ -23,7 +23,7 @@ function getVendorProductId(_a) {
     return parsedVendorId * 65536 + parsedProductId;
 }
 function keyboardDefinitionToVIADefinition(definition) {
-    var name = definition.name, lighting = definition.lighting, matrix = definition.matrix;
+    var _a = keyboard_definition_validator_1.default(definition), name = _a.name, lighting = _a.lighting, matrix = _a.matrix;
     var layouts = Object.entries(definition.layouts).reduce(function (p, _a) {
         var _b;
         var k = _a[0], v = _a[1];
@@ -40,7 +40,6 @@ function keyboardDefinitionToVIADefinition(definition) {
 exports.keyboardDefinitionToVIADefinition = keyboardDefinitionToVIADefinition;
 function generateVIADefinitionLookupMap(definitions) {
     return definitions
-        .map(keyboard_definition_validator_1.default)
         .map(keyboardDefinitionToVIADefinition)
         .reduce(function (p, n) {
         var _a;

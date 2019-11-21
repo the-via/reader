@@ -12,7 +12,7 @@ function getVendorProductId({productId, vendorId}: KeyboardDefinition): number {
 export function keyboardDefinitionToVIADefinition(
   definition: KeyboardDefinition
 ): VIADefinition {
-  const {name, lighting, matrix} = definition;
+  const {name, lighting, matrix} = validate(definition);
   const layouts = Object.entries(definition.layouts).reduce(
     (p, [k, v]) => ({...p, [k]: generateParsedKLE(v)}),
     {}
@@ -30,7 +30,6 @@ export function generateVIADefinitionLookupMap(
   definitions: KeyboardDefinition[]
 ) {
   return definitions
-    .map(validate)
     .map(keyboardDefinitionToVIADefinition)
     .reduce((p, n) => ({...p, [n.vendorProductId]: n}), {});
 }
