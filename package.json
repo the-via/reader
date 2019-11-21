@@ -18,6 +18,7 @@
   "dependencies": {
     "@types/node": "^12.12.11",
     "ajv": "^6.10.2",
+    "core-js": "^3.4.1",
     "husky": "^3.1.0",
     "typescript": "^3.7.2",
     "util": "^0.12.1"
