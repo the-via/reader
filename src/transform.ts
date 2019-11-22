@@ -1,9 +1,9 @@
-import {generateParsedKLE} from './kle-parser';
+import {kleLayoutToVIALayout} from './kle-parser';
 import validate from './keyboard.definition.validator';
 import {KeyboardDefinition, VIADefinition} from './types';
-export {KeyboardDefinition};
+export {VIADefinition, KeyboardDefinition};
 
-function getVendorProductId({productId, vendorId}: KeyboardDefinition): number {
+export function getVendorProductId({productId, vendorId}: KeyboardDefinition): number {
   const parsedVendorId = parseInt(vendorId, 16);
   const parsedProductId = parseInt(productId, 16);
   return parsedVendorId * 65536 + parsedProductId;
@@ -14,7 +14,7 @@ export function keyboardDefinitionToVIADefinition(
 ): VIADefinition {
   const {name, lighting, matrix} = validate(definition);
   const layouts = Object.entries(definition.layouts).reduce(
-    (p, [k, v]) => ({...p, [k]: generateParsedKLE(v)}),
+    (p, [k, v]) => ({...p, [k]: kleLayoutToVIALayout(v)}),
     {}
   );
   return {

@@ -1,24 +1,3 @@
-import { KLEElem } from './types';
-export declare function parseKLE(kle: string): any;
-export declare function generateParsedKLE(kle: KLEElem[][]): {
-    width: number;
-    height: number;
-    keys: {
-        c: undefined;
-        t: undefined;
-        label: undefined;
-        size: undefined;
-        marginX: undefined;
-        marginY: undefined;
-        x: number;
-        y: number;
-        color: string;
-        h: number;
-        w: number;
-        r: number;
-        rx: number;
-        ry: number;
-        row: number;
-        col: number;
-    }[];
-};
+import { VIALayout, KLELayout } from './types';
+export declare function rawKLEToKLELayout(kle: string): KLELayout;
+export declare function kleLayoutToVIALayout(kle: KLELayout): VIALayout;

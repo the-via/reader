@@ -10,6 +10,17 @@ var __assign = (this && this.__assign) || function () {
     };
     return __assign.apply(this, arguments);
 };
+var __rest = (this && this.__rest) || function (s, e) {
+    var t = {};
+    for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
+        t[p] = s[p];
+    if (s != null && typeof Object.getOwnPropertySymbols === "function")
+        for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
+            if (e.indexOf(p[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p[i]))
+                t[p[i]] = s[p[i]];
+        }
+    return t;
+};
 var __spreadArrays = (this && this.__spreadArrays) || function () {
     for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
     for (var r = Array(s), k = 0, i = 0; i < il; i++)
@@ -18,7 +29,8 @@ var __spreadArrays = (this && this.__spreadArrays) || function () {
     return r;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-function parseKLE(kle) {
+var types_1 = require("./types");
+function rawKLEToKLELayout(kle) {
     var kleArr = kle.split(',\n');
     return kleArr.map(function (row) {
         return JSON.parse(row
@@ -28,8 +40,8 @@ function parseKLE(kle) {
             .replace(/([{,])([A-Za-z][0-9A-Za-z]?)(:)/g, '$1"$2"$3'));
     });
 }
-exports.parseKLE = parseKLE;
-function generateParsedKLE(kle) {
+exports.rawKLEToKLELayout = rawKLEToKLELayout;
+function kleLayoutToVIALayout(kle) {
     var _a;
     var parsedKLE = kle.reduce(function (prev, kle) {
         var parsedRow = kle.reduce(function (_a, n) {
@@ -152,9 +164,9 @@ function generateParsedKLE(kle) {
         console.error('Please correct layout:', parsedKLE);
     }
     var colorMap = (_a = {},
-        _a[colorCountKeys[0]] = 'alpha',
-        _a[colorCountKeys[1]] = 'mod',
-        _a[colorCountKeys[2]] = 'accent',
+        _a[colorCountKeys[0]] = types_1.KeyColorType.Alpha,
+        _a[colorCountKeys[1]] = types_1.KeyColorType.Mod,
+        _a[colorCountKeys[2]] = types_1.KeyColorType.Accent,
         _a);
     var flatRes = res.flat();
     var xKeys = flatRes.map(function (k) { return k.x; });
@@ -163,7 +175,10 @@ function generateParsedKLE(kle) {
     var minY = Math.min.apply(Math, yKeys);
     var width = Math.max.apply(Math, flatRes.map(function (k) { return k.x + k.w; })) - minX;
     var height = Math.max.apply(Math, yKeys) + 1 - minY;
-    var keys = flatRes.map(function (k) { return (__assign(__assign({}, k), { c: undefined, t: undefined, label: undefined, size: undefined, marginX: undefined, marginY: undefined, x: k.x - minX, y: k.y - minY, color: colorMap[k.c + ":" + k.t] || 'alpha' })); });
+    var keys = flatRes.map(function (k) {
+        var c = k.c, t = k.t, size = k.size, marginX = k.marginX, marginY = k.marginY, partialKey = __rest(k, ["c", "t", "size", "marginX", "marginY"]);
+        return __assign(__assign({}, partialKey), { x: k.x - minX, y: k.y - minY, color: colorMap[k.c + ":" + k.t] || types_1.KeyColorType.Alpha });
+    });
     return { width: width, height: height, keys: keys };
 }
-exports.generateParsedKLE = generateParsedKLE;
+exports.kleLayoutToVIALayout = kleLayoutToVIALayout;

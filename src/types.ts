@@ -11,40 +11,40 @@ export type KLEDimensions = Rotation & {
   y: number;
 };
 
-type OtherKLEProps = {[key: string]: any};
+type OtherKLEProps = { [key: string]: any };
 export type KeyColor = string;
 export type LegendColor = string;
 type Margin = number;
 type Size = number;
-export type MatrixPosition = {row: number; col: number};
+export type MatrixPosition = { row: number; col: number };
 
-export type Cursor = {x: number; y: number};
-export type Formatting = {c: KeyColor; t: LegendColor};
+export type Cursor = { x: number; y: number };
+export type Formatting = { c: KeyColor; t: LegendColor };
 export type Dimensions = {
   marginX: Margin;
   marginY: Margin;
   size: Size;
   h: number;
 };
-export type KLEElem = KLEDimensions & Formatting | OtherKLEProps | string;
-export type ColorCount = {[key: string]: number};
+export type KLEElem = (KLEDimensions & Formatting) | OtherKLEProps | string;
+export type ColorCount = { [key: string]: number };
 export type ParsedKLE = {
   res: Result[][];
-  colorMap: {[k: string]: string};
+  colorMap: { [k: string]: string };
 };
-export type Result = {h: number; w: number} & Formatting &
+export type Result = { h: number; w: number } & Formatting &
   Dimensions &
   Cursor &
-  Rotation & 
+  Rotation &
   MatrixPosition;
 
-export type VIAKey = Result & {color: KeyColorType};
+export type VIAKey = Omit<Result, keyof Formatting | 'marginX' | 'marginY' | 'size'> & { color: KeyColorType };
 
 export enum LightingTypeDefinition {
-  None = 'none',
-  QMKLighting = 'qmk_backlight',
-  WTRGBBacklight = 'wt_rgb_backlight',
-  WTMonoBacklight = 'wt_mono_backlight'
+  None = "none",
+  QMKLighting = "qmk_backlight",
+  WTRGBBacklight = "wt_rgb_backlight",
+  WTMonoBacklight = "wt_mono_backlight"
 }
 
 export type KLEFormattingObject = Partial<{
@@ -69,14 +69,22 @@ export type KeyboardDefinition = {
   productId: string;
   lighting: LightingTypeDefinition;
   matrix: MatrixInfo;
-  layouts: {[name: string]: KLELayoutDefinition};
+  layouts: { [name: string]: KLELayoutDefinition };
 };
 
 export enum KeyColorType {
-  Alpha = 'alpha',
-  Mod = 'mod',
-  Accent = 'accent'
+  Alpha = "alpha",
+  Mod = "mod",
+  Accent = "accent"
 }
+
+export type KLELayout = KLEElem[][];
+
+export type VIALayout = {
+  width: number;
+  height: number;
+  keys: VIAKey[];
+};
 
 export type VIADefinition = {
   name: string;
@@ -84,10 +92,6 @@ export type VIADefinition = {
   lighting: LightingTypeDefinition;
   matrix: MatrixInfo;
   layouts: {
-    [layoutName: string]: {
-      width: number;
-      height: number;
-      keys: VIAKey[];
-    };
+    [layoutName: string]: VIALayout;
   };
 };

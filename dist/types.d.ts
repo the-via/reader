@@ -35,7 +35,7 @@ export declare type Dimensions = {
     size: Size;
     h: number;
 };
-export declare type KLEElem = KLEDimensions & Formatting | OtherKLEProps | string;
+export declare type KLEElem = (KLEDimensions & Formatting) | OtherKLEProps | string;
 export declare type ColorCount = {
     [key: string]: number;
 };
@@ -49,7 +49,7 @@ export declare type Result = {
     h: number;
     w: number;
 } & Formatting & Dimensions & Cursor & Rotation & MatrixPosition;
-export declare type VIAKey = Result & {
+export declare type VIAKey = Omit<Result, keyof Formatting | 'marginX' | 'marginY' | 'size'> & {
     color: KeyColorType;
 };
 export declare enum LightingTypeDefinition {
@@ -86,17 +86,19 @@ export declare enum KeyColorType {
     Mod = "mod",
     Accent = "accent"
 }
+export declare type KLELayout = KLEElem[][];
+export declare type VIALayout = {
+    width: number;
+    height: number;
+    keys: VIAKey[];
+};
 export declare type VIADefinition = {
     name: string;
     vendorProductId: number;
     lighting: LightingTypeDefinition;
     matrix: MatrixInfo;
     layouts: {
-        [layoutName: string]: {
-            width: number;
-            height: number;
-            keys: VIAKey[];
-        };
+        [layoutName: string]: VIALayout;
     };
 };
 export {};

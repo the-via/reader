@@ -5,7 +5,10 @@ import {
   Dimensions,
   KLEElem,
   Rotation,
-  Result
+  Result,
+  VIALayout,
+  KLELayout,
+  KeyColorType
 } from './types';
 
 type InnerReduceState = Formatting &
@@ -21,7 +24,7 @@ type OuterReduceState = {
   res: Result[][];
 };
 
-export function parseKLE(kle: string): any {
+export function rawKLEToKLELayout(kle: string): KLELayout {
   const kleArr = kle.split(',\n');
   return kleArr.map(row =>
     JSON.parse(
@@ -34,7 +37,7 @@ export function parseKLE(kle: string): any {
   );
 }
 
-export function generateParsedKLE(kle: KLEElem[][]) {
+export function kleLayoutToVIALayout(kle: KLELayout): VIALayout {
   const parsedKLE = kle.reduce<OuterReduceState>(
     (prev: OuterReduceState, kle: KLEElem[]) => {
       const parsedRow = kle.reduce<InnerReduceState>(
@@ -214,9 +217,9 @@ export function generateParsedKLE(kle: KLEElem[][]) {
   }
 
   const colorMap = {
-    [colorCountKeys[0]]: 'alpha',
-    [colorCountKeys[1]]: 'mod',
-    [colorCountKeys[2]]: 'accent'
+    [colorCountKeys[0]]: KeyColorType.Alpha,
+    [colorCountKeys[1]]: KeyColorType.Mod,
+    [colorCountKeys[2]]: KeyColorType.Accent
   };
 
   const flatRes = res.flat();
@@ -226,18 +229,15 @@ export function generateParsedKLE(kle: KLEElem[][]) {
   const minY = Math.min(...yKeys);
   const width = Math.max(...flatRes.map(k => k.x + k.w)) - minX;
   const height = Math.max(...yKeys) + 1 - minY;
-  const keys = flatRes.map(k => ({
-    ...k,
-    c: undefined,
-    t: undefined,
-    label: undefined,
-    size: undefined,
-    marginX: undefined,
-    marginY: undefined,
-    x: k.x - minX,
-    y: k.y - minY,
-    color: colorMap[`${k.c}:${k.t}`] || 'alpha'
-  }));
+  const keys = flatRes.map(k =>  {
+    const {c,t,size,marginX,marginY, ...partialKey} = k;  
+    return {
+      ...partialKey,
+      x: k.x - minX,
+      y: k.y - minY,
+      color: colorMap[`${k.c}:${k.t}`] || KeyColorType.Alpha
+    };
+  });
 
   return {width, height, keys};
 }

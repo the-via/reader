@@ -6,13 +6,12 @@
   "private": true,
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
-  "files": [
-    "src/"
-  ],
+  "scripts": {
+    "build": "tsc"
+  },
   "husky": {
     "hooks": {
-      "pre-commit": "tsc",
-      "pre-push": "tsc"
+      "pre-commit": "tsc && git diff --quiet"
     }
   },
   "dependencies": {

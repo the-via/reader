@@ -22,12 +22,13 @@ function getVendorProductId(_a) {
     var parsedProductId = parseInt(productId, 16);
     return parsedVendorId * 65536 + parsedProductId;
 }
+exports.getVendorProductId = getVendorProductId;
 function keyboardDefinitionToVIADefinition(definition) {
     var _a = keyboard_definition_validator_1.default(definition), name = _a.name, lighting = _a.lighting, matrix = _a.matrix;
     var layouts = Object.entries(definition.layouts).reduce(function (p, _a) {
         var _b;
         var k = _a[0], v = _a[1];
-        return (__assign(__assign({}, p), (_b = {}, _b[k] = kle_parser_1.generateParsedKLE(v), _b)));
+        return (__assign(__assign({}, p), (_b = {}, _b[k] = kle_parser_1.kleLayoutToVIALayout(v), _b)));
     }, {});
     return {
         name: name,
