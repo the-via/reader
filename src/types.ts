@@ -32,13 +32,22 @@ export type ParsedKLE = {
   res: Result[][];
   colorMap: { [k: string]: string };
 };
+
+export type GroupMeta = {
+  group: {
+    key: number;
+    option: number;
+  }
+};
+
 export type Result = { h: number; w: number } & Formatting &
   Dimensions &
   Cursor &
   Rotation &
-  MatrixPosition;
+  MatrixPosition &
+  GroupMeta;
 
-export type VIAKey = Omit<Result, keyof Formatting | 'marginX' | 'marginY' | 'size'> & { color: KeyColorType };
+export type VIAKey = Omit<Result, keyof Formatting | 'group' | 'marginX' | 'marginY' | 'size'> & { color: KeyColorType };
 
 export enum LightingTypeDefinition {
   None = "none",
@@ -56,7 +65,7 @@ export type KLEFormattingObject = Partial<{
   a: number;
 }>;
 
-export type KLELayoutDefinition = (string | KLEFormattingObject)[][];
+export type KLELayoutDefinition = (KLEMeta | ((string | KLEFormattingObject)[]))[];
 
 export type MatrixInfo = {
   rows: number;
@@ -78,7 +87,11 @@ export enum KeyColorType {
   Accent = "accent"
 }
 
-export type KLELayout = KLEElem[][];
+export type KLEMeta = {
+  name?: string;
+}
+
+export type KLELayout = (KLEMeta | (KLEElem[]))[];
 
 export type VIALayout = {
   width: number;

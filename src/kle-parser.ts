@@ -8,7 +8,8 @@ import {
   Result,
   VIALayout,
   KLELayout,
-  KeyColorType
+  KeyColorType,
+  VIAKey
 } from './types';
 
 type InnerReduceState = Formatting &
@@ -37,8 +38,14 @@ export function rawKLEToKLELayout(kle: string): KLELayout {
   );
 }
 
+export function filterGroups(keys: Result[]) {
+  // Currently extract out non x,0 groups i.e. always choose the first option
+  return keys.filter(key => key.group.option === 0);
+}
+
 export function kleLayoutToVIALayout(kle: KLELayout): VIALayout {
-  const parsedKLE = kle.reduce<OuterReduceState>(
+  const filteredKLE = kle.filter(elem => Array.isArray(elem)) as KLEElem[][];
+  const parsedKLE = filteredKLE.reduce<OuterReduceState>(
     (prev: OuterReduceState, kle: KLEElem[]) => {
       const parsedRow = kle.reduce<InnerReduceState>(
         (
@@ -124,7 +131,10 @@ export function kleLayoutToVIALayout(kle: KLELayout): VIALayout {
             return obj as InnerReduceState;
           } else if (typeof n === 'string') {
             const colorCountKey = `${c}:${t}`;
-            const [row, col] = n.split(',').map(num => parseInt(num, 10));
+            const labels = n.split('\n');
+            const [row, col] = labels[0].split(',').map(num => parseInt(num, 10));
+            const groupLabel = labels[3] || '0,0';  
+            const [group, option] = groupLabel.split(',').map(num => parseInt(num, 10));
             const newColorCount = {
               ...colorCount,
               [colorCountKey]:
@@ -146,7 +156,11 @@ export function kleLayoutToVIALayout(kle: KLELayout): VIALayout {
               rx,
               ry,
               h,
-              w: size / 100
+              w: size / 100,
+              group: {
+                key: group,
+                option
+              }
             };
 
             // Reset carry properties
@@ -222,7 +236,7 @@ export function kleLayoutToVIALayout(kle: KLELayout): VIALayout {
     [colorCountKeys[2]]: KeyColorType.Accent
   };
 
-  const flatRes = res.flat();
+  const flatRes = filterGroups(res.flat());
   const xKeys = flatRes.map(k => k.x);
   const yKeys = flatRes.map(k => k.y);
   const minX = Math.min(...xKeys);
@@ -230,7 +244,7 @@ export function kleLayoutToVIALayout(kle: KLELayout): VIALayout {
   const width = Math.max(...flatRes.map(k => k.x + k.w)) - minX;
   const height = Math.max(...yKeys) + 1 - minY;
   const keys = flatRes.map(k =>  {
-    const {c,t,size,marginX,marginY, ...partialKey} = k;  
+    const {c,t,size,group,marginX,marginY, ...partialKey} = k;  
     return {
       ...partialKey,
       x: k.x - minX,

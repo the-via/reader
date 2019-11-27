@@ -52,17 +52,31 @@ export const KeyboardDefinitionSchema = {
     "layouts": {
       "additionalProperties": {
         "items": {
-          "items": {
-            "anyOf": [
-              {
-                "$ref": "#/definitions/Partial<{c:string;t:string;x:number;y:number;w:number;a:number;}>"
+          "anyOf": [
+            {
+              "defaultProperties": [
+              ],
+              "properties": {
+                "name": {
+                  "type": "string"
+                }
               },
-              {
-                "type": "string"
-              }
-            ]
-          },
-          "type": "array"
+              "type": "object"
+            },
+            {
+              "items": {
+                "anyOf": [
+                  {
+                    "$ref": "#/definitions/Partial<{c:string;t:string;x:number;y:number;w:number;a:number;}>"
+                  },
+                  {
+                    "type": "string"
+                  }
+                ]
+              },
+              "type": "array"
+            }
+          ]
         },
         "type": "array"
       },

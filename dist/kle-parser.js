@@ -41,9 +41,15 @@ function rawKLEToKLELayout(kle) {
     });
 }
 exports.rawKLEToKLELayout = rawKLEToKLELayout;
+function filterGroups(keys) {
+    // Currently extract out non x,0 groups i.e. always choose the first option
+    return keys.filter(function (key) { return key.group.option === 0; });
+}
+exports.filterGroups = filterGroups;
 function kleLayoutToVIALayout(kle) {
     var _a;
-    var parsedKLE = kle.reduce(function (prev, kle) {
+    var filteredKLE = kle.filter(function (elem) { return Array.isArray(elem); });
+    var parsedKLE = filteredKLE.reduce(function (prev, kle) {
         var parsedRow = kle.reduce(function (_a, n) {
             var _b;
             var _c = _a.cursor, x = _c.x, y = _c.y, size = _a.size, marginX = _a.marginX, marginY = _a.marginY, res = _a.res, c = _a.c, h = _a.h, t = _a.t, r = _a.r, rx = _a.rx, ry = _a.ry, colorCount = _a.colorCount;
@@ -94,7 +100,10 @@ function kleLayoutToVIALayout(kle) {
             }
             else if (typeof n === 'string') {
                 var colorCountKey = c + ":" + t;
-                var _d = n.split(',').map(function (num) { return parseInt(num, 10); }), row = _d[0], col = _d[1];
+                var labels = n.split('\n');
+                var _d = labels[0].split(',').map(function (num) { return parseInt(num, 10); }), row = _d[0], col = _d[1];
+                var groupLabel = labels[3] || '0,0';
+                var _e = groupLabel.split(',').map(function (num) { return parseInt(num, 10); }), group = _e[0], option = _e[1];
                 var newColorCount = __assign(__assign({}, colorCount), (_b = {}, _b[colorCountKey] = colorCount[colorCountKey] === undefined
                     ? 1
                     : colorCount[colorCountKey] + 1, _b));
@@ -112,7 +121,11 @@ function kleLayoutToVIALayout(kle) {
                     rx: rx,
                     ry: ry,
                     h: h,
-                    w: size / 100
+                    w: size / 100,
+                    group: {
+                        key: group,
+                        option: option
+                    }
                 };
                 // Reset carry properties
                 return {
@@ -168,7 +181,7 @@ function kleLayoutToVIALayout(kle) {
         _a[colorCountKeys[1]] = types_1.KeyColorType.Mod,
         _a[colorCountKeys[2]] = types_1.KeyColorType.Accent,
         _a);
-    var flatRes = res.flat();
+    var flatRes = filterGroups(res.flat());
     var xKeys = flatRes.map(function (k) { return k.x; });
     var yKeys = flatRes.map(function (k) { return k.y; });
     var minX = Math.min.apply(Math, xKeys);
@@ -176,7 +189,7 @@ function kleLayoutToVIALayout(kle) {
     var width = Math.max.apply(Math, flatRes.map(function (k) { return k.x + k.w; })) - minX;
     var height = Math.max.apply(Math, yKeys) + 1 - minY;
     var keys = flatRes.map(function (k) {
-        var c = k.c, t = k.t, size = k.size, marginX = k.marginX, marginY = k.marginY, partialKey = __rest(k, ["c", "t", "size", "marginX", "marginY"]);
+        var c = k.c, t = k.t, size = k.size, group = k.group, marginX = k.marginX, marginY = k.marginY, partialKey = __rest(k, ["c", "t", "size", "group", "marginX", "marginY"]);
         return __assign(__assign({}, partialKey), { x: k.x - minX, y: k.y - minY, color: colorMap[k.c + ":" + k.t] || types_1.KeyColorType.Alpha });
     });
     return { width: width, height: height, keys: keys };

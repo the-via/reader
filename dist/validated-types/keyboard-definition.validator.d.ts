@@ -39,16 +39,29 @@ export declare const KeyboardDefinitionSchema: {
         "layouts": {
             "additionalProperties": {
                 "items": {
-                    "items": {
-                        "anyOf": ({
-                            "$ref": string;
-                            "type"?: undefined;
-                        } | {
-                            "type": string;
-                            "$ref"?: undefined;
-                        })[];
-                    };
-                    "type": string;
+                    "anyOf": ({
+                        "defaultProperties": never[];
+                        "properties": {
+                            "name": {
+                                "type": string;
+                            };
+                        };
+                        "type": string;
+                        "items"?: undefined;
+                    } | {
+                        "items": {
+                            "anyOf": ({
+                                "$ref": string;
+                                "type"?: undefined;
+                            } | {
+                                "type": string;
+                                "$ref"?: undefined;
+                            })[];
+                        };
+                        "type": string;
+                        "defaultProperties"?: undefined;
+                        "properties"?: undefined;
+                    })[];
                 };
                 "type": string;
             };

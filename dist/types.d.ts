@@ -45,11 +45,17 @@ export declare type ParsedKLE = {
         [k: string]: string;
     };
 };
+export declare type GroupMeta = {
+    group: {
+        key: number;
+        option: number;
+    };
+};
 export declare type Result = {
     h: number;
     w: number;
-} & Formatting & Dimensions & Cursor & Rotation & MatrixPosition;
-export declare type VIAKey = Omit<Result, keyof Formatting | 'marginX' | 'marginY' | 'size'> & {
+} & Formatting & Dimensions & Cursor & Rotation & MatrixPosition & GroupMeta;
+export declare type VIAKey = Omit<Result, keyof Formatting | 'group' | 'marginX' | 'marginY' | 'size'> & {
     color: KeyColorType;
 };
 export declare enum LightingTypeDefinition {
@@ -66,7 +72,7 @@ export declare type KLEFormattingObject = Partial<{
     w: number;
     a: number;
 }>;
-export declare type KLELayoutDefinition = (string | KLEFormattingObject)[][];
+export declare type KLELayoutDefinition = (KLEMeta | ((string | KLEFormattingObject)[]))[];
 export declare type MatrixInfo = {
     rows: number;
     cols: number;
@@ -86,7 +92,10 @@ export declare enum KeyColorType {
     Mod = "mod",
     Accent = "accent"
 }
-export declare type KLELayout = KLEElem[][];
+export declare type KLEMeta = {
+    name?: string;
+};
+export declare type KLELayout = (KLEMeta | (KLEElem[]))[];
 export declare type VIALayout = {
     width: number;
     height: number;
