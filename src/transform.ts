@@ -1,5 +1,5 @@
 import {kleLayoutToVIALayout} from './kle-parser';
-import validate from './keyboard.definition.validator';
+import validate from './validated-types/keyboard-definition.validator';
 import {KeyboardDefinition, VIADefinition} from './types';
 export {VIADefinition, KeyboardDefinition};
 

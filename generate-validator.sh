@@ -1,1 +1,1 @@
-npx typescript-json-validator src/types/keyboard-definition.ts KeyboardDefinition
+npx typescript-json-validator src/validated-types/keyboard-definition.ts KeyboardDefinition

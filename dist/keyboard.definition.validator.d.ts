@@ -53,10 +53,10 @@ export declare const KeyboardDefinitionSchema: {
                     items: {
                         anyOf: ({
                             $ref: string;
-                            type?: undefined;
+                            "type"?: undefined;
                         } | {
                             type: string;
-                            $ref?: undefined;
+                            "$ref"?: undefined;
                         })[];
                     };
                     type: string;

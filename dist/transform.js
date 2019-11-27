@@ -15,7 +15,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var kle_parser_1 = require("./kle-parser");
-var keyboard_definition_validator_1 = __importDefault(require("./keyboard.definition.validator"));
+var keyboard_definition_validator_1 = __importDefault(require("./validated-types/keyboard-definition.validator"));
 function getVendorProductId(_a) {
     var productId = _a.productId, vendorId = _a.vendorId;
     var parsedVendorId = parseInt(vendorId, 16);
