@@ -72,7 +72,7 @@ export declare type KLEFormattingObject = Partial<{
     w: number;
     a: number;
 }>;
-export declare type KLELayoutDefinition = (KLEMeta | ((string | KLEFormattingObject)[]))[];
+export declare type KLELayoutDefinition = (KLEMeta | (string | KLEFormattingObject)[])[];
 export declare type MatrixInfo = {
     rows: number;
     cols: number;
@@ -95,11 +95,16 @@ export declare enum KeyColorType {
 export declare type KLEMeta = {
     name?: string;
 };
-export declare type KLELayout = (KLEMeta | (KLEElem[]))[];
+export declare type KLELayout = (KLEMeta | KLEElem[])[];
 export declare type VIALayout = {
     width: number;
     height: number;
     keys: VIAKey[];
+    optionKeys: {
+        [g: string]: {
+            [o: string]: VIAKey[];
+        };
+    };
 };
 export declare type VIADefinition = {
     name: string;

@@ -43,6 +43,80 @@ export function filterGroups(keys: Result[]) {
   return keys.filter(key => key.group.option === 0);
 }
 
+// Finds the closest to the top-left corner
+export function findPivot(keys: Result[]): Result {
+  return [...keys].sort((a, b) => {
+    const yDiff = a.y - b.y;
+    return yDiff !== 0 ? yDiff : a.x - b.x;
+  })[0];
+}
+
+type GroupOptionMap<A> = {[group: string]: {[option: string]: A[]}};
+
+function calculateDelta(a: Result, b: Result) {
+  return {
+    x: b.x - a.x,
+    y: b.y - a.y
+  };
+}
+
+export function extractGroups(
+  keys: Result[],
+  origin: {x: number; y: number},
+  colorMap: {[k: string]: KeyColorType}
+): GroupOptionMap<VIAKey> {
+  const groups = keys.filter(key => key.group.key !== -1);
+  const groupedKeys = groups.reduce(
+    (p, n) => ({
+      ...p,
+      [n.group.key]: {
+        ...(p[n.group.key] || {}),
+        [n.group.option]: ((p[n.group.key] || {})[n.group.option] || []).concat(
+          n
+        )
+      }
+    }),
+    {} as GroupOptionMap<Result>
+  );
+
+  // We need two pivots in order to calculate the true placement
+  // 1. The option 0 pivot + the option n pivot for the rest of them
+  return Object.entries(groupedKeys).reduce((p, [group, options]) => {
+    const zeroPivot = findPivot(options[0]);
+    const normalizedOptions = Object.entries(options).reduce(
+      (p, [option, results]) => ({
+        ...p,
+        [option]: (delta =>
+          results.map(res => ({
+            ...res,
+            x: res.x - delta.x,
+            y: res.y - delta.y
+          })))(calculateDelta(zeroPivot, findPivot(results))).map(r =>
+          resultToVIAKey(r, origin, colorMap)
+        )
+      }),
+      p
+    );
+    return {
+      ...p,
+      [group]: normalizedOptions
+    };
+  }, {});
+}
+
+function resultToVIAKey(
+  result: Result,
+  delta: {x: number; y: number},
+  colorMap: {[x: string]: KeyColorType}
+): VIAKey {
+  const {c, t, size, group, marginX, marginY, ...partialKey} = result;
+  return {
+    ...partialKey,
+    x: result.x - delta.x,
+    y: result.y - delta.y,
+    color: colorMap[`${c}:${t}`] || KeyColorType.Alpha
+  };
+}
 export function kleLayoutToVIALayout(kle: KLELayout): VIALayout {
   const filteredKLE = kle.filter(elem => Array.isArray(elem)) as KLEElem[][];
   const parsedKLE = filteredKLE.reduce<OuterReduceState>(
@@ -132,9 +206,13 @@ export function kleLayoutToVIALayout(kle: KLELayout): VIALayout {
           } else if (typeof n === 'string') {
             const colorCountKey = `${c}:${t}`;
             const labels = n.split('\n');
-            const [row, col] = labels[0].split(',').map(num => parseInt(num, 10));
-            const groupLabel = labels[3] || '0,0';  
-            const [group, option] = groupLabel.split(',').map(num => parseInt(num, 10));
+            const [row, col] = labels[0]
+              .split(',')
+              .map(num => parseInt(num, 10));
+            const groupLabel = labels[3] || '-1,0';
+            const [group, option] = groupLabel
+              .split(',')
+              .map(num => parseInt(num, 10));
             const newColorCount = {
               ...colorCount,
               [colorCountKey]:
@@ -236,22 +314,18 @@ export function kleLayoutToVIALayout(kle: KLELayout): VIALayout {
     [colorCountKeys[2]]: KeyColorType.Accent
   };
 
-  const flatRes = filterGroups(res.flat());
-  const xKeys = flatRes.map(k => k.x);
-  const yKeys = flatRes.map(k => k.y);
+  const flatRes = res.flat();
+  const defaultRes = filterGroups(flatRes);
+  const xKeys = defaultRes.map(k => k.x);
+  const yKeys = defaultRes.map(k => k.y);
   const minX = Math.min(...xKeys);
   const minY = Math.min(...yKeys);
-  const width = Math.max(...flatRes.map(k => k.x + k.w)) - minX;
+  const width = Math.max(...defaultRes.map(k => k.x + k.w)) - minX;
   const height = Math.max(...yKeys) + 1 - minY;
-  const keys = flatRes.map(k =>  {
-    const {c,t,size,group,marginX,marginY, ...partialKey} = k;  
-    return {
-      ...partialKey,
-      x: k.x - minX,
-      y: k.y - minY,
-      color: colorMap[`${k.c}:${k.t}`] || KeyColorType.Alpha
-    };
-  });
+  const keys = defaultRes.map(k =>
+    resultToVIAKey(k, {x: minX, y: minY}, colorMap)
+  );
+  const optionKeys = extractGroups(flatRes, {x: minX, y: minY}, colorMap);
 
-  return {width, height, keys};
+  return {width, height, optionKeys, keys};
 }

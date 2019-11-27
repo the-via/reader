@@ -46,6 +46,49 @@ function filterGroups(keys) {
     return keys.filter(function (key) { return key.group.option === 0; });
 }
 exports.filterGroups = filterGroups;
+// Finds the closest to the top-left corner
+function findPivot(keys) {
+    return __spreadArrays(keys).sort(function (a, b) {
+        var yDiff = a.y - b.y;
+        return yDiff !== 0 ? yDiff : a.x - b.x;
+    })[0];
+}
+exports.findPivot = findPivot;
+function calculateDelta(a, b) {
+    return {
+        x: b.x - a.x,
+        y: b.y - a.y
+    };
+}
+function extractGroups(keys, origin, colorMap) {
+    var groups = keys.filter(function (key) { return key.group.key !== -1; });
+    var groupedKeys = groups.reduce(function (p, n) {
+        var _a, _b;
+        return (__assign(__assign({}, p), (_a = {}, _a[n.group.key] = __assign(__assign({}, (p[n.group.key] || {})), (_b = {}, _b[n.group.option] = ((p[n.group.key] || {})[n.group.option] || []).concat(n), _b)), _a)));
+    }, {});
+    // We need two pivots in order to calculate the true placement
+    // 1. The option 0 pivot + the option n pivot for the rest of them
+    return Object.entries(groupedKeys).reduce(function (p, _a) {
+        var _b;
+        var group = _a[0], options = _a[1];
+        var zeroPivot = findPivot(options[0]);
+        var normalizedOptions = Object.entries(options).reduce(function (p, _a) {
+            var _b;
+            var option = _a[0], results = _a[1];
+            return (__assign(__assign({}, p), (_b = {}, _b[option] = (function (delta) {
+                return results.map(function (res) { return (__assign(__assign({}, res), { x: res.x - delta.x, y: res.y - delta.y })); });
+            })(calculateDelta(zeroPivot, findPivot(results))).map(function (r) {
+                return resultToVIAKey(r, origin, colorMap);
+            }), _b)));
+        }, p);
+        return __assign(__assign({}, p), (_b = {}, _b[group] = normalizedOptions, _b));
+    }, {});
+}
+exports.extractGroups = extractGroups;
+function resultToVIAKey(result, delta, colorMap) {
+    var c = result.c, t = result.t, size = result.size, group = result.group, marginX = result.marginX, marginY = result.marginY, partialKey = __rest(result, ["c", "t", "size", "group", "marginX", "marginY"]);
+    return __assign(__assign({}, partialKey), { x: result.x - delta.x, y: result.y - delta.y, color: colorMap[c + ":" + t] || types_1.KeyColorType.Alpha });
+}
 function kleLayoutToVIALayout(kle) {
     var _a;
     var filteredKLE = kle.filter(function (elem) { return Array.isArray(elem); });
@@ -101,9 +144,13 @@ function kleLayoutToVIALayout(kle) {
             else if (typeof n === 'string') {
                 var colorCountKey = c + ":" + t;
                 var labels = n.split('\n');
-                var _d = labels[0].split(',').map(function (num) { return parseInt(num, 10); }), row = _d[0], col = _d[1];
-                var groupLabel = labels[3] || '0,0';
-                var _e = groupLabel.split(',').map(function (num) { return parseInt(num, 10); }), group = _e[0], option = _e[1];
+                var _d = labels[0]
+                    .split(',')
+                    .map(function (num) { return parseInt(num, 10); }), row = _d[0], col = _d[1];
+                var groupLabel = labels[3] || '-1,0';
+                var _e = groupLabel
+                    .split(',')
+                    .map(function (num) { return parseInt(num, 10); }), group = _e[0], option = _e[1];
                 var newColorCount = __assign(__assign({}, colorCount), (_b = {}, _b[colorCountKey] = colorCount[colorCountKey] === undefined
                     ? 1
                     : colorCount[colorCountKey] + 1, _b));
@@ -181,17 +228,18 @@ function kleLayoutToVIALayout(kle) {
         _a[colorCountKeys[1]] = types_1.KeyColorType.Mod,
         _a[colorCountKeys[2]] = types_1.KeyColorType.Accent,
         _a);
-    var flatRes = filterGroups(res.flat());
-    var xKeys = flatRes.map(function (k) { return k.x; });
-    var yKeys = flatRes.map(function (k) { return k.y; });
+    var flatRes = res.flat();
+    var defaultRes = filterGroups(flatRes);
+    var xKeys = defaultRes.map(function (k) { return k.x; });
+    var yKeys = defaultRes.map(function (k) { return k.y; });
     var minX = Math.min.apply(Math, xKeys);
     var minY = Math.min.apply(Math, yKeys);
-    var width = Math.max.apply(Math, flatRes.map(function (k) { return k.x + k.w; })) - minX;
+    var width = Math.max.apply(Math, defaultRes.map(function (k) { return k.x + k.w; })) - minX;
     var height = Math.max.apply(Math, yKeys) + 1 - minY;
-    var keys = flatRes.map(function (k) {
-        var c = k.c, t = k.t, size = k.size, group = k.group, marginX = k.marginX, marginY = k.marginY, partialKey = __rest(k, ["c", "t", "size", "group", "marginX", "marginY"]);
-        return __assign(__assign({}, partialKey), { x: k.x - minX, y: k.y - minY, color: colorMap[k.c + ":" + k.t] || types_1.KeyColorType.Alpha });
+    var keys = defaultRes.map(function (k) {
+        return resultToVIAKey(k, { x: minX, y: minY }, colorMap);
     });
-    return { width: width, height: height, keys: keys };
+    var optionKeys = extractGroups(flatRes, { x: minX, y: minY }, colorMap);
+    return { width: width, height: height, optionKeys: optionKeys, keys: keys };
 }
 exports.kleLayoutToVIALayout = kleLayoutToVIALayout;
