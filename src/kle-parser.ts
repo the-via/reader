@@ -1,3 +1,4 @@
+const invariant = require('invariant');
 import {
   Formatting,
   Cursor,
@@ -9,15 +10,18 @@ import {
   VIALayout,
   KLELayout,
   KeyColorType,
+  Decal,
   VIAKey
 } from './types';
 
 type InnerReduceState = Formatting &
-  Dimensions & {
+  Dimensions &
+  Rotation &
+  Decal & {
     cursor: Cursor;
     colorCount: ColorCount;
     res: Result[];
-  } & Rotation;
+  };
 type OuterReduceState = {
   cursor: Cursor;
   colorCount: ColorCount;
@@ -91,9 +95,9 @@ export function extractGroups(
             ...res,
             x: res.x - delta.x,
             y: res.y - delta.y
-          })))(calculateDelta(zeroPivot, findPivot(results))).map(r =>
-          resultToVIAKey(r, origin, colorMap)
-        )
+          })))(calculateDelta(zeroPivot, findPivot(results)))
+          .filter(r => !r.d) // Remove decal keys
+          .map(r => resultToVIAKey(r, origin, colorMap)) // Resolve key colors and normalize position using origin
       }),
       p
     );
@@ -104,12 +108,23 @@ export function extractGroups(
   }, {});
 }
 
+// Expects pairs to be in the format "x,y" else throws exception
+function extractPair(pair: string) {
+  const arr = pair.split(',');
+  invariant(arr.length === 2, `${pair} is not a pair`);
+  const numArr = arr.map(v => parseInt(v, 10));
+  if (numArr.some(num => Number.isNaN(num))) {
+    throw Error(`Invalid pair: ${pair}`);
+  }
+  return numArr;
+}
+
 function resultToVIAKey(
   result: Result,
   delta: {x: number; y: number},
   colorMap: {[x: string]: KeyColorType}
 ): VIAKey {
-  const {c, t, size, group, marginX, marginY, ...partialKey} = result;
+  const {c, d, t, group, marginX, marginY, ...partialKey} = result;
   return {
     ...partialKey,
     x: result.x - delta.x,
@@ -125,7 +140,6 @@ export function kleLayoutToVIALayout(kle: KLELayout): VIALayout {
         (
           {
             cursor: {x, y},
-            size,
             marginX,
             marginY,
             res,
@@ -133,8 +147,10 @@ export function kleLayoutToVIALayout(kle: KLELayout): VIALayout {
             h,
             t,
             r,
+            d,
             rx,
             ry,
+            w,
             colorCount
           }: InnerReduceState,
           n
@@ -142,7 +158,6 @@ export function kleLayoutToVIALayout(kle: KLELayout): VIALayout {
           // Check if object and apply formatting
           if (typeof n !== 'string') {
             let obj: InnerReduceState = {
-              size,
               marginX,
               marginY,
               colorCount,
@@ -153,10 +168,15 @@ export function kleLayoutToVIALayout(kle: KLELayout): VIALayout {
               rx,
               ry,
               res,
+              d,
+              w,
               cursor: {x, y}
             };
-            if (n.w > 1) {
-              obj = {...obj, size: 100 * n.w};
+            if (typeof n.d === 'boolean') {
+              obj = {...obj, d: n.d};
+            }
+            if (typeof n.w === 'number') {
+              obj = {...obj, w: n.w};
             }
             if (typeof n.y === 'number') {
               obj = {
@@ -206,13 +226,9 @@ export function kleLayoutToVIALayout(kle: KLELayout): VIALayout {
           } else if (typeof n === 'string') {
             const colorCountKey = `${c}:${t}`;
             const labels = n.split('\n');
-            const [row, col] = labels[0]
-              .split(',')
-              .map(num => parseInt(num, 10));
+            const [row, col] = extractPair(labels[0]);
             const groupLabel = labels[3] || '-1,0';
-            const [group, option] = groupLabel
-              .split(',')
-              .map(num => parseInt(num, 10));
+            const [group, option] = extractPair(groupLabel);
             const newColorCount = {
               ...colorCount,
               [colorCountKey]:
@@ -223,7 +239,6 @@ export function kleLayoutToVIALayout(kle: KLELayout): VIALayout {
             const currKey = {
               c,
               t,
-              size,
               marginX,
               marginY,
               row,
@@ -233,8 +248,9 @@ export function kleLayoutToVIALayout(kle: KLELayout): VIALayout {
               r,
               rx,
               ry,
+              d,
               h,
-              w: size / 100,
+              w,
               group: {
                 key: group,
                 option
@@ -245,26 +261,28 @@ export function kleLayoutToVIALayout(kle: KLELayout): VIALayout {
             return {
               marginX: 0,
               marginY,
-              size: 100,
               h: 1,
+              w: 1,
               c,
+              d: false,
               colorCount: newColorCount,
               t,
               r: 0,
               rx: 0,
               ry: 0,
-              cursor: {x: x + size / 100, y},
+              cursor: {x: x + w, y},
               res: [...res, currKey]
             };
           }
           return {
             marginX,
             marginY,
-            size,
             c,
             t,
             h,
+            d,
             r,
+            w,
             rx,
             ry,
             res,
@@ -278,11 +296,12 @@ export function kleLayoutToVIALayout(kle: KLELayout): VIALayout {
           colorCount: prev.colorCount,
           marginX: 0,
           marginY: 0,
-          size: 100,
           h: 1,
           r: 0,
           rx: 0,
           ry: 0,
+          w: 1,
+          d: false,
           res: []
         }
       );
@@ -322,9 +341,9 @@ export function kleLayoutToVIALayout(kle: KLELayout): VIALayout {
   const minY = Math.min(...yKeys);
   const width = Math.max(...defaultRes.map(k => k.x + k.w)) - minX;
   const height = Math.max(...yKeys) + 1 - minY;
-  const keys = defaultRes.map(k =>
-    resultToVIAKey(k, {x: minX, y: minY}, colorMap)
-  );
+  const keys = defaultRes
+    .filter(k => k.group.key === -1 && !k.d) // Remove option keys and decals
+    .map(k => resultToVIAKey(k, {x: minX, y: minY}, colorMap));
   const optionKeys = extractGroups(flatRes, {x: minX, y: minY}, colorMap);
 
   return {width, height, optionKeys, keys};

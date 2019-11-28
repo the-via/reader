@@ -29,6 +29,7 @@ var __spreadArrays = (this && this.__spreadArrays) || function () {
     return r;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+var invariant = require('invariant');
 var types_1 = require("./types");
 function rawKLEToKLELayout(kle) {
     var kleArr = kle.split(',\n');
@@ -77,16 +78,27 @@ function extractGroups(keys, origin, colorMap) {
             var option = _a[0], results = _a[1];
             return (__assign(__assign({}, p), (_b = {}, _b[option] = (function (delta) {
                 return results.map(function (res) { return (__assign(__assign({}, res), { x: res.x - delta.x, y: res.y - delta.y })); });
-            })(calculateDelta(zeroPivot, findPivot(results))).map(function (r) {
-                return resultToVIAKey(r, origin, colorMap);
-            }), _b)));
+            })(calculateDelta(zeroPivot, findPivot(results)))
+                .filter(function (r) { return !r.d; }) // Remove decal keys
+                .map(function (r) { return resultToVIAKey(r, origin, colorMap); }) // Resolve key colors and normalize position using origin
+            , _b)));
         }, p);
         return __assign(__assign({}, p), (_b = {}, _b[group] = normalizedOptions, _b));
     }, {});
 }
 exports.extractGroups = extractGroups;
+// Expects pairs to be in the format "x,y" else throws exception
+function extractPair(pair) {
+    var arr = pair.split(',');
+    invariant(arr.length === 2, pair + " is not a pair");
+    var numArr = arr.map(function (v) { return parseInt(v, 10); });
+    if (numArr.some(function (num) { return Number.isNaN(num); })) {
+        throw Error("Invalid pair: " + pair);
+    }
+    return numArr;
+}
 function resultToVIAKey(result, delta, colorMap) {
-    var c = result.c, t = result.t, size = result.size, group = result.group, marginX = result.marginX, marginY = result.marginY, partialKey = __rest(result, ["c", "t", "size", "group", "marginX", "marginY"]);
+    var c = result.c, d = result.d, t = result.t, group = result.group, marginX = result.marginX, marginY = result.marginY, partialKey = __rest(result, ["c", "d", "t", "group", "marginX", "marginY"]);
     return __assign(__assign({}, partialKey), { x: result.x - delta.x, y: result.y - delta.y, color: colorMap[c + ":" + t] || types_1.KeyColorType.Alpha });
 }
 function kleLayoutToVIALayout(kle) {
@@ -95,11 +107,10 @@ function kleLayoutToVIALayout(kle) {
     var parsedKLE = filteredKLE.reduce(function (prev, kle) {
         var parsedRow = kle.reduce(function (_a, n) {
             var _b;
-            var _c = _a.cursor, x = _c.x, y = _c.y, size = _a.size, marginX = _a.marginX, marginY = _a.marginY, res = _a.res, c = _a.c, h = _a.h, t = _a.t, r = _a.r, rx = _a.rx, ry = _a.ry, colorCount = _a.colorCount;
+            var _c = _a.cursor, x = _c.x, y = _c.y, marginX = _a.marginX, marginY = _a.marginY, res = _a.res, c = _a.c, h = _a.h, t = _a.t, r = _a.r, d = _a.d, rx = _a.rx, ry = _a.ry, w = _a.w, colorCount = _a.colorCount;
             // Check if object and apply formatting
             if (typeof n !== 'string') {
                 var obj = {
-                    size: size,
                     marginX: marginX,
                     marginY: marginY,
                     colorCount: colorCount,
@@ -110,10 +121,15 @@ function kleLayoutToVIALayout(kle) {
                     rx: rx,
                     ry: ry,
                     res: res,
+                    d: d,
+                    w: w,
                     cursor: { x: x, y: y }
                 };
-                if (n.w > 1) {
-                    obj = __assign(__assign({}, obj), { size: 100 * n.w });
+                if (typeof n.d === 'boolean') {
+                    obj = __assign(__assign({}, obj), { d: n.d });
+                }
+                if (typeof n.w === 'number') {
+                    obj = __assign(__assign({}, obj), { w: n.w });
                 }
                 if (typeof n.y === 'number') {
                     obj = __assign(__assign({}, obj), { marginY: 100 * n.y, cursor: __assign(__assign({}, obj.cursor), { y: y + n.y }) });
@@ -144,20 +160,15 @@ function kleLayoutToVIALayout(kle) {
             else if (typeof n === 'string') {
                 var colorCountKey = c + ":" + t;
                 var labels = n.split('\n');
-                var _d = labels[0]
-                    .split(',')
-                    .map(function (num) { return parseInt(num, 10); }), row = _d[0], col = _d[1];
+                var _d = extractPair(labels[0]), row = _d[0], col = _d[1];
                 var groupLabel = labels[3] || '-1,0';
-                var _e = groupLabel
-                    .split(',')
-                    .map(function (num) { return parseInt(num, 10); }), group = _e[0], option = _e[1];
+                var _e = extractPair(groupLabel), group = _e[0], option = _e[1];
                 var newColorCount = __assign(__assign({}, colorCount), (_b = {}, _b[colorCountKey] = colorCount[colorCountKey] === undefined
                     ? 1
                     : colorCount[colorCountKey] + 1, _b));
                 var currKey = {
                     c: c,
                     t: t,
-                    size: size,
                     marginX: marginX,
                     marginY: marginY,
                     row: row,
@@ -167,8 +178,9 @@ function kleLayoutToVIALayout(kle) {
                     r: r,
                     rx: rx,
                     ry: ry,
+                    d: d,
                     h: h,
-                    w: size / 100,
+                    w: w,
                     group: {
                         key: group,
                         option: option
@@ -178,33 +190,35 @@ function kleLayoutToVIALayout(kle) {
                 return {
                     marginX: 0,
                     marginY: marginY,
-                    size: 100,
                     h: 1,
+                    w: 1,
                     c: c,
+                    d: false,
                     colorCount: newColorCount,
                     t: t,
                     r: 0,
                     rx: 0,
                     ry: 0,
-                    cursor: { x: x + size / 100, y: y },
+                    cursor: { x: x + w, y: y },
                     res: __spreadArrays(res, [currKey])
                 };
             }
             return {
                 marginX: marginX,
                 marginY: marginY,
-                size: size,
                 c: c,
                 t: t,
                 h: h,
+                d: d,
                 r: r,
+                w: w,
                 rx: rx,
                 ry: ry,
                 res: res,
                 colorCount: colorCount,
                 cursor: { x: x, y: y }
             };
-        }, __assign(__assign({}, prev.prevFormatting), { cursor: prev.cursor, colorCount: prev.colorCount, marginX: 0, marginY: 0, size: 100, h: 1, r: 0, rx: 0, ry: 0, res: [] }));
+        }, __assign(__assign({}, prev.prevFormatting), { cursor: prev.cursor, colorCount: prev.colorCount, marginX: 0, marginY: 0, h: 1, r: 0, rx: 0, ry: 0, w: 1, d: false, res: [] }));
         return {
             cursor: { x: 0, y: parsedRow.cursor.y + 1 },
             colorCount: parsedRow.colorCount,
@@ -236,9 +250,9 @@ function kleLayoutToVIALayout(kle) {
     var minY = Math.min.apply(Math, yKeys);
     var width = Math.max.apply(Math, defaultRes.map(function (k) { return k.x + k.w; })) - minX;
     var height = Math.max.apply(Math, yKeys) + 1 - minY;
-    var keys = defaultRes.map(function (k) {
-        return resultToVIAKey(k, { x: minX, y: minY }, colorMap);
-    });
+    var keys = defaultRes
+        .filter(function (k) { return k.group.key === -1 && !k.d; }) // Remove option keys and decals
+        .map(function (k) { return resultToVIAKey(k, { x: minX, y: minY }, colorMap); });
     var optionKeys = extractGroups(flatRes, { x: minX, y: minY }, colorMap);
     return { width: width, height: height, optionKeys: optionKeys, keys: keys };
 }

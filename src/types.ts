@@ -11,11 +11,14 @@ export type KLEDimensions = Rotation & {
   y: number;
 };
 
+export type Decal = {
+  d: boolean;
+};
+
 type OtherKLEProps = {[key: string]: any};
 export type KeyColor = string;
 export type LegendColor = string;
 type Margin = number;
-type Size = number;
 export type MatrixPosition = {row: number; col: number};
 
 export type Cursor = {x: number; y: number};
@@ -23,10 +26,13 @@ export type Formatting = {c: KeyColor; t: LegendColor};
 export type Dimensions = {
   marginX: Margin;
   marginY: Margin;
-  size: Size;
+  w: number;
   h: number;
 };
-export type KLEElem = (KLEDimensions & Formatting) | OtherKLEProps | string;
+export type KLEElem =
+  | (KLEDimensions & Formatting & Decal)
+  | OtherKLEProps
+  | string;
 export type ColorCount = {[key: string]: number};
 export type ParsedKLE = {
   res: Result[][];
@@ -45,11 +51,12 @@ export type Result = {h: number; w: number} & Formatting &
   Cursor &
   Rotation &
   MatrixPosition &
+  Decal &
   GroupMeta;
 
 export type VIAKey = Omit<
   Result,
-  keyof Formatting | 'group' | 'marginX' | 'marginY' | 'size'
+  keyof Formatting | 'group' | 'marginX' | 'marginY' | 'd'
 > & {color: KeyColorType};
 
 export enum LightingTypeDefinition {
