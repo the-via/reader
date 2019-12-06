@@ -7,7 +7,8 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "build": "./generate-validator.sh && tsc"
+    "build": "./generate-validator.sh && tsc",
+    "validate": "typescript-json-validator src/validated-types/keyboard-definition.ts KeyboardDefinition"
   },
   "husky": {
     "hooks": {
@@ -23,6 +24,7 @@
     "util": "^0.12.1"
   },
   "devDependencies": {
-    "invariant": "^2.2.4"
+    "invariant": "^2.2.4",
+    "typescript-json-validator": "^2.4.0"
   }
 }
