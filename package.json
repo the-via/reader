@@ -21,10 +21,10 @@
     "core-js": "^3.4.1",
     "husky": "^3.1.0",
     "typescript": "^3.7.2",
-    "util": "^0.12.1"
+    "util": "^0.12.1",
+    "invariant": "^2.2.4"
   },
   "devDependencies": {
-    "invariant": "^2.2.4",
     "typescript-json-validator": "^2.4.0"
   }
 }
