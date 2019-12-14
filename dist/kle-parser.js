@@ -89,7 +89,7 @@ function extractGroups(keys, origin, colorMap) {
 exports.extractGroups = extractGroups;
 // Expects pairs to be in the format "x,y" else throws exception
 function extractPair(pair) {
-    var arr = pair.split(',');
+    var arr = pair.split(/[，,]/);
     invariant(arr.length === 2, pair + " is not a pair");
     var numArr = arr.map(function (v) { return parseInt(v, 10); });
     if (numArr.some(function (num) { return Number.isNaN(num); })) {

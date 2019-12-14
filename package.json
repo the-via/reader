@@ -8,7 +8,7 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "build": "./generate-validator.sh && tsc",
-    "validate": "typescript-json-validator src/validated-types/keyboard-definition.ts KeyboardDefinition"
+    "validate": "typescript-json-validator src/validated-types/keyboard-definition.ts KeyboardDefinition && typescript-json-validator src/validated-types/keyboard-definition-v2.ts KeyboardDefinitionV2"
   },
   "husky": {
     "hooks": {

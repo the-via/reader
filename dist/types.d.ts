@@ -1,3 +1,27 @@
+export declare enum BacklightConfig {
+    USE_SPLIT_BACKSPACE = 1,
+    USE_SPLIT_LEFT_SHIFT = 2,
+    USE_SPLIT_RIGHT_SHIFT = 3,
+    USE_7U_SPACEBAR = 4,
+    USE_ISO_ENTER = 5,
+    DISABLE_HHKB_BLOCKER_LEDS = 6,
+    DISABLE_WHEN_USB_SUSPENDED = 7,
+    DISABLE_AFTER_TIMEOUT = 8,
+    BRIGHTNESS = 9,
+    EFFECT = 10,
+    EFFECT_SPEED = 11,
+    COLOR_1 = 12,
+    COLOR_2 = 13,
+    CAPS_LOCK_INDICATOR_COLOR = 14,
+    CAPS_LOCK_INDICATOR_ROW_COL = 15,
+    LAYER_1_INDICATOR_COLOR = 16,
+    LAYER_1_INDICATOR_ROW_COL = 17,
+    LAYER_2_INDICATOR_COLOR = 18,
+    LAYER_2_INDICATOR_ROW_COL = 19,
+    LAYER_3_INDICATOR_COLOR = 20,
+    LAYER_3_INDICATOR_ROW_COL = 21,
+    CUSTOM_COLOR = 23
+}
 export declare type Rotation = {
     r: number;
     rx: number;
@@ -66,6 +90,10 @@ export declare enum LightingTypeDefinition {
     WTRGBBacklight = "wt_rgb_backlight",
     WTMonoBacklight = "wt_mono_backlight"
 }
+export declare enum KeycodeType {
+    QMK = "qmk",
+    WT = "wt"
+}
 export declare type KLEFormattingObject = Partial<{
     c: string;
     t: string;
@@ -88,6 +116,28 @@ export declare type KeyboardDefinition = {
     layouts: {
         [name: string]: KLELayoutDefinition;
     };
+};
+export declare type KeyboardDefinitionV2 = {
+    name: string;
+    vendorId: string;
+    productId: string;
+    lighting: LightingTypeDefinitionV2;
+    matrix: MatrixInfo;
+    layouts: {
+        keymap: KLELayoutDefinition;
+        labels?: LayoutLabel[];
+        presets?: {
+            [preset: string]: number[];
+        };
+    };
+};
+declare type EffectTuple = [string, number];
+declare type LayoutLabel = string | string[];
+declare type LightingTypeDefinitionV2 = LightingTypeDefinition | {
+    extends: LightingTypeDefinition;
+    effects?: EffectTuple[];
+    keycodes?: KeycodeType;
+    supportedConfigValues?: BacklightConfig[];
 };
 export declare enum KeyColorType {
     Alpha = "alpha",
@@ -115,6 +165,24 @@ export declare type VIADefinition = {
     matrix: MatrixInfo;
     layouts: {
         [layoutName: string]: VIALayout;
+    };
+};
+export declare type VIADefinitionV2 = {
+    name: string;
+    vendorProductId: number;
+    lighting: LightingTypeDefinitionV2;
+    matrix: MatrixInfo;
+    layouts: {
+        presets?: {
+            [preset: string]: number[];
+        };
+        labels?: LayoutLabel[];
+        keys: VIAKey[];
+        optionKeys: {
+            [g: string]: {
+                [o: string]: VIAKey[];
+            };
+        };
     };
 };
 export {};

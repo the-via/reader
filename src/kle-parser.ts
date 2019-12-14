@@ -110,7 +110,7 @@ export function extractGroups(
 
 // Expects pairs to be in the format "x,y" else throws exception
 function extractPair(pair: string) {
-  const arr = pair.split(',');
+  const arr = pair.split(/[，,]/);
   invariant(arr.length === 2, `${pair} is not a pair`);
   const numArr = arr.map(v => parseInt(v, 10));
   if (numArr.some(num => Number.isNaN(num))) {
@@ -132,6 +132,7 @@ function resultToVIAKey(
     color: colorMap[`${c}:${t}`] || KeyColorType.Alpha
   };
 }
+
 export function kleLayoutToVIALayout(kle: KLELayout): VIALayout {
   const filteredKLE = kle.filter(elem => Array.isArray(elem)) as KLEElem[][];
   const parsedKLE = filteredKLE.reduce<OuterReduceState>(
