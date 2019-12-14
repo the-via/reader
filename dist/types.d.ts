@@ -173,6 +173,8 @@ export declare type VIADefinitionV2 = {
     lighting: LightingTypeDefinitionV2;
     matrix: MatrixInfo;
     layouts: {
+        width: number;
+        height: number;
         presets?: {
             [preset: string]: number[];
         };
