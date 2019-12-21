@@ -36,6 +36,13 @@ export type KLEDimensions = Rotation & {
   y: number;
 };
 
+export type OptionalDimensions = Partial<{
+  x2: number;
+  y2: number;
+  h2: number;
+  w2: number;
+}>;
+
 export type Decal = {
   d: boolean;
 };
@@ -55,7 +62,7 @@ export type Dimensions = {
   h: number;
 };
 export type KLEElem =
-  | (KLEDimensions & Formatting & Decal)
+  | (KLEDimensions & Formatting & Decal & OptionalDimensions)
   | OtherKLEProps
   | string;
 export type ColorCount = {[key: string]: number};
@@ -73,6 +80,7 @@ export type GroupMeta = {
 
 export type Result = {h: number; w: number} & Formatting &
   Dimensions &
+  OptionalDimensions &
   Cursor &
   Rotation &
   MatrixPosition &
@@ -124,12 +132,17 @@ export type KeyboardDefinition = {
   layouts: {[name: string]: KLELayoutDefinition};
 };
 
+export enum CustomFeatures {
+  RotaryEncoder = 'rotary-encoder'
+}
+
 export type KeyboardDefinitionV2 = {
   name: string;
   vendorId: string;
   productId: string;
   lighting: LightingTypeDefinitionV2;
   matrix: MatrixInfo;
+  customFeatures?: CustomFeatures[];
   layouts: {
     keymap: KLELayoutDefinition;
     labels?: LayoutLabel[];

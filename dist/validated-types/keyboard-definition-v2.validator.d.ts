@@ -40,6 +40,13 @@ export declare const KeyboardDefinitionV2Schema: {
         };
     };
     properties: {
+        customFeatures: {
+            items: {
+                enum: string[];
+                type: string;
+            };
+            type: string;
+        };
         layouts: {
             defaultProperties: never[];
             properties: {

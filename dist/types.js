@@ -37,6 +37,10 @@ var KeycodeType;
     KeycodeType["QMK"] = "qmk";
     KeycodeType["WT"] = "wt";
 })(KeycodeType = exports.KeycodeType || (exports.KeycodeType = {}));
+var CustomFeatures;
+(function (CustomFeatures) {
+    CustomFeatures["RotaryEncoder"] = "rotary-encoder";
+})(CustomFeatures = exports.CustomFeatures || (exports.CustomFeatures = {}));
 var KeyColorType;
 (function (KeyColorType) {
     KeyColorType["Alpha"] = "alpha";

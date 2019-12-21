@@ -107,7 +107,7 @@ function kleLayoutToVIALayout(kle) {
     var parsedKLE = filteredKLE.reduce(function (prev, kle) {
         var parsedRow = kle.reduce(function (_a, n) {
             var _b;
-            var _c = _a.cursor, x = _c.x, y = _c.y, marginX = _a.marginX, marginY = _a.marginY, res = _a.res, c = _a.c, h = _a.h, t = _a.t, r = _a.r, d = _a.d, rx = _a.rx, ry = _a.ry, w = _a.w, colorCount = _a.colorCount;
+            var _c = _a.cursor, x = _c.x, y = _c.y, marginX = _a.marginX, marginY = _a.marginY, res = _a.res, c = _a.c, h = _a.h, t = _a.t, r = _a.r, d = _a.d, rx = _a.rx, ry = _a.ry, w = _a.w, y2 = _a.y2, x2 = _a.x2, w2 = _a.w2, h2 = _a.h2, colorCount = _a.colorCount;
             // Check if object and apply formatting
             if (typeof n !== 'string') {
                 var obj = {
@@ -125,29 +125,18 @@ function kleLayoutToVIALayout(kle) {
                     w: w,
                     cursor: { x: x, y: y }
                 };
+                obj = ['y2', 'x2', 'w2', 'h2', 'r', 'rx', 'ry', 'h', 'w'].reduce(function (p, prop) {
+                    var _a;
+                    return typeof n[prop] === 'number' ? __assign(__assign({}, p), (_a = {}, _a[prop] = n[prop], _a)) : p;
+                }, obj);
                 if (typeof n.d === 'boolean') {
                     obj = __assign(__assign({}, obj), { d: n.d });
-                }
-                if (typeof n.w === 'number') {
-                    obj = __assign(__assign({}, obj), { w: n.w });
                 }
                 if (typeof n.y === 'number') {
                     obj = __assign(__assign({}, obj), { marginY: 100 * n.y, cursor: __assign(__assign({}, obj.cursor), { y: y + n.y }) });
                 }
                 if (typeof n.x === 'number') {
                     obj = __assign(__assign({}, obj), { marginX: 100 * n.x, cursor: __assign(__assign({}, obj.cursor), { x: x + n.x }) });
-                }
-                if (typeof n.r === 'number') {
-                    obj = __assign(__assign({}, obj), { r: n.r });
-                }
-                if (typeof n.rx === 'number') {
-                    obj = __assign(__assign({}, obj), { rx: n.rx });
-                }
-                if (typeof n.h === 'number') {
-                    obj = __assign(__assign({}, obj), { h: n.h });
-                }
-                if (typeof n.ry === 'number') {
-                    obj = __assign(__assign({}, obj), { ry: n.ry });
                 }
                 if (typeof n.c === 'string') {
                     obj = __assign(__assign({}, obj), { c: n.c });
@@ -181,6 +170,10 @@ function kleLayoutToVIALayout(kle) {
                     d: d,
                     h: h,
                     w: w,
+                    w2: w2,
+                    y2: y2,
+                    x2: x2,
+                    h2: h2,
                     group: {
                         key: group,
                         option: option

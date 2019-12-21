@@ -11,10 +11,13 @@ import {
   KLELayout,
   KeyColorType,
   Decal,
-  VIAKey
+  VIAKey,
+  OptionalDimensions,
+  KLEDimensions
 } from './types';
 
 type InnerReduceState = Formatting &
+  OptionalDimensions &
   Dimensions &
   Rotation &
   Decal & {
@@ -152,6 +155,10 @@ export function kleLayoutToVIALayout(kle: KLELayout): VIALayout {
             rx,
             ry,
             w,
+            y2,
+            x2,
+            w2,
+            h2,
             colorCount
           }: InnerReduceState,
           n
@@ -173,11 +180,16 @@ export function kleLayoutToVIALayout(kle: KLELayout): VIALayout {
               w,
               cursor: {x, y}
             };
+            obj = (['y2', 'x2', 'w2', 'h2', 'r', 'rx', 'ry', 'h', 'w'] as (
+              | keyof OptionalDimensions
+              | keyof KLEDimensions
+            )[]).reduce(
+              (p, prop) =>
+                typeof n[prop] === 'number' ? {...p, [prop]: n[prop]} : p,
+              obj
+            );
             if (typeof n.d === 'boolean') {
               obj = {...obj, d: n.d};
-            }
-            if (typeof n.w === 'number') {
-              obj = {...obj, w: n.w};
             }
             if (typeof n.y === 'number') {
               obj = {
@@ -191,30 +203,6 @@ export function kleLayoutToVIALayout(kle: KLELayout): VIALayout {
                 ...obj,
                 marginX: 100 * n.x,
                 cursor: {...obj.cursor, x: x + n.x}
-              };
-            }
-            if (typeof n.r === 'number') {
-              obj = {
-                ...obj,
-                r: n.r
-              };
-            }
-            if (typeof n.rx === 'number') {
-              obj = {
-                ...obj,
-                rx: n.rx
-              };
-            }
-            if (typeof n.h === 'number') {
-              obj = {
-                ...obj,
-                h: n.h
-              };
-            }
-            if (typeof n.ry === 'number') {
-              obj = {
-                ...obj,
-                ry: n.ry
               };
             }
             if (typeof n.c === 'string') {
@@ -252,6 +240,10 @@ export function kleLayoutToVIALayout(kle: KLELayout): VIALayout {
               d,
               h,
               w,
+              w2,
+              y2,
+              x2,
+              h2,
               group: {
                 key: group,
                 option

@@ -34,6 +34,12 @@ export declare type KLEDimensions = Rotation & {
     h: number;
     y: number;
 };
+export declare type OptionalDimensions = Partial<{
+    x2: number;
+    y2: number;
+    h2: number;
+    w2: number;
+}>;
 export declare type Decal = {
     d: boolean;
 };
@@ -61,7 +67,7 @@ export declare type Dimensions = {
     w: number;
     h: number;
 };
-export declare type KLEElem = (KLEDimensions & Formatting & Decal) | OtherKLEProps | string;
+export declare type KLEElem = (KLEDimensions & Formatting & Decal & OptionalDimensions) | OtherKLEProps | string;
 export declare type ColorCount = {
     [key: string]: number;
 };
@@ -80,7 +86,7 @@ export declare type GroupMeta = {
 export declare type Result = {
     h: number;
     w: number;
-} & Formatting & Dimensions & Cursor & Rotation & MatrixPosition & Decal & GroupMeta;
+} & Formatting & Dimensions & OptionalDimensions & Cursor & Rotation & MatrixPosition & Decal & GroupMeta;
 export declare type VIAKey = Omit<Result, keyof Formatting | 'group' | 'marginX' | 'marginY' | 'd'> & {
     color: KeyColorType;
 };
@@ -117,12 +123,16 @@ export declare type KeyboardDefinition = {
         [name: string]: KLELayoutDefinition;
     };
 };
+export declare enum CustomFeatures {
+    RotaryEncoder = "rotary-encoder"
+}
 export declare type KeyboardDefinitionV2 = {
     name: string;
     vendorId: string;
     productId: string;
     lighting: LightingTypeDefinitionV2;
     matrix: MatrixInfo;
+    customFeatures?: CustomFeatures[];
     layouts: {
         keymap: KLELayoutDefinition;
         labels?: LayoutLabel[];

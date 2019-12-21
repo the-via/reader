@@ -75,6 +75,13 @@ exports.KeyboardDefinitionV2Schema = {
         }
     },
     properties: {
+        customFeatures: {
+            items: {
+                enum: ['rotary-encoder'],
+                type: 'string'
+            },
+            type: 'array'
+        },
         layouts: {
             defaultProperties: [],
             properties: {

@@ -7,7 +7,7 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "build": "./generate-validator.sh && tsc",
+    "build": "yarn run validate && tsc",
     "validate": "typescript-json-validator src/validated-types/keyboard-definition.ts KeyboardDefinition && typescript-json-validator src/validated-types/keyboard-definition-v2.ts KeyboardDefinitionV2"
   },
   "husky": {
