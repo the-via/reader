@@ -21,13 +21,16 @@ export function getVendorProductId({
 export function keyboardDefinitionV2ToVIADefinitionV2(
   definition: KeyboardDefinitionV2
 ): VIADefinitionV2 {
-  const {name, lighting, matrix, layouts} = validateV2(definition);
+  const {name, customFeatures, lighting, matrix, layouts} = validateV2(
+    definition
+  );
   const {keymap, ...partialLayout} = layouts;
   return {
     name,
     lighting,
     layouts: {...partialLayout, ...kleLayoutToVIALayout(layouts.keymap)},
     matrix,
+    customFeatures,
     vendorProductId: getVendorProductId(definition)
   };
 }

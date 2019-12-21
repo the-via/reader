@@ -198,6 +198,7 @@ export type VIADefinitionV2 = {
   vendorProductId: number;
   lighting: LightingTypeDefinitionV2;
   matrix: MatrixInfo;
+  customFeatures?: CustomFeatures[];
   layouts: {
     width: number;
     height: number;
