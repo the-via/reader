@@ -36,6 +36,7 @@ var KeycodeType;
 (function (KeycodeType) {
     KeycodeType["QMK"] = "qmk";
     KeycodeType["WT"] = "wt";
+    KeycodeType["None"] = "none";
 })(KeycodeType = exports.KeycodeType || (exports.KeycodeType = {}));
 var CustomFeatures;
 (function (CustomFeatures) {

@@ -98,7 +98,8 @@ export declare enum LightingTypeDefinition {
 }
 export declare enum KeycodeType {
     QMK = "qmk",
-    WT = "wt"
+    WT = "wt",
+    None = "none"
 }
 export declare type KLEFormattingObject = Partial<{
     c: string;
@@ -141,17 +142,18 @@ export declare type KeyboardDefinitionV2 = {
         };
     };
 };
-declare type EffectId = number;
 declare type ColorsNeeded = number;
-declare type EffectTuple = [string, EffectId, ColorsNeeded];
+declare type EffectTuple = [string, ColorsNeeded];
 declare type LayoutLabel = string | string[];
-declare type CustomLightingTypeDefinition = {
-    extends: LightingTypeDefinition;
-    effects?: EffectTuple[];
-    keycodes?: KeycodeType;
-    supportedBacklightValues?: BacklightConfig[];
+export declare type VIALightingTypeDefinition = {
+    effects: EffectTuple[];
+    keycodes: KeycodeType;
+    supportedBacklightValues: BacklightConfig[];
 };
-declare type LightingTypeDefinitionV2 = LightingTypeDefinition | CustomLightingTypeDefinition;
+export declare type CustomLightingTypeDefinition = Partial<VIALightingTypeDefinition> & {
+    extends: LightingTypeDefinition;
+};
+export declare type LightingTypeDefinitionV2 = LightingTypeDefinition | CustomLightingTypeDefinition;
 export declare enum KeyColorType {
     Alpha = "alpha",
     Mod = "mod",

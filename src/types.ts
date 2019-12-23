@@ -101,7 +101,8 @@ export enum LightingTypeDefinition {
 
 export enum KeycodeType {
   QMK = 'qmk',
-  WT = 'wt'
+  WT = 'wt',
+  None = 'none'
 }
 
 export type KLEFormattingObject = Partial<{
@@ -152,19 +153,23 @@ export type KeyboardDefinitionV2 = {
   };
 };
 
-type EffectId = number;
 type ColorsNeeded = number;
-type EffectTuple = [string, EffectId, ColorsNeeded];
+type EffectTuple = [string, ColorsNeeded];
 type LayoutLabel = string | string[];
 
-type CustomLightingTypeDefinition = {
-  extends: LightingTypeDefinition;
-  effects?: EffectTuple[];
-  keycodes?: KeycodeType;
-  supportedBacklightValues?: BacklightConfig[];
+export type VIALightingTypeDefinition = {
+  effects: EffectTuple[];
+  keycodes: KeycodeType;
+  supportedBacklightValues: BacklightConfig[];
 };
 
-type LightingTypeDefinitionV2 =
+export type CustomLightingTypeDefinition = Partial<
+  VIALightingTypeDefinition
+> & {
+  extends: LightingTypeDefinition;
+};
+
+export type LightingTypeDefinitionV2 =
   | LightingTypeDefinition
   | CustomLightingTypeDefinition;
 

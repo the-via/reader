@@ -49,6 +49,52 @@ export const KeyboardDefinitionV2Schema = {
       ],
       "type": "string"
     },
+    "Partial<VIALightingTypeDefinition>": {
+      "defaultProperties": [
+      ],
+      "properties": {
+        "effects": {
+          "items": {
+            "additionalItems": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "number"
+                }
+              ]
+            },
+            "items": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "minItems": 2,
+            "type": "array"
+          },
+          "type": "array"
+        },
+        "keycodes": {
+          "enum": [
+            "none",
+            "qmk",
+            "wt"
+          ],
+          "type": "string"
+        },
+        "supportedBacklightValues": {
+          "items": {
+            "$ref": "#/definitions/BacklightConfig"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
     "Partial<{c:string;t:string;x:number;y:number;w:number;a:number;}>": {
       "defaultProperties": [
       ],
@@ -155,61 +201,24 @@ export const KeyboardDefinitionV2Schema = {
     "lighting": {
       "anyOf": [
         {
-          "defaultProperties": [
-          ],
-          "properties": {
-            "effects": {
-              "items": {
-                "additionalItems": {
-                  "anyOf": [
-                    {
-                      "type": "string"
-                    },
-                    {
-                      "type": "number"
-                    },
-                    {
-                      "type": "number"
-                    }
-                  ]
-                },
-                "items": [
-                  {
-                    "type": "string"
-                  },
-                  {
-                    "type": "number"
-                  },
-                  {
-                    "type": "number"
-                  }
-                ],
-                "minItems": 3,
-                "type": "array"
-              },
-              "type": "array"
+          "allOf": [
+            {
+              "$ref": "#/definitions/Partial<VIALightingTypeDefinition>"
             },
-            "extends": {
-              "$ref": "#/definitions/LightingTypeDefinition"
-            },
-            "keycodes": {
-              "enum": [
-                "qmk",
-                "wt"
+            {
+              "defaultProperties": [
               ],
-              "type": "string"
-            },
-            "supportedBacklightValues": {
-              "items": {
-                "$ref": "#/definitions/BacklightConfig"
+              "properties": {
+                "extends": {
+                  "$ref": "#/definitions/LightingTypeDefinition"
+                }
               },
-              "type": "array"
+              "required": [
+                "extends"
+              ],
+              "type": "object"
             }
-          },
-          "required": [
-            "extends"
-          ],
-          "type": "object"
+          ]
         },
         {
           "enum": [

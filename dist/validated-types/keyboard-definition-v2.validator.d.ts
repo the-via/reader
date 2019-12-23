@@ -14,6 +14,37 @@ export declare const KeyboardDefinitionV2Schema: {
             "enum": string[];
             "type": string;
         };
+        "Partial<VIALightingTypeDefinition>": {
+            "defaultProperties": never[];
+            "properties": {
+                "effects": {
+                    "items": {
+                        "additionalItems": {
+                            "anyOf": {
+                                "type": string;
+                            }[];
+                        };
+                        "items": {
+                            "type": string;
+                        }[];
+                        "minItems": number;
+                        "type": string;
+                    };
+                    "type": string;
+                };
+                "keycodes": {
+                    "enum": string[];
+                    "type": string;
+                };
+                "supportedBacklightValues": {
+                    "items": {
+                        "$ref": string;
+                    };
+                    "type": string;
+                };
+            };
+            "type": string;
+        };
         "Partial<{c:string;t:string;x:number;y:number;w:number;a:number;}>": {
             "defaultProperties": never[];
             "properties": {
@@ -108,46 +139,29 @@ export declare const KeyboardDefinitionV2Schema: {
         };
         "lighting": {
             "anyOf": ({
-                "defaultProperties": never[];
-                "properties": {
-                    "effects": {
-                        "items": {
-                            "additionalItems": {
-                                "anyOf": {
-                                    "type": string;
-                                }[];
-                            };
-                            "items": {
-                                "type": string;
-                            }[];
-                            "minItems": number;
-                            "type": string;
-                        };
-                        "type": string;
-                    };
-                    "extends": {
-                        "$ref": string;
-                    };
-                    "keycodes": {
-                        "enum": string[];
-                        "type": string;
-                    };
-                    "supportedBacklightValues": {
-                        "items": {
+                "allOf": ({
+                    "$ref": string;
+                    "defaultProperties"?: undefined;
+                    "properties"?: undefined;
+                    "required"?: undefined;
+                    "type"?: undefined;
+                } | {
+                    "defaultProperties": never[];
+                    "properties": {
+                        "extends": {
                             "$ref": string;
                         };
-                        "type": string;
                     };
-                };
-                "required": string[];
-                "type": string;
+                    "required": string[];
+                    "type": string;
+                    "$ref"?: undefined;
+                })[];
                 "enum"?: undefined;
+                "type"?: undefined;
             } | {
                 "enum": string[];
                 "type": string;
-                "defaultProperties"?: undefined;
-                "properties"?: undefined;
-                "required"?: undefined;
+                "allOf"?: undefined;
             })[];
         };
         "matrix": {
