@@ -3,178 +3,178 @@ import KeyboardDefinitionV2 from './keyboard-definition-v2';
 export declare const ajv: Ajv.Ajv;
 export { KeyboardDefinitionV2 };
 export declare const KeyboardDefinitionV2Schema: {
-    $schema: string;
-    defaultProperties: never[];
-    definitions: {
-        BacklightConfig: {
-            enum: number[];
-            type: string;
+    "$schema": string;
+    "defaultProperties": never[];
+    "definitions": {
+        "BacklightConfig": {
+            "enum": number[];
+            "type": string;
         };
-        LightingTypeDefinition: {
-            enum: string[];
-            type: string;
+        "LightingTypeDefinition": {
+            "enum": string[];
+            "type": string;
         };
-        'Partial<{c:string;t:string;x:number;y:number;w:number;a:number;}>': {
-            defaultProperties: never[];
-            properties: {
-                a: {
-                    type: string;
+        "Partial<{c:string;t:string;x:number;y:number;w:number;a:number;}>": {
+            "defaultProperties": never[];
+            "properties": {
+                "a": {
+                    "type": string;
                 };
-                c: {
-                    type: string;
+                "c": {
+                    "type": string;
                 };
-                t: {
-                    type: string;
+                "t": {
+                    "type": string;
                 };
-                w: {
-                    type: string;
+                "w": {
+                    "type": string;
                 };
-                x: {
-                    type: string;
+                "x": {
+                    "type": string;
                 };
-                y: {
-                    type: string;
+                "y": {
+                    "type": string;
                 };
             };
-            type: string;
+            "type": string;
         };
     };
-    properties: {
-        customFeatures: {
-            items: {
-                enum: string[];
-                type: string;
+    "properties": {
+        "customFeatures": {
+            "items": {
+                "enum": string[];
+                "type": string;
             };
-            type: string;
+            "type": string;
         };
-        layouts: {
-            defaultProperties: never[];
-            properties: {
-                keymap: {
-                    items: {
-                        anyOf: ({
-                            defaultProperties: never[];
-                            properties: {
-                                name: {
-                                    type: string;
+        "layouts": {
+            "defaultProperties": never[];
+            "properties": {
+                "keymap": {
+                    "items": {
+                        "anyOf": ({
+                            "defaultProperties": never[];
+                            "properties": {
+                                "name": {
+                                    "type": string;
                                 };
                             };
-                            type: string;
-                            items?: undefined;
+                            "type": string;
+                            "items"?: undefined;
                         } | {
-                            items: {
-                                anyOf: ({
-                                    $ref: string;
-                                    type?: undefined;
+                            "items": {
+                                "anyOf": ({
+                                    "$ref": string;
+                                    "type"?: undefined;
                                 } | {
-                                    type: string;
-                                    $ref?: undefined;
+                                    "type": string;
+                                    "$ref"?: undefined;
                                 })[];
                             };
-                            type: string;
-                            defaultProperties?: undefined;
-                            properties?: undefined;
+                            "type": string;
+                            "defaultProperties"?: undefined;
+                            "properties"?: undefined;
                         })[];
                     };
-                    type: string;
+                    "type": string;
                 };
-                labels: {
-                    items: {
-                        anyOf: ({
-                            items: {
-                                type: string;
+                "labels": {
+                    "items": {
+                        "anyOf": ({
+                            "items": {
+                                "type": string;
                             };
-                            type: string;
+                            "type": string;
                         } | {
-                            type: string;
-                            items?: undefined;
+                            "type": string;
+                            "items"?: undefined;
                         })[];
                     };
-                    type: string;
+                    "type": string;
                 };
-                presets: {
-                    additionalProperties: {
-                        items: {
-                            type: string;
+                "presets": {
+                    "additionalProperties": {
+                        "items": {
+                            "type": string;
                         };
-                        type: string;
+                        "type": string;
                     };
-                    defaultProperties: never[];
-                    type: string;
+                    "defaultProperties": never[];
+                    "type": string;
                 };
             };
-            required: string[];
-            type: string;
+            "required": string[];
+            "type": string;
         };
-        lighting: {
-            anyOf: ({
-                defaultProperties: never[];
-                properties: {
-                    effects: {
-                        items: {
-                            additionalItems: {
-                                anyOf: {
-                                    type: string;
+        "lighting": {
+            "anyOf": ({
+                "defaultProperties": never[];
+                "properties": {
+                    "effects": {
+                        "items": {
+                            "additionalItems": {
+                                "anyOf": {
+                                    "type": string;
                                 }[];
                             };
-                            items: {
-                                type: string;
+                            "items": {
+                                "type": string;
                             }[];
-                            minItems: number;
-                            type: string;
+                            "minItems": number;
+                            "type": string;
                         };
-                        type: string;
+                        "type": string;
                     };
-                    extends: {
-                        $ref: string;
+                    "extends": {
+                        "$ref": string;
                     };
-                    keycodes: {
-                        enum: string[];
-                        type: string;
+                    "keycodes": {
+                        "enum": string[];
+                        "type": string;
                     };
-                    supportedConfigValues: {
-                        items: {
-                            $ref: string;
+                    "supportedBacklightValues": {
+                        "items": {
+                            "$ref": string;
                         };
-                        type: string;
+                        "type": string;
                     };
                 };
-                required: string[];
-                type: string;
-                enum?: undefined;
+                "required": string[];
+                "type": string;
+                "enum"?: undefined;
             } | {
-                enum: string[];
-                type: string;
-                defaultProperties?: undefined;
-                properties?: undefined;
-                required?: undefined;
+                "enum": string[];
+                "type": string;
+                "defaultProperties"?: undefined;
+                "properties"?: undefined;
+                "required"?: undefined;
             })[];
         };
-        matrix: {
-            defaultProperties: never[];
-            properties: {
-                cols: {
-                    type: string;
+        "matrix": {
+            "defaultProperties": never[];
+            "properties": {
+                "cols": {
+                    "type": string;
                 };
-                rows: {
-                    type: string;
+                "rows": {
+                    "type": string;
                 };
             };
-            required: string[];
-            type: string;
+            "required": string[];
+            "type": string;
         };
-        name: {
-            type: string;
+        "name": {
+            "type": string;
         };
-        productId: {
-            type: string;
+        "productId": {
+            "type": string;
         };
-        vendorId: {
-            type: string;
+        "vendorId": {
+            "type": string;
         };
     };
-    required: string[];
-    type: string;
+    "required": string[];
+    "type": string;
 };
 export declare type ValidateFunction<T> = ((data: unknown) => data is T) & Pick<Ajv.ValidateFunction, 'errors'>;
 export declare const isKeyboardDefinitionV2: ValidateFunction<KeyboardDefinitionV2>;

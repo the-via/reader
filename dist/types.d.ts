@@ -141,14 +141,17 @@ export declare type KeyboardDefinitionV2 = {
         };
     };
 };
-declare type EffectTuple = [string, number];
+declare type EffectId = number;
+declare type ColorsNeeded = number;
+declare type EffectTuple = [string, EffectId, ColorsNeeded];
 declare type LayoutLabel = string | string[];
-declare type LightingTypeDefinitionV2 = LightingTypeDefinition | {
+declare type CustomLightingTypeDefinition = {
     extends: LightingTypeDefinition;
     effects?: EffectTuple[];
     keycodes?: KeycodeType;
-    supportedConfigValues?: BacklightConfig[];
+    supportedBacklightValues?: BacklightConfig[];
 };
+declare type LightingTypeDefinitionV2 = LightingTypeDefinition | CustomLightingTypeDefinition;
 export declare enum KeyColorType {
     Alpha = "alpha",
     Mod = "mod",

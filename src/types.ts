@@ -152,17 +152,21 @@ export type KeyboardDefinitionV2 = {
   };
 };
 
-type EffectTuple = [string, number];
+type EffectId = number;
+type ColorsNeeded = number;
+type EffectTuple = [string, EffectId, ColorsNeeded];
 type LayoutLabel = string | string[];
+
+type CustomLightingTypeDefinition = {
+  extends: LightingTypeDefinition;
+  effects?: EffectTuple[];
+  keycodes?: KeycodeType;
+  supportedBacklightValues?: BacklightConfig[];
+};
 
 type LightingTypeDefinitionV2 =
   | LightingTypeDefinition
-  | {
-      extends: LightingTypeDefinition;
-      effects?: EffectTuple[];
-      keycodes?: KeycodeType;
-      supportedConfigValues?: BacklightConfig[];
-    };
+  | CustomLightingTypeDefinition;
 
 export enum KeyColorType {
   Alpha = 'alpha',
