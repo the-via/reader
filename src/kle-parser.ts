@@ -61,9 +61,11 @@ export function findPivot(keys: Result[]): Result {
 type GroupOptionMap<A> = {[group: string]: {[option: string]: A[]}};
 
 function calculateDelta(a: Result, b: Result) {
+  // Find the left corner which can be modified by x2, y2
+  const [aX2 = 0, aY2 = 0, bX2 = 0, bY2 = 0] = [a.x2, a.y2, b.x2, b.y2];
   return {
-    x: b.x - a.x,
-    y: b.y - a.y
+    x: b.x - a.x + Math.min(0, bX2) - Math.min(0, aX2),
+    y: b.y - a.y + Math.min(0, bY2) - Math.min(0, aY2)
   };
 }
 

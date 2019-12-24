@@ -56,9 +56,11 @@ function findPivot(keys) {
 }
 exports.findPivot = findPivot;
 function calculateDelta(a, b) {
+    // Find the left corner which can be modified by x2, y2
+    var _a = [a.x2, a.y2, b.x2, b.y2], _b = _a[0], aX2 = _b === void 0 ? 0 : _b, _c = _a[1], aY2 = _c === void 0 ? 0 : _c, _d = _a[2], bX2 = _d === void 0 ? 0 : _d, _e = _a[3], bY2 = _e === void 0 ? 0 : _e;
     return {
-        x: b.x - a.x,
-        y: b.y - a.y
+        x: b.x - a.x + Math.min(0, bX2) - Math.min(0, aX2),
+        y: b.y - a.y + Math.min(0, bY2) - Math.min(0, aY2)
     };
 }
 function extractGroups(keys, origin, colorMap) {
