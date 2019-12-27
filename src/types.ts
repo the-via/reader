@@ -78,6 +78,10 @@ export type GroupMeta = {
   };
 };
 
+export type ThemeDefinition = {
+  [key in KeyColorType]: Formatting;
+};
+
 export type Result = {h: number; w: number} & Formatting &
   Dimensions &
   OptionalDimensions &

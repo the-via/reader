@@ -83,6 +83,9 @@ export declare type GroupMeta = {
         option: number;
     };
 };
+export declare type ThemeDefinition = {
+    [key in KeyColorType]: Formatting;
+};
 export declare type Result = {
     h: number;
     w: number;
