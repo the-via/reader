@@ -29,6 +29,7 @@ export function keyboardDefinitionV2ToVIADefinitionV2(
   const {name, customFeatures, lighting, matrix, layouts} = validateV2(
     definition
   );
+
   const {keymap, ...partialLayout} = layouts;
   return {
     name,

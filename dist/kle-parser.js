@@ -30,6 +30,7 @@ var __spreadArrays = (this && this.__spreadArrays) || function () {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var invariant = require('invariant');
+var util = require('util');
 var types_1 = require("./types");
 function rawKLEToKLELayout(kle) {
     var kleArr = kle.split(',\n');
@@ -240,7 +241,9 @@ function kleLayoutToVIALayout(kle) {
     var colorCountKeys = Object.keys(colorCount);
     colorCountKeys.sort(function (a, b) { return colorCount[b] - colorCount[a]; });
     if (colorCountKeys.length > 3) {
-        console.error('Please correct layout:', parsedKLE);
+        throw new Error('Please correct layout, too many colors:' +
+            '\n' +
+            util.inspect(parsedKLE, false, null, true));
     }
     var colorMap = (_a = {},
         _a[colorCountKeys[0]] = types_1.KeyColorType.Alpha,

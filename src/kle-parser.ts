@@ -1,4 +1,5 @@
 const invariant = require('invariant');
+const util = require('util');
 import {
   Formatting,
   Cursor,
@@ -330,7 +331,11 @@ export function kleLayoutToVIALayout(kle: KLELayout): VIALayout {
   const colorCountKeys = Object.keys(colorCount);
   colorCountKeys.sort((a, b) => colorCount[b] - colorCount[a]);
   if (colorCountKeys.length > 3) {
-    console.error('Please correct layout:', parsedKLE);
+    throw new Error(
+      'Please correct layout, too many colors:' +
+        '\n' +
+        util.inspect(parsedKLE, false, null, true)
+    );
   }
 
   const colorMap = {
