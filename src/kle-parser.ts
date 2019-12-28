@@ -69,6 +69,17 @@ function calculateDelta(a: Result, b: Result) {
   };
 }
 
+function getBoundingBox(key: Result) {
+  const {x2 = 0, y2 = 0, x, y, w = 1, h = 1} = key;
+  const {h2 = h, w2 = w} = key;
+  return {
+    xStart: x + Math.min(0, x2),
+    yStart: y + Math.min(0, y2),
+    xEnd: Math.max(x + w, x + x2 + w2),
+    yEnd: Math.max(y + h, y + y2 + h2)
+  };
+}
+
 export function extractGroups(
   keys: Result[],
   origin: {x: number; y: number},
@@ -330,12 +341,11 @@ export function kleLayoutToVIALayout(kle: KLELayout): VIALayout {
 
   const flatRes = res.flat();
   const defaultRes = filterGroups(flatRes);
-  const xKeys = defaultRes.map(k => k.x);
-  const yKeys = defaultRes.map(k => k.y);
-  const minX = Math.min(...xKeys);
-  const minY = Math.min(...yKeys);
-  const width = Math.max(...defaultRes.map(k => k.x + k.w)) - minX;
-  const height = Math.max(...yKeys) + 1 - minY;
+  const boundingBoxes = defaultRes.map(getBoundingBox);
+  const minX = Math.min(...boundingBoxes.map(b => b.xStart));
+  const minY = Math.min(...boundingBoxes.map(b => b.yStart));
+  const width = Math.max(...boundingBoxes.map(b => b.xEnd)) - minX;
+  const height = Math.max(...boundingBoxes.map(b => b.yEnd)) + 1 - minY;
   const keys = defaultRes
     .filter(k => k.group.key === -1 && !k.d) // Remove option keys and decals
     .map(k => resultToVIAKey(k, {x: minX, y: minY}, colorMap));

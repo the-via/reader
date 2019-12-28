@@ -2,7 +2,7 @@
   "name": "via-reader",
   "version": "1.0.0",
   "repository": "git@github.com:the-via/reader.git",
-  "author": "Olivia B <ofbriggs@gmail.com>",
+  "author": "Olivia <ofbriggs@gmail.com>",
   "private": true,
   "main": "dist/index.js",
   "types": "dist/index.d.ts",

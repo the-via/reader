@@ -63,6 +63,16 @@ function calculateDelta(a, b) {
         y: b.y - a.y + Math.min(0, bY2) - Math.min(0, aY2)
     };
 }
+function getBoundingBox(key) {
+    var _a = key.x2, x2 = _a === void 0 ? 0 : _a, _b = key.y2, y2 = _b === void 0 ? 0 : _b, x = key.x, y = key.y, _c = key.w, w = _c === void 0 ? 1 : _c, _d = key.h, h = _d === void 0 ? 1 : _d;
+    var _e = key.h2, h2 = _e === void 0 ? h : _e, _f = key.w2, w2 = _f === void 0 ? w : _f;
+    return {
+        xStart: x + Math.min(0, x2),
+        yStart: y + Math.min(0, y2),
+        xEnd: Math.max(x + w, x + x2 + w2),
+        yEnd: Math.max(y + h, y + y2 + h2)
+    };
+}
 function extractGroups(keys, origin, colorMap) {
     var groups = keys.filter(function (key) { return key.group.key !== -1; });
     var groupedKeys = groups.reduce(function (p, n) {
@@ -239,12 +249,11 @@ function kleLayoutToVIALayout(kle) {
         _a);
     var flatRes = res.flat();
     var defaultRes = filterGroups(flatRes);
-    var xKeys = defaultRes.map(function (k) { return k.x; });
-    var yKeys = defaultRes.map(function (k) { return k.y; });
-    var minX = Math.min.apply(Math, xKeys);
-    var minY = Math.min.apply(Math, yKeys);
-    var width = Math.max.apply(Math, defaultRes.map(function (k) { return k.x + k.w; })) - minX;
-    var height = Math.max.apply(Math, yKeys) + 1 - minY;
+    var boundingBoxes = defaultRes.map(getBoundingBox);
+    var minX = Math.min.apply(Math, boundingBoxes.map(function (b) { return b.xStart; }));
+    var minY = Math.min.apply(Math, boundingBoxes.map(function (b) { return b.yStart; }));
+    var width = Math.max.apply(Math, boundingBoxes.map(function (b) { return b.xEnd; })) - minX;
+    var height = Math.max.apply(Math, boundingBoxes.map(function (b) { return b.yEnd; })) + 1 - minY;
     var keys = defaultRes
         .filter(function (k) { return k.group.key === -1 && !k.d; }) // Remove option keys and decals
         .map(function (k) { return resultToVIAKey(k, { x: minX, y: minY }, colorMap); });
