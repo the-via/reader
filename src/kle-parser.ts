@@ -345,7 +345,7 @@ export function kleLayoutToVIALayout(kle: KLELayout): VIALayout {
   const minX = Math.min(...boundingBoxes.map(b => b.xStart));
   const minY = Math.min(...boundingBoxes.map(b => b.yStart));
   const width = Math.max(...boundingBoxes.map(b => b.xEnd)) - minX;
-  const height = Math.max(...boundingBoxes.map(b => b.yEnd)) + 1 - minY;
+  const height = Math.max(...boundingBoxes.map(b => b.yEnd)) - minY;
   const keys = defaultRes
     .filter(k => k.group.key === -1 && !k.d) // Remove option keys and decals
     .map(k => resultToVIAKey(k, {x: minX, y: minY}, colorMap));

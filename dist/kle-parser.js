@@ -253,7 +253,7 @@ function kleLayoutToVIALayout(kle) {
     var minX = Math.min.apply(Math, boundingBoxes.map(function (b) { return b.xStart; }));
     var minY = Math.min.apply(Math, boundingBoxes.map(function (b) { return b.yStart; }));
     var width = Math.max.apply(Math, boundingBoxes.map(function (b) { return b.xEnd; })) - minX;
-    var height = Math.max.apply(Math, boundingBoxes.map(function (b) { return b.yEnd; })) + 1 - minY;
+    var height = Math.max.apply(Math, boundingBoxes.map(function (b) { return b.yEnd; })) - minY;
     var keys = defaultRes
         .filter(function (k) { return k.group.key === -1 && !k.d; }) // Remove option keys and decals
         .map(function (k) { return resultToVIAKey(k, { x: minX, y: minY }, colorMap); });
