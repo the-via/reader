@@ -247,7 +247,7 @@ export function kleLayoutToVIALayout(kle: KLELayout): VIALayout {
               row,
               col,
               x: x + rx,
-              y: y + ry,
+              y,
               r,
               rx,
               ry,

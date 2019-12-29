@@ -176,7 +176,7 @@ function kleLayoutToVIALayout(kle) {
                     row: row,
                     col: col,
                     x: x + rx,
-                    y: y + ry,
+                    y: y,
                     r: r,
                     rx: rx,
                     ry: ry,
