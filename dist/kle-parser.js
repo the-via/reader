@@ -65,13 +65,34 @@ function calculateDelta(a, b) {
     };
 }
 function getBoundingBox(key) {
-    var _a = key.x2, x2 = _a === void 0 ? 0 : _a, _b = key.y2, y2 = _b === void 0 ? 0 : _b, x = key.x, y = key.y, _c = key.w, w = _c === void 0 ? 1 : _c, _d = key.h, h = _d === void 0 ? 1 : _d;
-    var _e = key.h2, h2 = _e === void 0 ? h : _e, _f = key.w2, w2 = _f === void 0 ? w : _f;
-    return {
-        xStart: x + Math.min(0, x2),
-        yStart: y + Math.min(0, y2),
+    var _a = key.x2, x2 = _a === void 0 ? 0 : _a, _b = key.y2, y2 = _b === void 0 ? 0 : _b, x = key.x, y = key.y, _c = key.w, w = _c === void 0 ? 1 : _c, _d = key.h, h = _d === void 0 ? 1 : _d, _e = key.r, r = _e === void 0 ? 0 : _e, _f = key.rx, rx = _f === void 0 ? 0 : _f, _g = key.ry, ry = _g === void 0 ? 0 : _g;
+    var _h = key.h2, h2 = _h === void 0 ? h : _h, _j = key.w2, w2 = _j === void 0 ? w : _j;
+    var extraArgs = [rx, ry, -r];
+    var box = {
+        xStart: Math.min(x, x + x2),
+        yStart: Math.min(y, y + y2),
         xEnd: Math.max(x + w, x + x2 + w2),
         yEnd: Math.max(y + h, y + y2 + h2)
+    };
+    var rotatedPoints = [
+        { x: box.xStart, y: box.yStart },
+        { x: box.xEnd, y: box.yStart },
+        { x: box.xStart, y: box.yEnd },
+        { x: box.xEnd, y: box.yEnd }
+    ].map(function (p) { return applyRotation.apply(void 0, __spreadArrays([p.x, p.y], extraArgs)); });
+    return {
+        xStart: Math.min.apply(Math, rotatedPoints.map(function (p) { return p.x; })),
+        xEnd: Math.max.apply(Math, rotatedPoints.map(function (p) { return p.x; })),
+        yStart: Math.min.apply(Math, rotatedPoints.map(function (p) { return p.y; })),
+        yEnd: Math.max.apply(Math, rotatedPoints.map(function (p) { return p.y; }))
+    };
+}
+function applyRotation(x, y, xOrigin, yOrigin, rotation) {
+    var rad = (rotation * Math.PI) / 180;
+    var _a = [x - xOrigin, y - yOrigin], normX = _a[0], normY = _a[1];
+    return {
+        x: xOrigin + normX * Math.cos(rad) - normY * Math.sin(rad),
+        y: yOrigin + normX * Math.sin(rad) + normY * Math.cos(rad)
     };
 }
 function extractGroups(keys, origin, colorMap) {
