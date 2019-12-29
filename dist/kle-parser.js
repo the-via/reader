@@ -224,16 +224,22 @@ function kleLayoutToVIALayout(kle) {
                 colorCount: colorCount,
                 cursor: { x: x, y: y }
             };
-        }, __assign(__assign({}, prev.prevFormatting), { cursor: prev.cursor, colorCount: prev.colorCount, marginX: 0, marginY: 0, h: 1, r: 0, rx: 0, ry: 0, w: 1, d: false, res: [] }));
+        }, __assign(__assign({}, prev.prevRow), { cursor: prev.cursor, colorCount: prev.colorCount, marginX: 0, marginY: 0, h: 1, w: 1, d: false, res: [] }));
         return {
             cursor: { x: 0, y: parsedRow.cursor.y + 1 },
             colorCount: parsedRow.colorCount,
-            prevFormatting: { c: parsedRow.c, t: parsedRow.t },
+            prevRow: {
+                c: parsedRow.c,
+                t: parsedRow.t,
+                r: parsedRow.r,
+                rx: parsedRow.rx,
+                ry: parsedRow.ry
+            },
             res: __spreadArrays(prev.res, [parsedRow.res])
         };
     }, {
         cursor: { x: 0, y: 0 },
-        prevFormatting: { c: '#cccccc', t: '#000000' },
+        prevRow: { c: '#cccccc', t: '#000000', r: 0, rx: 0, ry: 0 },
         res: [],
         colorCount: {}
     });
