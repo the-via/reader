@@ -208,7 +208,7 @@ export function kleLayoutToVIALayout(kle: KLELayout): VIALayout {
             if (typeof n.r === 'number') {
               obj = {
                 ...obj,
-                cursor: {...obj.cursor, y: n.ry}
+                cursor: {...obj.cursor, y: obj.ry}
               };
             }
             if (typeof n.y === 'number') {

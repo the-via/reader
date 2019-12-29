@@ -146,7 +146,7 @@ function kleLayoutToVIALayout(kle) {
                     obj = __assign(__assign({}, obj), { d: n.d });
                 }
                 if (typeof n.r === 'number') {
-                    obj = __assign(__assign({}, obj), { cursor: __assign(__assign({}, obj.cursor), { y: n.ry }) });
+                    obj = __assign(__assign({}, obj), { cursor: __assign(__assign({}, obj.cursor), { y: obj.ry }) });
                 }
                 if (typeof n.y === 'number') {
                     obj = __assign(__assign({}, obj), { marginY: 100 * n.y, cursor: __assign(__assign({}, obj.cursor), { y: y + n.y }) });
