@@ -56,8 +56,6 @@ export type MatrixPosition = {row: number; col: number};
 export type Cursor = {x: number; y: number};
 export type Formatting = {c: KeyColor; t: LegendColor};
 export type Dimensions = {
-  marginX: Margin;
-  marginY: Margin;
   w: number;
   h: number;
 };
@@ -91,10 +89,9 @@ export type Result = {h: number; w: number} & Formatting &
   Decal &
   GroupMeta;
 
-export type VIAKey = Omit<
-  Result,
-  keyof Formatting | 'group' | 'marginX' | 'marginY' | 'd'
-> & {color: KeyColorType};
+export type VIAKey = Omit<Result, keyof Formatting | 'group' | 'd'> & {
+  color: KeyColorType;
+};
 
 export enum LightingTypeDefinition {
   None = 'none',

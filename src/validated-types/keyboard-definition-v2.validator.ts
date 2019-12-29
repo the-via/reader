@@ -3,25 +3,18 @@
 import {inspect} from 'util';
 import Ajv = require('ajv');
 import KeyboardDefinitionV2 from './keyboard-definition-v2';
-export const ajv = new Ajv({
-  allErrors: true,
-  coerceTypes: false,
-  format: 'fast',
-  nullable: true,
-  unicode: true,
-  uniqueItems: true,
-  useDefaults: true
-});
+export const ajv = new Ajv({"allErrors":true,"coerceTypes":false,"format":"fast","nullable":true,"unicode":true,"uniqueItems":true,"useDefaults":true});
 
 ajv.addMetaSchema(require('ajv/lib/refs/json-schema-draft-06.json'));
 
 export {KeyboardDefinitionV2};
 export const KeyboardDefinitionV2Schema = {
-  $schema: 'http://json-schema.org/draft-07/schema#',
-  defaultProperties: [],
-  definitions: {
-    BacklightConfig: {
-      enum: [
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "defaultProperties": [
+  ],
+  "definitions": {
+    "BacklightConfig": {
+      "enum": [
         1,
         10,
         11,
@@ -45,221 +38,246 @@ export const KeyboardDefinitionV2Schema = {
         8,
         9
       ],
-      type: 'number'
+      "type": "number"
     },
-    LightingTypeDefinition: {
-      enum: ['none', 'qmk_backlight', 'wt_mono_backlight', 'wt_rgb_backlight'],
-      type: 'string'
+    "LightingTypeDefinition": {
+      "enum": [
+        "none",
+        "qmk_backlight",
+        "wt_mono_backlight",
+        "wt_rgb_backlight"
+      ],
+      "type": "string"
     },
-    'Partial<VIALightingTypeDefinition>': {
-      defaultProperties: [],
-      properties: {
-        effects: {
-          items: {
-            additionalItems: {
-              anyOf: [
+    "Partial<VIALightingTypeDefinition>": {
+      "defaultProperties": [
+      ],
+      "properties": {
+        "effects": {
+          "items": {
+            "additionalItems": {
+              "anyOf": [
                 {
-                  type: 'string'
+                  "type": "string"
                 },
                 {
-                  type: 'number'
+                  "type": "number"
                 }
               ]
             },
-            items: [
+            "items": [
               {
-                type: 'string'
+                "type": "string"
               },
               {
-                type: 'number'
+                "type": "number"
               }
             ],
-            minItems: 2,
-            type: 'array'
+            "minItems": 2,
+            "type": "array"
           },
-          type: 'array'
+          "type": "array"
         },
-        keycodes: {
-          enum: ['none', 'qmk', 'wt'],
-          type: 'string'
+        "keycodes": {
+          "enum": [
+            "none",
+            "qmk",
+            "wt"
+          ],
+          "type": "string"
         },
-        supportedBacklightValues: {
-          items: {
-            $ref: '#/definitions/BacklightConfig'
+        "supportedBacklightValues": {
+          "items": {
+            "$ref": "#/definitions/BacklightConfig"
           },
-          type: 'array'
+          "type": "array"
         }
       },
-      type: 'object'
+      "type": "object"
     },
-    'Partial<{c:string;t:string;x:number;y:number;w:number;a:number;}>': {
-      defaultProperties: [],
-      properties: {
-        a: {
-          type: 'number'
+    "Partial<{c:string;t:string;x:number;y:number;w:number;a:number;}>": {
+      "defaultProperties": [
+      ],
+      "properties": {
+        "a": {
+          "type": "number"
         },
-        c: {
-          type: 'string'
+        "c": {
+          "type": "string"
         },
-        t: {
-          type: 'string'
+        "t": {
+          "type": "string"
         },
-        w: {
-          type: 'number'
+        "w": {
+          "type": "number"
         },
-        x: {
-          type: 'number'
+        "x": {
+          "type": "number"
         },
-        y: {
-          type: 'number'
+        "y": {
+          "type": "number"
         }
       },
-      type: 'object'
+      "type": "object"
     }
   },
-  properties: {
-    customFeatures: {
-      items: {
-        enum: ['rotary-encoder'],
-        type: 'string'
+  "properties": {
+    "customFeatures": {
+      "items": {
+        "enum": [
+          "rotary-encoder"
+        ],
+        "type": "string"
       },
-      type: 'array'
+      "type": "array"
     },
-    layouts: {
-      defaultProperties: [],
-      properties: {
-        keymap: {
-          items: {
-            anyOf: [
+    "layouts": {
+      "defaultProperties": [
+      ],
+      "properties": {
+        "keymap": {
+          "items": {
+            "anyOf": [
               {
-                defaultProperties: [],
-                properties: {
-                  name: {
-                    type: 'string'
+                "defaultProperties": [
+                ],
+                "properties": {
+                  "name": {
+                    "type": "string"
                   }
                 },
-                type: 'object'
+                "type": "object"
               },
               {
-                items: {
-                  anyOf: [
+                "items": {
+                  "anyOf": [
                     {
-                      $ref:
-                        '#/definitions/Partial<{c:string;t:string;x:number;y:number;w:number;a:number;}>'
+                      "$ref": "#/definitions/Partial<{c:string;t:string;x:number;y:number;w:number;a:number;}>"
                     },
                     {
-                      type: 'string'
+                      "type": "string"
                     }
                   ]
                 },
-                type: 'array'
+                "type": "array"
               }
             ]
           },
-          type: 'array'
+          "type": "array"
         },
-        labels: {
-          items: {
-            anyOf: [
+        "labels": {
+          "items": {
+            "anyOf": [
               {
-                items: {
-                  type: 'string'
+                "items": {
+                  "type": "string"
                 },
-                type: 'array'
+                "type": "array"
               },
               {
-                type: 'string'
+                "type": "string"
               }
             ]
           },
-          type: 'array'
+          "type": "array"
         },
-        presets: {
-          additionalProperties: {
-            items: {
-              type: 'number'
+        "presets": {
+          "additionalProperties": {
+            "items": {
+              "type": "number"
             },
-            type: 'array'
+            "type": "array"
           },
-          defaultProperties: [],
-          type: 'object'
+          "defaultProperties": [
+          ],
+          "type": "object"
         }
       },
-      required: ['keymap'],
-      type: 'object'
+      "required": [
+        "keymap"
+      ],
+      "type": "object"
     },
-    lighting: {
-      anyOf: [
+    "lighting": {
+      "anyOf": [
         {
-          allOf: [
+          "allOf": [
             {
-              $ref: '#/definitions/Partial<VIALightingTypeDefinition>'
+              "$ref": "#/definitions/Partial<VIALightingTypeDefinition>"
             },
             {
-              defaultProperties: [],
-              properties: {
-                extends: {
-                  $ref: '#/definitions/LightingTypeDefinition'
+              "defaultProperties": [
+              ],
+              "properties": {
+                "extends": {
+                  "$ref": "#/definitions/LightingTypeDefinition"
                 }
               },
-              required: ['extends'],
-              type: 'object'
+              "required": [
+                "extends"
+              ],
+              "type": "object"
             }
           ]
         },
         {
-          enum: [
-            'none',
-            'qmk_backlight',
-            'wt_mono_backlight',
-            'wt_rgb_backlight'
+          "enum": [
+            "none",
+            "qmk_backlight",
+            "wt_mono_backlight",
+            "wt_rgb_backlight"
           ],
-          type: 'string'
+          "type": "string"
         }
       ]
     },
-    matrix: {
-      defaultProperties: [],
-      properties: {
-        cols: {
-          type: 'number'
+    "matrix": {
+      "defaultProperties": [
+      ],
+      "properties": {
+        "cols": {
+          "type": "number"
         },
-        rows: {
-          type: 'number'
+        "rows": {
+          "type": "number"
         }
       },
-      required: ['cols', 'rows'],
-      type: 'object'
+      "required": [
+        "cols",
+        "rows"
+      ],
+      "type": "object"
     },
-    name: {
-      type: 'string'
+    "name": {
+      "type": "string"
     },
-    productId: {
-      type: 'string'
+    "productId": {
+      "type": "string"
     },
-    vendorId: {
-      type: 'string'
+    "vendorId": {
+      "type": "string"
     }
   },
-  required: ['layouts', 'lighting', 'matrix', 'name', 'productId', 'vendorId'],
-  type: 'object'
+  "required": [
+    "layouts",
+    "lighting",
+    "matrix",
+    "name",
+    "productId",
+    "vendorId"
+  ],
+  "type": "object"
 };
-export type ValidateFunction<T> = ((data: unknown) => data is T) &
-  Pick<Ajv.ValidateFunction, 'errors'>;
-export const isKeyboardDefinitionV2 = ajv.compile(
-  KeyboardDefinitionV2Schema
-) as ValidateFunction<KeyboardDefinitionV2>;
+export type ValidateFunction<T> = ((data: unknown) => data is T) & Pick<Ajv.ValidateFunction, 'errors'>
+export const isKeyboardDefinitionV2 = ajv.compile(KeyboardDefinitionV2Schema) as ValidateFunction<KeyboardDefinitionV2>;
 export default function validate(value: unknown): KeyboardDefinitionV2 {
   if (isKeyboardDefinitionV2(value)) {
     return value;
   } else {
     throw new Error(
-      ajv.errorsText(
-        isKeyboardDefinitionV2.errors!.filter((e: any) => e.keyword !== 'if'),
-        {dataVar: 'KeyboardDefinitionV2'}
-      ) +
-        '\n\n' +
-        inspect(value)
+      ajv.errorsText(isKeyboardDefinitionV2.errors!.filter((e: any) => e.keyword !== 'if'), {dataVar: 'KeyboardDefinitionV2'}) +
+      '\n\n' +
+      inspect(value),
     );
   }
 }

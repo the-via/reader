@@ -48,7 +48,6 @@ declare type OtherKLEProps = {
 };
 export declare type KeyColor = string;
 export declare type LegendColor = string;
-declare type Margin = number;
 export declare type MatrixPosition = {
     row: number;
     col: number;
@@ -62,8 +61,6 @@ export declare type Formatting = {
     t: LegendColor;
 };
 export declare type Dimensions = {
-    marginX: Margin;
-    marginY: Margin;
     w: number;
     h: number;
 };
@@ -90,7 +87,7 @@ export declare type Result = {
     h: number;
     w: number;
 } & Formatting & Dimensions & OptionalDimensions & Cursor & Rotation & MatrixPosition & Decal & GroupMeta;
-export declare type VIAKey = Omit<Result, keyof Formatting | 'group' | 'marginX' | 'marginY' | 'd'> & {
+export declare type VIAKey = Omit<Result, keyof Formatting | 'group' | 'd'> & {
     color: KeyColorType;
 };
 export declare enum LightingTypeDefinition {

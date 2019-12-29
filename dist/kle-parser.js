@@ -132,7 +132,7 @@ function extractPair(pair) {
     return numArr;
 }
 function resultToVIAKey(result, delta, colorMap) {
-    var c = result.c, d = result.d, t = result.t, group = result.group, marginX = result.marginX, marginY = result.marginY, partialKey = __rest(result, ["c", "d", "t", "group", "marginX", "marginY"]);
+    var c = result.c, d = result.d, t = result.t, group = result.group, partialKey = __rest(result, ["c", "d", "t", "group"]);
     return __assign(__assign({}, partialKey), { x: result.x - delta.x, y: result.y - delta.y, color: colorMap[c + ":" + t] || types_1.KeyColorType.Alpha });
 }
 function kleLayoutToVIALayout(kle) {
@@ -141,12 +141,10 @@ function kleLayoutToVIALayout(kle) {
     var parsedKLE = filteredKLE.reduce(function (prev, kle) {
         var parsedRow = kle.reduce(function (_a, n) {
             var _b;
-            var _c = _a.cursor, x = _c.x, y = _c.y, marginX = _a.marginX, marginY = _a.marginY, res = _a.res, c = _a.c, h = _a.h, t = _a.t, r = _a.r, d = _a.d, rx = _a.rx, ry = _a.ry, w = _a.w, y2 = _a.y2, x2 = _a.x2, w2 = _a.w2, h2 = _a.h2, colorCount = _a.colorCount;
+            var _c = _a.cursor, x = _c.x, y = _c.y, res = _a.res, c = _a.c, h = _a.h, t = _a.t, r = _a.r, d = _a.d, rx = _a.rx, ry = _a.ry, w = _a.w, y2 = _a.y2, x2 = _a.x2, w2 = _a.w2, h2 = _a.h2, colorCount = _a.colorCount;
             // Check if object and apply formatting
             if (typeof n !== 'string') {
                 var obj = {
-                    marginX: marginX,
-                    marginY: marginY,
                     colorCount: colorCount,
                     c: c,
                     t: t,
@@ -170,10 +168,10 @@ function kleLayoutToVIALayout(kle) {
                     obj = __assign(__assign({}, obj), { cursor: __assign(__assign({}, obj.cursor), { y: obj.ry }) });
                 }
                 if (typeof n.y === 'number') {
-                    obj = __assign(__assign({}, obj), { marginY: 100 * n.y, cursor: __assign(__assign({}, obj.cursor), { y: y + n.y }) });
+                    obj = __assign(__assign({}, obj), { cursor: __assign(__assign({}, obj.cursor), { y: obj.cursor.y + n.y }) });
                 }
                 if (typeof n.x === 'number') {
-                    obj = __assign(__assign({}, obj), { marginX: 100 * n.x, cursor: __assign(__assign({}, obj.cursor), { x: x + n.x }) });
+                    obj = __assign(__assign({}, obj), { cursor: __assign(__assign({}, obj.cursor), { x: x + n.x }) });
                 }
                 if (typeof n.c === 'string') {
                     obj = __assign(__assign({}, obj), { c: n.c });
@@ -195,8 +193,6 @@ function kleLayoutToVIALayout(kle) {
                 var currKey = {
                     c: c,
                     t: t,
-                    marginX: marginX,
-                    marginY: marginY,
                     row: row,
                     col: col,
                     x: x + rx,
@@ -218,8 +214,6 @@ function kleLayoutToVIALayout(kle) {
                 };
                 // Reset carry properties
                 return {
-                    marginX: 0,
-                    marginY: marginY,
                     h: 1,
                     w: 1,
                     r: r,
@@ -234,8 +228,6 @@ function kleLayoutToVIALayout(kle) {
                 };
             }
             return {
-                marginX: marginX,
-                marginY: marginY,
                 c: c,
                 t: t,
                 h: h,
@@ -248,7 +240,7 @@ function kleLayoutToVIALayout(kle) {
                 colorCount: colorCount,
                 cursor: { x: x, y: y }
             };
-        }, __assign(__assign({}, prev.prevRow), { cursor: prev.cursor, colorCount: prev.colorCount, marginX: 0, marginY: 0, h: 1, w: 1, d: false, res: [] }));
+        }, __assign(__assign({}, prev.prevRow), { cursor: prev.cursor, colorCount: prev.colorCount, h: 1, w: 1, d: false, res: [] }));
         return {
             cursor: { x: 0, y: parsedRow.cursor.y + 1 },
             colorCount: parsedRow.colorCount,

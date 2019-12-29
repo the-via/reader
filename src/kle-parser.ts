@@ -17,6 +17,7 @@ import {
   KLEDimensions
 } from './types';
 import {SIGINT} from 'constants';
+import {cursorTo} from 'readline';
 
 type InnerReduceState = Formatting &
   OptionalDimensions &
@@ -171,7 +172,7 @@ function resultToVIAKey(
   delta: {x: number; y: number},
   colorMap: {[x: string]: KeyColorType}
 ): VIAKey {
-  const {c, d, t, group, marginX, marginY, ...partialKey} = result;
+  const {c, d, t, group, ...partialKey} = result;
   return {
     ...partialKey,
     x: result.x - delta.x,
@@ -188,8 +189,6 @@ export function kleLayoutToVIALayout(kle: KLELayout): VIALayout {
         (
           {
             cursor: {x, y},
-            marginX,
-            marginY,
             res,
             c,
             h,
@@ -210,8 +209,6 @@ export function kleLayoutToVIALayout(kle: KLELayout): VIALayout {
           // Check if object and apply formatting
           if (typeof n !== 'string') {
             let obj: InnerReduceState = {
-              marginX,
-              marginY,
               colorCount,
               c,
               t,
@@ -244,14 +241,12 @@ export function kleLayoutToVIALayout(kle: KLELayout): VIALayout {
             if (typeof n.y === 'number') {
               obj = {
                 ...obj,
-                marginY: 100 * n.y,
-                cursor: {...obj.cursor, y: y + n.y}
+                cursor: {...obj.cursor, y: obj.cursor.y + n.y}
               };
             }
             if (typeof n.x === 'number') {
               obj = {
                 ...obj,
-                marginX: 100 * n.x,
                 cursor: {...obj.cursor, x: x + n.x}
               };
             }
@@ -278,8 +273,6 @@ export function kleLayoutToVIALayout(kle: KLELayout): VIALayout {
             const currKey = {
               c,
               t,
-              marginX,
-              marginY,
               row,
               col,
               x: x + rx,
@@ -302,8 +295,6 @@ export function kleLayoutToVIALayout(kle: KLELayout): VIALayout {
 
             // Reset carry properties
             return {
-              marginX: 0,
-              marginY,
               h: 1,
               w: 1,
               r,
@@ -318,8 +309,6 @@ export function kleLayoutToVIALayout(kle: KLELayout): VIALayout {
             };
           }
           return {
-            marginX,
-            marginY,
             c,
             t,
             h,
@@ -337,8 +326,6 @@ export function kleLayoutToVIALayout(kle: KLELayout): VIALayout {
           ...prev.prevRow,
           cursor: prev.cursor,
           colorCount: prev.colorCount,
-          marginX: 0,
-          marginY: 0,
           h: 1,
           w: 1,
           d: false,
