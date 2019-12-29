@@ -198,13 +198,13 @@ function kleLayoutToVIALayout(kle) {
                     marginY: marginY,
                     h: 1,
                     w: 1,
+                    r: r,
+                    rx: rx,
+                    ry: ry,
                     c: c,
                     d: false,
                     colorCount: newColorCount,
                     t: t,
-                    r: 0,
-                    rx: 0,
-                    ry: 0,
                     cursor: { x: x + w, y: y },
                     res: __spreadArrays(res, [currKey])
                 };

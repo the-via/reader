@@ -270,13 +270,13 @@ export function kleLayoutToVIALayout(kle: KLELayout): VIALayout {
               marginY,
               h: 1,
               w: 1,
+              r,
+              rx,
+              ry,
               c,
               d: false,
               colorCount: newColorCount,
               t,
-              r: 0,
-              rx: 0,
-              ry: 0,
               cursor: {x: x + w, y},
               res: [...res, currKey]
             };
