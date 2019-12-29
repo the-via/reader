@@ -243,7 +243,7 @@ function kleLayoutToVIALayout(kle) {
     if (colorCountKeys.length > 3) {
         throw new Error('Please correct layout, too many colors:' +
             '\n' +
-            util.inspect(parsedKLE, false, null, true));
+            util.inspect(colorCount, false, null, true));
     }
     var colorMap = (_a = {},
         _a[colorCountKeys[0]] = types_1.KeyColorType.Alpha,

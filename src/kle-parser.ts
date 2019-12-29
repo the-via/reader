@@ -334,7 +334,7 @@ export function kleLayoutToVIALayout(kle: KLELayout): VIALayout {
     throw new Error(
       'Please correct layout, too many colors:' +
         '\n' +
-        util.inspect(parsedKLE, false, null, true)
+        util.inspect(colorCount, false, null, true)
     );
   }
 
