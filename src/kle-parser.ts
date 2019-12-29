@@ -205,6 +205,12 @@ export function kleLayoutToVIALayout(kle: KLELayout): VIALayout {
             if (typeof n.d === 'boolean') {
               obj = {...obj, d: n.d};
             }
+            if (typeof n.ry === 'number') {
+              obj = {
+                ...obj,
+                cursor: {...obj.cursor, y: n.ry}
+              };
+            }
             if (typeof n.y === 'number') {
               obj = {
                 ...obj,
