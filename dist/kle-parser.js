@@ -67,7 +67,7 @@ function calculateDelta(a, b) {
 function getBoundingBox(key) {
     var _a = key.x2, x2 = _a === void 0 ? 0 : _a, _b = key.y2, y2 = _b === void 0 ? 0 : _b, x = key.x, y = key.y, _c = key.w, w = _c === void 0 ? 1 : _c, _d = key.h, h = _d === void 0 ? 1 : _d, _e = key.r, r = _e === void 0 ? 0 : _e, _f = key.rx, rx = _f === void 0 ? 0 : _f, _g = key.ry, ry = _g === void 0 ? 0 : _g;
     var _h = key.h2, h2 = _h === void 0 ? h : _h, _j = key.w2, w2 = _j === void 0 ? w : _j;
-    var extraArgs = [rx, ry, -r];
+    var extraArgs = [rx, ry, r];
     var box = {
         xStart: Math.min(x, x + x2),
         yStart: Math.min(y, y + y2),
