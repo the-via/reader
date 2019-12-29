@@ -233,7 +233,7 @@ function kleLayoutToVIALayout(kle) {
         };
     }, {
         cursor: { x: 0, y: 0 },
-        prevFormatting: { c: '#f5f5f5', t: '#444444' },
+        prevFormatting: { c: '#cccccc', t: '#000000' },
         res: [],
         colorCount: {}
     });
