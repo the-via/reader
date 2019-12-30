@@ -232,7 +232,7 @@ export function kleLayoutToVIALayout(kle: KLELayout): VIALayout {
             if (typeof n.d === 'boolean') {
               obj = {...obj, d: n.d};
             }
-            if (typeof n.r === 'number') {
+            if (typeof n.ry === 'number' || typeof n.rx === 'number') {
               obj = {
                 ...obj,
                 cursor: {...obj.cursor, y: obj.ry}
