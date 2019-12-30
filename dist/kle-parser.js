@@ -133,7 +133,7 @@ function extractPair(pair) {
 }
 function resultToVIAKey(result, delta, colorMap) {
     var c = result.c, d = result.d, t = result.t, group = result.group, partialKey = __rest(result, ["c", "d", "t", "group"]);
-    return __assign(__assign({}, partialKey), { x: result.x - delta.x, y: result.y - delta.y, color: colorMap[c + ":" + t] || types_1.KeyColorType.Alpha });
+    return __assign(__assign({}, partialKey), { x: result.x - delta.x, y: result.y - delta.y, rx: result.rx - delta.x, ry: result.ry - delta.y, color: colorMap[c + ":" + t] || types_1.KeyColorType.Alpha });
 }
 function kleLayoutToVIALayout(kle) {
     var _a;

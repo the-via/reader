@@ -177,6 +177,8 @@ function resultToVIAKey(
     ...partialKey,
     x: result.x - delta.x,
     y: result.y - delta.y,
+    rx: result.rx - delta.x,
+    ry: result.ry - delta.y,
     color: colorMap[`${c}:${t}`] || KeyColorType.Alpha
   };
 }
