@@ -124,6 +124,10 @@ export declare type KeyboardDefinition = {
         [name: string]: KLELayoutDefinition;
     };
 };
+export declare type CustomKeycode = {
+    name: string;
+    title: string;
+};
 export declare enum CustomFeatures {
     RotaryEncoder = "rotary-encoder"
 }
@@ -134,6 +138,7 @@ export declare type KeyboardDefinitionV2 = {
     lighting: LightingTypeDefinitionV2;
     matrix: MatrixInfo;
     customFeatures?: CustomFeatures[];
+    customKeycodes?: CustomKeycode[];
     layouts: {
         keymap: KLELayoutDefinition;
         labels?: LayoutLabel[];
