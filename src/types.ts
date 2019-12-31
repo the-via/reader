@@ -215,6 +215,7 @@ export type VIADefinitionV2 = {
   lighting: LightingTypeDefinitionV2;
   matrix: MatrixInfo;
   customFeatures?: CustomFeatures[];
+  customKeycodes?: CustomKeycode[];
   layouts: {
     width: number;
     height: number;
