@@ -38,7 +38,7 @@ function getVendorProductId(_a) {
 }
 exports.getVendorProductId = getVendorProductId;
 function keyboardDefinitionV2ToVIADefinitionV2(definition) {
-    var _a = keyboard_definition_v2_validator_1.default(definition), name = _a.name, customFeatures = _a.customFeatures, lighting = _a.lighting, matrix = _a.matrix, layouts = _a.layouts;
+    var _a = keyboard_definition_v2_validator_1.default(definition), name = _a.name, customFeatures = _a.customFeatures, customKeycodes = _a.customKeycodes, lighting = _a.lighting, matrix = _a.matrix, layouts = _a.layouts;
     var keymap = layouts.keymap, partialLayout = __rest(layouts, ["keymap"]);
     return {
         name: name,
@@ -46,6 +46,7 @@ function keyboardDefinitionV2ToVIADefinitionV2(definition) {
         layouts: __assign(__assign({}, partialLayout), kle_parser_1.kleLayoutToVIALayout(layouts.keymap)),
         matrix: matrix,
         customFeatures: customFeatures,
+        customKeycodes: customKeycodes,
         vendorProductId: getVendorProductId(definition)
     };
 }

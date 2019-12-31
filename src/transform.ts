@@ -26,7 +26,7 @@ export function getVendorProductId({
 export function keyboardDefinitionV2ToVIADefinitionV2(
   definition: KeyboardDefinitionV2
 ): VIADefinitionV2 {
-  const {name, customFeatures, lighting, matrix, layouts} = validateV2(
+  const {name, customFeatures, customKeycodes, lighting, matrix, layouts} = validateV2(
     definition
   );
 
@@ -37,6 +37,7 @@ export function keyboardDefinitionV2ToVIADefinitionV2(
     layouts: {...partialLayout, ...kleLayoutToVIALayout(layouts.keymap)},
     matrix,
     customFeatures,
+    customKeycodes,
     vendorProductId: getVendorProductId(definition)
   };
 }
