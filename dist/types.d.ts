@@ -127,6 +127,7 @@ export declare type KeyboardDefinition = {
 export declare type CustomKeycode = {
     name: string;
     title: string;
+    shortName?: string;
 };
 export declare enum CustomFeatures {
     RotaryEncoder = "rotary-encoder"

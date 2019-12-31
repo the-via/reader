@@ -85,6 +85,9 @@ export declare const KeyboardDefinitionV2Schema: {
                     "name": {
                         "type": string;
                     };
+                    "shortName": {
+                        "type": string;
+                    };
                     "title": {
                         "type": string;
                     };

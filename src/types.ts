@@ -134,9 +134,11 @@ export type KeyboardDefinition = {
   layouts: {[name: string]: KLELayoutDefinition};
 };
 
+/* This specifically does not include code */
 export type CustomKeycode = {
   name: string;
   title: string;
+  shortName?: string;
 }
 
 export enum CustomFeatures {
