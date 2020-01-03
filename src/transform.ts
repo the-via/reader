@@ -45,15 +45,21 @@ export function validateLayouts(
 export function keyboardDefinitionV2ToVIADefinitionV2(
   definition: KeyboardDefinitionV2
 ): VIADefinitionV2 {
-  const {name, customFeatures, customKeycodes, lighting, matrix, layouts} = validateV2(
-    definition
-  );
+  const {
+    name,
+    customFeatures,
+    customKeycodes,
+    lighting,
+    matrix,
+    layouts
+  } = validateV2(definition);
 
+  validateLayouts(layouts);
   const {keymap, ...partialLayout} = layouts;
   return {
     name,
     lighting,
-    layouts: validateLayouts(layouts),
+    layouts: {...partialLayout, ...kleLayoutToVIALayout(layouts.keymap)},
     matrix,
     customFeatures,
     customKeycodes,

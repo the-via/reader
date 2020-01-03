@@ -52,11 +52,12 @@ function validateLayouts(layouts) {
 exports.validateLayouts = validateLayouts;
 function keyboardDefinitionV2ToVIADefinitionV2(definition) {
     var _a = keyboard_definition_v2_validator_1.default(definition), name = _a.name, customFeatures = _a.customFeatures, customKeycodes = _a.customKeycodes, lighting = _a.lighting, matrix = _a.matrix, layouts = _a.layouts;
+    validateLayouts(layouts);
     var keymap = layouts.keymap, partialLayout = __rest(layouts, ["keymap"]);
     return {
         name: name,
         lighting: lighting,
-        layouts: validateLayouts(layouts),
+        layouts: __assign(__assign({}, partialLayout), kle_parser_1.kleLayoutToVIALayout(layouts.keymap)),
         matrix: matrix,
         customFeatures: customFeatures,
         customKeycodes: customKeycodes,
