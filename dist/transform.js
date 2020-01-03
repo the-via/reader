@@ -37,13 +37,26 @@ function getVendorProductId(_a) {
     return parsedVendorId * 65536 + parsedProductId;
 }
 exports.getVendorProductId = getVendorProductId;
+function validateLayouts(layouts) {
+    var _a = layouts.labels, labels = _a === void 0 ? [] : _a, keymap = layouts.keymap;
+    var viaLayout = kle_parser_1.kleLayoutToVIALayout(keymap);
+    var missingLabels = labels.filter(function (_, idx) {
+        return viaLayout.optionKeys[idx] === undefined ||
+            viaLayout.optionKeys[idx][0] === undefined;
+    });
+    if (missingLabels.length > 0) {
+        throw new Error("The KLE is missing the group keys for: " + missingLabels.join(','));
+    }
+    return viaLayout;
+}
+exports.validateLayouts = validateLayouts;
 function keyboardDefinitionV2ToVIADefinitionV2(definition) {
     var _a = keyboard_definition_v2_validator_1.default(definition), name = _a.name, customFeatures = _a.customFeatures, customKeycodes = _a.customKeycodes, lighting = _a.lighting, matrix = _a.matrix, layouts = _a.layouts;
     var keymap = layouts.keymap, partialLayout = __rest(layouts, ["keymap"]);
     return {
         name: name,
         lighting: lighting,
-        layouts: __assign(__assign({}, partialLayout), kle_parser_1.kleLayoutToVIALayout(layouts.keymap)),
+        layouts: validateLayouts(layouts),
         matrix: matrix,
         customFeatures: customFeatures,
         customKeycodes: customKeycodes,

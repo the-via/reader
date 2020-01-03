@@ -10,7 +10,8 @@ import {
   LightingTypeDefinition,
   KeycodeType,
   BacklightConfig,
-  LightingTypeDefinitionV2
+  LightingTypeDefinitionV2,
+  VIALayout
 } from './types';
 export {VIADefinition, KeyboardDefinition};
 
@@ -21,6 +22,24 @@ export function getVendorProductId({
   const parsedVendorId = parseInt(vendorId, 16);
   const parsedProductId = parseInt(productId, 16);
   return parsedVendorId * 65536 + parsedProductId;
+}
+
+export function validateLayouts(
+  layouts: KeyboardDefinitionV2['layouts']
+): VIALayout {
+  const {labels = [], keymap} = layouts;
+  const viaLayout = kleLayoutToVIALayout(keymap);
+  const missingLabels = labels.filter(
+    (_, idx) =>
+      viaLayout.optionKeys[idx] === undefined ||
+      viaLayout.optionKeys[idx][0] === undefined
+  );
+  if (missingLabels.length > 0) {
+    throw new Error(
+      `The KLE is missing the group keys for: ${missingLabels.join(',')}`
+    );
+  }
+  return viaLayout;
 }
 
 export function keyboardDefinitionV2ToVIADefinitionV2(
@@ -34,7 +53,7 @@ export function keyboardDefinitionV2ToVIADefinitionV2(
   return {
     name,
     lighting,
-    layouts: {...partialLayout, ...kleLayoutToVIALayout(layouts.keymap)},
+    layouts: validateLayouts(layouts),
     matrix,
     customFeatures,
     customKeycodes,
