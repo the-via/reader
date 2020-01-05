@@ -76,6 +76,30 @@ exports.Preset = (_a = {},
         keycodes: types_1.KeycodeType.QMK,
         supportedBacklightValues: []
     },
+    _a[types_1.LightingTypeDefinition.QMKUnderglow] = {
+        effects: [
+            ['All Off', 0],
+            ['Solid Color', 1],
+            ['Breathing', 1],
+            ['Cycling Rainbow', 0],
+            ['Swirling Rainbow', 0],
+            ['Snake', 1],
+            ['Knight', 1],
+            ['Christmas', 0],
+            ['Gradient', 1],
+            ['RGB Test', 0],
+            ['Alternating', 1]
+        ],
+        keycodes: types_1.KeycodeType.QMK,
+        supportedBacklightValues: [
+            types_1.BacklightConfig.BRIGHTNESS,
+            types_1.BacklightConfig.EFFECT,
+            types_1.BacklightConfig.EFFECT_SPEED,
+            types_1.BacklightConfig.COLOR_1,
+            types_1.BacklightConfig.DISABLE_AFTER_TIMEOUT,
+            types_1.BacklightConfig.DISABLE_WHEN_USB_SUSPENDED
+        ]
+    },
     _a[types_1.LightingTypeDefinition.WTMonoBacklight] = {
         effects: [
             ['All Off', 0],

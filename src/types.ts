@@ -96,6 +96,7 @@ export type VIAKey = Omit<Result, keyof Formatting | 'group' | 'd'> & {
 export enum LightingTypeDefinition {
   None = 'none',
   QMKLighting = 'qmk_backlight',
+  QMKUnderglow = 'qmk_underglow',
   WTRGBBacklight = 'wt_rgb_backlight',
   WTMonoBacklight = 'wt_mono_backlight'
 }
@@ -139,7 +140,7 @@ export type CustomKeycode = {
   name: string;
   title: string;
   shortName?: string;
-}
+};
 
 export enum CustomFeatures {
   RotaryEncoder = 'rotary-encoder'

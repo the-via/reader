@@ -85,7 +85,7 @@ function transformQMKFiles(parsedLayout, infoJSON, config) {
 function generateVIADefinition(folder, skipExisting) {
     if (skipExisting === void 0) { skipExisting = false; }
     return __awaiter(this, void 0, void 0, function () {
-        var layoutHFileName, infoJSONFileName, layoutH, configH, infoJSONFile, infoJSON, _a, rows, cols, layout, name, infoJSONLayout, config;
+        var layoutHFileName, infoJSONFileName, layoutH, configH, infoJSONFile, infoJSON, _a, layout, name, infoJSONLayout, config;
         return __generator(this, function (_b) {
             switch (_b.label) {
                 case 0:
@@ -105,7 +105,7 @@ function generateVIADefinition(folder, skipExisting) {
                 case 3:
                     infoJSONFile = _b.sent();
                     infoJSON = JSON.parse(infoJSONFile);
-                    _a = layout_h_parser_1.parseLayout(layoutH), rows = _a.rows, cols = _a.cols, layout = _a.layout, name = _a.name;
+                    _a = layout_h_parser_1.parseLayout(layoutH), layout = _a.layout, name = _a.name;
                     infoJSONLayout = infoJSON.layouts[name].layout;
                     config = config_h_parser_1.parseConfig(configH);
                     if (layout.length === infoJSONLayout.length) {
@@ -123,9 +123,7 @@ function processFiles() {
             switch (_a.label) {
                 case 0:
                     paths = glob.sync(qmkRepoPath + "/**/info.json", { absolute: true });
-                    folders = paths
-                        .map(function (path) { return path.replace(/\/info\.json$/, ''); })
-                        .filter(function (path) { return /prophet/.test(path); });
+                    folders = paths.map(function (path) { return path.replace(/\/info\.json$/, ''); });
                     failedFiles = [];
                     if (!fs.existsSync('qmk_converted_json')) {
                         fs.mkdirSync('qmk_converted_json');

@@ -80,6 +80,30 @@ export const Preset: {
     keycodes: KeycodeType.QMK,
     supportedBacklightValues: []
   },
+  [LightingTypeDefinition.QMKUnderglow]: {
+    effects: [
+      ['All Off', 0],
+      ['Solid Color', 1],
+      ['Breathing', 1],
+      ['Cycling Rainbow', 0],
+      ['Swirling Rainbow', 0],
+      ['Snake', 1],
+      ['Knight', 1],
+      ['Christmas', 0],
+      ['Gradient', 1],
+      ['RGB Test', 0],
+      ['Alternating', 1]
+    ],
+    keycodes: KeycodeType.QMK,
+    supportedBacklightValues: [
+      BacklightConfig.BRIGHTNESS,
+      BacklightConfig.EFFECT,
+      BacklightConfig.EFFECT_SPEED,
+      BacklightConfig.COLOR_1,
+      BacklightConfig.DISABLE_AFTER_TIMEOUT,
+      BacklightConfig.DISABLE_WHEN_USB_SUSPENDED
+    ]
+  },
   [LightingTypeDefinition.WTMonoBacklight]: {
     effects: [
       ['All Off', 0],

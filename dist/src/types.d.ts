@@ -93,6 +93,7 @@ export declare type VIAKey = Omit<Result, keyof Formatting | 'group' | 'd'> & {
 export declare enum LightingTypeDefinition {
     None = "none",
     QMKLighting = "qmk_backlight",
+    QMKUnderglow = "qmk_underglow",
     WTRGBBacklight = "wt_rgb_backlight",
     WTMonoBacklight = "wt_mono_backlight"
 }

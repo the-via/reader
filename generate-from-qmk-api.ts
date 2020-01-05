@@ -50,7 +50,7 @@ async function generateVIADefinition(folder: string, skipExisting = false) {
   const configH = await readFile(`${folder}/config.h`, 'utf8');
   const infoJSONFile = await readFile(infoJSONFileName, 'utf8');
   const infoJSON = JSON.parse(infoJSONFile);
-  const {rows, cols, layout, name} = parseLayout(layoutH);
+  const {layout, name} = parseLayout(layoutH);
   const infoJSONLayout = infoJSON.layouts[name].layout;
   const config = parseConfig(configH);
   if (layout.length === infoJSONLayout.length) {
@@ -67,9 +67,7 @@ async function generateVIADefinition(folder: string, skipExisting = false) {
 
 async function processFiles() {
   const paths = glob.sync(`${qmkRepoPath}/**/info.json`, {absolute: true});
-  const folders = paths
-    .map(path => path.replace(/\/info\.json$/, ''))
-    .filter(path => /prophet/.test(path));
+  const folders = paths.map(path => path.replace(/\/info\.json$/, ''));
   const failedFiles: any[] = [];
   if (!fs.existsSync('qmk_converted_json')) {
     fs.mkdirSync('qmk_converted_json');
