@@ -89,9 +89,9 @@ export const Preset: {
       ['Swirling Rainbow', 0],
       ['Snake', 1],
       ['Knight', 1],
-      ['Christmas', 0],
+      ['Christmas', 1],
       ['Gradient', 1],
-      ['RGB Test', 0],
+      ['RGB Test', 1],
       ['Alternating', 1]
     ],
     keycodes: KeycodeType.QMK,
