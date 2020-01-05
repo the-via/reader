@@ -18,7 +18,7 @@ export {VIADefinition, KeyboardDefinition};
 export function getVendorProductId({
   productId,
   vendorId
-}: KeyboardDefinition | KeyboardDefinitionV2): number {
+}: Pick<KeyboardDefinitionV2, 'productId' | 'vendorId'>): number {
   const parsedVendorId = parseInt(vendorId, 16);
   const parsedProductId = parseInt(productId, 16);
   return parsedVendorId * 65536 + parsedProductId;

@@ -46,55 +46,114 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
+    result["default"] = mod;
+    return result;
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 var layout_h_parser_1 = require("./src/layout-h-parser");
+var config_h_parser_1 = require("./src/config-h-parser");
+var glob = __importStar(require("glob"));
+var src_1 = require("./src");
 var fs = require('fs');
-var all = require('./filtered.json');
 var util = require('util');
 var readFile = util.promisify(fs.readFile);
-var path = '../qmk_firmware/keyboards/';
+var qmkRepoPath = '../qmk_firmware/keyboards';
+function transformQMKFiles(parsedLayout, infoJSON, config) {
+    var rows = parsedLayout.rows, cols = parsedLayout.cols, layout = parsedLayout.layout, name = parsedLayout.name;
+    var layouts = infoJSON.layouts, keyboard_name = infoJSON.keyboard_name, width = infoJSON.width, height = infoJSON.height;
+    var infoJSONLayout = layouts[name].layout;
+    var VENDOR_ID = config.VENDOR_ID, PRODUCT_ID = config.PRODUCT_ID;
+    var vendorProductId = src_1.getVendorProductId({
+        vendorId: VENDOR_ID,
+        productId: PRODUCT_ID
+    });
+    return {
+        name: keyboard_name,
+        matrix: { cols: cols, rows: rows },
+        vendorProductId: vendorProductId,
+        layouts: {
+            width: width,
+            height: height,
+            keys: infoJSONLayout.map(function (key, idx) { return (__assign(__assign(__assign({}, key), layout[idx]), { label: undefined, r: 0, rx: 0, ry: 0, color: 'alpha', w: key.w || 1, h: key.h || 1 })); })
+        }
+    };
+}
+function generateVIADefinition(folder, skipExisting) {
+    if (skipExisting === void 0) { skipExisting = false; }
+    return __awaiter(this, void 0, void 0, function () {
+        var layoutHFileName, infoJSONFileName, layoutH, configH, infoJSONFile, infoJSON, _a, rows, cols, layout, name, infoJSONLayout, config;
+        return __generator(this, function (_b) {
+            switch (_b.label) {
+                case 0:
+                    console.log(folder);
+                    if (skipExisting && fs.existsSync(folder + "/keymaps/via")) {
+                        console.log('Skipping', folder);
+                    }
+                    layoutHFileName = folder + "/" + folder.split('/').reverse()[0] + ".h";
+                    infoJSONFileName = folder + "/info.json";
+                    return [4 /*yield*/, readFile(layoutHFileName, 'utf8')];
+                case 1:
+                    layoutH = _b.sent();
+                    return [4 /*yield*/, readFile(folder + "/config.h", 'utf8')];
+                case 2:
+                    configH = _b.sent();
+                    return [4 /*yield*/, readFile(infoJSONFileName, 'utf8')];
+                case 3:
+                    infoJSONFile = _b.sent();
+                    infoJSON = JSON.parse(infoJSONFile);
+                    _a = layout_h_parser_1.parseLayout(layoutH), rows = _a.rows, cols = _a.cols, layout = _a.layout, name = _a.name;
+                    infoJSONLayout = infoJSON.layouts[name].layout;
+                    config = config_h_parser_1.parseConfig(configH);
+                    if (layout.length === infoJSONLayout.length) {
+                        fs.writeFileSync("./qmk_converted_json/" + infoJSON.keyboard_name + ".json", JSON.stringify(transformQMKFiles(layout_h_parser_1.parseLayout(layoutH), infoJSON, config), null, 2));
+                    }
+                    return [2 /*return*/];
+            }
+        });
+    });
+}
 function processFiles() {
     return __awaiter(this, void 0, void 0, function () {
-        var processedFiles, failedFiles, _loop_1, i;
+        var paths, folders, failedFiles, i, e_1;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    processedFiles = [];
+                    paths = glob.sync(qmkRepoPath + "/**/info.json", { absolute: true });
+                    folders = paths
+                        .map(function (path) { return path.replace(/\/info\.json$/, ''); })
+                        .filter(function (path) { return /prophet/.test(path); });
                     failedFiles = [];
-                    _loop_1 = function (i) {
-                        var f, _a, rows, cols, layout_1, name, e_1;
-                        return __generator(this, function (_b) {
-                            switch (_b.label) {
-                                case 0:
-                                    _b.trys.push([0, 2, , 3]);
-                                    return [4 /*yield*/, readFile("" + path + all[i].folder + "/" + all[i].folder.split('/').reverse()[0] + ".h", 'utf8')];
-                                case 1:
-                                    f = _b.sent();
-                                    _a = layout_h_parser_1.parseLayout(f), rows = _a.rows, cols = _a.cols, layout_1 = _a.layout, name = _a.name;
-                                    if (layout_1.length === (all[i].layouts[name].layout || []).length) {
-                                        fs.writeFileSync("./qmk_converted_json/" + all[i].name + ".json", JSON.stringify(__assign(__assign({}, all[i]), { matrix: { cols: cols, rows: rows }, layouts: all[i].layouts[name].layout.map(function (key, idx) { return (__assign(__assign({}, key), layout_1[idx])); }) }), null, 2));
-                                    }
-                                    return [3 /*break*/, 3];
-                                case 2:
-                                    e_1 = _b.sent();
-                                    failedFiles.push("" + path + all[i].folder + "/" + all[i].folder.split('/').reverse()[0] + ".h");
-                                    return [3 /*break*/, 3];
-                                case 3: return [2 /*return*/];
-                            }
-                        });
-                    };
+                    if (!fs.existsSync('qmk_converted_json')) {
+                        fs.mkdirSync('qmk_converted_json');
+                    }
                     i = 0;
                     _a.label = 1;
                 case 1:
-                    if (!(i < all.length)) return [3 /*break*/, 4];
-                    return [5 /*yield**/, _loop_1(i)];
+                    if (!(i < folders.length)) return [3 /*break*/, 6];
+                    _a.label = 2;
                 case 2:
-                    _a.sent();
-                    _a.label = 3;
+                    _a.trys.push([2, 4, , 5]);
+                    return [4 /*yield*/, generateVIADefinition(folders[i])];
                 case 3:
+                    _a.sent();
+                    return [3 /*break*/, 5];
+                case 4:
+                    e_1 = _a.sent();
+                    if (folders[i].indexOf('prophet') !== -1) {
+                        failedFiles.push([
+                            e_1,
+                            folders[i] + "/" + folders[i].split('/').reverse()[0] + ".h"
+                        ]);
+                    }
+                    return [3 /*break*/, 5];
+                case 5:
                     i++;
                     return [3 /*break*/, 1];
-                case 4:
+                case 6:
                     console.log(failedFiles);
                     return [2 /*return*/];
             }

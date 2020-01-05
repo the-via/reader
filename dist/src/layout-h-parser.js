@@ -68,6 +68,10 @@ function tokenizer(state, next) {
                     layout2D: []
                 } });
         }
+        else {
+            //Skip to next
+            return __assign({}, state);
+        }
     }
     else if (prev === LS.LAYOUT1D_START) {
         var commaIdx = tnext.indexOf(',');
@@ -130,7 +134,7 @@ function tokenizer(state, next) {
             var layout2D = res.layout2D;
             var lastRow = layout2D[layout2D.length - 1];
             layout2D[layout2D.length - 1] = __spreadArrays(lastRow, [tnext.slice(0, bracketIdx)]);
-            return tokenizer(__assign(__assign({}, state), { prev: LS.LAYOUT2D_COL_END, res: __assign(__assign({}, res), { layout2D: __spreadArrays(layout2D) }) }), tnext.slice(bracketIdx));
+            return tokenizer(__assign(__assign({}, state), { prev: LS.LAYOUT2D_COL_END, res: __assign(__assign({}, res), { layout2D: __spreadArrays(layout2D) }) }), tnext.slice(bracketIdx + 1));
         }
         else if (commaIdx !== -1) {
             var layout2D = res.layout2D;
@@ -146,7 +150,7 @@ function tokenizer(state, next) {
         }
     }
     error(state, tnext);
-    throw 'Bad Token found';
+    throw "Bad Token found: " + state + ":" + tnext + " ";
 }
 function parseLayout(layout) {
     var tokens = layout.split(/[\\]?\s+/g);

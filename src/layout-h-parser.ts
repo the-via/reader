@@ -64,6 +64,9 @@ function tokenizer(state: ParserState, next: string): ParserState {
           layout2D: []
         }
       };
+    } else {
+      //Skip to next
+      return {...state};
     }
   } else if (prev === LS.LAYOUT1D_START) {
     const commaIdx = tnext.indexOf(',');
@@ -176,7 +179,7 @@ function tokenizer(state: ParserState, next: string): ParserState {
           prev: LS.LAYOUT2D_COL_END,
           res: {...res, layout2D: [...layout2D]}
         },
-        tnext.slice(bracketIdx)
+        tnext.slice(bracketIdx + 1)
       );
     } else if (commaIdx !== -1) {
       const {layout2D} = res;
@@ -202,7 +205,7 @@ function tokenizer(state: ParserState, next: string): ParserState {
     }
   }
   error(state, tnext);
-  throw 'Bad Token found';
+  throw `Bad Token found: ${state}:${tnext} `;
 }
 
 export function parseLayout(layout: string) {
