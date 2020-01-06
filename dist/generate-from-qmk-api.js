@@ -54,10 +54,10 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var layout_h_parser_1 = require("./src/layout-h-parser");
-var config_h_parser_1 = require("./src/config-h-parser");
+var layout_h_parser_1 = require("./layout-h-parser");
+var config_h_parser_1 = require("./config-h-parser");
 var glob = __importStar(require("glob"));
-var src_1 = require("./src");
+var _1 = require(".");
 var fs = require('fs');
 var util = require('util');
 var readFile = util.promisify(fs.readFile);
@@ -67,7 +67,7 @@ function transformQMKFiles(parsedLayout, infoJSON, config) {
     var layouts = infoJSON.layouts, keyboard_name = infoJSON.keyboard_name, width = infoJSON.width, height = infoJSON.height;
     var infoJSONLayout = layouts[name].layout;
     var VENDOR_ID = config.VENDOR_ID, PRODUCT_ID = config.PRODUCT_ID;
-    var vendorProductId = src_1.getVendorProductId({
+    var vendorProductId = _1.getVendorProductId({
         vendorId: VENDOR_ID,
         productId: PRODUCT_ID
     });

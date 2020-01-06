@@ -5,6 +5,8 @@ function __export(m) {
 
 Object.defineProperty(exports, "__esModule", { value: true });
 __export(require("./validated-types/keyboard-definition-v2.validator"));
+var via_definition_v2_validator_1 = require("./validated-types/via-definition-v2.validator");
+exports.isVIADefinitionV2 = via_definition_v2_validator_1.isVIADefinitionV2;
 __export(require("./transform"));
 __export(require("./kle-parser"));
 __export(require("./types"));

@@ -14,7 +14,7 @@ exports.ajv = new Ajv({
     useDefaults: true
 });
 exports.ajv.addMetaSchema(require('ajv/lib/refs/json-schema-draft-06.json'));
-exports.KeyboardDefinitionV2Schema = {
+exports.VIADefinitionV2Schema = {
     $schema: 'http://json-schema.org/draft-07/schema#',
     defaultProperties: [],
     definitions: {
@@ -44,6 +44,10 @@ exports.KeyboardDefinitionV2Schema = {
                 9
             ],
             type: 'number'
+        },
+        KeyColorType: {
+            enum: ['accent', 'alpha', 'mod'],
+            type: 'string'
         },
         LightingTypeDefinition: {
             enum: [
@@ -96,28 +100,50 @@ exports.KeyboardDefinitionV2Schema = {
             },
             type: 'object'
         },
-        'Partial<{c:string;t:string;x:number;y:number;w:number;a:number;}>': {
+        'Pick<Result,"h"|"w"|"x2"|"y2"|"h2"|"w2"|"x"|"y"|"r"|"rx"|"ry"|"row"|"col">': {
             defaultProperties: [],
             properties: {
-                a: {
+                col: {
                     type: 'number'
                 },
-                c: {
-                    type: 'string'
+                h: {
+                    type: 'number'
                 },
-                t: {
-                    type: 'string'
+                h2: {
+                    type: 'number'
+                },
+                r: {
+                    type: 'number'
+                },
+                row: {
+                    type: 'number'
+                },
+                rx: {
+                    type: 'number'
+                },
+                ry: {
+                    type: 'number'
                 },
                 w: {
+                    type: 'number'
+                },
+                w2: {
                     type: 'number'
                 },
                 x: {
                     type: 'number'
                 },
+                x2: {
+                    type: 'number'
+                },
                 y: {
+                    type: 'number'
+                },
+                y2: {
                     type: 'number'
                 }
             },
+            required: ['col', 'h', 'r', 'row', 'rx', 'ry', 'w', 'x', 'y'],
             type: 'object'
         }
     },
@@ -151,30 +177,24 @@ exports.KeyboardDefinitionV2Schema = {
         layouts: {
             defaultProperties: [],
             properties: {
-                keymap: {
+                height: {
+                    type: 'number'
+                },
+                keys: {
                     items: {
-                        anyOf: [
+                        allOf: [
+                            {
+                                $ref: '#/definitions/Pick<Result,"h"|"w"|"x2"|"y2"|"h2"|"w2"|"x"|"y"|"r"|"rx"|"ry"|"row"|"col">'
+                            },
                             {
                                 defaultProperties: [],
                                 properties: {
-                                    name: {
-                                        type: 'string'
+                                    color: {
+                                        $ref: '#/definitions/KeyColorType'
                                     }
                                 },
+                                required: ['color'],
                                 type: 'object'
-                            },
-                            {
-                                items: {
-                                    anyOf: [
-                                        {
-                                            $ref: '#/definitions/Partial<{c:string;t:string;x:number;y:number;w:number;a:number;}>'
-                                        },
-                                        {
-                                            type: 'string'
-                                        }
-                                    ]
-                                },
-                                type: 'array'
                             }
                         ]
                     },
@@ -196,6 +216,34 @@ exports.KeyboardDefinitionV2Schema = {
                     },
                     type: 'array'
                 },
+                optionKeys: {
+                    additionalProperties: {
+                        additionalProperties: {
+                            items: {
+                                allOf: [
+                                    {
+                                        $ref: '#/definitions/Pick<Result,"h"|"w"|"x2"|"y2"|"h2"|"w2"|"x"|"y"|"r"|"rx"|"ry"|"row"|"col">'
+                                    },
+                                    {
+                                        defaultProperties: [],
+                                        properties: {
+                                            color: {
+                                                $ref: '#/definitions/KeyColorType'
+                                            }
+                                        },
+                                        required: ['color'],
+                                        type: 'object'
+                                    }
+                                ]
+                            },
+                            type: 'array'
+                        },
+                        defaultProperties: [],
+                        type: 'object'
+                    },
+                    defaultProperties: [],
+                    type: 'object'
+                },
                 presets: {
                     additionalProperties: {
                         items: {
@@ -205,9 +253,12 @@ exports.KeyboardDefinitionV2Schema = {
                     },
                     defaultProperties: [],
                     type: 'object'
+                },
+                width: {
+                    type: 'number'
                 }
             },
-            required: ['keymap'],
+            required: ['height', 'keys', 'optionKeys', 'width'],
             type: 'object'
         },
         lighting: {
@@ -257,23 +308,20 @@ exports.KeyboardDefinitionV2Schema = {
         name: {
             type: 'string'
         },
-        productId: {
-            type: 'string'
-        },
-        vendorId: {
-            type: 'string'
+        vendorProductId: {
+            type: 'number'
         }
     },
-    required: ['layouts', 'lighting', 'matrix', 'name', 'productId', 'vendorId'],
+    required: ['layouts', 'lighting', 'matrix', 'name', 'vendorProductId'],
     type: 'object'
 };
-exports.isKeyboardDefinitionV2 = exports.ajv.compile(exports.KeyboardDefinitionV2Schema);
+exports.isVIADefinitionV2 = exports.ajv.compile(exports.VIADefinitionV2Schema);
 function validate(value) {
-    if (exports.isKeyboardDefinitionV2(value)) {
+    if (exports.isVIADefinitionV2(value)) {
         return value;
     }
     else {
-        throw new Error(exports.ajv.errorsText(exports.isKeyboardDefinitionV2.errors.filter(function (e) { return e.keyword !== 'if'; }), { dataVar: 'KeyboardDefinitionV2' }) +
+        throw new Error(exports.ajv.errorsText(exports.isVIADefinitionV2.errors.filter(function (e) { return e.keyword !== 'if'; }), { dataVar: 'VIADefinitionV2' }) +
             '\n\n' +
             util_1.inspect(value));
     }

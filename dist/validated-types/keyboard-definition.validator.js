@@ -19,7 +19,13 @@ exports.KeyboardDefinitionSchema = {
     defaultProperties: [],
     definitions: {
         LightingTypeDefinition: {
-            enum: ['none', 'qmk_backlight', 'wt_mono_backlight', 'wt_rgb_backlight'],
+            enum: [
+                'none',
+                'qmk_backlight',
+                'qmk_underglow',
+                'wt_mono_backlight',
+                'wt_rgb_backlight'
+            ],
             type: 'string'
         },
         'Partial<{c:string;t:string;x:number;y:number;w:number;a:number;}>': {
