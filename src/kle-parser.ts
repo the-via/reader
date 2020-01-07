@@ -262,7 +262,8 @@ export function kleLayoutToVIALayout(kle: KLELayout): VIALayout {
           } else if (typeof n === 'string') {
             const colorCountKey = `${c}:${t}`;
             const labels = n.split('\n');
-            const [row, col] = extractPair(labels[0]);
+            // Ignore row,col + requirement if key is a decal key
+            const [row, col] = d ? [0, 0] : extractPair(labels[0]);
             const groupLabel = labels[3] || '-1,0';
             const [group, option] = extractPair(groupLabel);
             const newColorCount = {

@@ -184,7 +184,8 @@ function kleLayoutToVIALayout(kle) {
             else if (typeof n === 'string') {
                 var colorCountKey = c + ":" + t;
                 var labels = n.split('\n');
-                var _d = extractPair(labels[0]), row = _d[0], col = _d[1];
+                // Ignore row,col + requirement if key is a decal key
+                var _d = d ? [0, 0] : extractPair(labels[0]), row = _d[0], col = _d[1];
                 var groupLabel = labels[3] || '-1,0';
                 var _e = extractPair(groupLabel), group = _e[0], option = _e[1];
                 var newColorCount = __assign(__assign({}, colorCount), (_b = {}, _b[colorCountKey] = colorCount[colorCountKey] === undefined
