@@ -10,3 +10,5 @@ __export(require("./transform"));
 __export(require("./kle-parser"));
 __export(require("./types"));
 __export(require("./themes"));
+var config_h_parser_1 = require("./config-h-parser");
+exports.parseConfig = config_h_parser_1.parseConfig;
