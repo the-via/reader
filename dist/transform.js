@@ -73,10 +73,16 @@ exports.Preset = (_a = {},
         supportedLightingValues: []
     },
     _a[types_1.LightingTypeDefinition.QMKLighting] = {
-        effects: [],
+        effects: [
+            ['Off', 0],
+            ['On', 0]
+        ],
         underglowEffects: [],
         keycodes: types_1.KeycodeType.QMK,
-        supportedLightingValues: []
+        supportedLightingValues: [
+            types_1.LightingValue.BACKLIGHT_BRIGHTNESS,
+            types_1.LightingValue.BACKLIGHT_EFFECT
+        ]
     },
     _a[types_1.LightingTypeDefinition.QMKBacklightRGBLight] = {
         effects: [

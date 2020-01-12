@@ -77,10 +77,16 @@ export const Preset: {
     supportedLightingValues: []
   },
   [LightingTypeDefinition.QMKLighting]: {
-    effects: [],
+    effects: [
+      ['Off', 0],
+      ['On', 0]
+    ],
     underglowEffects: [],
     keycodes: KeycodeType.QMK,
-    supportedLightingValues: []
+    supportedLightingValues: [
+      LightingValue.BACKLIGHT_BRIGHTNESS,
+      LightingValue.BACKLIGHT_EFFECT
+    ]
   },
   [LightingTypeDefinition.QMKBacklightRGBLight]: {
     effects: [
