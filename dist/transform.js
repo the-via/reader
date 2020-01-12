@@ -80,9 +80,8 @@ exports.Preset = (_a = {},
     },
     _a[types_1.LightingTypeDefinition.QMKBacklightRGBLight] = {
         effects: [
-            ['All Off', 0],
-            ['All On', 0],
-            ['Breathing', 0]
+            ['Off', 0],
+            ['On', 0]
         ],
         underglowEffects: [
             ['All Off', 0],
