@@ -24,12 +24,18 @@ var BacklightConfig;
     BacklightConfig[BacklightConfig["LAYER_3_INDICATOR_COLOR"] = 20] = "LAYER_3_INDICATOR_COLOR";
     BacklightConfig[BacklightConfig["LAYER_3_INDICATOR_ROW_COL"] = 21] = "LAYER_3_INDICATOR_ROW_COL";
     BacklightConfig[BacklightConfig["CUSTOM_COLOR"] = 23] = "CUSTOM_COLOR";
+    // QMK RGBLIGHT
+    BacklightConfig[BacklightConfig["RGBLIGHT_BRIGHTNESS"] = 128] = "RGBLIGHT_BRIGHTNESS";
+    BacklightConfig[BacklightConfig["RGBLIGHT_EFFECT"] = 129] = "RGBLIGHT_EFFECT";
+    BacklightConfig[BacklightConfig["RGBLIGHT_EFFECT_SPEED"] = 130] = "RGBLIGHT_EFFECT_SPEED";
+    BacklightConfig[BacklightConfig["RGBLIGHT_COLOR_X"] = 131] = "RGBLIGHT_COLOR_X";
 })(BacklightConfig = exports.BacklightConfig || (exports.BacklightConfig = {}));
 var LightingTypeDefinition;
 (function (LightingTypeDefinition) {
     LightingTypeDefinition["None"] = "none";
     LightingTypeDefinition["QMKLighting"] = "qmk_backlight";
     LightingTypeDefinition["QMKUnderglow"] = "qmk_underglow";
+    LightingTypeDefinition["QMKOmnilight"] = "qmk_omnilight";
     LightingTypeDefinition["WTRGBBacklight"] = "wt_rgb_backlight";
     LightingTypeDefinition["WTMonoBacklight"] = "wt_mono_backlight";
 })(LightingTypeDefinition = exports.LightingTypeDefinition || (exports.LightingTypeDefinition = {}));

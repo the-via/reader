@@ -24,7 +24,11 @@ exports.KeyboardDefinitionV2Schema = {
                 10,
                 11,
                 12,
+                128,
+                129,
                 13,
+                130,
+                131,
                 14,
                 15,
                 16,
@@ -49,6 +53,7 @@ exports.KeyboardDefinitionV2Schema = {
             enum: [
                 'none',
                 'qmk_backlight',
+                'qmk_omnilight',
                 'qmk_underglow',
                 'wt_mono_backlight',
                 'wt_rgb_backlight'
@@ -90,6 +95,31 @@ exports.KeyboardDefinitionV2Schema = {
                 supportedBacklightValues: {
                     items: {
                         $ref: '#/definitions/BacklightConfig'
+                    },
+                    type: 'array'
+                },
+                underglowEffects: {
+                    items: {
+                        additionalItems: {
+                            anyOf: [
+                                {
+                                    type: 'string'
+                                },
+                                {
+                                    type: 'number'
+                                }
+                            ]
+                        },
+                        items: [
+                            {
+                                type: 'string'
+                            },
+                            {
+                                type: 'number'
+                            }
+                        ],
+                        minItems: 2,
+                        type: 'array'
                     },
                     type: 'array'
                 }
@@ -233,6 +263,7 @@ exports.KeyboardDefinitionV2Schema = {
                     enum: [
                         'none',
                         'qmk_backlight',
+                        'qmk_omnilight',
                         'qmk_underglow',
                         'wt_mono_backlight',
                         'wt_rgb_backlight'

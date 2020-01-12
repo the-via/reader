@@ -42,6 +42,21 @@ export declare const KeyboardDefinitionV2Schema: {
                     };
                     type: string;
                 };
+                underglowEffects: {
+                    items: {
+                        additionalItems: {
+                            anyOf: {
+                                type: string;
+                            }[];
+                        };
+                        items: {
+                            type: string;
+                        }[];
+                        minItems: number;
+                        type: string;
+                    };
+                    type: string;
+                };
             };
             type: string;
         };

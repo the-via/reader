@@ -72,16 +72,23 @@ export const Preset: {
 } = {
   [LightingTypeDefinition.None]: {
     effects: [],
+    underglowEffects: [],
     keycodes: KeycodeType.None,
     supportedBacklightValues: []
   },
   [LightingTypeDefinition.QMKLighting]: {
     effects: [],
+    underglowEffects: [],
     keycodes: KeycodeType.QMK,
     supportedBacklightValues: []
   },
-  [LightingTypeDefinition.QMKUnderglow]: {
+  [LightingTypeDefinition.QMKOmnilight]: {
     effects: [
+      ['All Off', 0],
+      ['All On', 0],
+      ['Breathing', 0]
+    ],
+    underglowEffects: [
       ['All Off', 0],
       ['Solid Color', 1],
       ['Breathing', 1],
@@ -99,9 +106,35 @@ export const Preset: {
       BacklightConfig.BRIGHTNESS,
       BacklightConfig.EFFECT,
       BacklightConfig.EFFECT_SPEED,
-      BacklightConfig.COLOR_1,
+      BacklightConfig.RGBLIGHT_BRIGHTNESS,
+      BacklightConfig.RGBLIGHT_EFFECT,
+      BacklightConfig.RGBLIGHT_EFFECT_SPEED,
+      BacklightConfig.RGBLIGHT_COLOR_X,
       BacklightConfig.DISABLE_AFTER_TIMEOUT,
       BacklightConfig.DISABLE_WHEN_USB_SUSPENDED
+    ]
+  },
+  [LightingTypeDefinition.QMKUnderglow]: {
+    effects: [],
+    underglowEffects: [
+      ['All Off', 0],
+      ['Solid Color', 1],
+      ['Breathing', 1],
+      ['Cycling Rainbow', 0],
+      ['Swirling Rainbow', 0],
+      ['Snake', 1],
+      ['Knight', 1],
+      ['Christmas', 1],
+      ['Gradient', 1],
+      ['RGB Test', 1],
+      ['Alternating', 1]
+    ],
+    keycodes: KeycodeType.QMK,
+    supportedBacklightValues: [
+      BacklightConfig.RGBLIGHT_BRIGHTNESS,
+      BacklightConfig.RGBLIGHT_EFFECT,
+      BacklightConfig.RGBLIGHT_EFFECT_SPEED,
+      BacklightConfig.RGBLIGHT_COLOR_X
     ]
   },
   [LightingTypeDefinition.WTMonoBacklight]: {
@@ -110,6 +143,7 @@ export const Preset: {
       ['All On', 0],
       ['Raindrops', 0]
     ],
+    underglowEffects: [],
     keycodes: KeycodeType.WT,
     supportedBacklightValues: [
       BacklightConfig.BRIGHTNESS,
@@ -133,6 +167,7 @@ export const Preset: {
       ['Radial All Hues', 0],
       ['Radial Color 1', 1]
     ],
+    underglowEffects: [],
     keycodes: KeycodeType.WT,
     supportedBacklightValues: [
       BacklightConfig.BRIGHTNESS,

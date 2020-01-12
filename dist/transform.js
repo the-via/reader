@@ -68,16 +68,23 @@ exports.keyboardDefinitionV2ToVIADefinitionV2 = keyboardDefinitionV2ToVIADefinit
 exports.Preset = (_a = {},
     _a[types_1.LightingTypeDefinition.None] = {
         effects: [],
+        underglowEffects: [],
         keycodes: types_1.KeycodeType.None,
         supportedBacklightValues: []
     },
     _a[types_1.LightingTypeDefinition.QMKLighting] = {
         effects: [],
+        underglowEffects: [],
         keycodes: types_1.KeycodeType.QMK,
         supportedBacklightValues: []
     },
-    _a[types_1.LightingTypeDefinition.QMKUnderglow] = {
+    _a[types_1.LightingTypeDefinition.QMKOmnilight] = {
         effects: [
+            ['All Off', 0],
+            ['All On', 0],
+            ['Breathing', 0]
+        ],
+        underglowEffects: [
             ['All Off', 0],
             ['Solid Color', 1],
             ['Breathing', 1],
@@ -95,9 +102,35 @@ exports.Preset = (_a = {},
             types_1.BacklightConfig.BRIGHTNESS,
             types_1.BacklightConfig.EFFECT,
             types_1.BacklightConfig.EFFECT_SPEED,
-            types_1.BacklightConfig.COLOR_1,
+            types_1.BacklightConfig.RGBLIGHT_BRIGHTNESS,
+            types_1.BacklightConfig.RGBLIGHT_EFFECT,
+            types_1.BacklightConfig.RGBLIGHT_EFFECT_SPEED,
+            types_1.BacklightConfig.RGBLIGHT_COLOR_X,
             types_1.BacklightConfig.DISABLE_AFTER_TIMEOUT,
             types_1.BacklightConfig.DISABLE_WHEN_USB_SUSPENDED
+        ]
+    },
+    _a[types_1.LightingTypeDefinition.QMKUnderglow] = {
+        effects: [],
+        underglowEffects: [
+            ['All Off', 0],
+            ['Solid Color', 1],
+            ['Breathing', 1],
+            ['Cycling Rainbow', 0],
+            ['Swirling Rainbow', 0],
+            ['Snake', 1],
+            ['Knight', 1],
+            ['Christmas', 1],
+            ['Gradient', 1],
+            ['RGB Test', 1],
+            ['Alternating', 1]
+        ],
+        keycodes: types_1.KeycodeType.QMK,
+        supportedBacklightValues: [
+            types_1.BacklightConfig.RGBLIGHT_BRIGHTNESS,
+            types_1.BacklightConfig.RGBLIGHT_EFFECT,
+            types_1.BacklightConfig.RGBLIGHT_EFFECT_SPEED,
+            types_1.BacklightConfig.RGBLIGHT_COLOR_X
         ]
     },
     _a[types_1.LightingTypeDefinition.WTMonoBacklight] = {
@@ -106,6 +139,7 @@ exports.Preset = (_a = {},
             ['All On', 0],
             ['Raindrops', 0]
         ],
+        underglowEffects: [],
         keycodes: types_1.KeycodeType.WT,
         supportedBacklightValues: [
             types_1.BacklightConfig.BRIGHTNESS,
@@ -129,6 +163,7 @@ exports.Preset = (_a = {},
             ['Radial All Hues', 0],
             ['Radial Color 1', 1]
         ],
+        underglowEffects: [],
         keycodes: types_1.KeycodeType.WT,
         supportedBacklightValues: [
             types_1.BacklightConfig.BRIGHTNESS,

@@ -20,7 +20,12 @@ export enum BacklightConfig {
   LAYER_2_INDICATOR_ROW_COL = 0x13,
   LAYER_3_INDICATOR_COLOR = 0x14,
   LAYER_3_INDICATOR_ROW_COL = 0x15,
-  CUSTOM_COLOR = 0x17
+  CUSTOM_COLOR = 0x17,
+  // QMK RGBLIGHT
+  RGBLIGHT_BRIGHTNESS = 0x80,
+  RGBLIGHT_EFFECT = 0x81,
+  RGBLIGHT_EFFECT_SPEED = 0x82,
+  RGBLIGHT_COLOR_X = 0x83
 }
 
 export type Rotation = {
@@ -97,6 +102,7 @@ export enum LightingTypeDefinition {
   None = 'none',
   QMKLighting = 'qmk_backlight',
   QMKUnderglow = 'qmk_underglow',
+  QMKOmnilight = 'qmk_omnilight',
   WTRGBBacklight = 'wt_rgb_backlight',
   WTMonoBacklight = 'wt_mono_backlight'
 }
@@ -169,6 +175,7 @@ type LayoutLabel = string | string[];
 
 export type VIALightingTypeDefinition = {
   effects: EffectTuple[];
+  underglowEffects: EffectTuple[];
   keycodes: KeycodeType;
   supportedBacklightValues: BacklightConfig[];
 };
