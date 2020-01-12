@@ -6,7 +6,7 @@ export declare const KeyboardDefinitionV2Schema: {
     $schema: string;
     defaultProperties: never[];
     definitions: {
-        BacklightConfig: {
+        LightingValue: {
             enum: number[];
             type: string;
         };
@@ -36,7 +36,7 @@ export declare const KeyboardDefinitionV2Schema: {
                     enum: string[];
                     type: string;
                 };
-                supportedBacklightValues: {
+                supportedLightingValues: {
                     items: {
                         $ref: string;
                     };

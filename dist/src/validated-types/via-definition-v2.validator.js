@@ -18,7 +18,7 @@ exports.VIADefinitionV2Schema = {
     $schema: 'http://json-schema.org/draft-07/schema#',
     defaultProperties: [],
     definitions: {
-        BacklightConfig: {
+        LightingValue: {
             enum: [
                 1,
                 10,
@@ -91,9 +91,9 @@ exports.VIADefinitionV2Schema = {
                     enum: ['none', 'qmk', 'wt'],
                     type: 'string'
                 },
-                supportedBacklightValues: {
+                supportedLightingValues: {
                     items: {
-                        $ref: '#/definitions/BacklightConfig'
+                        $ref: '#/definitions/LightingValue'
                     },
                     type: 'array'
                 }

@@ -1,30 +1,30 @@
-export declare enum BacklightConfig {
-    USE_SPLIT_BACKSPACE = 1,
-    USE_SPLIT_LEFT_SHIFT = 2,
-    USE_SPLIT_RIGHT_SHIFT = 3,
-    USE_7U_SPACEBAR = 4,
-    USE_ISO_ENTER = 5,
-    DISABLE_HHKB_BLOCKER_LEDS = 6,
-    DISABLE_WHEN_USB_SUSPENDED = 7,
-    DISABLE_AFTER_TIMEOUT = 8,
-    BRIGHTNESS = 9,
-    EFFECT = 10,
-    EFFECT_SPEED = 11,
-    COLOR_1 = 12,
-    COLOR_2 = 13,
-    CAPS_LOCK_INDICATOR_COLOR = 14,
-    CAPS_LOCK_INDICATOR_ROW_COL = 15,
-    LAYER_1_INDICATOR_COLOR = 16,
-    LAYER_1_INDICATOR_ROW_COL = 17,
-    LAYER_2_INDICATOR_COLOR = 18,
-    LAYER_2_INDICATOR_ROW_COL = 19,
-    LAYER_3_INDICATOR_COLOR = 20,
-    LAYER_3_INDICATOR_ROW_COL = 21,
-    CUSTOM_COLOR = 23,
-    RGBLIGHT_BRIGHTNESS = 128,
-    RGBLIGHT_EFFECT = 129,
-    RGBLIGHT_EFFECT_SPEED = 130,
-    RGBLIGHT_COLOR_X = 131
+export declare enum LightingValue {
+    BACKLIGHT_USE_SPLIT_BACKSPACE = 1,
+    BACKLIGHT_USE_SPLIT_LEFT_SHIFT = 2,
+    BACKLIGHT_USE_SPLIT_RIGHT_SHIFT = 3,
+    BACKLIGHT_USE_7U_SPACEBAR = 4,
+    BACKLIGHT_USE_ISO_ENTER = 5,
+    BACKLIGHT_DISABLE_HHKB_BLOCKER_LEDS = 6,
+    BACKLIGHT_DISABLE_WHEN_USB_SUSPENDED = 7,
+    BACKLIGHT_DISABLE_AFTER_TIMEOUT = 8,
+    BACKLIGHT_BRIGHTNESS = 9,
+    BACKLIGHT_EFFECT = 10,
+    BACKLIGHT_EFFECT_SPEED = 11,
+    BACKLIGHT_COLOR_1 = 12,
+    BACKLIGHT_COLOR_2 = 13,
+    BACKLIGHT_CAPS_LOCK_INDICATOR_COLOR = 14,
+    BACKLIGHT_CAPS_LOCK_INDICATOR_ROW_COL = 15,
+    BACKLIGHT_LAYER_1_INDICATOR_COLOR = 16,
+    BACKLIGHT_LAYER_1_INDICATOR_ROW_COL = 17,
+    BACKLIGHT_LAYER_2_INDICATOR_COLOR = 18,
+    BACKLIGHT_LAYER_2_INDICATOR_ROW_COL = 19,
+    BACKLIGHT_LAYER_3_INDICATOR_COLOR = 20,
+    BACKLIGHT_LAYER_3_INDICATOR_ROW_COL = 21,
+    BACKLIGHT_CUSTOM_COLOR = 23,
+    QMK_RGBLIGHT_BRIGHTNESS = 128,
+    QMK_RGBLIGHT_EFFECT = 129,
+    QMK_RGBLIGHT_EFFECT_SPEED = 130,
+    QMK_RGBLIGHT_COLOR = 131
 }
 export declare type Rotation = {
     r: number;
@@ -97,8 +97,8 @@ export declare type VIAKey = Omit<Result, keyof Formatting | 'group' | 'd'> & {
 export declare enum LightingTypeDefinition {
     None = "none",
     QMKLighting = "qmk_backlight",
-    QMKUnderglow = "qmk_underglow",
-    QMKOmnilight = "qmk_omnilight",
+    QMKRGBLight = "qmk_rgblight",
+    QMKBacklightRGBLight = "qmk_backlight_rgblight",
     WTRGBBacklight = "wt_rgb_backlight",
     WTMonoBacklight = "wt_mono_backlight"
 }
@@ -161,7 +161,7 @@ export declare type VIALightingTypeDefinition = {
     effects: EffectTuple[];
     underglowEffects: EffectTuple[];
     keycodes: KeycodeType;
-    supportedBacklightValues: BacklightConfig[];
+    supportedLightingValues: LightingValue[];
 };
 export declare type CustomLightingTypeDefinition = Partial<VIALightingTypeDefinition> & {
     extends: LightingTypeDefinition;

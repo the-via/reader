@@ -20,7 +20,22 @@ export const VIADefinitionV2Schema = {
   $schema: 'http://json-schema.org/draft-07/schema#',
   defaultProperties: [],
   definitions: {
-    BacklightConfig: {
+    KeyColorType: {
+      enum: ['accent', 'alpha', 'mod'],
+      type: 'string'
+    },
+    LightingTypeDefinition: {
+      enum: [
+        'none',
+        'qmk_backlight',
+        'qmk_backlight_rgblight',
+        'qmk_rgblight',
+        'wt_mono_backlight',
+        'wt_rgb_backlight'
+      ],
+      type: 'string'
+    },
+    LightingValue: {
       enum: [
         1,
         10,
@@ -50,21 +65,6 @@ export const VIADefinitionV2Schema = {
         9
       ],
       type: 'number'
-    },
-    KeyColorType: {
-      enum: ['accent', 'alpha', 'mod'],
-      type: 'string'
-    },
-    LightingTypeDefinition: {
-      enum: [
-        'none',
-        'qmk_backlight',
-        'qmk_omnilight',
-        'qmk_underglow',
-        'wt_mono_backlight',
-        'wt_rgb_backlight'
-      ],
-      type: 'string'
     },
     'Partial<VIALightingTypeDefinition>': {
       defaultProperties: [],
@@ -98,9 +98,9 @@ export const VIADefinitionV2Schema = {
           enum: ['none', 'qmk', 'wt'],
           type: 'string'
         },
-        supportedBacklightValues: {
+        supportedLightingValues: {
           items: {
-            $ref: '#/definitions/BacklightConfig'
+            $ref: '#/definitions/LightingValue'
           },
           type: 'array'
         },
@@ -318,8 +318,8 @@ export const VIADefinitionV2Schema = {
           enum: [
             'none',
             'qmk_backlight',
-            'qmk_omnilight',
-            'qmk_underglow',
+            'qmk_backlight_rgblight',
+            'qmk_rgblight',
             'wt_mono_backlight',
             'wt_rgb_backlight'
           ],

@@ -6,7 +6,7 @@ export declare const VIADefinitionV2Schema: {
     $schema: string;
     defaultProperties: never[];
     definitions: {
-        BacklightConfig: {
+        LightingValue: {
             enum: number[];
             type: string;
         };
@@ -40,7 +40,7 @@ export declare const VIADefinitionV2Schema: {
                     enum: string[];
                     type: string;
                 };
-                supportedBacklightValues: {
+                supportedLightingValues: {
                     items: {
                         $ref: string;
                     };

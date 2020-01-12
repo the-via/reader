@@ -9,7 +9,7 @@ import {
   VIALightingTypeDefinition,
   LightingTypeDefinition,
   KeycodeType,
-  BacklightConfig,
+  LightingValue,
   LightingTypeDefinitionV2,
   VIALayout
 } from './types';
@@ -74,15 +74,15 @@ export const Preset: {
     effects: [],
     underglowEffects: [],
     keycodes: KeycodeType.None,
-    supportedBacklightValues: []
+    supportedLightingValues: []
   },
   [LightingTypeDefinition.QMKLighting]: {
     effects: [],
     underglowEffects: [],
     keycodes: KeycodeType.QMK,
-    supportedBacklightValues: []
+    supportedLightingValues: []
   },
-  [LightingTypeDefinition.QMKOmnilight]: {
+  [LightingTypeDefinition.QMKBacklightRGBLight]: {
     effects: [
       ['All Off', 0],
       ['All On', 0],
@@ -102,19 +102,16 @@ export const Preset: {
       ['Alternating', 1]
     ],
     keycodes: KeycodeType.QMK,
-    supportedBacklightValues: [
-      BacklightConfig.BRIGHTNESS,
-      BacklightConfig.EFFECT,
-      BacklightConfig.EFFECT_SPEED,
-      BacklightConfig.RGBLIGHT_BRIGHTNESS,
-      BacklightConfig.RGBLIGHT_EFFECT,
-      BacklightConfig.RGBLIGHT_EFFECT_SPEED,
-      BacklightConfig.RGBLIGHT_COLOR_X,
-      BacklightConfig.DISABLE_AFTER_TIMEOUT,
-      BacklightConfig.DISABLE_WHEN_USB_SUSPENDED
+    supportedLightingValues: [
+      LightingValue.BACKLIGHT_BRIGHTNESS,
+      LightingValue.BACKLIGHT_EFFECT,
+      LightingValue.QMK_RGBLIGHT_BRIGHTNESS,
+      LightingValue.QMK_RGBLIGHT_EFFECT,
+      LightingValue.QMK_RGBLIGHT_EFFECT_SPEED,
+      LightingValue.QMK_RGBLIGHT_COLOR
     ]
   },
-  [LightingTypeDefinition.QMKUnderglow]: {
+  [LightingTypeDefinition.QMKRGBLight]: {
     effects: [],
     underglowEffects: [
       ['All Off', 0],
@@ -130,11 +127,11 @@ export const Preset: {
       ['Alternating', 1]
     ],
     keycodes: KeycodeType.QMK,
-    supportedBacklightValues: [
-      BacklightConfig.RGBLIGHT_BRIGHTNESS,
-      BacklightConfig.RGBLIGHT_EFFECT,
-      BacklightConfig.RGBLIGHT_EFFECT_SPEED,
-      BacklightConfig.RGBLIGHT_COLOR_X
+    supportedLightingValues: [
+      LightingValue.QMK_RGBLIGHT_BRIGHTNESS,
+      LightingValue.QMK_RGBLIGHT_EFFECT,
+      LightingValue.QMK_RGBLIGHT_EFFECT_SPEED,
+      LightingValue.QMK_RGBLIGHT_COLOR
     ]
   },
   [LightingTypeDefinition.WTMonoBacklight]: {
@@ -145,12 +142,12 @@ export const Preset: {
     ],
     underglowEffects: [],
     keycodes: KeycodeType.WT,
-    supportedBacklightValues: [
-      BacklightConfig.BRIGHTNESS,
-      BacklightConfig.EFFECT,
-      BacklightConfig.EFFECT_SPEED,
-      BacklightConfig.DISABLE_AFTER_TIMEOUT,
-      BacklightConfig.DISABLE_WHEN_USB_SUSPENDED
+    supportedLightingValues: [
+      LightingValue.BACKLIGHT_BRIGHTNESS,
+      LightingValue.BACKLIGHT_EFFECT,
+      LightingValue.BACKLIGHT_EFFECT_SPEED,
+      LightingValue.BACKLIGHT_DISABLE_AFTER_TIMEOUT,
+      LightingValue.BACKLIGHT_DISABLE_WHEN_USB_SUSPENDED
     ]
   },
   [LightingTypeDefinition.WTRGBBacklight]: {
@@ -169,22 +166,22 @@ export const Preset: {
     ],
     underglowEffects: [],
     keycodes: KeycodeType.WT,
-    supportedBacklightValues: [
-      BacklightConfig.BRIGHTNESS,
-      BacklightConfig.EFFECT,
-      BacklightConfig.EFFECT_SPEED,
-      BacklightConfig.DISABLE_AFTER_TIMEOUT,
-      BacklightConfig.DISABLE_WHEN_USB_SUSPENDED,
-      BacklightConfig.COLOR_1,
-      BacklightConfig.COLOR_2,
-      BacklightConfig.CAPS_LOCK_INDICATOR_COLOR,
-      BacklightConfig.CAPS_LOCK_INDICATOR_ROW_COL,
-      BacklightConfig.LAYER_1_INDICATOR_COLOR,
-      BacklightConfig.LAYER_1_INDICATOR_ROW_COL,
-      BacklightConfig.LAYER_2_INDICATOR_COLOR,
-      BacklightConfig.LAYER_2_INDICATOR_ROW_COL,
-      BacklightConfig.LAYER_3_INDICATOR_COLOR,
-      BacklightConfig.LAYER_3_INDICATOR_ROW_COL
+    supportedLightingValues: [
+      LightingValue.BACKLIGHT_BRIGHTNESS,
+      LightingValue.BACKLIGHT_EFFECT,
+      LightingValue.BACKLIGHT_EFFECT_SPEED,
+      LightingValue.BACKLIGHT_DISABLE_AFTER_TIMEOUT,
+      LightingValue.BACKLIGHT_DISABLE_WHEN_USB_SUSPENDED,
+      LightingValue.BACKLIGHT_COLOR_1,
+      LightingValue.BACKLIGHT_COLOR_2,
+      LightingValue.BACKLIGHT_CAPS_LOCK_INDICATOR_COLOR,
+      LightingValue.BACKLIGHT_CAPS_LOCK_INDICATOR_ROW_COL,
+      LightingValue.BACKLIGHT_LAYER_1_INDICATOR_COLOR,
+      LightingValue.BACKLIGHT_LAYER_1_INDICATOR_ROW_COL,
+      LightingValue.BACKLIGHT_LAYER_2_INDICATOR_COLOR,
+      LightingValue.BACKLIGHT_LAYER_2_INDICATOR_ROW_COL,
+      LightingValue.BACKLIGHT_LAYER_3_INDICATOR_COLOR,
+      LightingValue.BACKLIGHT_LAYER_3_INDICATOR_ROW_COL
     ]
   }
 };

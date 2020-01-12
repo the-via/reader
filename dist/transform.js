@@ -70,15 +70,15 @@ exports.Preset = (_a = {},
         effects: [],
         underglowEffects: [],
         keycodes: types_1.KeycodeType.None,
-        supportedBacklightValues: []
+        supportedLightingValues: []
     },
     _a[types_1.LightingTypeDefinition.QMKLighting] = {
         effects: [],
         underglowEffects: [],
         keycodes: types_1.KeycodeType.QMK,
-        supportedBacklightValues: []
+        supportedLightingValues: []
     },
-    _a[types_1.LightingTypeDefinition.QMKOmnilight] = {
+    _a[types_1.LightingTypeDefinition.QMKBacklightRGBLight] = {
         effects: [
             ['All Off', 0],
             ['All On', 0],
@@ -98,19 +98,16 @@ exports.Preset = (_a = {},
             ['Alternating', 1]
         ],
         keycodes: types_1.KeycodeType.QMK,
-        supportedBacklightValues: [
-            types_1.BacklightConfig.BRIGHTNESS,
-            types_1.BacklightConfig.EFFECT,
-            types_1.BacklightConfig.EFFECT_SPEED,
-            types_1.BacklightConfig.RGBLIGHT_BRIGHTNESS,
-            types_1.BacklightConfig.RGBLIGHT_EFFECT,
-            types_1.BacklightConfig.RGBLIGHT_EFFECT_SPEED,
-            types_1.BacklightConfig.RGBLIGHT_COLOR_X,
-            types_1.BacklightConfig.DISABLE_AFTER_TIMEOUT,
-            types_1.BacklightConfig.DISABLE_WHEN_USB_SUSPENDED
+        supportedLightingValues: [
+            types_1.LightingValue.BACKLIGHT_BRIGHTNESS,
+            types_1.LightingValue.BACKLIGHT_EFFECT,
+            types_1.LightingValue.QMK_RGBLIGHT_BRIGHTNESS,
+            types_1.LightingValue.QMK_RGBLIGHT_EFFECT,
+            types_1.LightingValue.QMK_RGBLIGHT_EFFECT_SPEED,
+            types_1.LightingValue.QMK_RGBLIGHT_COLOR
         ]
     },
-    _a[types_1.LightingTypeDefinition.QMKUnderglow] = {
+    _a[types_1.LightingTypeDefinition.QMKRGBLight] = {
         effects: [],
         underglowEffects: [
             ['All Off', 0],
@@ -126,11 +123,11 @@ exports.Preset = (_a = {},
             ['Alternating', 1]
         ],
         keycodes: types_1.KeycodeType.QMK,
-        supportedBacklightValues: [
-            types_1.BacklightConfig.RGBLIGHT_BRIGHTNESS,
-            types_1.BacklightConfig.RGBLIGHT_EFFECT,
-            types_1.BacklightConfig.RGBLIGHT_EFFECT_SPEED,
-            types_1.BacklightConfig.RGBLIGHT_COLOR_X
+        supportedLightingValues: [
+            types_1.LightingValue.QMK_RGBLIGHT_BRIGHTNESS,
+            types_1.LightingValue.QMK_RGBLIGHT_EFFECT,
+            types_1.LightingValue.QMK_RGBLIGHT_EFFECT_SPEED,
+            types_1.LightingValue.QMK_RGBLIGHT_COLOR
         ]
     },
     _a[types_1.LightingTypeDefinition.WTMonoBacklight] = {
@@ -141,12 +138,12 @@ exports.Preset = (_a = {},
         ],
         underglowEffects: [],
         keycodes: types_1.KeycodeType.WT,
-        supportedBacklightValues: [
-            types_1.BacklightConfig.BRIGHTNESS,
-            types_1.BacklightConfig.EFFECT,
-            types_1.BacklightConfig.EFFECT_SPEED,
-            types_1.BacklightConfig.DISABLE_AFTER_TIMEOUT,
-            types_1.BacklightConfig.DISABLE_WHEN_USB_SUSPENDED
+        supportedLightingValues: [
+            types_1.LightingValue.BACKLIGHT_BRIGHTNESS,
+            types_1.LightingValue.BACKLIGHT_EFFECT,
+            types_1.LightingValue.BACKLIGHT_EFFECT_SPEED,
+            types_1.LightingValue.BACKLIGHT_DISABLE_AFTER_TIMEOUT,
+            types_1.LightingValue.BACKLIGHT_DISABLE_WHEN_USB_SUSPENDED
         ]
     },
     _a[types_1.LightingTypeDefinition.WTRGBBacklight] = {
@@ -165,22 +162,22 @@ exports.Preset = (_a = {},
         ],
         underglowEffects: [],
         keycodes: types_1.KeycodeType.WT,
-        supportedBacklightValues: [
-            types_1.BacklightConfig.BRIGHTNESS,
-            types_1.BacklightConfig.EFFECT,
-            types_1.BacklightConfig.EFFECT_SPEED,
-            types_1.BacklightConfig.DISABLE_AFTER_TIMEOUT,
-            types_1.BacklightConfig.DISABLE_WHEN_USB_SUSPENDED,
-            types_1.BacklightConfig.COLOR_1,
-            types_1.BacklightConfig.COLOR_2,
-            types_1.BacklightConfig.CAPS_LOCK_INDICATOR_COLOR,
-            types_1.BacklightConfig.CAPS_LOCK_INDICATOR_ROW_COL,
-            types_1.BacklightConfig.LAYER_1_INDICATOR_COLOR,
-            types_1.BacklightConfig.LAYER_1_INDICATOR_ROW_COL,
-            types_1.BacklightConfig.LAYER_2_INDICATOR_COLOR,
-            types_1.BacklightConfig.LAYER_2_INDICATOR_ROW_COL,
-            types_1.BacklightConfig.LAYER_3_INDICATOR_COLOR,
-            types_1.BacklightConfig.LAYER_3_INDICATOR_ROW_COL
+        supportedLightingValues: [
+            types_1.LightingValue.BACKLIGHT_BRIGHTNESS,
+            types_1.LightingValue.BACKLIGHT_EFFECT,
+            types_1.LightingValue.BACKLIGHT_EFFECT_SPEED,
+            types_1.LightingValue.BACKLIGHT_DISABLE_AFTER_TIMEOUT,
+            types_1.LightingValue.BACKLIGHT_DISABLE_WHEN_USB_SUSPENDED,
+            types_1.LightingValue.BACKLIGHT_COLOR_1,
+            types_1.LightingValue.BACKLIGHT_COLOR_2,
+            types_1.LightingValue.BACKLIGHT_CAPS_LOCK_INDICATOR_COLOR,
+            types_1.LightingValue.BACKLIGHT_CAPS_LOCK_INDICATOR_ROW_COL,
+            types_1.LightingValue.BACKLIGHT_LAYER_1_INDICATOR_COLOR,
+            types_1.LightingValue.BACKLIGHT_LAYER_1_INDICATOR_ROW_COL,
+            types_1.LightingValue.BACKLIGHT_LAYER_2_INDICATOR_COLOR,
+            types_1.LightingValue.BACKLIGHT_LAYER_2_INDICATOR_ROW_COL,
+            types_1.LightingValue.BACKLIGHT_LAYER_3_INDICATOR_COLOR,
+            types_1.LightingValue.BACKLIGHT_LAYER_3_INDICATOR_ROW_COL
         ]
     },
     _a);

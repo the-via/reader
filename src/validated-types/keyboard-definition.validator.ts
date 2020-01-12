@@ -24,8 +24,8 @@ export const KeyboardDefinitionSchema = {
       enum: [
         'none',
         'qmk_backlight',
-        'qmk_omnilight',
-        'qmk_underglow',
+        'qmk_backlight_rgblight',
+        'qmk_rgblight',
         'wt_mono_backlight',
         'wt_rgb_backlight'
       ],
