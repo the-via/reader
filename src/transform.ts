@@ -42,6 +42,26 @@ export function validateLayouts(
   return viaLayout;
 }
 
+export function validateKeyBounds(
+  matrix: VIADefinitionV2['matrix'],
+  layouts: VIADefinitionV2['layouts']
+) {
+  const {rows, cols} = matrix;
+  const optionKeys = Object.values(layouts.optionKeys).flatMap(group =>
+    Object.values(group).flat()
+  );
+  const oobKeys = layouts.keys
+    .concat(optionKeys)
+    .filter(({row, col}) => row >= rows || col >= cols);
+  if (oobKeys.length !== 0) {
+    throw new Error(
+      `The following keys reference a row or column outside of dimension defined in the matrix property: ${oobKeys
+        .map(({row, col}) => `(${row},${col})`)
+        .join(',')}`
+    );
+  }
+}
+
 export function keyboardDefinitionV2ToVIADefinitionV2(
   definition: KeyboardDefinitionV2
 ): VIADefinitionV2 {
@@ -56,10 +76,15 @@ export function keyboardDefinitionV2ToVIADefinitionV2(
 
   validateLayouts(layouts);
   const {keymap, ...partialLayout} = layouts;
+  const viaLayouts = {
+    ...partialLayout,
+    ...kleLayoutToVIALayout(layouts.keymap)
+  };
+  validateKeyBounds(matrix, viaLayouts);
   return {
     name,
     lighting,
-    layouts: {...partialLayout, ...kleLayoutToVIALayout(layouts.keymap)},
+    layouts: viaLayouts,
     matrix,
     customFeatures,
     customKeycodes,

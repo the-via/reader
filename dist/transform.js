@@ -50,14 +50,37 @@ function validateLayouts(layouts) {
     return viaLayout;
 }
 exports.validateLayouts = validateLayouts;
+function validateKeyBounds(matrix, layouts) {
+    var rows = matrix.rows, cols = matrix.cols;
+    var optionKeys = Object.values(layouts.optionKeys).flatMap(function (group) {
+        return Object.values(group).flat();
+    });
+    var oobKeys = layouts.keys
+        .concat(optionKeys)
+        .filter(function (_a) {
+        var row = _a.row, col = _a.col;
+        return row >= rows || col >= cols;
+    });
+    if (oobKeys.length !== 0) {
+        throw new Error("The following keys reference a row or column outside of dimension defined in the matrix property: " + oobKeys
+            .map(function (_a) {
+            var row = _a.row, col = _a.col;
+            return "(" + row + "," + col + ")";
+        })
+            .join(','));
+    }
+}
+exports.validateKeyBounds = validateKeyBounds;
 function keyboardDefinitionV2ToVIADefinitionV2(definition) {
     var _a = keyboard_definition_v2_validator_1.default(definition), name = _a.name, customFeatures = _a.customFeatures, customKeycodes = _a.customKeycodes, lighting = _a.lighting, matrix = _a.matrix, layouts = _a.layouts;
     validateLayouts(layouts);
     var keymap = layouts.keymap, partialLayout = __rest(layouts, ["keymap"]);
+    var viaLayouts = __assign(__assign({}, partialLayout), kle_parser_1.kleLayoutToVIALayout(layouts.keymap));
+    validateKeyBounds(matrix, viaLayouts);
     return {
         name: name,
         lighting: lighting,
-        layouts: __assign(__assign({}, partialLayout), kle_parser_1.kleLayoutToVIALayout(layouts.keymap)),
+        layouts: viaLayouts,
         matrix: matrix,
         customFeatures: customFeatures,
         customKeycodes: customKeycodes,
