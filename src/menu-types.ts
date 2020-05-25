@@ -11,7 +11,7 @@ type Conditional = {
 
 // A structure that allows a grouping of items, generally useful for conditionally rendering a block of controls
 // that share the same render condition
-type VIAGroup<A> = Conditional & Content<A[]>;
+type Group<A> = Conditional & Content<A[]>;
 
 // The "parameter" of the render function
 type Content<A> = {
@@ -53,7 +53,8 @@ type VIAControlItem = Item<Control & BindableContent>;
 type VIATextItem = Item<TextContent>;
 
 // VIA Groups
-export type VIAItem = VIAControlItem | VIATextItem;
-export type VIASubmenuSlice = VIAGroup<VIAItem>;
-export type VIASubmenu = Label & VIAGroup<VIAItem | VIASubmenuSlice>;
-export type VIAMenu = Label & VIAGroup<VIASubmenu>;
+export type VIAItem = VIATextItem | VIAControlItem;
+export type VIAItemSlice = Group<VIAItem>;
+export type VIASubmenuSlice = Group<VIASubmenu>;
+export type VIASubmenu = Label & Group<VIAItem | VIAItemSlice>;
+export type VIAMenu = Label & Group<VIASubmenu | VIASubmenuSlice>;

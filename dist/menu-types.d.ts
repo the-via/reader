@@ -5,7 +5,7 @@ declare type RawExpr = string;
 declare type Conditional = {
     showIf?: RawExpr;
 };
-declare type VIAGroup<A> = Conditional & Content<A[]>;
+declare type Group<A> = Conditional & Content<A[]>;
 declare type Content<A> = {
     content: A;
 };
@@ -31,8 +31,9 @@ declare type Item<A> = Label & Conditional & A;
 declare type Control = Keycode | Color | Toggle | Dropdown;
 declare type VIAControlItem = Item<Control & BindableContent>;
 declare type VIATextItem = Item<TextContent>;
-export declare type VIAItem = VIAControlItem | VIATextItem;
-export declare type VIASubmenuSlice = VIAGroup<VIAItem>;
-export declare type VIASubmenu = Label & VIAGroup<VIAItem | VIASubmenuSlice>;
-export declare type VIAMenu = Label & VIAGroup<VIASubmenu>;
+export declare type VIAItem = VIATextItem | VIAControlItem;
+export declare type VIAItemSlice = Group<VIAItem>;
+export declare type VIASubmenuSlice = Group<VIASubmenu>;
+export declare type VIASubmenu = Label & Group<VIAItem | VIAItemSlice>;
+export declare type VIAMenu = Label & Group<VIASubmenu | VIASubmenuSlice>;
 export {};
