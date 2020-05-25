@@ -27,30 +27,35 @@ type BindableContent = Content<CommandDef>;
 type CommandDef = [string, ...number[]];
 
 // VIA Controls
-type Keycode = {
-  type: 'keycode';
-};
-type Color = {
-  type: 'color';
-};
-
 type numNumArr = number | number[];
-
-type Toggle = {
+export type Toggle = {
   type: 'toggle';
   options?: [numNumArr, numNumArr];
 };
 
-type Dropdown = {
+export type Dropdown = {
   type: 'dropdown';
   options: (string | [string, ...number[]])[];
 };
 
+export type Range = {
+  type: 'range';
+  options: [number, number]; // [min, max]
+};
+
+export type Keycode = {
+  type: 'keycode';
+};
+
+export type Color = {
+  type: 'color';
+};
+
 // An atomic unit that represents a renderable unit - usually a Control
 type Item<A> = Label & Conditional & A;
-type Control = Keycode | Color | Toggle | Dropdown;
-type VIAControlItem = Item<Control & BindableContent>;
-type VIATextItem = Item<TextContent>;
+type Control = Keycode | Color | Toggle | Dropdown | Range;
+export type VIAControlItem = Control & Item<BindableContent>;
+export type VIATextItem = Item<TextContent>;
 
 // VIA Groups
 export type VIAItem = VIATextItem | VIAControlItem;
