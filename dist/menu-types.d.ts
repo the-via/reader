@@ -23,7 +23,7 @@ export declare type Dropdown = {
 };
 export declare type Range = {
     type: 'range';
-    options: [number, number];
+    options: [number, number, string?];
 };
 export declare type Keycode = {
     type: 'keycode';

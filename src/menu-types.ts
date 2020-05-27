@@ -40,7 +40,7 @@ export type Dropdown = {
 
 export type Range = {
   type: 'range';
-  options: [number, number]; // [min, max]
+  options: [number, number, string?]; // [min, max, unit?]
 };
 
 export type Keycode = {
