@@ -2,6 +2,11 @@ type Label = {
   label: string;
 };
 
+// A property that describes the byte-length of the setting value
+type ByteLength = {
+  bytes?: 1 | 2 | 3 | 4;
+};
+
 type RawExpr = string;
 
 // A property that when present, provides the option of not evaluating the block it represents
@@ -24,23 +29,26 @@ type TextContent = Content<string>;
 // For fetching the current value: <CustomCommand> <BindableContent>
 // For setting the current value: <CustomCommand> <BindableContent> <NewValue>
 type BindableContent = Content<CommandDef>;
-type CommandDef = [string, number, ...number[]];
 
-// VIA Controls
-type numNumArr = number | number[];
+// token_id, channel_id (nullable for backwards compat), command_id
+type CommandDef = [string, number | null, number];
+
+// VIA controls
+type NumNumArray = number | number[]; // needed to shoehorn wtrgb enable caps/hhkb/etc lighting for now
 export type Toggle = {
   type: 'toggle';
-  options?: [numNumArr, numNumArr];
+  options?: [NumNumArray, NumNumArray];
 };
 
 export type Dropdown = {
   type: 'dropdown';
-  options: (string | [string, ...number[]])[];
+  options: [string, number, ...number[]][];
 };
 
 export type Range = {
   type: 'range';
-  options: [number, number, string?]; // [min, max, unit?]
+  options: [number, number];
+  unit?: string;
 };
 
 export type Keycode = {
@@ -52,7 +60,7 @@ export type Color = {
 };
 
 // An atomic unit that represents a renderable unit - usually a Control
-type Item<A> = Label & Conditional & A;
+type Item<A> = Label & Conditional & ByteLength & A;
 type Control = Keycode | Color | Toggle | Dropdown | Range;
 export type VIAControlItem = Control & Item<BindableContent>;
 export type VIATextItem = Item<TextContent>;

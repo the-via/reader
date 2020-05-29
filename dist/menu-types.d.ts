@@ -1,6 +1,9 @@
 declare type Label = {
     label: string;
 };
+declare type ByteLength = {
+    bytes?: 1 | 2 | 3 | 4;
+};
 declare type RawExpr = string;
 declare type Conditional = {
     showIf?: RawExpr;
@@ -11,19 +14,20 @@ declare type Content<A> = {
 };
 declare type TextContent = Content<string>;
 declare type BindableContent = Content<CommandDef>;
-declare type CommandDef = [string, number, ...number[]];
-declare type numNumArr = number | number[];
+declare type CommandDef = [string, number | null, number];
+declare type NumNumArray = number | number[];
 export declare type Toggle = {
     type: 'toggle';
-    options?: [numNumArr, numNumArr];
+    options?: [NumNumArray, NumNumArray];
 };
 export declare type Dropdown = {
     type: 'dropdown';
-    options: (string | [string, ...number[]])[];
+    options: [string, number, ...number[]][];
 };
 export declare type Range = {
     type: 'range';
-    options: [number, number, string?];
+    options: [number, number];
+    unit?: string;
 };
 export declare type Keycode = {
     type: 'keycode';
@@ -31,7 +35,7 @@ export declare type Keycode = {
 export declare type Color = {
     type: 'color';
 };
-declare type Item<A> = Label & Conditional & A;
+declare type Item<A> = Label & Conditional & ByteLength & A;
 declare type Control = Keycode | Color | Toggle | Dropdown | Range;
 export declare type VIAControlItem = Control & Item<BindableContent>;
 export declare type VIATextItem = Item<TextContent>;
