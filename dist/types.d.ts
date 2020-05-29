@@ -1,3 +1,4 @@
+import { VIAMenu } from './menu-types';
 export declare enum LightingValue {
     BACKLIGHT_USE_SPLIT_BACKSPACE = 1,
     BACKLIGHT_USE_SPLIT_LEFT_SHIFT = 2,
@@ -146,6 +147,7 @@ export declare type KeyboardDefinitionV2 = {
     matrix: MatrixInfo;
     customFeatures?: CustomFeatures[];
     customKeycodes?: CustomKeycode[];
+    customMenus?: VIAMenu[];
     layouts: {
         keymap: KLELayoutDefinition;
         labels?: LayoutLabel[];
@@ -202,6 +204,7 @@ export declare type VIADefinitionV2 = {
     matrix: MatrixInfo;
     customFeatures?: CustomFeatures[];
     customKeycodes?: CustomKeycode[];
+    customMenus?: VIAMenu[];
     layouts: {
         width: number;
         height: number;

@@ -1,12 +1,9 @@
-import { KeyboardDefinition, KeyboardDefinitionV2, VIADefinition, VIADefinitionV2, VIALightingTypeDefinition, LightingTypeDefinition, LightingTypeDefinitionV2, VIALayout } from './types';
+import { KeyboardDefinition, KeyboardDefinitionV2, VIADefinition, VIADefinitionV2, VIALightingTypeDefinition, LightingTypeDefinitionV2, VIALayout } from './types';
 export { VIADefinition, KeyboardDefinition };
 export declare function getVendorProductId({ productId, vendorId }: Pick<KeyboardDefinitionV2, 'productId' | 'vendorId'>): number;
 export declare function validateLayouts(layouts: KeyboardDefinitionV2['layouts']): VIALayout;
 export declare function validateKeyBounds(matrix: VIADefinitionV2['matrix'], layouts: VIADefinitionV2['layouts']): void;
 export declare function keyboardDefinitionV2ToVIADefinitionV2(definition: KeyboardDefinitionV2): VIADefinitionV2;
-export declare const Preset: {
-    [K in LightingTypeDefinition]: VIALightingTypeDefinition;
-};
 export declare function getLightingDefinition(definition: LightingTypeDefinitionV2): VIALightingTypeDefinition;
 export declare function keyboardDefinitionToVIADefinition(definition: KeyboardDefinition): VIADefinition;
 export declare function generateVIADefinitionLookupMap(definitions: KeyboardDefinition[]): {};

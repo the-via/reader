@@ -24,12 +24,11 @@ var __rest = (this && this.__rest) || function (s, e) {
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
-var _a;
 Object.defineProperty(exports, "__esModule", { value: true });
 var kle_parser_1 = require("./kle-parser");
 var keyboard_definition_validator_1 = __importDefault(require("./validated-types/keyboard-definition.validator"));
 var keyboard_definition_v2_validator_1 = __importDefault(require("./validated-types/keyboard-definition-v2.validator"));
-var types_1 = require("./types");
+var lighting_presets_1 = require("./lighting-presets");
 function getVendorProductId(_a) {
     var productId = _a.productId, vendorId = _a.vendorId;
     var parsedVendorId = parseInt(vendorId, 16);
@@ -88,185 +87,12 @@ function keyboardDefinitionV2ToVIADefinitionV2(definition) {
     };
 }
 exports.keyboardDefinitionV2ToVIADefinitionV2 = keyboardDefinitionV2ToVIADefinitionV2;
-exports.Preset = (_a = {},
-    _a[types_1.LightingTypeDefinition.None] = {
-        effects: [],
-        underglowEffects: [],
-        keycodes: types_1.KeycodeType.None,
-        supportedLightingValues: []
-    },
-    _a[types_1.LightingTypeDefinition.QMKLighting] = {
-        effects: [
-            ['Off', 0],
-            ['On', 0]
-        ],
-        underglowEffects: [],
-        keycodes: types_1.KeycodeType.QMK,
-        supportedLightingValues: [
-            types_1.LightingValue.BACKLIGHT_BRIGHTNESS,
-            types_1.LightingValue.BACKLIGHT_EFFECT
-        ]
-    },
-    _a[types_1.LightingTypeDefinition.QMKBacklightRGBLight] = {
-        effects: [
-            ['Off', 0],
-            ['On', 0]
-        ],
-        underglowEffects: [
-            ['All Off', 0],
-            ['Solid Color', 1],
-            ['Breathing 1', 1],
-            ['Breathing 2', 1],
-            ['Breathing 3', 1],
-            ['Breathing 4', 1],
-            ['Rainbow Mood 1', 0],
-            ['Rainbow Mood 2', 0],
-            ['Rainbow Mood 3', 0],
-            ['Rainbow Swirl 1', 0],
-            ['Rainbow Swirl 2', 0],
-            ['Rainbow Swirl 3', 0],
-            ['Rainbow Swirl 4', 0],
-            ['Rainbow Swirl 5', 0],
-            ['Rainbow Swirl 6', 0],
-            ['Snake 1', 1],
-            ['Snake 2', 1],
-            ['Snake 3', 1],
-            ['Snake 4', 1],
-            ['Snake 5', 1],
-            ['Snake 6', 1],
-            ['Knight 1', 1],
-            ['Knight 2', 1],
-            ['Knight 3', 1],
-            ['Christmas', 1],
-            ['Gradient 1', 1],
-            ['Gradient 2', 1],
-            ['Gradient 3', 1],
-            ['Gradient 4', 1],
-            ['Gradient 5', 1],
-            ['Gradient 6', 1],
-            ['Gradient 7', 1],
-            ['Gradient 8', 1],
-            ['Gradient 9', 1],
-            ['Gradient 10', 1],
-            ['RGB Test', 1],
-            ['Alternating', 1]
-        ],
-        keycodes: types_1.KeycodeType.QMK,
-        supportedLightingValues: [
-            types_1.LightingValue.BACKLIGHT_BRIGHTNESS,
-            types_1.LightingValue.BACKLIGHT_EFFECT,
-            types_1.LightingValue.QMK_RGBLIGHT_BRIGHTNESS,
-            types_1.LightingValue.QMK_RGBLIGHT_EFFECT,
-            types_1.LightingValue.QMK_RGBLIGHT_EFFECT_SPEED,
-            types_1.LightingValue.QMK_RGBLIGHT_COLOR
-        ]
-    },
-    _a[types_1.LightingTypeDefinition.QMKRGBLight] = {
-        effects: [],
-        underglowEffects: [
-            ['All Off', 0],
-            ['Solid Color', 1],
-            ['Breathing 1', 1],
-            ['Breathing 2', 1],
-            ['Breathing 3', 1],
-            ['Breathing 4', 1],
-            ['Rainbow Mood 1', 0],
-            ['Rainbow Mood 2', 0],
-            ['Rainbow Mood 3', 0],
-            ['Rainbow Swirl 1', 0],
-            ['Rainbow Swirl 2', 0],
-            ['Rainbow Swirl 3', 0],
-            ['Rainbow Swirl 4', 0],
-            ['Rainbow Swirl 5', 0],
-            ['Rainbow Swirl 6', 0],
-            ['Snake 1', 1],
-            ['Snake 2', 1],
-            ['Snake 3', 1],
-            ['Snake 4', 1],
-            ['Snake 5', 1],
-            ['Snake 6', 1],
-            ['Knight 1', 1],
-            ['Knight 2', 1],
-            ['Knight 3', 1],
-            ['Christmas', 1],
-            ['Gradient 1', 1],
-            ['Gradient 2', 1],
-            ['Gradient 3', 1],
-            ['Gradient 4', 1],
-            ['Gradient 5', 1],
-            ['Gradient 6', 1],
-            ['Gradient 7', 1],
-            ['Gradient 8', 1],
-            ['Gradient 9', 1],
-            ['Gradient 10', 1],
-            ['RGB Test', 1],
-            ['Alternating', 1]
-        ],
-        keycodes: types_1.KeycodeType.QMK,
-        supportedLightingValues: [
-            types_1.LightingValue.QMK_RGBLIGHT_BRIGHTNESS,
-            types_1.LightingValue.QMK_RGBLIGHT_EFFECT,
-            types_1.LightingValue.QMK_RGBLIGHT_EFFECT_SPEED,
-            types_1.LightingValue.QMK_RGBLIGHT_COLOR
-        ]
-    },
-    _a[types_1.LightingTypeDefinition.WTMonoBacklight] = {
-        effects: [
-            ['All Off', 0],
-            ['All On', 0],
-            ['Raindrops', 0]
-        ],
-        underglowEffects: [],
-        keycodes: types_1.KeycodeType.WT,
-        supportedLightingValues: [
-            types_1.LightingValue.BACKLIGHT_BRIGHTNESS,
-            types_1.LightingValue.BACKLIGHT_EFFECT,
-            types_1.LightingValue.BACKLIGHT_EFFECT_SPEED,
-            types_1.LightingValue.BACKLIGHT_DISABLE_AFTER_TIMEOUT,
-            types_1.LightingValue.BACKLIGHT_DISABLE_WHEN_USB_SUSPENDED
-        ]
-    },
-    _a[types_1.LightingTypeDefinition.WTRGBBacklight] = {
-        effects: [
-            ['All Off', 0],
-            ['Solid Color 1', 1],
-            ['Alphas/Mods Color 1/2', 2],
-            ['Gradient Vertical Color 1/2', 2],
-            ['Raindrops Color 1/2', 2],
-            ['Cycle All', 0],
-            ['Cycle Horizontal', 0],
-            ['Cycle Vertical', 0],
-            ['Jellybean Raindrops', 0],
-            ['Radial All Hues', 0],
-            ['Radial Color 1', 1]
-        ],
-        underglowEffects: [],
-        keycodes: types_1.KeycodeType.WT,
-        supportedLightingValues: [
-            types_1.LightingValue.BACKLIGHT_BRIGHTNESS,
-            types_1.LightingValue.BACKLIGHT_EFFECT,
-            types_1.LightingValue.BACKLIGHT_EFFECT_SPEED,
-            types_1.LightingValue.BACKLIGHT_DISABLE_AFTER_TIMEOUT,
-            types_1.LightingValue.BACKLIGHT_DISABLE_WHEN_USB_SUSPENDED,
-            types_1.LightingValue.BACKLIGHT_COLOR_1,
-            types_1.LightingValue.BACKLIGHT_COLOR_2,
-            types_1.LightingValue.BACKLIGHT_CAPS_LOCK_INDICATOR_COLOR,
-            types_1.LightingValue.BACKLIGHT_CAPS_LOCK_INDICATOR_ROW_COL,
-            types_1.LightingValue.BACKLIGHT_LAYER_1_INDICATOR_COLOR,
-            types_1.LightingValue.BACKLIGHT_LAYER_1_INDICATOR_ROW_COL,
-            types_1.LightingValue.BACKLIGHT_LAYER_2_INDICATOR_COLOR,
-            types_1.LightingValue.BACKLIGHT_LAYER_2_INDICATOR_ROW_COL,
-            types_1.LightingValue.BACKLIGHT_LAYER_3_INDICATOR_COLOR,
-            types_1.LightingValue.BACKLIGHT_LAYER_3_INDICATOR_ROW_COL
-        ]
-    },
-    _a);
 function getLightingDefinition(definition) {
     if (typeof definition === 'string') {
-        return exports.Preset[definition];
+        return lighting_presets_1.LightingPreset[definition];
     }
     else {
-        return __assign(__assign({}, exports.Preset[definition.extends]), definition);
+        return __assign(__assign({}, lighting_presets_1.LightingPreset[definition.extends]), definition);
     }
 }
 exports.getLightingDefinition = getLightingDefinition;
