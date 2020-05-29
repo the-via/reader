@@ -24,7 +24,7 @@ type TextContent = Content<string>;
 // For fetching the current value: <CustomCommand> <BindableContent>
 // For setting the current value: <CustomCommand> <BindableContent> <NewValue>
 type BindableContent = Content<CommandDef>;
-type CommandDef = [string, ...number[]];
+type CommandDef = [string, number, ...number[]];
 
 // VIA Controls
 type numNumArr = number | number[];
