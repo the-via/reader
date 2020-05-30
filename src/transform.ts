@@ -66,6 +66,7 @@ export function keyboardDefinitionV2ToVIADefinitionV2(
   const {
     name,
     customFeatures,
+    customMenus,
     customKeycodes,
     lighting,
     matrix,
@@ -86,6 +87,7 @@ export function keyboardDefinitionV2ToVIADefinitionV2(
     matrix,
     customFeatures,
     customKeycodes,
+    customMenus,
     vendorProductId: getVendorProductId(definition)
   };
 }

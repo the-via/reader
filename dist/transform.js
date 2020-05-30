@@ -71,7 +71,7 @@ function validateKeyBounds(matrix, layouts) {
 }
 exports.validateKeyBounds = validateKeyBounds;
 function keyboardDefinitionV2ToVIADefinitionV2(definition) {
-    var _a = keyboard_definition_v2_validator_1.default(definition), name = _a.name, customFeatures = _a.customFeatures, customKeycodes = _a.customKeycodes, lighting = _a.lighting, matrix = _a.matrix, layouts = _a.layouts;
+    var _a = keyboard_definition_v2_validator_1.default(definition), name = _a.name, customFeatures = _a.customFeatures, customMenus = _a.customMenus, customKeycodes = _a.customKeycodes, lighting = _a.lighting, matrix = _a.matrix, layouts = _a.layouts;
     validateLayouts(layouts);
     var keymap = layouts.keymap, partialLayout = __rest(layouts, ["keymap"]);
     var viaLayouts = __assign(__assign({}, partialLayout), kle_parser_1.kleLayoutToVIALayout(layouts.keymap));
@@ -83,6 +83,7 @@ function keyboardDefinitionV2ToVIADefinitionV2(definition) {
         matrix: matrix,
         customFeatures: customFeatures,
         customKeycodes: customKeycodes,
+        customMenus: customMenus,
         vendorProductId: getVendorProductId(definition)
     };
 }
