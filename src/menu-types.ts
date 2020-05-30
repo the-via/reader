@@ -4,7 +4,7 @@ type Label = {
 
 // A property that describes the byte-length of the setting value
 type ByteLength = {
-  bytes?: 1 | 2 | 3 | 4;
+  bytes?: 1 | 2 | 3 | 4; // default should be 1
 };
 
 type RawExpr = string;
@@ -30,8 +30,8 @@ type TextContent = Content<string>;
 // For setting the current value: <CustomCommand> <BindableContent> <NewValue>
 type BindableContent = Content<CommandDef>;
 
-// token_id, channel_id (nullable for backwards compat), command_id
-type CommandDef = [string, number | null, number];
+// token_id, channel_id, command_id
+type CommandDef = [string, number, number];
 
 // VIA controls
 type NumNumArray = number | number[]; // needed to shoehorn wtrgb enable caps/hhkb/etc lighting for now

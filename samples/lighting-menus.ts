@@ -11,7 +11,7 @@ export const WTRGBMenu: VIAMenu = {
           type: 'range',
           // bytes?: 1 (default)
           options: [0, 100],
-          content: ['brightness', null, 0x09],
+          content: ['brightness', 0x00, 0x09],
         },
         {
           label: 'Effect',
@@ -29,13 +29,13 @@ export const WTRGBMenu: VIAMenu = {
             ['Radial All Hues', 0],
             ['Radial Color 1', 1],
           ],
-          content: ['effect', null, 0x0a],
+          content: ['effect', 0x00, 0x0a],
         },
         {
           label: 'Effect Speed',
           type: 'range',
           options: [0, 3],
-          content: ['effect_speed', null, 0x0b],
+          content: ['effect_speed', 0x00, 0x0b],
         },
         {
           showIf: '{effect} != 0',
@@ -43,7 +43,7 @@ export const WTRGBMenu: VIAMenu = {
             {
               label: 'Color 1',
               type: 'color',
-              content: ['color_1', null, 0x0c],
+              content: ['color_1', 0x00, 0x0c],
             },
           ],
         },
@@ -53,7 +53,7 @@ export const WTRGBMenu: VIAMenu = {
             {
               label: 'Color 2',
               type: 'color',
-              content: ['color_2', null, 0x0d],
+              content: ['color_2', 0x00, 0x0d],
             },
           ],
         },
@@ -66,14 +66,14 @@ export const WTRGBMenu: VIAMenu = {
           label: 'Disable LEDs when USB is suspended',
           type: 'toggle',
           // options: [0,1] <- optional explicit, defaults to this
-          content: ['backlight_disable_when_usb_suspended', null, 0x07],
+          content: ['backlight_disable_when_usb_suspended', 0x00, 0x07],
         },
         {
           label: 'LED Sleep Timeout',
           type: 'range',
           options: [0, 255],
           unit: 'mins',
-          content: ['backlight_disable_after_timeout', null, 0x08],
+          content: ['backlight_disable_after_timeout', 0x00, 0x08],
         },
         {
           label: 'Caps Lock indicator',
@@ -82,13 +82,13 @@ export const WTRGBMenu: VIAMenu = {
             [255, 255],
             [254, 254],
           ],
-          content: ['backlight_caps_lock_indicator', null, 0x0f],
+          content: ['backlight_caps_lock_indicator', 0x00, 0x0f],
         },
         {
           label: 'Caps Lock indicator color',
           type: 'color',
           showIf: 'backlight_caps_lock_indicator.0 == 254',
-          content: ['backlight_caps_lock_indicator_color', null, 0x0e],
+          content: ['backlight_caps_lock_indicator_color', 0x00, 0x0e],
         },
         {
           label: 'Layer 1 indicator',
@@ -97,13 +97,13 @@ export const WTRGBMenu: VIAMenu = {
             [255, 255],
             [254, 254],
           ],
-          content: ['backlight_layer_1_indicator', null, 0x11],
+          content: ['backlight_layer_1_indicator', 0x00, 0x11],
         },
         {
           label: 'Layer 1 indicator color',
           type: 'color',
           showIf: 'backlight_caps_lock_indicator.0 == 254',
-          content: ['backlight_layer_1_indicator_color', null, 0x10],
+          content: ['backlight_layer_1_indicator_color', 0x00, 0x10],
         },
         {
           label: 'Layer 2 indicator',
@@ -112,13 +112,13 @@ export const WTRGBMenu: VIAMenu = {
             [255, 255],
             [254, 254],
           ],
-          content: ['backlight_layer_1_indicator', null, 0x13],
+          content: ['backlight_layer_1_indicator', 0x00, 0x13],
         },
         {
           label: 'Layer 2 indicator color',
           type: 'color',
           showIf: 'backlight_caps_lock_indicator.0 == 254',
-          content: ['backlight_layer_1_indicator_color', null, 0x12],
+          content: ['backlight_layer_1_indicator_color', 0x00, 0x12],
         },
         {
           label: 'Layer 3 indicator',
@@ -127,13 +127,13 @@ export const WTRGBMenu: VIAMenu = {
             [255, 255],
             [254, 254],
           ],
-          content: ['backlight_layer_1_indicator', null, 0x15],
+          content: ['backlight_layer_1_indicator', 0x00, 0x15],
         },
         {
           label: 'Layer 3 indicator color',
           type: 'color',
           showIf: 'backlight_caps_lock_indicator.0 == 254',
-          content: ['backlight_layer_1_indicator_color', null, 0x14],
+          content: ['backlight_layer_1_indicator_color', 0x00, 0x14],
         },
       ],
     },
@@ -149,19 +149,19 @@ export const QMKLightingMenu: VIAMenu = {
         {
           label: 'Backlight',
           type: 'toggle',
-          content: ['backlight', null, 0x0a],
+          content: ['backlight', 0x00, 0x0a],
         },
         {
           showIf: '{backlight',
           label: 'Brightness',
           type: 'range',
           options: [0, 100],
-          content: ['brightness', null, 0x09],
+          content: ['brightness', 0x00, 0x09],
         },
         {
           label: 'Underglow effect',
           type: 'dropdown',
-          content: ['underglowEffect', null, 0x81],
+          content: ['underglowEffect', 0x00, 0x81],
           options: [
             ['All Off', 0],
             ['Solid Color', 1],
@@ -207,14 +207,14 @@ export const QMKLightingMenu: VIAMenu = {
           label: 'Underglow Brightness',
           type: 'range',
           options: [0, 100],
-          content: ['underglowBrightness', null, 0x80],
+          content: ['underglowBrightness', 0x00, 0x80],
         },
         {
           showIf: '{underglowEffect} != 0',
           label: 'Underglow Effect Speed',
           type: 'range',
           options: [0, 3],
-          content: ['underglowEffectSpeed', null, 0x82],
+          content: ['underglowEffectSpeed', 0x00, 0x82],
         },
       ],
     },

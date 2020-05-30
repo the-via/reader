@@ -14,7 +14,7 @@ declare type Content<A> = {
 };
 declare type TextContent = Content<string>;
 declare type BindableContent = Content<CommandDef>;
-declare type CommandDef = [string, number | null, number];
+declare type CommandDef = [string, number, number];
 declare type NumNumArray = number | number[];
 export declare type Toggle = {
     type: 'toggle';
