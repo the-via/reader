@@ -1,29 +1,19 @@
 import {kleLayoutToVIALayout} from './kle-parser';
-import validate from './validated-types/keyboard-definition.validator';
-import validateV2 from './validated-types/keyboard-definition-v2.validator';
-import {
-  KeyboardDefinition,
-  KeyboardDefinitionV2,
-  VIADefinition,
-  VIADefinitionV2,
-  VIALightingTypeDefinition,
-  LightingTypeDefinitionV2,
-  VIALayout
-} from './types';
-import {LightingPreset} from './lighting-presets';
-export {VIADefinition, KeyboardDefinition};
+import validateV3 from './validated-types/keyboard-definition-v3.validator';
+import {KeyboardDefinitionV3, VIADefinitionV3, VIALayout} from './types';
+export {VIADefinitionV3, KeyboardDefinitionV3};
 
 export function getVendorProductId({
   productId,
-  vendorId
-}: Pick<KeyboardDefinitionV2, 'productId' | 'vendorId'>): number {
+  vendorId,
+}: Pick<KeyboardDefinitionV3, 'productId' | 'vendorId'>): number {
   const parsedVendorId = parseInt(vendorId, 16);
   const parsedProductId = parseInt(productId, 16);
   return parsedVendorId * 65536 + parsedProductId;
 }
 
 export function validateLayouts(
-  layouts: KeyboardDefinitionV2['layouts']
+  layouts: KeyboardDefinitionV3['layouts']
 ): VIALayout {
   const {labels = [], keymap} = layouts;
   const viaLayout = kleLayoutToVIALayout(keymap);
@@ -41,11 +31,11 @@ export function validateLayouts(
 }
 
 export function validateKeyBounds(
-  matrix: VIADefinitionV2['matrix'],
-  layouts: VIADefinitionV2['layouts']
+  matrix: VIADefinitionV3['matrix'],
+  layouts: VIADefinitionV3['layouts']
 ) {
   const {rows, cols} = matrix;
-  const optionKeys = Object.values(layouts.optionKeys).flatMap(group =>
+  const optionKeys = Object.values(layouts.optionKeys).flatMap((group) =>
     Object.values(group).flat()
   );
   const oobKeys = layouts.keys
@@ -60,77 +50,27 @@ export function validateKeyBounds(
   }
 }
 
-export function keyboardDefinitionV2ToVIADefinitionV2(
-  definition: KeyboardDefinitionV2
-): VIADefinitionV2 {
-  const {
-    name,
-    customFeatures,
-    customMenus,
-    customKeycodes,
-    lighting,
-    matrix,
-    layouts
-  } = validateV2(definition);
+export function keyboardDefinitionV3ToVIADefinitionV3(
+  definition: KeyboardDefinitionV3
+): VIADefinitionV3 {
+  const {name, menus, customMenus, keycodes, matrix, layouts} = validateV3(
+    definition
+  );
 
   validateLayouts(layouts);
   const {keymap, ...partialLayout} = layouts;
   const viaLayouts = {
     ...partialLayout,
-    ...kleLayoutToVIALayout(layouts.keymap)
+    ...kleLayoutToVIALayout(layouts.keymap),
   };
   validateKeyBounds(matrix, viaLayouts);
   return {
     name,
-    lighting,
     layouts: viaLayouts,
     matrix,
-    customFeatures,
-    customKeycodes,
+    menus,
     customMenus,
-    vendorProductId: getVendorProductId(definition)
+    keycodes,
+    vendorProductId: getVendorProductId(definition),
   };
-}
-
-export function getLightingDefinition(
-  definition: LightingTypeDefinitionV2
-): VIALightingTypeDefinition {
-  if (typeof definition === 'string') {
-    return LightingPreset[definition];
-  } else {
-    return {...LightingPreset[definition.extends], ...definition};
-  }
-}
-
-export function keyboardDefinitionToVIADefinition(
-  definition: KeyboardDefinition
-): VIADefinition {
-  const {name, lighting, matrix} = validate(definition);
-  const layouts = Object.entries(definition.layouts).reduce(
-    (p, [k, v]) => ({...p, [k]: kleLayoutToVIALayout(v)}),
-    {}
-  );
-  return {
-    name,
-    lighting,
-    layouts,
-    matrix,
-    vendorProductId: getVendorProductId(definition)
-  };
-}
-
-export function generateVIADefinitionLookupMap(
-  definitions: KeyboardDefinition[]
-) {
-  return definitions
-    .map(keyboardDefinitionToVIADefinition)
-    .reduce((p, n) => ({...p, [n.vendorProductId]: n}), {});
-}
-
-export function generateVIADefinitionV2LookupMap(
-  definitions: KeyboardDefinitionV2[]
-) {
-  return definitions
-    .map(keyboardDefinitionV2ToVIADefinitionV2)
-    .reduce((p, n) => ({...p, [n.vendorProductId]: n}), {});
 }

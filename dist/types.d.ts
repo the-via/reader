@@ -1,32 +1,4 @@
 import { VIAMenu } from './menu-types';
-export declare enum LightingValue {
-    BACKLIGHT_USE_SPLIT_BACKSPACE = 1,
-    BACKLIGHT_USE_SPLIT_LEFT_SHIFT = 2,
-    BACKLIGHT_USE_SPLIT_RIGHT_SHIFT = 3,
-    BACKLIGHT_USE_7U_SPACEBAR = 4,
-    BACKLIGHT_USE_ISO_ENTER = 5,
-    BACKLIGHT_DISABLE_HHKB_BLOCKER_LEDS = 6,
-    BACKLIGHT_DISABLE_WHEN_USB_SUSPENDED = 7,
-    BACKLIGHT_DISABLE_AFTER_TIMEOUT = 8,
-    BACKLIGHT_BRIGHTNESS = 9,
-    BACKLIGHT_EFFECT = 10,
-    BACKLIGHT_EFFECT_SPEED = 11,
-    BACKLIGHT_COLOR_1 = 12,
-    BACKLIGHT_COLOR_2 = 13,
-    BACKLIGHT_CAPS_LOCK_INDICATOR_COLOR = 14,
-    BACKLIGHT_CAPS_LOCK_INDICATOR_ROW_COL = 15,
-    BACKLIGHT_LAYER_1_INDICATOR_COLOR = 16,
-    BACKLIGHT_LAYER_1_INDICATOR_ROW_COL = 17,
-    BACKLIGHT_LAYER_2_INDICATOR_COLOR = 18,
-    BACKLIGHT_LAYER_2_INDICATOR_ROW_COL = 19,
-    BACKLIGHT_LAYER_3_INDICATOR_COLOR = 20,
-    BACKLIGHT_LAYER_3_INDICATOR_ROW_COL = 21,
-    BACKLIGHT_CUSTOM_COLOR = 23,
-    QMK_RGBLIGHT_BRIGHTNESS = 128,
-    QMK_RGBLIGHT_EFFECT = 129,
-    QMK_RGBLIGHT_EFFECT_SPEED = 130,
-    QMK_RGBLIGHT_COLOR = 131
-}
 export declare type Rotation = {
     r: number;
     rx: number;
@@ -95,14 +67,6 @@ export declare type Result = {
 export declare type VIAKey = Omit<Result, keyof Formatting | 'group' | 'd'> & {
     color: KeyColorType;
 };
-export declare enum LightingTypeDefinition {
-    None = "none",
-    QMKLighting = "qmk_backlight",
-    QMKRGBLight = "qmk_rgblight",
-    QMKBacklightRGBLight = "qmk_backlight_rgblight",
-    WTRGBBacklight = "wt_rgb_backlight",
-    WTMonoBacklight = "wt_mono_backlight"
-}
 export declare enum KeycodeType {
     QMK = "qmk",
     WT = "wt",
@@ -121,33 +85,39 @@ export declare type MatrixInfo = {
     rows: number;
     cols: number;
 };
-export declare type KeyboardDefinition = {
-    name: string;
-    vendorId: string;
-    productId: string;
-    lighting: LightingTypeDefinition;
-    matrix: MatrixInfo;
-    layouts: {
-        [name: string]: KLELayoutDefinition;
-    };
-};
 export declare type CustomKeycode = {
     name: string;
     title: string;
     shortName?: string;
+    hexValue: string;
 };
 export declare enum CustomFeatures {
     RotaryEncoder = "rotary-encoder"
 }
-export declare type KeyboardDefinitionV2 = {
+export declare enum MenuId {
+    Basic = "basic",
+    Lighting = "lighting",
+    Media = "media",
+    Macro = "macro",
+    Layers = "layers",
+    Special = "special",
+    Custom = "custom"
+}
+export declare enum BuiltInKeycodeModule {
+    Default = "via/keycodes",
+    QMKLighting = "core/keycodes/qmk_lighting"
+}
+export declare type KeyboardDefinitionV3 = {
     name: string;
     vendorId: string;
     productId: string;
-    lighting: LightingTypeDefinitionV2;
     matrix: MatrixInfo;
-    customFeatures?: CustomFeatures[];
-    customKeycodes?: CustomKeycode[];
+    menus: string[];
     customMenus?: VIAMenu[];
+    keycodes?: (BuiltInKeycodeModule | {
+        menu: MenuId;
+        keycodes: CustomKeycode[];
+    })[];
     layouts: {
         keymap: KLELayoutDefinition;
         labels?: LayoutLabel[];
@@ -156,19 +126,7 @@ export declare type KeyboardDefinitionV2 = {
         };
     };
 };
-declare type ColorsNeeded = number;
-declare type EffectTuple = [string, ColorsNeeded];
 declare type LayoutLabel = string | string[];
-export declare type VIALightingTypeDefinition = {
-    effects: EffectTuple[];
-    underglowEffects: EffectTuple[];
-    keycodes: KeycodeType;
-    supportedLightingValues: LightingValue[];
-};
-export declare type CustomLightingTypeDefinition = Partial<VIALightingTypeDefinition> & {
-    extends: LightingTypeDefinition;
-};
-export declare type LightingTypeDefinitionV2 = LightingTypeDefinition | CustomLightingTypeDefinition;
 export declare enum KeyColorType {
     Alpha = "alpha",
     Mod = "mod",
@@ -188,23 +146,16 @@ export declare type VIALayout = {
         };
     };
 };
-export declare type VIADefinition = {
+export declare type VIADefinitionV3 = {
     name: string;
     vendorProductId: number;
-    lighting: LightingTypeDefinition;
     matrix: MatrixInfo;
-    layouts: {
-        [layoutName: string]: VIALayout;
-    };
-};
-export declare type VIADefinitionV2 = {
-    name: string;
-    vendorProductId: number;
-    lighting: LightingTypeDefinitionV2;
-    matrix: MatrixInfo;
-    customFeatures?: CustomFeatures[];
-    customKeycodes?: CustomKeycode[];
+    menus: string[];
     customMenus?: VIAMenu[];
+    keycodes?: (BuiltInKeycodeModule | {
+        menu: MenuId;
+        keycodes: CustomKeycode[];
+    })[];
     layouts: {
         width: number;
         height: number;

@@ -26,9 +26,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var kle_parser_1 = require("./kle-parser");
-var keyboard_definition_validator_1 = __importDefault(require("./validated-types/keyboard-definition.validator"));
-var keyboard_definition_v2_validator_1 = __importDefault(require("./validated-types/keyboard-definition-v2.validator"));
-var lighting_presets_1 = require("./lighting-presets");
+var keyboard_definition_v3_validator_1 = __importDefault(require("./validated-types/keyboard-definition-v3.validator"));
 function getVendorProductId(_a) {
     var productId = _a.productId, vendorId = _a.vendorId;
     var parsedVendorId = parseInt(vendorId, 16);
@@ -70,64 +68,20 @@ function validateKeyBounds(matrix, layouts) {
     }
 }
 exports.validateKeyBounds = validateKeyBounds;
-function keyboardDefinitionV2ToVIADefinitionV2(definition) {
-    var _a = keyboard_definition_v2_validator_1.default(definition), name = _a.name, customFeatures = _a.customFeatures, customMenus = _a.customMenus, customKeycodes = _a.customKeycodes, lighting = _a.lighting, matrix = _a.matrix, layouts = _a.layouts;
+function keyboardDefinitionV3ToVIADefinitionV3(definition) {
+    var _a = keyboard_definition_v3_validator_1.default(definition), name = _a.name, menus = _a.menus, customMenus = _a.customMenus, keycodes = _a.keycodes, matrix = _a.matrix, layouts = _a.layouts;
     validateLayouts(layouts);
     var keymap = layouts.keymap, partialLayout = __rest(layouts, ["keymap"]);
     var viaLayouts = __assign(__assign({}, partialLayout), kle_parser_1.kleLayoutToVIALayout(layouts.keymap));
     validateKeyBounds(matrix, viaLayouts);
     return {
         name: name,
-        lighting: lighting,
         layouts: viaLayouts,
         matrix: matrix,
-        customFeatures: customFeatures,
-        customKeycodes: customKeycodes,
+        menus: menus,
         customMenus: customMenus,
-        vendorProductId: getVendorProductId(definition)
+        keycodes: keycodes,
+        vendorProductId: getVendorProductId(definition),
     };
 }
-exports.keyboardDefinitionV2ToVIADefinitionV2 = keyboardDefinitionV2ToVIADefinitionV2;
-function getLightingDefinition(definition) {
-    if (typeof definition === 'string') {
-        return lighting_presets_1.LightingPreset[definition];
-    }
-    else {
-        return __assign(__assign({}, lighting_presets_1.LightingPreset[definition.extends]), definition);
-    }
-}
-exports.getLightingDefinition = getLightingDefinition;
-function keyboardDefinitionToVIADefinition(definition) {
-    var _a = keyboard_definition_validator_1.default(definition), name = _a.name, lighting = _a.lighting, matrix = _a.matrix;
-    var layouts = Object.entries(definition.layouts).reduce(function (p, _a) {
-        var _b;
-        var k = _a[0], v = _a[1];
-        return (__assign(__assign({}, p), (_b = {}, _b[k] = kle_parser_1.kleLayoutToVIALayout(v), _b)));
-    }, {});
-    return {
-        name: name,
-        lighting: lighting,
-        layouts: layouts,
-        matrix: matrix,
-        vendorProductId: getVendorProductId(definition)
-    };
-}
-exports.keyboardDefinitionToVIADefinition = keyboardDefinitionToVIADefinition;
-function generateVIADefinitionLookupMap(definitions) {
-    return definitions
-        .map(keyboardDefinitionToVIADefinition)
-        .reduce(function (p, n) {
-        var _a;
-        return (__assign(__assign({}, p), (_a = {}, _a[n.vendorProductId] = n, _a)));
-    }, {});
-}
-exports.generateVIADefinitionLookupMap = generateVIADefinitionLookupMap;
-function generateVIADefinitionV2LookupMap(definitions) {
-    return definitions
-        .map(keyboardDefinitionV2ToVIADefinitionV2)
-        .reduce(function (p, n) {
-        var _a;
-        return (__assign(__assign({}, p), (_a = {}, _a[n.vendorProductId] = n, _a)));
-    }, {});
-}
-exports.generateVIADefinitionV2LookupMap = generateVIADefinitionV2LookupMap;
+exports.keyboardDefinitionV3ToVIADefinitionV3 = keyboardDefinitionV3ToVIADefinitionV3;
