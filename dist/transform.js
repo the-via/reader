@@ -85,3 +85,12 @@ function keyboardDefinitionV3ToVIADefinitionV3(definition) {
     };
 }
 exports.keyboardDefinitionV3ToVIADefinitionV3 = keyboardDefinitionV3ToVIADefinitionV3;
+function generateVIADefinitionV3LookupMap(definitions) {
+    return definitions
+        .map(keyboardDefinitionV3ToVIADefinitionV3)
+        .reduce(function (p, n) {
+        var _a;
+        return (__assign(__assign({}, p), (_a = {}, _a[n.vendorProductId] = n, _a)));
+    }, {});
+}
+exports.generateVIADefinitionV3LookupMap = generateVIADefinitionV3LookupMap;

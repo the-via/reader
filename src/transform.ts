@@ -74,3 +74,11 @@ export function keyboardDefinitionV3ToVIADefinitionV3(
     vendorProductId: getVendorProductId(definition),
   };
 }
+
+export function generateVIADefinitionV3LookupMap(
+  definitions: KeyboardDefinitionV3[]
+) {
+  return definitions
+    .map(keyboardDefinitionV3ToVIADefinitionV3)
+    .reduce((p, n) => ({...p, [n.vendorProductId]: n}), {});
+}
