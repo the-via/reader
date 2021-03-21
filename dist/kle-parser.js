@@ -31,7 +31,7 @@ var __spreadArrays = (this && this.__spreadArrays) || function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 var invariant = require('invariant');
 var util = require('util');
-var types_1 = require("./types");
+var types_v3_1 = require("./types.v3");
 function rawKLEToKLELayout(kle) {
     var kleArr = kle.split(',\n');
     return kleArr.map(function (row) {
@@ -133,7 +133,7 @@ function extractPair(pair) {
 }
 function resultToVIAKey(result, delta, colorMap) {
     var c = result.c, d = result.d, t = result.t, group = result.group, partialKey = __rest(result, ["c", "d", "t", "group"]);
-    return __assign(__assign({}, partialKey), { x: result.x - delta.x, y: result.y - delta.y, rx: result.rx - delta.x, ry: result.ry - delta.y, color: colorMap[c + ":" + t] || types_1.KeyColorType.Alpha });
+    return __assign(__assign({}, partialKey), { x: result.x - delta.x, y: result.y - delta.y, rx: result.rx - delta.x, ry: result.ry - delta.y, color: colorMap[c + ":" + t] || types_v3_1.KeyColorType.Alpha });
 }
 function kleLayoutToVIALayout(kle) {
     var _a;
@@ -269,9 +269,9 @@ function kleLayoutToVIALayout(kle) {
             util.inspect(colorCount, false, null, true));
     }
     var colorMap = (_a = {},
-        _a[colorCountKeys[0]] = types_1.KeyColorType.Alpha,
-        _a[colorCountKeys[1]] = types_1.KeyColorType.Mod,
-        _a[colorCountKeys[2]] = types_1.KeyColorType.Accent,
+        _a[colorCountKeys[0]] = types_v3_1.KeyColorType.Alpha,
+        _a[colorCountKeys[1]] = types_v3_1.KeyColorType.Mod,
+        _a[colorCountKeys[2]] = types_v3_1.KeyColorType.Accent,
         _a);
     var flatRes = res.flat();
     var defaultRes = filterGroups(flatRes);

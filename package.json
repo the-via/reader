@@ -8,7 +8,7 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "build": "yarn run validate && tsc",
-    "validate": "typescript-json-validator src/validated-types/keyboard-definition-v3.ts KeyboardDefinitionV3 && typescript-json-validator src/validated-types/via-definition-v3.ts VIADefinitionV3"
+    "validate": "typescript-json-validator src/validated-types/keyboard-definition-v3.ts KeyboardDefinitionV3 && typescript-json-validator src/validated-types/via-definition-v3.ts VIADefinitionV3 && typescript-json-validator src/validated-types/keyboard-definition-v2.ts KeyboardDefinitionV2 && typescript-json-validator src/validated-types/via-definition-v2.ts VIADefinitionV2"
   },
   "husky": {
     "hooks": {

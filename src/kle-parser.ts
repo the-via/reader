@@ -15,7 +15,7 @@ import {
   VIAKey,
   OptionalDimensions,
   KLEDimensions
-} from './types';
+} from './types.v3';
 import {SIGINT} from 'constants';
 import {cursorTo} from 'readline';
 

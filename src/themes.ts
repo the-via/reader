@@ -1,4 +1,4 @@
-import {ThemeDefinition} from './types';
+import {ThemeDefinition} from './types.v3';
 export const THEMES: {[theme: string]: ThemeDefinition} = {
   PBT_HEAVY_INDUSTRY: {
     alpha: {

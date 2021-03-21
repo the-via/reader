@@ -1,6 +1,6 @@
 import {kleLayoutToVIALayout} from './kle-parser';
 import validateV3 from './validated-types/keyboard-definition-v3.validator';
-import {KeyboardDefinitionV3, VIADefinitionV3, VIALayout} from './types';
+import {KeyboardDefinitionV3, VIADefinitionV3, VIALayout} from './types.v3';
 export {VIADefinitionV3, KeyboardDefinitionV3};
 
 export function getVendorProductId({
