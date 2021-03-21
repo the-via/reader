@@ -27,6 +27,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var kle_parser_1 = require("./kle-parser");
 var keyboard_definition_v3_validator_1 = __importDefault(require("./validated-types/keyboard-definition-v3.validator"));
+var types_v3_1 = require("./types.v3");
 function getVendorProductId(_a) {
     var productId = _a.productId, vendorId = _a.vendorId;
     var parsedVendorId = parseInt(vendorId, 16);
@@ -69,7 +70,7 @@ function validateKeyBounds(matrix, layouts) {
 }
 exports.validateKeyBounds = validateKeyBounds;
 function keyboardDefinitionV3ToVIADefinitionV3(definition) {
-    var _a = keyboard_definition_v3_validator_1.default(definition), name = _a.name, menus = _a.menus, customMenus = _a.customMenus, keycodes = _a.keycodes, matrix = _a.matrix, layouts = _a.layouts;
+    var _a = keyboard_definition_v3_validator_1.default(definition), name = _a.name, menus = _a.menus, keycodes = _a.keycodes, customKeycodes = _a.customKeycodes, matrix = _a.matrix, layouts = _a.layouts;
     validateLayouts(layouts);
     var keymap = layouts.keymap, partialLayout = __rest(layouts, ["keymap"]);
     var viaLayouts = __assign(__assign({}, partialLayout), kle_parser_1.kleLayoutToVIALayout(layouts.keymap));
@@ -78,9 +79,9 @@ function keyboardDefinitionV3ToVIADefinitionV3(definition) {
         name: name,
         layouts: viaLayouts,
         matrix: matrix,
-        menus: menus,
-        customMenus: customMenus,
-        keycodes: keycodes,
+        menus: (menus !== null && menus !== void 0 ? menus : types_v3_1.defaultMenus),
+        keycodes: (keycodes !== null && keycodes !== void 0 ? keycodes : types_v3_1.defaultKeycodes),
+        customKeycodes: customKeycodes,
         vendorProductId: getVendorProductId(definition),
     };
 }

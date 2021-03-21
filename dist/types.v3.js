@@ -6,25 +6,28 @@ var KeycodeType;
     KeycodeType["WT"] = "wt";
     KeycodeType["None"] = "none";
 })(KeycodeType = exports.KeycodeType || (exports.KeycodeType = {}));
-var CustomFeatures;
-(function (CustomFeatures) {
-    CustomFeatures["RotaryEncoder"] = "rotary-encoder";
-})(CustomFeatures = exports.CustomFeatures || (exports.CustomFeatures = {}));
-var MenuId;
-(function (MenuId) {
-    MenuId["Basic"] = "basic";
-    MenuId["Lighting"] = "lighting";
-    MenuId["Media"] = "media";
-    MenuId["Macro"] = "macro";
-    MenuId["Layers"] = "layers";
-    MenuId["Special"] = "special";
-    MenuId["Custom"] = "custom";
-})(MenuId = exports.MenuId || (exports.MenuId = {}));
 var BuiltInKeycodeModule;
 (function (BuiltInKeycodeModule) {
     BuiltInKeycodeModule["Default"] = "via/keycodes";
-    BuiltInKeycodeModule["QMKLighting"] = "core/keycodes/qmk_lighting";
+    BuiltInKeycodeModule["QMKLighting"] = "via/qmk_lighting";
+    BuiltInKeycodeModule["WTLighting"] = "via/wt_lighting";
 })(BuiltInKeycodeModule = exports.BuiltInKeycodeModule || (exports.BuiltInKeycodeModule = {}));
+exports.defaultKeycodes = [
+    BuiltInKeycodeModule.Default,
+];
+var BuiltInMenuModule;
+(function (BuiltInMenuModule) {
+    BuiltInMenuModule["Keymap"] = "via/keymap";
+    BuiltInMenuModule["Layouts"] = "via/layouts";
+    BuiltInMenuModule["Macros"] = "via/macros";
+    BuiltInMenuModule["SaveLoad"] = "via/save_load";
+})(BuiltInMenuModule = exports.BuiltInMenuModule || (exports.BuiltInMenuModule = {}));
+exports.defaultMenus = [
+    BuiltInMenuModule.Keymap,
+    BuiltInMenuModule.Layouts,
+    BuiltInMenuModule.Macros,
+    BuiltInMenuModule.SaveLoad,
+];
 var KeyColorType;
 (function (KeyColorType) {
     KeyColorType["Alpha"] = "alpha";

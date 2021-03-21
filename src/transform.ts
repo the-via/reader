@@ -1,6 +1,14 @@
 import {kleLayoutToVIALayout} from './kle-parser';
 import validateV3 from './validated-types/keyboard-definition-v3.validator';
-import {KeyboardDefinitionV3, VIADefinitionV3, VIALayout} from './types.v3';
+import {
+  BuiltInKeycodeModule,
+  BuiltInMenuModule,
+  defaultKeycodes,
+  defaultMenus,
+  KeyboardDefinitionV3,
+  VIADefinitionV3,
+  VIALayout,
+} from './types.v3';
 export {VIADefinitionV3, KeyboardDefinitionV3};
 
 export function getVendorProductId({
@@ -53,7 +61,7 @@ export function validateKeyBounds(
 export function keyboardDefinitionV3ToVIADefinitionV3(
   definition: KeyboardDefinitionV3
 ): VIADefinitionV3 {
-  const {name, menus, customMenus, keycodes, matrix, layouts} = validateV3(
+  const {name, menus, keycodes, customKeycodes, matrix, layouts} = validateV3(
     definition
   );
 
@@ -68,9 +76,9 @@ export function keyboardDefinitionV3ToVIADefinitionV3(
     name,
     layouts: viaLayouts,
     matrix,
-    menus,
-    customMenus,
-    keycodes,
+    menus: menus ?? defaultMenus,
+    keycodes: keycodes ?? defaultKeycodes,
+    customKeycodes,
     vendorProductId: getVendorProductId(definition),
   };
 }

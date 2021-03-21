@@ -21,18 +21,6 @@ export const VIADefinitionV3Schema = {
       ],
       "type": "string"
     },
-    "MenuId": {
-      "enum": [
-        "basic",
-        "custom",
-        "layers",
-        "lighting",
-        "macro",
-        "media",
-        "special"
-      ],
-      "type": "string"
-    },
     "Pick<Result,\"h\"|\"w\"|\"x2\"|\"y2\"|\"h2\"|\"w2\"|\"x\"|\"y\"|\"r\"|\"rx\"|\"ry\"|\"row\"|\"col\">": {
       "defaultProperties": [
       ],
@@ -92,664 +80,1583 @@ export const VIADefinitionV3Schema = {
     }
   },
   "properties": {
-    "customMenus": {
+    "customKeycodes": {
       "items": {
-        "allOf": [
-          {
-            "defaultProperties": [
-            ],
-            "properties": {
-              "label": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "label"
-            ],
-            "type": "object"
+        "defaultProperties": [
+        ],
+        "properties": {
+          "name": {
+            "type": "string"
           },
-          {
-            "defaultProperties": [
-            ],
-            "properties": {
-              "showIf": {
-                "type": "string"
-              }
-            },
-            "type": "object"
+          "shortName": {
+            "type": "string"
           },
-          {
-            "defaultProperties": [
-            ],
-            "properties": {
-              "content": {
+          "title": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "name",
+          "title"
+        ],
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "keycodes": {
+      "items": {
+        "enum": [
+          "via/keycodes",
+          "via/qmk_lighting",
+          "via/wt_lighting"
+        ],
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "layouts": {
+      "defaultProperties": [
+      ],
+      "properties": {
+        "height": {
+          "type": "number"
+        },
+        "keys": {
+          "items": {
+            "allOf": [
+              {
+                "$ref": "#/definitions/Pick<Result,\"h\"|\"w\"|\"x2\"|\"y2\"|\"h2\"|\"w2\"|\"x\"|\"y\"|\"r\"|\"rx\"|\"ry\"|\"row\"|\"col\">"
+              },
+              {
+                "defaultProperties": [
+                ],
+                "properties": {
+                  "color": {
+                    "$ref": "#/definitions/KeyColorType"
+                  }
+                },
+                "required": [
+                  "color"
+                ],
+                "type": "object"
+              }
+            ]
+          },
+          "type": "array"
+        },
+        "labels": {
+          "items": {
+            "anyOf": [
+              {
                 "items": {
-                  "anyOf": [
-                    {
-                      "allOf": [
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "string"
+              }
+            ]
+          },
+          "type": "array"
+        },
+        "optionKeys": {
+          "additionalProperties": {
+            "additionalProperties": {
+              "items": {
+                "allOf": [
+                  {
+                    "$ref": "#/definitions/Pick<Result,\"h\"|\"w\"|\"x2\"|\"y2\"|\"h2\"|\"w2\"|\"x\"|\"y\"|\"r\"|\"rx\"|\"ry\"|\"row\"|\"col\">"
+                  },
+                  {
+                    "defaultProperties": [
+                    ],
+                    "properties": {
+                      "color": {
+                        "$ref": "#/definitions/KeyColorType"
+                      }
+                    },
+                    "required": [
+                      "color"
+                    ],
+                    "type": "object"
+                  }
+                ]
+              },
+              "type": "array"
+            },
+            "defaultProperties": [
+            ],
+            "type": "object"
+          },
+          "defaultProperties": [
+          ],
+          "type": "object"
+        },
+        "presets": {
+          "additionalProperties": {
+            "items": {
+              "type": "number"
+            },
+            "type": "array"
+          },
+          "defaultProperties": [
+          ],
+          "type": "object"
+        },
+        "width": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "height",
+        "keys",
+        "optionKeys",
+        "width"
+      ],
+      "type": "object"
+    },
+    "matrix": {
+      "defaultProperties": [
+      ],
+      "properties": {
+        "cols": {
+          "type": "number"
+        },
+        "rows": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "cols",
+        "rows"
+      ],
+      "type": "object"
+    },
+    "menus": {
+      "items": {
+        "anyOf": [
+          {
+            "allOf": [
+              {
+                "defaultProperties": [
+                ],
+                "properties": {
+                  "label": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "label"
+                ],
+                "type": "object"
+              },
+              {
+                "defaultProperties": [
+                ],
+                "properties": {
+                  "showIf": {
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              },
+              {
+                "defaultProperties": [
+                ],
+                "properties": {
+                  "content": {
+                    "items": {
+                      "anyOf": [
                         {
-                          "defaultProperties": [
-                          ],
-                          "properties": {
-                            "label": {
-                              "type": "string"
-                            }
-                          },
-                          "required": [
-                            "label"
-                          ],
-                          "type": "object"
-                        },
-                        {
-                          "defaultProperties": [
-                          ],
-                          "properties": {
-                            "showIf": {
-                              "type": "string"
-                            }
-                          },
-                          "type": "object"
-                        },
-                        {
-                          "defaultProperties": [
-                          ],
-                          "properties": {
-                            "content": {
-                              "items": {
-                                "anyOf": [
-                                  {
-                                    "allOf": [
+                          "allOf": [
+                            {
+                              "defaultProperties": [
+                              ],
+                              "properties": {
+                                "label": {
+                                  "type": "string"
+                                }
+                              },
+                              "required": [
+                                "label"
+                              ],
+                              "type": "object"
+                            },
+                            {
+                              "defaultProperties": [
+                              ],
+                              "properties": {
+                                "showIf": {
+                                  "type": "string"
+                                }
+                              },
+                              "type": "object"
+                            },
+                            {
+                              "defaultProperties": [
+                              ],
+                              "properties": {
+                                "content": {
+                                  "items": {
+                                    "anyOf": [
                                       {
-                                        "defaultProperties": [
-                                        ],
-                                        "properties": {
-                                          "options": {
-                                            "additionalItems": {
-                                              "anyOf": [
-                                                {
+                                        "allOf": [
+                                          {
+                                            "defaultProperties": [
+                                            ],
+                                            "properties": {
+                                              "options": {
+                                                "additionalItems": {
                                                   "anyOf": [
                                                     {
-                                                      "items": {
-                                                        "type": "number"
+                                                      "anyOf": [
+                                                        {
+                                                          "items": {
+                                                            "type": "number"
+                                                          },
+                                                          "type": "array"
+                                                        },
+                                                        {
+                                                          "type": "number"
+                                                        }
+                                                      ]
+                                                    },
+                                                    {
+                                                      "anyOf": [
+                                                        {
+                                                          "items": {
+                                                            "type": "number"
+                                                          },
+                                                          "type": "array"
+                                                        },
+                                                        {
+                                                          "type": "number"
+                                                        }
+                                                      ]
+                                                    }
+                                                  ]
+                                                },
+                                                "items": [
+                                                  {
+                                                    "anyOf": [
+                                                      {
+                                                        "items": {
+                                                          "type": "number"
+                                                        },
+                                                        "type": "array"
                                                       },
-                                                      "type": "array"
+                                                      {
+                                                        "type": "number"
+                                                      }
+                                                    ]
+                                                  },
+                                                  {
+                                                    "anyOf": [
+                                                      {
+                                                        "items": {
+                                                          "type": "number"
+                                                        },
+                                                        "type": "array"
+                                                      },
+                                                      {
+                                                        "type": "number"
+                                                      }
+                                                    ]
+                                                  }
+                                                ],
+                                                "minItems": 2,
+                                                "type": "array"
+                                              },
+                                              "type": {
+                                                "enum": [
+                                                  "toggle"
+                                                ],
+                                                "type": "string"
+                                              }
+                                            },
+                                            "required": [
+                                              "type"
+                                            ],
+                                            "type": "object"
+                                          },
+                                          {
+                                            "defaultProperties": [
+                                            ],
+                                            "properties": {
+                                              "label": {
+                                                "type": "string"
+                                              }
+                                            },
+                                            "required": [
+                                              "label"
+                                            ],
+                                            "type": "object"
+                                          },
+                                          {
+                                            "defaultProperties": [
+                                            ],
+                                            "properties": {
+                                              "showIf": {
+                                                "type": "string"
+                                              }
+                                            },
+                                            "type": "object"
+                                          },
+                                          {
+                                            "defaultProperties": [
+                                            ],
+                                            "properties": {
+                                              "bytes": {
+                                                "enum": [
+                                                  1,
+                                                  2,
+                                                  3,
+                                                  4
+                                                ],
+                                                "type": "number"
+                                              }
+                                            },
+                                            "type": "object"
+                                          },
+                                          {
+                                            "defaultProperties": [
+                                            ],
+                                            "properties": {
+                                              "content": {
+                                                "additionalItems": {
+                                                  "anyOf": [
+                                                    {
+                                                      "type": "string"
+                                                    },
+                                                    {
+                                                      "type": "number"
                                                     },
                                                     {
                                                       "type": "number"
                                                     }
                                                   ]
                                                 },
-                                                {
+                                                "items": [
+                                                  {
+                                                    "type": "string"
+                                                  },
+                                                  {
+                                                    "type": "number"
+                                                  },
+                                                  {
+                                                    "type": "number"
+                                                  }
+                                                ],
+                                                "minItems": 3,
+                                                "type": "array"
+                                              }
+                                            },
+                                            "required": [
+                                              "content"
+                                            ],
+                                            "type": "object"
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "allOf": [
+                                          {
+                                            "defaultProperties": [
+                                            ],
+                                            "properties": {
+                                              "options": {
+                                                "items": {
+                                                  "additionalItems": {
+                                                    "type": "number"
+                                                  },
+                                                  "items": [
+                                                    {
+                                                      "type": "string"
+                                                    },
+                                                    {
+                                                      "type": "number"
+                                                    }
+                                                  ],
+                                                  "minItems": 2,
+                                                  "type": "array"
+                                                },
+                                                "type": "array"
+                                              },
+                                              "type": {
+                                                "enum": [
+                                                  "dropdown"
+                                                ],
+                                                "type": "string"
+                                              }
+                                            },
+                                            "required": [
+                                              "options",
+                                              "type"
+                                            ],
+                                            "type": "object"
+                                          },
+                                          {
+                                            "defaultProperties": [
+                                            ],
+                                            "properties": {
+                                              "label": {
+                                                "type": "string"
+                                              }
+                                            },
+                                            "required": [
+                                              "label"
+                                            ],
+                                            "type": "object"
+                                          },
+                                          {
+                                            "defaultProperties": [
+                                            ],
+                                            "properties": {
+                                              "showIf": {
+                                                "type": "string"
+                                              }
+                                            },
+                                            "type": "object"
+                                          },
+                                          {
+                                            "defaultProperties": [
+                                            ],
+                                            "properties": {
+                                              "bytes": {
+                                                "enum": [
+                                                  1,
+                                                  2,
+                                                  3,
+                                                  4
+                                                ],
+                                                "type": "number"
+                                              }
+                                            },
+                                            "type": "object"
+                                          },
+                                          {
+                                            "defaultProperties": [
+                                            ],
+                                            "properties": {
+                                              "content": {
+                                                "additionalItems": {
                                                   "anyOf": [
                                                     {
-                                                      "items": {
-                                                        "type": "number"
-                                                      },
-                                                      "type": "array"
+                                                      "type": "string"
+                                                    },
+                                                    {
+                                                      "type": "number"
                                                     },
                                                     {
                                                       "type": "number"
                                                     }
                                                   ]
-                                                }
-                                              ]
-                                            },
-                                            "items": [
-                                              {
-                                                "anyOf": [
+                                                },
+                                                "items": [
                                                   {
-                                                    "items": {
-                                                      "type": "number"
-                                                    },
-                                                    "type": "array"
+                                                    "type": "string"
+                                                  },
+                                                  {
+                                                    "type": "number"
                                                   },
                                                   {
                                                     "type": "number"
                                                   }
-                                                ]
-                                              },
-                                              {
-                                                "anyOf": [
-                                                  {
-                                                    "items": {
+                                                ],
+                                                "minItems": 3,
+                                                "type": "array"
+                                              }
+                                            },
+                                            "required": [
+                                              "content"
+                                            ],
+                                            "type": "object"
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "allOf": [
+                                          {
+                                            "defaultProperties": [
+                                            ],
+                                            "properties": {
+                                              "options": {
+                                                "additionalItems": {
+                                                  "anyOf": [
+                                                    {
                                                       "type": "number"
                                                     },
-                                                    "type": "array"
+                                                    {
+                                                      "type": "number"
+                                                    }
+                                                  ]
+                                                },
+                                                "items": [
+                                                  {
+                                                    "type": "number"
                                                   },
                                                   {
                                                     "type": "number"
                                                   }
-                                                ]
+                                                ],
+                                                "minItems": 2,
+                                                "type": "array"
+                                              },
+                                              "type": {
+                                                "enum": [
+                                                  "range"
+                                                ],
+                                                "type": "string"
+                                              },
+                                              "unit": {
+                                                "type": "string"
                                               }
+                                            },
+                                            "required": [
+                                              "options",
+                                              "type"
                                             ],
-                                            "minItems": 2,
-                                            "type": "array"
+                                            "type": "object"
                                           },
-                                          "type": {
-                                            "enum": [
-                                              "toggle"
+                                          {
+                                            "defaultProperties": [
                                             ],
-                                            "type": "string"
-                                          }
-                                        },
-                                        "required": [
-                                          "type"
-                                        ],
-                                        "type": "object"
-                                      },
-                                      {
-                                        "defaultProperties": [
-                                        ],
-                                        "properties": {
-                                          "label": {
-                                            "type": "string"
-                                          }
-                                        },
-                                        "required": [
-                                          "label"
-                                        ],
-                                        "type": "object"
-                                      },
-                                      {
-                                        "defaultProperties": [
-                                        ],
-                                        "properties": {
-                                          "showIf": {
-                                            "type": "string"
-                                          }
-                                        },
-                                        "type": "object"
-                                      },
-                                      {
-                                        "defaultProperties": [
-                                        ],
-                                        "properties": {
-                                          "bytes": {
-                                            "enum": [
-                                              1,
-                                              2,
-                                              3,
-                                              4
-                                            ],
-                                            "type": "number"
-                                          }
-                                        },
-                                        "type": "object"
-                                      },
-                                      {
-                                        "defaultProperties": [
-                                        ],
-                                        "properties": {
-                                          "content": {
-                                            "additionalItems": {
-                                              "anyOf": [
-                                                {
-                                                  "type": "string"
-                                                },
-                                                {
-                                                  "type": "number"
-                                                },
-                                                {
-                                                  "type": "number"
-                                                }
-                                              ]
-                                            },
-                                            "items": [
-                                              {
+                                            "properties": {
+                                              "label": {
                                                 "type": "string"
-                                              },
-                                              {
-                                                "type": "number"
-                                              },
-                                              {
-                                                "type": "number"
                                               }
-                                            ],
-                                            "minItems": 3,
-                                            "type": "array"
-                                          }
-                                        },
-                                        "required": [
-                                          "content"
-                                        ],
-                                        "type": "object"
-                                      }
-                                    ]
-                                  },
-                                  {
-                                    "allOf": [
-                                      {
-                                        "defaultProperties": [
-                                        ],
-                                        "properties": {
-                                          "options": {
-                                            "items": {
-                                              "additionalItems": {
-                                                "type": "number"
-                                              },
-                                              "items": [
-                                                {
-                                                  "type": "string"
-                                                },
-                                                {
-                                                  "type": "number"
-                                                }
-                                              ],
-                                              "minItems": 2,
-                                              "type": "array"
                                             },
-                                            "type": "array"
+                                            "required": [
+                                              "label"
+                                            ],
+                                            "type": "object"
                                           },
-                                          "type": {
-                                            "enum": [
-                                              "dropdown"
+                                          {
+                                            "defaultProperties": [
                                             ],
-                                            "type": "string"
-                                          }
-                                        },
-                                        "required": [
-                                          "options",
-                                          "type"
-                                        ],
-                                        "type": "object"
-                                      },
-                                      {
-                                        "defaultProperties": [
-                                        ],
-                                        "properties": {
-                                          "label": {
-                                            "type": "string"
-                                          }
-                                        },
-                                        "required": [
-                                          "label"
-                                        ],
-                                        "type": "object"
-                                      },
-                                      {
-                                        "defaultProperties": [
-                                        ],
-                                        "properties": {
-                                          "showIf": {
-                                            "type": "string"
-                                          }
-                                        },
-                                        "type": "object"
-                                      },
-                                      {
-                                        "defaultProperties": [
-                                        ],
-                                        "properties": {
-                                          "bytes": {
-                                            "enum": [
-                                              1,
-                                              2,
-                                              3,
-                                              4
-                                            ],
-                                            "type": "number"
-                                          }
-                                        },
-                                        "type": "object"
-                                      },
-                                      {
-                                        "defaultProperties": [
-                                        ],
-                                        "properties": {
-                                          "content": {
-                                            "additionalItems": {
-                                              "anyOf": [
-                                                {
-                                                  "type": "string"
-                                                },
-                                                {
-                                                  "type": "number"
-                                                },
-                                                {
-                                                  "type": "number"
-                                                }
-                                              ]
-                                            },
-                                            "items": [
-                                              {
+                                            "properties": {
+                                              "showIf": {
                                                 "type": "string"
-                                              },
-                                              {
-                                                "type": "number"
-                                              },
-                                              {
-                                                "type": "number"
                                               }
-                                            ],
-                                            "minItems": 3,
-                                            "type": "array"
-                                          }
-                                        },
-                                        "required": [
-                                          "content"
-                                        ],
-                                        "type": "object"
-                                      }
-                                    ]
-                                  },
-                                  {
-                                    "allOf": [
-                                      {
-                                        "defaultProperties": [
-                                        ],
-                                        "properties": {
-                                          "options": {
-                                            "additionalItems": {
-                                              "anyOf": [
-                                                {
-                                                  "type": "number"
-                                                },
-                                                {
-                                                  "type": "number"
-                                                }
-                                              ]
                                             },
-                                            "items": [
-                                              {
-                                                "type": "number"
-                                              },
-                                              {
-                                                "type": "number"
-                                              }
-                                            ],
-                                            "minItems": 2,
-                                            "type": "array"
+                                            "type": "object"
                                           },
-                                          "type": {
-                                            "enum": [
-                                              "range"
+                                          {
+                                            "defaultProperties": [
                                             ],
-                                            "type": "string"
+                                            "properties": {
+                                              "bytes": {
+                                                "enum": [
+                                                  1,
+                                                  2,
+                                                  3,
+                                                  4
+                                                ],
+                                                "type": "number"
+                                              }
+                                            },
+                                            "type": "object"
                                           },
-                                          "unit": {
-                                            "type": "string"
-                                          }
-                                        },
-                                        "required": [
-                                          "options",
-                                          "type"
-                                        ],
-                                        "type": "object"
-                                      },
-                                      {
-                                        "defaultProperties": [
-                                        ],
-                                        "properties": {
-                                          "label": {
-                                            "type": "string"
-                                          }
-                                        },
-                                        "required": [
-                                          "label"
-                                        ],
-                                        "type": "object"
-                                      },
-                                      {
-                                        "defaultProperties": [
-                                        ],
-                                        "properties": {
-                                          "showIf": {
-                                            "type": "string"
-                                          }
-                                        },
-                                        "type": "object"
-                                      },
-                                      {
-                                        "defaultProperties": [
-                                        ],
-                                        "properties": {
-                                          "bytes": {
-                                            "enum": [
-                                              1,
-                                              2,
-                                              3,
-                                              4
+                                          {
+                                            "defaultProperties": [
                                             ],
-                                            "type": "number"
+                                            "properties": {
+                                              "content": {
+                                                "additionalItems": {
+                                                  "anyOf": [
+                                                    {
+                                                      "type": "string"
+                                                    },
+                                                    {
+                                                      "type": "number"
+                                                    },
+                                                    {
+                                                      "type": "number"
+                                                    }
+                                                  ]
+                                                },
+                                                "items": [
+                                                  {
+                                                    "type": "string"
+                                                  },
+                                                  {
+                                                    "type": "number"
+                                                  },
+                                                  {
+                                                    "type": "number"
+                                                  }
+                                                ],
+                                                "minItems": 3,
+                                                "type": "array"
+                                              }
+                                            },
+                                            "required": [
+                                              "content"
+                                            ],
+                                            "type": "object"
                                           }
-                                        },
-                                        "type": "object"
+                                        ]
                                       },
                                       {
-                                        "defaultProperties": [
-                                        ],
-                                        "properties": {
-                                          "content": {
-                                            "additionalItems": {
-                                              "anyOf": [
-                                                {
-                                                  "type": "string"
-                                                },
-                                                {
-                                                  "type": "number"
-                                                },
-                                                {
-                                                  "type": "number"
-                                                }
-                                              ]
-                                            },
-                                            "items": [
-                                              {
+                                        "allOf": [
+                                          {
+                                            "defaultProperties": [
+                                            ],
+                                            "properties": {
+                                              "type": {
+                                                "enum": [
+                                                  "keycode"
+                                                ],
                                                 "type": "string"
-                                              },
-                                              {
-                                                "type": "number"
-                                              },
-                                              {
+                                              }
+                                            },
+                                            "required": [
+                                              "type"
+                                            ],
+                                            "type": "object"
+                                          },
+                                          {
+                                            "defaultProperties": [
+                                            ],
+                                            "properties": {
+                                              "label": {
+                                                "type": "string"
+                                              }
+                                            },
+                                            "required": [
+                                              "label"
+                                            ],
+                                            "type": "object"
+                                          },
+                                          {
+                                            "defaultProperties": [
+                                            ],
+                                            "properties": {
+                                              "showIf": {
+                                                "type": "string"
+                                              }
+                                            },
+                                            "type": "object"
+                                          },
+                                          {
+                                            "defaultProperties": [
+                                            ],
+                                            "properties": {
+                                              "bytes": {
+                                                "enum": [
+                                                  1,
+                                                  2,
+                                                  3,
+                                                  4
+                                                ],
                                                 "type": "number"
                                               }
-                                            ],
-                                            "minItems": 3,
-                                            "type": "array"
-                                          }
-                                        },
-                                        "required": [
-                                          "content"
-                                        ],
-                                        "type": "object"
-                                      }
-                                    ]
-                                  },
-                                  {
-                                    "allOf": [
-                                      {
-                                        "defaultProperties": [
-                                        ],
-                                        "properties": {
-                                          "type": {
-                                            "enum": [
-                                              "keycode"
-                                            ],
-                                            "type": "string"
-                                          }
-                                        },
-                                        "required": [
-                                          "type"
-                                        ],
-                                        "type": "object"
-                                      },
-                                      {
-                                        "defaultProperties": [
-                                        ],
-                                        "properties": {
-                                          "label": {
-                                            "type": "string"
-                                          }
-                                        },
-                                        "required": [
-                                          "label"
-                                        ],
-                                        "type": "object"
-                                      },
-                                      {
-                                        "defaultProperties": [
-                                        ],
-                                        "properties": {
-                                          "showIf": {
-                                            "type": "string"
-                                          }
-                                        },
-                                        "type": "object"
-                                      },
-                                      {
-                                        "defaultProperties": [
-                                        ],
-                                        "properties": {
-                                          "bytes": {
-                                            "enum": [
-                                              1,
-                                              2,
-                                              3,
-                                              4
-                                            ],
-                                            "type": "number"
-                                          }
-                                        },
-                                        "type": "object"
-                                      },
-                                      {
-                                        "defaultProperties": [
-                                        ],
-                                        "properties": {
-                                          "content": {
-                                            "additionalItems": {
-                                              "anyOf": [
-                                                {
-                                                  "type": "string"
-                                                },
-                                                {
-                                                  "type": "number"
-                                                },
-                                                {
-                                                  "type": "number"
-                                                }
-                                              ]
                                             },
-                                            "items": [
-                                              {
+                                            "type": "object"
+                                          },
+                                          {
+                                            "defaultProperties": [
+                                            ],
+                                            "properties": {
+                                              "content": {
+                                                "additionalItems": {
+                                                  "anyOf": [
+                                                    {
+                                                      "type": "string"
+                                                    },
+                                                    {
+                                                      "type": "number"
+                                                    },
+                                                    {
+                                                      "type": "number"
+                                                    }
+                                                  ]
+                                                },
+                                                "items": [
+                                                  {
+                                                    "type": "string"
+                                                  },
+                                                  {
+                                                    "type": "number"
+                                                  },
+                                                  {
+                                                    "type": "number"
+                                                  }
+                                                ],
+                                                "minItems": 3,
+                                                "type": "array"
+                                              }
+                                            },
+                                            "required": [
+                                              "content"
+                                            ],
+                                            "type": "object"
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "allOf": [
+                                          {
+                                            "defaultProperties": [
+                                            ],
+                                            "properties": {
+                                              "type": {
+                                                "enum": [
+                                                  "color"
+                                                ],
                                                 "type": "string"
-                                              },
-                                              {
-                                                "type": "number"
-                                              },
-                                              {
+                                              }
+                                            },
+                                            "required": [
+                                              "type"
+                                            ],
+                                            "type": "object"
+                                          },
+                                          {
+                                            "defaultProperties": [
+                                            ],
+                                            "properties": {
+                                              "label": {
+                                                "type": "string"
+                                              }
+                                            },
+                                            "required": [
+                                              "label"
+                                            ],
+                                            "type": "object"
+                                          },
+                                          {
+                                            "defaultProperties": [
+                                            ],
+                                            "properties": {
+                                              "showIf": {
+                                                "type": "string"
+                                              }
+                                            },
+                                            "type": "object"
+                                          },
+                                          {
+                                            "defaultProperties": [
+                                            ],
+                                            "properties": {
+                                              "bytes": {
+                                                "enum": [
+                                                  1,
+                                                  2,
+                                                  3,
+                                                  4
+                                                ],
                                                 "type": "number"
                                               }
-                                            ],
-                                            "minItems": 3,
-                                            "type": "array"
-                                          }
-                                        },
-                                        "required": [
-                                          "content"
-                                        ],
-                                        "type": "object"
-                                      }
-                                    ]
-                                  },
-                                  {
-                                    "allOf": [
-                                      {
-                                        "defaultProperties": [
-                                        ],
-                                        "properties": {
-                                          "type": {
-                                            "enum": [
-                                              "color"
-                                            ],
-                                            "type": "string"
-                                          }
-                                        },
-                                        "required": [
-                                          "type"
-                                        ],
-                                        "type": "object"
-                                      },
-                                      {
-                                        "defaultProperties": [
-                                        ],
-                                        "properties": {
-                                          "label": {
-                                            "type": "string"
-                                          }
-                                        },
-                                        "required": [
-                                          "label"
-                                        ],
-                                        "type": "object"
-                                      },
-                                      {
-                                        "defaultProperties": [
-                                        ],
-                                        "properties": {
-                                          "showIf": {
-                                            "type": "string"
-                                          }
-                                        },
-                                        "type": "object"
-                                      },
-                                      {
-                                        "defaultProperties": [
-                                        ],
-                                        "properties": {
-                                          "bytes": {
-                                            "enum": [
-                                              1,
-                                              2,
-                                              3,
-                                              4
-                                            ],
-                                            "type": "number"
-                                          }
-                                        },
-                                        "type": "object"
-                                      },
-                                      {
-                                        "defaultProperties": [
-                                        ],
-                                        "properties": {
-                                          "content": {
-                                            "additionalItems": {
-                                              "anyOf": [
-                                                {
-                                                  "type": "string"
-                                                },
-                                                {
-                                                  "type": "number"
-                                                },
-                                                {
-                                                  "type": "number"
-                                                }
-                                              ]
                                             },
-                                            "items": [
-                                              {
+                                            "type": "object"
+                                          },
+                                          {
+                                            "defaultProperties": [
+                                            ],
+                                            "properties": {
+                                              "content": {
+                                                "additionalItems": {
+                                                  "anyOf": [
+                                                    {
+                                                      "type": "string"
+                                                    },
+                                                    {
+                                                      "type": "number"
+                                                    },
+                                                    {
+                                                      "type": "number"
+                                                    }
+                                                  ]
+                                                },
+                                                "items": [
+                                                  {
+                                                    "type": "string"
+                                                  },
+                                                  {
+                                                    "type": "number"
+                                                  },
+                                                  {
+                                                    "type": "number"
+                                                  }
+                                                ],
+                                                "minItems": 3,
+                                                "type": "array"
+                                              }
+                                            },
+                                            "required": [
+                                              "content"
+                                            ],
+                                            "type": "object"
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "allOf": [
+                                          {
+                                            "defaultProperties": [
+                                            ],
+                                            "properties": {
+                                              "label": {
                                                 "type": "string"
-                                              },
-                                              {
-                                                "type": "number"
-                                              },
-                                              {
+                                              }
+                                            },
+                                            "required": [
+                                              "label"
+                                            ],
+                                            "type": "object"
+                                          },
+                                          {
+                                            "defaultProperties": [
+                                            ],
+                                            "properties": {
+                                              "showIf": {
+                                                "type": "string"
+                                              }
+                                            },
+                                            "type": "object"
+                                          },
+                                          {
+                                            "defaultProperties": [
+                                            ],
+                                            "properties": {
+                                              "bytes": {
+                                                "enum": [
+                                                  1,
+                                                  2,
+                                                  3,
+                                                  4
+                                                ],
                                                 "type": "number"
                                               }
+                                            },
+                                            "type": "object"
+                                          },
+                                          {
+                                            "defaultProperties": [
                                             ],
-                                            "minItems": 3,
-                                            "type": "array"
+                                            "properties": {
+                                              "content": {
+                                                "type": "string"
+                                              }
+                                            },
+                                            "required": [
+                                              "content"
+                                            ],
+                                            "type": "object"
                                           }
-                                        },
-                                        "required": [
-                                          "content"
-                                        ],
-                                        "type": "object"
+                                        ]
+                                      },
+                                      {
+                                        "allOf": [
+                                          {
+                                            "defaultProperties": [
+                                            ],
+                                            "properties": {
+                                              "showIf": {
+                                                "type": "string"
+                                              }
+                                            },
+                                            "type": "object"
+                                          },
+                                          {
+                                            "defaultProperties": [
+                                            ],
+                                            "properties": {
+                                              "content": {
+                                                "items": {
+                                                  "anyOf": [
+                                                    {
+                                                      "allOf": [
+                                                        {
+                                                          "defaultProperties": [
+                                                          ],
+                                                          "properties": {
+                                                            "options": {
+                                                              "additionalItems": {
+                                                                "anyOf": [
+                                                                  {
+                                                                    "anyOf": [
+                                                                      {
+                                                                        "items": {
+                                                                          "type": "number"
+                                                                        },
+                                                                        "type": "array"
+                                                                      },
+                                                                      {
+                                                                        "type": "number"
+                                                                      }
+                                                                    ]
+                                                                  },
+                                                                  {
+                                                                    "anyOf": [
+                                                                      {
+                                                                        "items": {
+                                                                          "type": "number"
+                                                                        },
+                                                                        "type": "array"
+                                                                      },
+                                                                      {
+                                                                        "type": "number"
+                                                                      }
+                                                                    ]
+                                                                  }
+                                                                ]
+                                                              },
+                                                              "items": [
+                                                                {
+                                                                  "anyOf": [
+                                                                    {
+                                                                      "items": {
+                                                                        "type": "number"
+                                                                      },
+                                                                      "type": "array"
+                                                                    },
+                                                                    {
+                                                                      "type": "number"
+                                                                    }
+                                                                  ]
+                                                                },
+                                                                {
+                                                                  "anyOf": [
+                                                                    {
+                                                                      "items": {
+                                                                        "type": "number"
+                                                                      },
+                                                                      "type": "array"
+                                                                    },
+                                                                    {
+                                                                      "type": "number"
+                                                                    }
+                                                                  ]
+                                                                }
+                                                              ],
+                                                              "minItems": 2,
+                                                              "type": "array"
+                                                            },
+                                                            "type": {
+                                                              "enum": [
+                                                                "toggle"
+                                                              ],
+                                                              "type": "string"
+                                                            }
+                                                          },
+                                                          "required": [
+                                                            "type"
+                                                          ],
+                                                          "type": "object"
+                                                        },
+                                                        {
+                                                          "defaultProperties": [
+                                                          ],
+                                                          "properties": {
+                                                            "label": {
+                                                              "type": "string"
+                                                            }
+                                                          },
+                                                          "required": [
+                                                            "label"
+                                                          ],
+                                                          "type": "object"
+                                                        },
+                                                        {
+                                                          "defaultProperties": [
+                                                          ],
+                                                          "properties": {
+                                                            "showIf": {
+                                                              "type": "string"
+                                                            }
+                                                          },
+                                                          "type": "object"
+                                                        },
+                                                        {
+                                                          "defaultProperties": [
+                                                          ],
+                                                          "properties": {
+                                                            "bytes": {
+                                                              "enum": [
+                                                                1,
+                                                                2,
+                                                                3,
+                                                                4
+                                                              ],
+                                                              "type": "number"
+                                                            }
+                                                          },
+                                                          "type": "object"
+                                                        },
+                                                        {
+                                                          "defaultProperties": [
+                                                          ],
+                                                          "properties": {
+                                                            "content": {
+                                                              "additionalItems": {
+                                                                "anyOf": [
+                                                                  {
+                                                                    "type": "string"
+                                                                  },
+                                                                  {
+                                                                    "type": "number"
+                                                                  },
+                                                                  {
+                                                                    "type": "number"
+                                                                  }
+                                                                ]
+                                                              },
+                                                              "items": [
+                                                                {
+                                                                  "type": "string"
+                                                                },
+                                                                {
+                                                                  "type": "number"
+                                                                },
+                                                                {
+                                                                  "type": "number"
+                                                                }
+                                                              ],
+                                                              "minItems": 3,
+                                                              "type": "array"
+                                                            }
+                                                          },
+                                                          "required": [
+                                                            "content"
+                                                          ],
+                                                          "type": "object"
+                                                        }
+                                                      ]
+                                                    },
+                                                    {
+                                                      "allOf": [
+                                                        {
+                                                          "defaultProperties": [
+                                                          ],
+                                                          "properties": {
+                                                            "options": {
+                                                              "items": {
+                                                                "additionalItems": {
+                                                                  "type": "number"
+                                                                },
+                                                                "items": [
+                                                                  {
+                                                                    "type": "string"
+                                                                  },
+                                                                  {
+                                                                    "type": "number"
+                                                                  }
+                                                                ],
+                                                                "minItems": 2,
+                                                                "type": "array"
+                                                              },
+                                                              "type": "array"
+                                                            },
+                                                            "type": {
+                                                              "enum": [
+                                                                "dropdown"
+                                                              ],
+                                                              "type": "string"
+                                                            }
+                                                          },
+                                                          "required": [
+                                                            "options",
+                                                            "type"
+                                                          ],
+                                                          "type": "object"
+                                                        },
+                                                        {
+                                                          "defaultProperties": [
+                                                          ],
+                                                          "properties": {
+                                                            "label": {
+                                                              "type": "string"
+                                                            }
+                                                          },
+                                                          "required": [
+                                                            "label"
+                                                          ],
+                                                          "type": "object"
+                                                        },
+                                                        {
+                                                          "defaultProperties": [
+                                                          ],
+                                                          "properties": {
+                                                            "showIf": {
+                                                              "type": "string"
+                                                            }
+                                                          },
+                                                          "type": "object"
+                                                        },
+                                                        {
+                                                          "defaultProperties": [
+                                                          ],
+                                                          "properties": {
+                                                            "bytes": {
+                                                              "enum": [
+                                                                1,
+                                                                2,
+                                                                3,
+                                                                4
+                                                              ],
+                                                              "type": "number"
+                                                            }
+                                                          },
+                                                          "type": "object"
+                                                        },
+                                                        {
+                                                          "defaultProperties": [
+                                                          ],
+                                                          "properties": {
+                                                            "content": {
+                                                              "additionalItems": {
+                                                                "anyOf": [
+                                                                  {
+                                                                    "type": "string"
+                                                                  },
+                                                                  {
+                                                                    "type": "number"
+                                                                  },
+                                                                  {
+                                                                    "type": "number"
+                                                                  }
+                                                                ]
+                                                              },
+                                                              "items": [
+                                                                {
+                                                                  "type": "string"
+                                                                },
+                                                                {
+                                                                  "type": "number"
+                                                                },
+                                                                {
+                                                                  "type": "number"
+                                                                }
+                                                              ],
+                                                              "minItems": 3,
+                                                              "type": "array"
+                                                            }
+                                                          },
+                                                          "required": [
+                                                            "content"
+                                                          ],
+                                                          "type": "object"
+                                                        }
+                                                      ]
+                                                    },
+                                                    {
+                                                      "allOf": [
+                                                        {
+                                                          "defaultProperties": [
+                                                          ],
+                                                          "properties": {
+                                                            "options": {
+                                                              "additionalItems": {
+                                                                "anyOf": [
+                                                                  {
+                                                                    "type": "number"
+                                                                  },
+                                                                  {
+                                                                    "type": "number"
+                                                                  }
+                                                                ]
+                                                              },
+                                                              "items": [
+                                                                {
+                                                                  "type": "number"
+                                                                },
+                                                                {
+                                                                  "type": "number"
+                                                                }
+                                                              ],
+                                                              "minItems": 2,
+                                                              "type": "array"
+                                                            },
+                                                            "type": {
+                                                              "enum": [
+                                                                "range"
+                                                              ],
+                                                              "type": "string"
+                                                            },
+                                                            "unit": {
+                                                              "type": "string"
+                                                            }
+                                                          },
+                                                          "required": [
+                                                            "options",
+                                                            "type"
+                                                          ],
+                                                          "type": "object"
+                                                        },
+                                                        {
+                                                          "defaultProperties": [
+                                                          ],
+                                                          "properties": {
+                                                            "label": {
+                                                              "type": "string"
+                                                            }
+                                                          },
+                                                          "required": [
+                                                            "label"
+                                                          ],
+                                                          "type": "object"
+                                                        },
+                                                        {
+                                                          "defaultProperties": [
+                                                          ],
+                                                          "properties": {
+                                                            "showIf": {
+                                                              "type": "string"
+                                                            }
+                                                          },
+                                                          "type": "object"
+                                                        },
+                                                        {
+                                                          "defaultProperties": [
+                                                          ],
+                                                          "properties": {
+                                                            "bytes": {
+                                                              "enum": [
+                                                                1,
+                                                                2,
+                                                                3,
+                                                                4
+                                                              ],
+                                                              "type": "number"
+                                                            }
+                                                          },
+                                                          "type": "object"
+                                                        },
+                                                        {
+                                                          "defaultProperties": [
+                                                          ],
+                                                          "properties": {
+                                                            "content": {
+                                                              "additionalItems": {
+                                                                "anyOf": [
+                                                                  {
+                                                                    "type": "string"
+                                                                  },
+                                                                  {
+                                                                    "type": "number"
+                                                                  },
+                                                                  {
+                                                                    "type": "number"
+                                                                  }
+                                                                ]
+                                                              },
+                                                              "items": [
+                                                                {
+                                                                  "type": "string"
+                                                                },
+                                                                {
+                                                                  "type": "number"
+                                                                },
+                                                                {
+                                                                  "type": "number"
+                                                                }
+                                                              ],
+                                                              "minItems": 3,
+                                                              "type": "array"
+                                                            }
+                                                          },
+                                                          "required": [
+                                                            "content"
+                                                          ],
+                                                          "type": "object"
+                                                        }
+                                                      ]
+                                                    },
+                                                    {
+                                                      "allOf": [
+                                                        {
+                                                          "defaultProperties": [
+                                                          ],
+                                                          "properties": {
+                                                            "type": {
+                                                              "enum": [
+                                                                "keycode"
+                                                              ],
+                                                              "type": "string"
+                                                            }
+                                                          },
+                                                          "required": [
+                                                            "type"
+                                                          ],
+                                                          "type": "object"
+                                                        },
+                                                        {
+                                                          "defaultProperties": [
+                                                          ],
+                                                          "properties": {
+                                                            "label": {
+                                                              "type": "string"
+                                                            }
+                                                          },
+                                                          "required": [
+                                                            "label"
+                                                          ],
+                                                          "type": "object"
+                                                        },
+                                                        {
+                                                          "defaultProperties": [
+                                                          ],
+                                                          "properties": {
+                                                            "showIf": {
+                                                              "type": "string"
+                                                            }
+                                                          },
+                                                          "type": "object"
+                                                        },
+                                                        {
+                                                          "defaultProperties": [
+                                                          ],
+                                                          "properties": {
+                                                            "bytes": {
+                                                              "enum": [
+                                                                1,
+                                                                2,
+                                                                3,
+                                                                4
+                                                              ],
+                                                              "type": "number"
+                                                            }
+                                                          },
+                                                          "type": "object"
+                                                        },
+                                                        {
+                                                          "defaultProperties": [
+                                                          ],
+                                                          "properties": {
+                                                            "content": {
+                                                              "additionalItems": {
+                                                                "anyOf": [
+                                                                  {
+                                                                    "type": "string"
+                                                                  },
+                                                                  {
+                                                                    "type": "number"
+                                                                  },
+                                                                  {
+                                                                    "type": "number"
+                                                                  }
+                                                                ]
+                                                              },
+                                                              "items": [
+                                                                {
+                                                                  "type": "string"
+                                                                },
+                                                                {
+                                                                  "type": "number"
+                                                                },
+                                                                {
+                                                                  "type": "number"
+                                                                }
+                                                              ],
+                                                              "minItems": 3,
+                                                              "type": "array"
+                                                            }
+                                                          },
+                                                          "required": [
+                                                            "content"
+                                                          ],
+                                                          "type": "object"
+                                                        }
+                                                      ]
+                                                    },
+                                                    {
+                                                      "allOf": [
+                                                        {
+                                                          "defaultProperties": [
+                                                          ],
+                                                          "properties": {
+                                                            "type": {
+                                                              "enum": [
+                                                                "color"
+                                                              ],
+                                                              "type": "string"
+                                                            }
+                                                          },
+                                                          "required": [
+                                                            "type"
+                                                          ],
+                                                          "type": "object"
+                                                        },
+                                                        {
+                                                          "defaultProperties": [
+                                                          ],
+                                                          "properties": {
+                                                            "label": {
+                                                              "type": "string"
+                                                            }
+                                                          },
+                                                          "required": [
+                                                            "label"
+                                                          ],
+                                                          "type": "object"
+                                                        },
+                                                        {
+                                                          "defaultProperties": [
+                                                          ],
+                                                          "properties": {
+                                                            "showIf": {
+                                                              "type": "string"
+                                                            }
+                                                          },
+                                                          "type": "object"
+                                                        },
+                                                        {
+                                                          "defaultProperties": [
+                                                          ],
+                                                          "properties": {
+                                                            "bytes": {
+                                                              "enum": [
+                                                                1,
+                                                                2,
+                                                                3,
+                                                                4
+                                                              ],
+                                                              "type": "number"
+                                                            }
+                                                          },
+                                                          "type": "object"
+                                                        },
+                                                        {
+                                                          "defaultProperties": [
+                                                          ],
+                                                          "properties": {
+                                                            "content": {
+                                                              "additionalItems": {
+                                                                "anyOf": [
+                                                                  {
+                                                                    "type": "string"
+                                                                  },
+                                                                  {
+                                                                    "type": "number"
+                                                                  },
+                                                                  {
+                                                                    "type": "number"
+                                                                  }
+                                                                ]
+                                                              },
+                                                              "items": [
+                                                                {
+                                                                  "type": "string"
+                                                                },
+                                                                {
+                                                                  "type": "number"
+                                                                },
+                                                                {
+                                                                  "type": "number"
+                                                                }
+                                                              ],
+                                                              "minItems": 3,
+                                                              "type": "array"
+                                                            }
+                                                          },
+                                                          "required": [
+                                                            "content"
+                                                          ],
+                                                          "type": "object"
+                                                        }
+                                                      ]
+                                                    },
+                                                    {
+                                                      "allOf": [
+                                                        {
+                                                          "defaultProperties": [
+                                                          ],
+                                                          "properties": {
+                                                            "label": {
+                                                              "type": "string"
+                                                            }
+                                                          },
+                                                          "required": [
+                                                            "label"
+                                                          ],
+                                                          "type": "object"
+                                                        },
+                                                        {
+                                                          "defaultProperties": [
+                                                          ],
+                                                          "properties": {
+                                                            "showIf": {
+                                                              "type": "string"
+                                                            }
+                                                          },
+                                                          "type": "object"
+                                                        },
+                                                        {
+                                                          "defaultProperties": [
+                                                          ],
+                                                          "properties": {
+                                                            "bytes": {
+                                                              "enum": [
+                                                                1,
+                                                                2,
+                                                                3,
+                                                                4
+                                                              ],
+                                                              "type": "number"
+                                                            }
+                                                          },
+                                                          "type": "object"
+                                                        },
+                                                        {
+                                                          "defaultProperties": [
+                                                          ],
+                                                          "properties": {
+                                                            "content": {
+                                                              "type": "string"
+                                                            }
+                                                          },
+                                                          "required": [
+                                                            "content"
+                                                          ],
+                                                          "type": "object"
+                                                        }
+                                                      ]
+                                                    }
+                                                  ]
+                                                },
+                                                "type": "array"
+                                              }
+                                            },
+                                            "required": [
+                                              "content"
+                                            ],
+                                            "type": "object"
+                                          }
+                                        ]
                                       }
                                     ]
                                   },
-                                  {
+                                  "type": "array"
+                                }
+                              },
+                              "required": [
+                                "content"
+                              ],
+                              "type": "object"
+                            }
+                          ]
+                        },
+                        {
+                          "allOf": [
+                            {
+                              "defaultProperties": [
+                              ],
+                              "properties": {
+                                "showIf": {
+                                  "type": "string"
+                                }
+                              },
+                              "type": "object"
+                            },
+                            {
+                              "defaultProperties": [
+                              ],
+                              "properties": {
+                                "content": {
+                                  "items": {
                                     "allOf": [
                                       {
                                         "defaultProperties": [
@@ -764,49 +1671,6 @@ export const VIADefinitionV3Schema = {
                                         ],
                                         "type": "object"
                                       },
-                                      {
-                                        "defaultProperties": [
-                                        ],
-                                        "properties": {
-                                          "showIf": {
-                                            "type": "string"
-                                          }
-                                        },
-                                        "type": "object"
-                                      },
-                                      {
-                                        "defaultProperties": [
-                                        ],
-                                        "properties": {
-                                          "bytes": {
-                                            "enum": [
-                                              1,
-                                              2,
-                                              3,
-                                              4
-                                            ],
-                                            "type": "number"
-                                          }
-                                        },
-                                        "type": "object"
-                                      },
-                                      {
-                                        "defaultProperties": [
-                                        ],
-                                        "properties": {
-                                          "content": {
-                                            "type": "string"
-                                          }
-                                        },
-                                        "required": [
-                                          "content"
-                                        ],
-                                        "type": "object"
-                                      }
-                                    ]
-                                  },
-                                  {
-                                    "allOf": [
                                       {
                                         "defaultProperties": [
                                         ],
@@ -1471,6 +2335,685 @@ export const VIADefinitionV3Schema = {
                                                       "type": "object"
                                                     }
                                                   ]
+                                                },
+                                                {
+                                                  "allOf": [
+                                                    {
+                                                      "defaultProperties": [
+                                                      ],
+                                                      "properties": {
+                                                        "showIf": {
+                                                          "type": "string"
+                                                        }
+                                                      },
+                                                      "type": "object"
+                                                    },
+                                                    {
+                                                      "defaultProperties": [
+                                                      ],
+                                                      "properties": {
+                                                        "content": {
+                                                          "items": {
+                                                            "anyOf": [
+                                                              {
+                                                                "allOf": [
+                                                                  {
+                                                                    "defaultProperties": [
+                                                                    ],
+                                                                    "properties": {
+                                                                      "options": {
+                                                                        "additionalItems": {
+                                                                          "anyOf": [
+                                                                            {
+                                                                              "anyOf": [
+                                                                                {
+                                                                                  "items": {
+                                                                                    "type": "number"
+                                                                                  },
+                                                                                  "type": "array"
+                                                                                },
+                                                                                {
+                                                                                  "type": "number"
+                                                                                }
+                                                                              ]
+                                                                            },
+                                                                            {
+                                                                              "anyOf": [
+                                                                                {
+                                                                                  "items": {
+                                                                                    "type": "number"
+                                                                                  },
+                                                                                  "type": "array"
+                                                                                },
+                                                                                {
+                                                                                  "type": "number"
+                                                                                }
+                                                                              ]
+                                                                            }
+                                                                          ]
+                                                                        },
+                                                                        "items": [
+                                                                          {
+                                                                            "anyOf": [
+                                                                              {
+                                                                                "items": {
+                                                                                  "type": "number"
+                                                                                },
+                                                                                "type": "array"
+                                                                              },
+                                                                              {
+                                                                                "type": "number"
+                                                                              }
+                                                                            ]
+                                                                          },
+                                                                          {
+                                                                            "anyOf": [
+                                                                              {
+                                                                                "items": {
+                                                                                  "type": "number"
+                                                                                },
+                                                                                "type": "array"
+                                                                              },
+                                                                              {
+                                                                                "type": "number"
+                                                                              }
+                                                                            ]
+                                                                          }
+                                                                        ],
+                                                                        "minItems": 2,
+                                                                        "type": "array"
+                                                                      },
+                                                                      "type": {
+                                                                        "enum": [
+                                                                          "toggle"
+                                                                        ],
+                                                                        "type": "string"
+                                                                      }
+                                                                    },
+                                                                    "required": [
+                                                                      "type"
+                                                                    ],
+                                                                    "type": "object"
+                                                                  },
+                                                                  {
+                                                                    "defaultProperties": [
+                                                                    ],
+                                                                    "properties": {
+                                                                      "label": {
+                                                                        "type": "string"
+                                                                      }
+                                                                    },
+                                                                    "required": [
+                                                                      "label"
+                                                                    ],
+                                                                    "type": "object"
+                                                                  },
+                                                                  {
+                                                                    "defaultProperties": [
+                                                                    ],
+                                                                    "properties": {
+                                                                      "showIf": {
+                                                                        "type": "string"
+                                                                      }
+                                                                    },
+                                                                    "type": "object"
+                                                                  },
+                                                                  {
+                                                                    "defaultProperties": [
+                                                                    ],
+                                                                    "properties": {
+                                                                      "bytes": {
+                                                                        "enum": [
+                                                                          1,
+                                                                          2,
+                                                                          3,
+                                                                          4
+                                                                        ],
+                                                                        "type": "number"
+                                                                      }
+                                                                    },
+                                                                    "type": "object"
+                                                                  },
+                                                                  {
+                                                                    "defaultProperties": [
+                                                                    ],
+                                                                    "properties": {
+                                                                      "content": {
+                                                                        "additionalItems": {
+                                                                          "anyOf": [
+                                                                            {
+                                                                              "type": "string"
+                                                                            },
+                                                                            {
+                                                                              "type": "number"
+                                                                            },
+                                                                            {
+                                                                              "type": "number"
+                                                                            }
+                                                                          ]
+                                                                        },
+                                                                        "items": [
+                                                                          {
+                                                                            "type": "string"
+                                                                          },
+                                                                          {
+                                                                            "type": "number"
+                                                                          },
+                                                                          {
+                                                                            "type": "number"
+                                                                          }
+                                                                        ],
+                                                                        "minItems": 3,
+                                                                        "type": "array"
+                                                                      }
+                                                                    },
+                                                                    "required": [
+                                                                      "content"
+                                                                    ],
+                                                                    "type": "object"
+                                                                  }
+                                                                ]
+                                                              },
+                                                              {
+                                                                "allOf": [
+                                                                  {
+                                                                    "defaultProperties": [
+                                                                    ],
+                                                                    "properties": {
+                                                                      "options": {
+                                                                        "items": {
+                                                                          "additionalItems": {
+                                                                            "type": "number"
+                                                                          },
+                                                                          "items": [
+                                                                            {
+                                                                              "type": "string"
+                                                                            },
+                                                                            {
+                                                                              "type": "number"
+                                                                            }
+                                                                          ],
+                                                                          "minItems": 2,
+                                                                          "type": "array"
+                                                                        },
+                                                                        "type": "array"
+                                                                      },
+                                                                      "type": {
+                                                                        "enum": [
+                                                                          "dropdown"
+                                                                        ],
+                                                                        "type": "string"
+                                                                      }
+                                                                    },
+                                                                    "required": [
+                                                                      "options",
+                                                                      "type"
+                                                                    ],
+                                                                    "type": "object"
+                                                                  },
+                                                                  {
+                                                                    "defaultProperties": [
+                                                                    ],
+                                                                    "properties": {
+                                                                      "label": {
+                                                                        "type": "string"
+                                                                      }
+                                                                    },
+                                                                    "required": [
+                                                                      "label"
+                                                                    ],
+                                                                    "type": "object"
+                                                                  },
+                                                                  {
+                                                                    "defaultProperties": [
+                                                                    ],
+                                                                    "properties": {
+                                                                      "showIf": {
+                                                                        "type": "string"
+                                                                      }
+                                                                    },
+                                                                    "type": "object"
+                                                                  },
+                                                                  {
+                                                                    "defaultProperties": [
+                                                                    ],
+                                                                    "properties": {
+                                                                      "bytes": {
+                                                                        "enum": [
+                                                                          1,
+                                                                          2,
+                                                                          3,
+                                                                          4
+                                                                        ],
+                                                                        "type": "number"
+                                                                      }
+                                                                    },
+                                                                    "type": "object"
+                                                                  },
+                                                                  {
+                                                                    "defaultProperties": [
+                                                                    ],
+                                                                    "properties": {
+                                                                      "content": {
+                                                                        "additionalItems": {
+                                                                          "anyOf": [
+                                                                            {
+                                                                              "type": "string"
+                                                                            },
+                                                                            {
+                                                                              "type": "number"
+                                                                            },
+                                                                            {
+                                                                              "type": "number"
+                                                                            }
+                                                                          ]
+                                                                        },
+                                                                        "items": [
+                                                                          {
+                                                                            "type": "string"
+                                                                          },
+                                                                          {
+                                                                            "type": "number"
+                                                                          },
+                                                                          {
+                                                                            "type": "number"
+                                                                          }
+                                                                        ],
+                                                                        "minItems": 3,
+                                                                        "type": "array"
+                                                                      }
+                                                                    },
+                                                                    "required": [
+                                                                      "content"
+                                                                    ],
+                                                                    "type": "object"
+                                                                  }
+                                                                ]
+                                                              },
+                                                              {
+                                                                "allOf": [
+                                                                  {
+                                                                    "defaultProperties": [
+                                                                    ],
+                                                                    "properties": {
+                                                                      "options": {
+                                                                        "additionalItems": {
+                                                                          "anyOf": [
+                                                                            {
+                                                                              "type": "number"
+                                                                            },
+                                                                            {
+                                                                              "type": "number"
+                                                                            }
+                                                                          ]
+                                                                        },
+                                                                        "items": [
+                                                                          {
+                                                                            "type": "number"
+                                                                          },
+                                                                          {
+                                                                            "type": "number"
+                                                                          }
+                                                                        ],
+                                                                        "minItems": 2,
+                                                                        "type": "array"
+                                                                      },
+                                                                      "type": {
+                                                                        "enum": [
+                                                                          "range"
+                                                                        ],
+                                                                        "type": "string"
+                                                                      },
+                                                                      "unit": {
+                                                                        "type": "string"
+                                                                      }
+                                                                    },
+                                                                    "required": [
+                                                                      "options",
+                                                                      "type"
+                                                                    ],
+                                                                    "type": "object"
+                                                                  },
+                                                                  {
+                                                                    "defaultProperties": [
+                                                                    ],
+                                                                    "properties": {
+                                                                      "label": {
+                                                                        "type": "string"
+                                                                      }
+                                                                    },
+                                                                    "required": [
+                                                                      "label"
+                                                                    ],
+                                                                    "type": "object"
+                                                                  },
+                                                                  {
+                                                                    "defaultProperties": [
+                                                                    ],
+                                                                    "properties": {
+                                                                      "showIf": {
+                                                                        "type": "string"
+                                                                      }
+                                                                    },
+                                                                    "type": "object"
+                                                                  },
+                                                                  {
+                                                                    "defaultProperties": [
+                                                                    ],
+                                                                    "properties": {
+                                                                      "bytes": {
+                                                                        "enum": [
+                                                                          1,
+                                                                          2,
+                                                                          3,
+                                                                          4
+                                                                        ],
+                                                                        "type": "number"
+                                                                      }
+                                                                    },
+                                                                    "type": "object"
+                                                                  },
+                                                                  {
+                                                                    "defaultProperties": [
+                                                                    ],
+                                                                    "properties": {
+                                                                      "content": {
+                                                                        "additionalItems": {
+                                                                          "anyOf": [
+                                                                            {
+                                                                              "type": "string"
+                                                                            },
+                                                                            {
+                                                                              "type": "number"
+                                                                            },
+                                                                            {
+                                                                              "type": "number"
+                                                                            }
+                                                                          ]
+                                                                        },
+                                                                        "items": [
+                                                                          {
+                                                                            "type": "string"
+                                                                          },
+                                                                          {
+                                                                            "type": "number"
+                                                                          },
+                                                                          {
+                                                                            "type": "number"
+                                                                          }
+                                                                        ],
+                                                                        "minItems": 3,
+                                                                        "type": "array"
+                                                                      }
+                                                                    },
+                                                                    "required": [
+                                                                      "content"
+                                                                    ],
+                                                                    "type": "object"
+                                                                  }
+                                                                ]
+                                                              },
+                                                              {
+                                                                "allOf": [
+                                                                  {
+                                                                    "defaultProperties": [
+                                                                    ],
+                                                                    "properties": {
+                                                                      "type": {
+                                                                        "enum": [
+                                                                          "keycode"
+                                                                        ],
+                                                                        "type": "string"
+                                                                      }
+                                                                    },
+                                                                    "required": [
+                                                                      "type"
+                                                                    ],
+                                                                    "type": "object"
+                                                                  },
+                                                                  {
+                                                                    "defaultProperties": [
+                                                                    ],
+                                                                    "properties": {
+                                                                      "label": {
+                                                                        "type": "string"
+                                                                      }
+                                                                    },
+                                                                    "required": [
+                                                                      "label"
+                                                                    ],
+                                                                    "type": "object"
+                                                                  },
+                                                                  {
+                                                                    "defaultProperties": [
+                                                                    ],
+                                                                    "properties": {
+                                                                      "showIf": {
+                                                                        "type": "string"
+                                                                      }
+                                                                    },
+                                                                    "type": "object"
+                                                                  },
+                                                                  {
+                                                                    "defaultProperties": [
+                                                                    ],
+                                                                    "properties": {
+                                                                      "bytes": {
+                                                                        "enum": [
+                                                                          1,
+                                                                          2,
+                                                                          3,
+                                                                          4
+                                                                        ],
+                                                                        "type": "number"
+                                                                      }
+                                                                    },
+                                                                    "type": "object"
+                                                                  },
+                                                                  {
+                                                                    "defaultProperties": [
+                                                                    ],
+                                                                    "properties": {
+                                                                      "content": {
+                                                                        "additionalItems": {
+                                                                          "anyOf": [
+                                                                            {
+                                                                              "type": "string"
+                                                                            },
+                                                                            {
+                                                                              "type": "number"
+                                                                            },
+                                                                            {
+                                                                              "type": "number"
+                                                                            }
+                                                                          ]
+                                                                        },
+                                                                        "items": [
+                                                                          {
+                                                                            "type": "string"
+                                                                          },
+                                                                          {
+                                                                            "type": "number"
+                                                                          },
+                                                                          {
+                                                                            "type": "number"
+                                                                          }
+                                                                        ],
+                                                                        "minItems": 3,
+                                                                        "type": "array"
+                                                                      }
+                                                                    },
+                                                                    "required": [
+                                                                      "content"
+                                                                    ],
+                                                                    "type": "object"
+                                                                  }
+                                                                ]
+                                                              },
+                                                              {
+                                                                "allOf": [
+                                                                  {
+                                                                    "defaultProperties": [
+                                                                    ],
+                                                                    "properties": {
+                                                                      "type": {
+                                                                        "enum": [
+                                                                          "color"
+                                                                        ],
+                                                                        "type": "string"
+                                                                      }
+                                                                    },
+                                                                    "required": [
+                                                                      "type"
+                                                                    ],
+                                                                    "type": "object"
+                                                                  },
+                                                                  {
+                                                                    "defaultProperties": [
+                                                                    ],
+                                                                    "properties": {
+                                                                      "label": {
+                                                                        "type": "string"
+                                                                      }
+                                                                    },
+                                                                    "required": [
+                                                                      "label"
+                                                                    ],
+                                                                    "type": "object"
+                                                                  },
+                                                                  {
+                                                                    "defaultProperties": [
+                                                                    ],
+                                                                    "properties": {
+                                                                      "showIf": {
+                                                                        "type": "string"
+                                                                      }
+                                                                    },
+                                                                    "type": "object"
+                                                                  },
+                                                                  {
+                                                                    "defaultProperties": [
+                                                                    ],
+                                                                    "properties": {
+                                                                      "bytes": {
+                                                                        "enum": [
+                                                                          1,
+                                                                          2,
+                                                                          3,
+                                                                          4
+                                                                        ],
+                                                                        "type": "number"
+                                                                      }
+                                                                    },
+                                                                    "type": "object"
+                                                                  },
+                                                                  {
+                                                                    "defaultProperties": [
+                                                                    ],
+                                                                    "properties": {
+                                                                      "content": {
+                                                                        "additionalItems": {
+                                                                          "anyOf": [
+                                                                            {
+                                                                              "type": "string"
+                                                                            },
+                                                                            {
+                                                                              "type": "number"
+                                                                            },
+                                                                            {
+                                                                              "type": "number"
+                                                                            }
+                                                                          ]
+                                                                        },
+                                                                        "items": [
+                                                                          {
+                                                                            "type": "string"
+                                                                          },
+                                                                          {
+                                                                            "type": "number"
+                                                                          },
+                                                                          {
+                                                                            "type": "number"
+                                                                          }
+                                                                        ],
+                                                                        "minItems": 3,
+                                                                        "type": "array"
+                                                                      }
+                                                                    },
+                                                                    "required": [
+                                                                      "content"
+                                                                    ],
+                                                                    "type": "object"
+                                                                  }
+                                                                ]
+                                                              },
+                                                              {
+                                                                "allOf": [
+                                                                  {
+                                                                    "defaultProperties": [
+                                                                    ],
+                                                                    "properties": {
+                                                                      "label": {
+                                                                        "type": "string"
+                                                                      }
+                                                                    },
+                                                                    "required": [
+                                                                      "label"
+                                                                    ],
+                                                                    "type": "object"
+                                                                  },
+                                                                  {
+                                                                    "defaultProperties": [
+                                                                    ],
+                                                                    "properties": {
+                                                                      "showIf": {
+                                                                        "type": "string"
+                                                                      }
+                                                                    },
+                                                                    "type": "object"
+                                                                  },
+                                                                  {
+                                                                    "defaultProperties": [
+                                                                    ],
+                                                                    "properties": {
+                                                                      "bytes": {
+                                                                        "enum": [
+                                                                          1,
+                                                                          2,
+                                                                          3,
+                                                                          4
+                                                                        ],
+                                                                        "type": "number"
+                                                                      }
+                                                                    },
+                                                                    "type": "object"
+                                                                  },
+                                                                  {
+                                                                    "defaultProperties": [
+                                                                    ],
+                                                                    "properties": {
+                                                                      "content": {
+                                                                        "type": "string"
+                                                                      }
+                                                                    },
+                                                                    "required": [
+                                                                      "content"
+                                                                    ],
+                                                                    "type": "object"
+                                                                  }
+                                                                ]
+                                                              }
+                                                            ]
+                                                          },
+                                                          "type": "array"
+                                                        }
+                                                      },
+                                                      "required": [
+                                                        "content"
+                                                      ],
+                                                      "type": "object"
+                                                    }
+                                                  ]
                                                 }
                                               ]
                                             },
@@ -1483,1608 +3026,33 @@ export const VIADefinitionV3Schema = {
                                         "type": "object"
                                       }
                                     ]
-                                  }
-                                ]
+                                  },
+                                  "type": "array"
+                                }
                               },
-                              "type": "array"
+                              "required": [
+                                "content"
+                              ],
+                              "type": "object"
                             }
-                          },
-                          "required": [
-                            "content"
-                          ],
-                          "type": "object"
+                          ]
                         }
                       ]
                     },
-                    {
-                      "allOf": [
-                        {
-                          "defaultProperties": [
-                          ],
-                          "properties": {
-                            "showIf": {
-                              "type": "string"
-                            }
-                          },
-                          "type": "object"
-                        },
-                        {
-                          "defaultProperties": [
-                          ],
-                          "properties": {
-                            "content": {
-                              "items": {
-                                "allOf": [
-                                  {
-                                    "defaultProperties": [
-                                    ],
-                                    "properties": {
-                                      "label": {
-                                        "type": "string"
-                                      }
-                                    },
-                                    "required": [
-                                      "label"
-                                    ],
-                                    "type": "object"
-                                  },
-                                  {
-                                    "defaultProperties": [
-                                    ],
-                                    "properties": {
-                                      "showIf": {
-                                        "type": "string"
-                                      }
-                                    },
-                                    "type": "object"
-                                  },
-                                  {
-                                    "defaultProperties": [
-                                    ],
-                                    "properties": {
-                                      "content": {
-                                        "items": {
-                                          "anyOf": [
-                                            {
-                                              "allOf": [
-                                                {
-                                                  "defaultProperties": [
-                                                  ],
-                                                  "properties": {
-                                                    "options": {
-                                                      "additionalItems": {
-                                                        "anyOf": [
-                                                          {
-                                                            "anyOf": [
-                                                              {
-                                                                "items": {
-                                                                  "type": "number"
-                                                                },
-                                                                "type": "array"
-                                                              },
-                                                              {
-                                                                "type": "number"
-                                                              }
-                                                            ]
-                                                          },
-                                                          {
-                                                            "anyOf": [
-                                                              {
-                                                                "items": {
-                                                                  "type": "number"
-                                                                },
-                                                                "type": "array"
-                                                              },
-                                                              {
-                                                                "type": "number"
-                                                              }
-                                                            ]
-                                                          }
-                                                        ]
-                                                      },
-                                                      "items": [
-                                                        {
-                                                          "anyOf": [
-                                                            {
-                                                              "items": {
-                                                                "type": "number"
-                                                              },
-                                                              "type": "array"
-                                                            },
-                                                            {
-                                                              "type": "number"
-                                                            }
-                                                          ]
-                                                        },
-                                                        {
-                                                          "anyOf": [
-                                                            {
-                                                              "items": {
-                                                                "type": "number"
-                                                              },
-                                                              "type": "array"
-                                                            },
-                                                            {
-                                                              "type": "number"
-                                                            }
-                                                          ]
-                                                        }
-                                                      ],
-                                                      "minItems": 2,
-                                                      "type": "array"
-                                                    },
-                                                    "type": {
-                                                      "enum": [
-                                                        "toggle"
-                                                      ],
-                                                      "type": "string"
-                                                    }
-                                                  },
-                                                  "required": [
-                                                    "type"
-                                                  ],
-                                                  "type": "object"
-                                                },
-                                                {
-                                                  "defaultProperties": [
-                                                  ],
-                                                  "properties": {
-                                                    "label": {
-                                                      "type": "string"
-                                                    }
-                                                  },
-                                                  "required": [
-                                                    "label"
-                                                  ],
-                                                  "type": "object"
-                                                },
-                                                {
-                                                  "defaultProperties": [
-                                                  ],
-                                                  "properties": {
-                                                    "showIf": {
-                                                      "type": "string"
-                                                    }
-                                                  },
-                                                  "type": "object"
-                                                },
-                                                {
-                                                  "defaultProperties": [
-                                                  ],
-                                                  "properties": {
-                                                    "bytes": {
-                                                      "enum": [
-                                                        1,
-                                                        2,
-                                                        3,
-                                                        4
-                                                      ],
-                                                      "type": "number"
-                                                    }
-                                                  },
-                                                  "type": "object"
-                                                },
-                                                {
-                                                  "defaultProperties": [
-                                                  ],
-                                                  "properties": {
-                                                    "content": {
-                                                      "additionalItems": {
-                                                        "anyOf": [
-                                                          {
-                                                            "type": "string"
-                                                          },
-                                                          {
-                                                            "type": "number"
-                                                          },
-                                                          {
-                                                            "type": "number"
-                                                          }
-                                                        ]
-                                                      },
-                                                      "items": [
-                                                        {
-                                                          "type": "string"
-                                                        },
-                                                        {
-                                                          "type": "number"
-                                                        },
-                                                        {
-                                                          "type": "number"
-                                                        }
-                                                      ],
-                                                      "minItems": 3,
-                                                      "type": "array"
-                                                    }
-                                                  },
-                                                  "required": [
-                                                    "content"
-                                                  ],
-                                                  "type": "object"
-                                                }
-                                              ]
-                                            },
-                                            {
-                                              "allOf": [
-                                                {
-                                                  "defaultProperties": [
-                                                  ],
-                                                  "properties": {
-                                                    "options": {
-                                                      "items": {
-                                                        "additionalItems": {
-                                                          "type": "number"
-                                                        },
-                                                        "items": [
-                                                          {
-                                                            "type": "string"
-                                                          },
-                                                          {
-                                                            "type": "number"
-                                                          }
-                                                        ],
-                                                        "minItems": 2,
-                                                        "type": "array"
-                                                      },
-                                                      "type": "array"
-                                                    },
-                                                    "type": {
-                                                      "enum": [
-                                                        "dropdown"
-                                                      ],
-                                                      "type": "string"
-                                                    }
-                                                  },
-                                                  "required": [
-                                                    "options",
-                                                    "type"
-                                                  ],
-                                                  "type": "object"
-                                                },
-                                                {
-                                                  "defaultProperties": [
-                                                  ],
-                                                  "properties": {
-                                                    "label": {
-                                                      "type": "string"
-                                                    }
-                                                  },
-                                                  "required": [
-                                                    "label"
-                                                  ],
-                                                  "type": "object"
-                                                },
-                                                {
-                                                  "defaultProperties": [
-                                                  ],
-                                                  "properties": {
-                                                    "showIf": {
-                                                      "type": "string"
-                                                    }
-                                                  },
-                                                  "type": "object"
-                                                },
-                                                {
-                                                  "defaultProperties": [
-                                                  ],
-                                                  "properties": {
-                                                    "bytes": {
-                                                      "enum": [
-                                                        1,
-                                                        2,
-                                                        3,
-                                                        4
-                                                      ],
-                                                      "type": "number"
-                                                    }
-                                                  },
-                                                  "type": "object"
-                                                },
-                                                {
-                                                  "defaultProperties": [
-                                                  ],
-                                                  "properties": {
-                                                    "content": {
-                                                      "additionalItems": {
-                                                        "anyOf": [
-                                                          {
-                                                            "type": "string"
-                                                          },
-                                                          {
-                                                            "type": "number"
-                                                          },
-                                                          {
-                                                            "type": "number"
-                                                          }
-                                                        ]
-                                                      },
-                                                      "items": [
-                                                        {
-                                                          "type": "string"
-                                                        },
-                                                        {
-                                                          "type": "number"
-                                                        },
-                                                        {
-                                                          "type": "number"
-                                                        }
-                                                      ],
-                                                      "minItems": 3,
-                                                      "type": "array"
-                                                    }
-                                                  },
-                                                  "required": [
-                                                    "content"
-                                                  ],
-                                                  "type": "object"
-                                                }
-                                              ]
-                                            },
-                                            {
-                                              "allOf": [
-                                                {
-                                                  "defaultProperties": [
-                                                  ],
-                                                  "properties": {
-                                                    "options": {
-                                                      "additionalItems": {
-                                                        "anyOf": [
-                                                          {
-                                                            "type": "number"
-                                                          },
-                                                          {
-                                                            "type": "number"
-                                                          }
-                                                        ]
-                                                      },
-                                                      "items": [
-                                                        {
-                                                          "type": "number"
-                                                        },
-                                                        {
-                                                          "type": "number"
-                                                        }
-                                                      ],
-                                                      "minItems": 2,
-                                                      "type": "array"
-                                                    },
-                                                    "type": {
-                                                      "enum": [
-                                                        "range"
-                                                      ],
-                                                      "type": "string"
-                                                    },
-                                                    "unit": {
-                                                      "type": "string"
-                                                    }
-                                                  },
-                                                  "required": [
-                                                    "options",
-                                                    "type"
-                                                  ],
-                                                  "type": "object"
-                                                },
-                                                {
-                                                  "defaultProperties": [
-                                                  ],
-                                                  "properties": {
-                                                    "label": {
-                                                      "type": "string"
-                                                    }
-                                                  },
-                                                  "required": [
-                                                    "label"
-                                                  ],
-                                                  "type": "object"
-                                                },
-                                                {
-                                                  "defaultProperties": [
-                                                  ],
-                                                  "properties": {
-                                                    "showIf": {
-                                                      "type": "string"
-                                                    }
-                                                  },
-                                                  "type": "object"
-                                                },
-                                                {
-                                                  "defaultProperties": [
-                                                  ],
-                                                  "properties": {
-                                                    "bytes": {
-                                                      "enum": [
-                                                        1,
-                                                        2,
-                                                        3,
-                                                        4
-                                                      ],
-                                                      "type": "number"
-                                                    }
-                                                  },
-                                                  "type": "object"
-                                                },
-                                                {
-                                                  "defaultProperties": [
-                                                  ],
-                                                  "properties": {
-                                                    "content": {
-                                                      "additionalItems": {
-                                                        "anyOf": [
-                                                          {
-                                                            "type": "string"
-                                                          },
-                                                          {
-                                                            "type": "number"
-                                                          },
-                                                          {
-                                                            "type": "number"
-                                                          }
-                                                        ]
-                                                      },
-                                                      "items": [
-                                                        {
-                                                          "type": "string"
-                                                        },
-                                                        {
-                                                          "type": "number"
-                                                        },
-                                                        {
-                                                          "type": "number"
-                                                        }
-                                                      ],
-                                                      "minItems": 3,
-                                                      "type": "array"
-                                                    }
-                                                  },
-                                                  "required": [
-                                                    "content"
-                                                  ],
-                                                  "type": "object"
-                                                }
-                                              ]
-                                            },
-                                            {
-                                              "allOf": [
-                                                {
-                                                  "defaultProperties": [
-                                                  ],
-                                                  "properties": {
-                                                    "type": {
-                                                      "enum": [
-                                                        "keycode"
-                                                      ],
-                                                      "type": "string"
-                                                    }
-                                                  },
-                                                  "required": [
-                                                    "type"
-                                                  ],
-                                                  "type": "object"
-                                                },
-                                                {
-                                                  "defaultProperties": [
-                                                  ],
-                                                  "properties": {
-                                                    "label": {
-                                                      "type": "string"
-                                                    }
-                                                  },
-                                                  "required": [
-                                                    "label"
-                                                  ],
-                                                  "type": "object"
-                                                },
-                                                {
-                                                  "defaultProperties": [
-                                                  ],
-                                                  "properties": {
-                                                    "showIf": {
-                                                      "type": "string"
-                                                    }
-                                                  },
-                                                  "type": "object"
-                                                },
-                                                {
-                                                  "defaultProperties": [
-                                                  ],
-                                                  "properties": {
-                                                    "bytes": {
-                                                      "enum": [
-                                                        1,
-                                                        2,
-                                                        3,
-                                                        4
-                                                      ],
-                                                      "type": "number"
-                                                    }
-                                                  },
-                                                  "type": "object"
-                                                },
-                                                {
-                                                  "defaultProperties": [
-                                                  ],
-                                                  "properties": {
-                                                    "content": {
-                                                      "additionalItems": {
-                                                        "anyOf": [
-                                                          {
-                                                            "type": "string"
-                                                          },
-                                                          {
-                                                            "type": "number"
-                                                          },
-                                                          {
-                                                            "type": "number"
-                                                          }
-                                                        ]
-                                                      },
-                                                      "items": [
-                                                        {
-                                                          "type": "string"
-                                                        },
-                                                        {
-                                                          "type": "number"
-                                                        },
-                                                        {
-                                                          "type": "number"
-                                                        }
-                                                      ],
-                                                      "minItems": 3,
-                                                      "type": "array"
-                                                    }
-                                                  },
-                                                  "required": [
-                                                    "content"
-                                                  ],
-                                                  "type": "object"
-                                                }
-                                              ]
-                                            },
-                                            {
-                                              "allOf": [
-                                                {
-                                                  "defaultProperties": [
-                                                  ],
-                                                  "properties": {
-                                                    "type": {
-                                                      "enum": [
-                                                        "color"
-                                                      ],
-                                                      "type": "string"
-                                                    }
-                                                  },
-                                                  "required": [
-                                                    "type"
-                                                  ],
-                                                  "type": "object"
-                                                },
-                                                {
-                                                  "defaultProperties": [
-                                                  ],
-                                                  "properties": {
-                                                    "label": {
-                                                      "type": "string"
-                                                    }
-                                                  },
-                                                  "required": [
-                                                    "label"
-                                                  ],
-                                                  "type": "object"
-                                                },
-                                                {
-                                                  "defaultProperties": [
-                                                  ],
-                                                  "properties": {
-                                                    "showIf": {
-                                                      "type": "string"
-                                                    }
-                                                  },
-                                                  "type": "object"
-                                                },
-                                                {
-                                                  "defaultProperties": [
-                                                  ],
-                                                  "properties": {
-                                                    "bytes": {
-                                                      "enum": [
-                                                        1,
-                                                        2,
-                                                        3,
-                                                        4
-                                                      ],
-                                                      "type": "number"
-                                                    }
-                                                  },
-                                                  "type": "object"
-                                                },
-                                                {
-                                                  "defaultProperties": [
-                                                  ],
-                                                  "properties": {
-                                                    "content": {
-                                                      "additionalItems": {
-                                                        "anyOf": [
-                                                          {
-                                                            "type": "string"
-                                                          },
-                                                          {
-                                                            "type": "number"
-                                                          },
-                                                          {
-                                                            "type": "number"
-                                                          }
-                                                        ]
-                                                      },
-                                                      "items": [
-                                                        {
-                                                          "type": "string"
-                                                        },
-                                                        {
-                                                          "type": "number"
-                                                        },
-                                                        {
-                                                          "type": "number"
-                                                        }
-                                                      ],
-                                                      "minItems": 3,
-                                                      "type": "array"
-                                                    }
-                                                  },
-                                                  "required": [
-                                                    "content"
-                                                  ],
-                                                  "type": "object"
-                                                }
-                                              ]
-                                            },
-                                            {
-                                              "allOf": [
-                                                {
-                                                  "defaultProperties": [
-                                                  ],
-                                                  "properties": {
-                                                    "label": {
-                                                      "type": "string"
-                                                    }
-                                                  },
-                                                  "required": [
-                                                    "label"
-                                                  ],
-                                                  "type": "object"
-                                                },
-                                                {
-                                                  "defaultProperties": [
-                                                  ],
-                                                  "properties": {
-                                                    "showIf": {
-                                                      "type": "string"
-                                                    }
-                                                  },
-                                                  "type": "object"
-                                                },
-                                                {
-                                                  "defaultProperties": [
-                                                  ],
-                                                  "properties": {
-                                                    "bytes": {
-                                                      "enum": [
-                                                        1,
-                                                        2,
-                                                        3,
-                                                        4
-                                                      ],
-                                                      "type": "number"
-                                                    }
-                                                  },
-                                                  "type": "object"
-                                                },
-                                                {
-                                                  "defaultProperties": [
-                                                  ],
-                                                  "properties": {
-                                                    "content": {
-                                                      "type": "string"
-                                                    }
-                                                  },
-                                                  "required": [
-                                                    "content"
-                                                  ],
-                                                  "type": "object"
-                                                }
-                                              ]
-                                            },
-                                            {
-                                              "allOf": [
-                                                {
-                                                  "defaultProperties": [
-                                                  ],
-                                                  "properties": {
-                                                    "showIf": {
-                                                      "type": "string"
-                                                    }
-                                                  },
-                                                  "type": "object"
-                                                },
-                                                {
-                                                  "defaultProperties": [
-                                                  ],
-                                                  "properties": {
-                                                    "content": {
-                                                      "items": {
-                                                        "anyOf": [
-                                                          {
-                                                            "allOf": [
-                                                              {
-                                                                "defaultProperties": [
-                                                                ],
-                                                                "properties": {
-                                                                  "options": {
-                                                                    "additionalItems": {
-                                                                      "anyOf": [
-                                                                        {
-                                                                          "anyOf": [
-                                                                            {
-                                                                              "items": {
-                                                                                "type": "number"
-                                                                              },
-                                                                              "type": "array"
-                                                                            },
-                                                                            {
-                                                                              "type": "number"
-                                                                            }
-                                                                          ]
-                                                                        },
-                                                                        {
-                                                                          "anyOf": [
-                                                                            {
-                                                                              "items": {
-                                                                                "type": "number"
-                                                                              },
-                                                                              "type": "array"
-                                                                            },
-                                                                            {
-                                                                              "type": "number"
-                                                                            }
-                                                                          ]
-                                                                        }
-                                                                      ]
-                                                                    },
-                                                                    "items": [
-                                                                      {
-                                                                        "anyOf": [
-                                                                          {
-                                                                            "items": {
-                                                                              "type": "number"
-                                                                            },
-                                                                            "type": "array"
-                                                                          },
-                                                                          {
-                                                                            "type": "number"
-                                                                          }
-                                                                        ]
-                                                                      },
-                                                                      {
-                                                                        "anyOf": [
-                                                                          {
-                                                                            "items": {
-                                                                              "type": "number"
-                                                                            },
-                                                                            "type": "array"
-                                                                          },
-                                                                          {
-                                                                            "type": "number"
-                                                                          }
-                                                                        ]
-                                                                      }
-                                                                    ],
-                                                                    "minItems": 2,
-                                                                    "type": "array"
-                                                                  },
-                                                                  "type": {
-                                                                    "enum": [
-                                                                      "toggle"
-                                                                    ],
-                                                                    "type": "string"
-                                                                  }
-                                                                },
-                                                                "required": [
-                                                                  "type"
-                                                                ],
-                                                                "type": "object"
-                                                              },
-                                                              {
-                                                                "defaultProperties": [
-                                                                ],
-                                                                "properties": {
-                                                                  "label": {
-                                                                    "type": "string"
-                                                                  }
-                                                                },
-                                                                "required": [
-                                                                  "label"
-                                                                ],
-                                                                "type": "object"
-                                                              },
-                                                              {
-                                                                "defaultProperties": [
-                                                                ],
-                                                                "properties": {
-                                                                  "showIf": {
-                                                                    "type": "string"
-                                                                  }
-                                                                },
-                                                                "type": "object"
-                                                              },
-                                                              {
-                                                                "defaultProperties": [
-                                                                ],
-                                                                "properties": {
-                                                                  "bytes": {
-                                                                    "enum": [
-                                                                      1,
-                                                                      2,
-                                                                      3,
-                                                                      4
-                                                                    ],
-                                                                    "type": "number"
-                                                                  }
-                                                                },
-                                                                "type": "object"
-                                                              },
-                                                              {
-                                                                "defaultProperties": [
-                                                                ],
-                                                                "properties": {
-                                                                  "content": {
-                                                                    "additionalItems": {
-                                                                      "anyOf": [
-                                                                        {
-                                                                          "type": "string"
-                                                                        },
-                                                                        {
-                                                                          "type": "number"
-                                                                        },
-                                                                        {
-                                                                          "type": "number"
-                                                                        }
-                                                                      ]
-                                                                    },
-                                                                    "items": [
-                                                                      {
-                                                                        "type": "string"
-                                                                      },
-                                                                      {
-                                                                        "type": "number"
-                                                                      },
-                                                                      {
-                                                                        "type": "number"
-                                                                      }
-                                                                    ],
-                                                                    "minItems": 3,
-                                                                    "type": "array"
-                                                                  }
-                                                                },
-                                                                "required": [
-                                                                  "content"
-                                                                ],
-                                                                "type": "object"
-                                                              }
-                                                            ]
-                                                          },
-                                                          {
-                                                            "allOf": [
-                                                              {
-                                                                "defaultProperties": [
-                                                                ],
-                                                                "properties": {
-                                                                  "options": {
-                                                                    "items": {
-                                                                      "additionalItems": {
-                                                                        "type": "number"
-                                                                      },
-                                                                      "items": [
-                                                                        {
-                                                                          "type": "string"
-                                                                        },
-                                                                        {
-                                                                          "type": "number"
-                                                                        }
-                                                                      ],
-                                                                      "minItems": 2,
-                                                                      "type": "array"
-                                                                    },
-                                                                    "type": "array"
-                                                                  },
-                                                                  "type": {
-                                                                    "enum": [
-                                                                      "dropdown"
-                                                                    ],
-                                                                    "type": "string"
-                                                                  }
-                                                                },
-                                                                "required": [
-                                                                  "options",
-                                                                  "type"
-                                                                ],
-                                                                "type": "object"
-                                                              },
-                                                              {
-                                                                "defaultProperties": [
-                                                                ],
-                                                                "properties": {
-                                                                  "label": {
-                                                                    "type": "string"
-                                                                  }
-                                                                },
-                                                                "required": [
-                                                                  "label"
-                                                                ],
-                                                                "type": "object"
-                                                              },
-                                                              {
-                                                                "defaultProperties": [
-                                                                ],
-                                                                "properties": {
-                                                                  "showIf": {
-                                                                    "type": "string"
-                                                                  }
-                                                                },
-                                                                "type": "object"
-                                                              },
-                                                              {
-                                                                "defaultProperties": [
-                                                                ],
-                                                                "properties": {
-                                                                  "bytes": {
-                                                                    "enum": [
-                                                                      1,
-                                                                      2,
-                                                                      3,
-                                                                      4
-                                                                    ],
-                                                                    "type": "number"
-                                                                  }
-                                                                },
-                                                                "type": "object"
-                                                              },
-                                                              {
-                                                                "defaultProperties": [
-                                                                ],
-                                                                "properties": {
-                                                                  "content": {
-                                                                    "additionalItems": {
-                                                                      "anyOf": [
-                                                                        {
-                                                                          "type": "string"
-                                                                        },
-                                                                        {
-                                                                          "type": "number"
-                                                                        },
-                                                                        {
-                                                                          "type": "number"
-                                                                        }
-                                                                      ]
-                                                                    },
-                                                                    "items": [
-                                                                      {
-                                                                        "type": "string"
-                                                                      },
-                                                                      {
-                                                                        "type": "number"
-                                                                      },
-                                                                      {
-                                                                        "type": "number"
-                                                                      }
-                                                                    ],
-                                                                    "minItems": 3,
-                                                                    "type": "array"
-                                                                  }
-                                                                },
-                                                                "required": [
-                                                                  "content"
-                                                                ],
-                                                                "type": "object"
-                                                              }
-                                                            ]
-                                                          },
-                                                          {
-                                                            "allOf": [
-                                                              {
-                                                                "defaultProperties": [
-                                                                ],
-                                                                "properties": {
-                                                                  "options": {
-                                                                    "additionalItems": {
-                                                                      "anyOf": [
-                                                                        {
-                                                                          "type": "number"
-                                                                        },
-                                                                        {
-                                                                          "type": "number"
-                                                                        }
-                                                                      ]
-                                                                    },
-                                                                    "items": [
-                                                                      {
-                                                                        "type": "number"
-                                                                      },
-                                                                      {
-                                                                        "type": "number"
-                                                                      }
-                                                                    ],
-                                                                    "minItems": 2,
-                                                                    "type": "array"
-                                                                  },
-                                                                  "type": {
-                                                                    "enum": [
-                                                                      "range"
-                                                                    ],
-                                                                    "type": "string"
-                                                                  },
-                                                                  "unit": {
-                                                                    "type": "string"
-                                                                  }
-                                                                },
-                                                                "required": [
-                                                                  "options",
-                                                                  "type"
-                                                                ],
-                                                                "type": "object"
-                                                              },
-                                                              {
-                                                                "defaultProperties": [
-                                                                ],
-                                                                "properties": {
-                                                                  "label": {
-                                                                    "type": "string"
-                                                                  }
-                                                                },
-                                                                "required": [
-                                                                  "label"
-                                                                ],
-                                                                "type": "object"
-                                                              },
-                                                              {
-                                                                "defaultProperties": [
-                                                                ],
-                                                                "properties": {
-                                                                  "showIf": {
-                                                                    "type": "string"
-                                                                  }
-                                                                },
-                                                                "type": "object"
-                                                              },
-                                                              {
-                                                                "defaultProperties": [
-                                                                ],
-                                                                "properties": {
-                                                                  "bytes": {
-                                                                    "enum": [
-                                                                      1,
-                                                                      2,
-                                                                      3,
-                                                                      4
-                                                                    ],
-                                                                    "type": "number"
-                                                                  }
-                                                                },
-                                                                "type": "object"
-                                                              },
-                                                              {
-                                                                "defaultProperties": [
-                                                                ],
-                                                                "properties": {
-                                                                  "content": {
-                                                                    "additionalItems": {
-                                                                      "anyOf": [
-                                                                        {
-                                                                          "type": "string"
-                                                                        },
-                                                                        {
-                                                                          "type": "number"
-                                                                        },
-                                                                        {
-                                                                          "type": "number"
-                                                                        }
-                                                                      ]
-                                                                    },
-                                                                    "items": [
-                                                                      {
-                                                                        "type": "string"
-                                                                      },
-                                                                      {
-                                                                        "type": "number"
-                                                                      },
-                                                                      {
-                                                                        "type": "number"
-                                                                      }
-                                                                    ],
-                                                                    "minItems": 3,
-                                                                    "type": "array"
-                                                                  }
-                                                                },
-                                                                "required": [
-                                                                  "content"
-                                                                ],
-                                                                "type": "object"
-                                                              }
-                                                            ]
-                                                          },
-                                                          {
-                                                            "allOf": [
-                                                              {
-                                                                "defaultProperties": [
-                                                                ],
-                                                                "properties": {
-                                                                  "type": {
-                                                                    "enum": [
-                                                                      "keycode"
-                                                                    ],
-                                                                    "type": "string"
-                                                                  }
-                                                                },
-                                                                "required": [
-                                                                  "type"
-                                                                ],
-                                                                "type": "object"
-                                                              },
-                                                              {
-                                                                "defaultProperties": [
-                                                                ],
-                                                                "properties": {
-                                                                  "label": {
-                                                                    "type": "string"
-                                                                  }
-                                                                },
-                                                                "required": [
-                                                                  "label"
-                                                                ],
-                                                                "type": "object"
-                                                              },
-                                                              {
-                                                                "defaultProperties": [
-                                                                ],
-                                                                "properties": {
-                                                                  "showIf": {
-                                                                    "type": "string"
-                                                                  }
-                                                                },
-                                                                "type": "object"
-                                                              },
-                                                              {
-                                                                "defaultProperties": [
-                                                                ],
-                                                                "properties": {
-                                                                  "bytes": {
-                                                                    "enum": [
-                                                                      1,
-                                                                      2,
-                                                                      3,
-                                                                      4
-                                                                    ],
-                                                                    "type": "number"
-                                                                  }
-                                                                },
-                                                                "type": "object"
-                                                              },
-                                                              {
-                                                                "defaultProperties": [
-                                                                ],
-                                                                "properties": {
-                                                                  "content": {
-                                                                    "additionalItems": {
-                                                                      "anyOf": [
-                                                                        {
-                                                                          "type": "string"
-                                                                        },
-                                                                        {
-                                                                          "type": "number"
-                                                                        },
-                                                                        {
-                                                                          "type": "number"
-                                                                        }
-                                                                      ]
-                                                                    },
-                                                                    "items": [
-                                                                      {
-                                                                        "type": "string"
-                                                                      },
-                                                                      {
-                                                                        "type": "number"
-                                                                      },
-                                                                      {
-                                                                        "type": "number"
-                                                                      }
-                                                                    ],
-                                                                    "minItems": 3,
-                                                                    "type": "array"
-                                                                  }
-                                                                },
-                                                                "required": [
-                                                                  "content"
-                                                                ],
-                                                                "type": "object"
-                                                              }
-                                                            ]
-                                                          },
-                                                          {
-                                                            "allOf": [
-                                                              {
-                                                                "defaultProperties": [
-                                                                ],
-                                                                "properties": {
-                                                                  "type": {
-                                                                    "enum": [
-                                                                      "color"
-                                                                    ],
-                                                                    "type": "string"
-                                                                  }
-                                                                },
-                                                                "required": [
-                                                                  "type"
-                                                                ],
-                                                                "type": "object"
-                                                              },
-                                                              {
-                                                                "defaultProperties": [
-                                                                ],
-                                                                "properties": {
-                                                                  "label": {
-                                                                    "type": "string"
-                                                                  }
-                                                                },
-                                                                "required": [
-                                                                  "label"
-                                                                ],
-                                                                "type": "object"
-                                                              },
-                                                              {
-                                                                "defaultProperties": [
-                                                                ],
-                                                                "properties": {
-                                                                  "showIf": {
-                                                                    "type": "string"
-                                                                  }
-                                                                },
-                                                                "type": "object"
-                                                              },
-                                                              {
-                                                                "defaultProperties": [
-                                                                ],
-                                                                "properties": {
-                                                                  "bytes": {
-                                                                    "enum": [
-                                                                      1,
-                                                                      2,
-                                                                      3,
-                                                                      4
-                                                                    ],
-                                                                    "type": "number"
-                                                                  }
-                                                                },
-                                                                "type": "object"
-                                                              },
-                                                              {
-                                                                "defaultProperties": [
-                                                                ],
-                                                                "properties": {
-                                                                  "content": {
-                                                                    "additionalItems": {
-                                                                      "anyOf": [
-                                                                        {
-                                                                          "type": "string"
-                                                                        },
-                                                                        {
-                                                                          "type": "number"
-                                                                        },
-                                                                        {
-                                                                          "type": "number"
-                                                                        }
-                                                                      ]
-                                                                    },
-                                                                    "items": [
-                                                                      {
-                                                                        "type": "string"
-                                                                      },
-                                                                      {
-                                                                        "type": "number"
-                                                                      },
-                                                                      {
-                                                                        "type": "number"
-                                                                      }
-                                                                    ],
-                                                                    "minItems": 3,
-                                                                    "type": "array"
-                                                                  }
-                                                                },
-                                                                "required": [
-                                                                  "content"
-                                                                ],
-                                                                "type": "object"
-                                                              }
-                                                            ]
-                                                          },
-                                                          {
-                                                            "allOf": [
-                                                              {
-                                                                "defaultProperties": [
-                                                                ],
-                                                                "properties": {
-                                                                  "label": {
-                                                                    "type": "string"
-                                                                  }
-                                                                },
-                                                                "required": [
-                                                                  "label"
-                                                                ],
-                                                                "type": "object"
-                                                              },
-                                                              {
-                                                                "defaultProperties": [
-                                                                ],
-                                                                "properties": {
-                                                                  "showIf": {
-                                                                    "type": "string"
-                                                                  }
-                                                                },
-                                                                "type": "object"
-                                                              },
-                                                              {
-                                                                "defaultProperties": [
-                                                                ],
-                                                                "properties": {
-                                                                  "bytes": {
-                                                                    "enum": [
-                                                                      1,
-                                                                      2,
-                                                                      3,
-                                                                      4
-                                                                    ],
-                                                                    "type": "number"
-                                                                  }
-                                                                },
-                                                                "type": "object"
-                                                              },
-                                                              {
-                                                                "defaultProperties": [
-                                                                ],
-                                                                "properties": {
-                                                                  "content": {
-                                                                    "type": "string"
-                                                                  }
-                                                                },
-                                                                "required": [
-                                                                  "content"
-                                                                ],
-                                                                "type": "object"
-                                                              }
-                                                            ]
-                                                          }
-                                                        ]
-                                                      },
-                                                      "type": "array"
-                                                    }
-                                                  },
-                                                  "required": [
-                                                    "content"
-                                                  ],
-                                                  "type": "object"
-                                                }
-                                              ]
-                                            }
-                                          ]
-                                        },
-                                        "type": "array"
-                                      }
-                                    },
-                                    "required": [
-                                      "content"
-                                    ],
-                                    "type": "object"
-                                  }
-                                ]
-                              },
-                              "type": "array"
-                            }
-                          },
-                          "required": [
-                            "content"
-                          ],
-                          "type": "object"
-                        }
-                      ]
-                    }
-                  ]
-                },
-                "type": "array"
-              }
-            },
-            "required": [
-              "content"
-            ],
-            "type": "object"
-          }
-        ]
-      },
-      "type": "array"
-    },
-    "keycodes": {
-      "items": {
-        "anyOf": [
-          {
-            "defaultProperties": [
-            ],
-            "properties": {
-              "keycodes": {
-                "items": {
-                  "defaultProperties": [
-                  ],
-                  "properties": {
-                    "hexValue": {
-                      "type": "string"
-                    },
-                    "name": {
-                      "type": "string"
-                    },
-                    "shortName": {
-                      "type": "string"
-                    },
-                    "title": {
-                      "type": "string"
-                    }
-                  },
-                  "required": [
-                    "hexValue",
-                    "name",
-                    "title"
-                  ],
-                  "type": "object"
-                },
-                "type": "array"
-              },
-              "menu": {
-                "$ref": "#/definitions/MenuId"
-              }
-            },
-            "required": [
-              "keycodes",
-              "menu"
-            ],
-            "type": "object"
-          },
-          {
-            "enum": [
-              "core/keycodes/qmk_lighting",
-              "via/keycodes"
-            ],
-            "type": "string"
-          }
-        ]
-      },
-      "type": "array"
-    },
-    "layouts": {
-      "defaultProperties": [
-      ],
-      "properties": {
-        "height": {
-          "type": "number"
-        },
-        "keys": {
-          "items": {
-            "allOf": [
-              {
-                "$ref": "#/definitions/Pick<Result,\"h\"|\"w\"|\"x2\"|\"y2\"|\"h2\"|\"w2\"|\"x\"|\"y\"|\"r\"|\"rx\"|\"ry\"|\"row\"|\"col\">"
-              },
-              {
-                "defaultProperties": [
-                ],
-                "properties": {
-                  "color": {
-                    "$ref": "#/definitions/KeyColorType"
+                    "type": "array"
                   }
                 },
                 "required": [
-                  "color"
+                  "content"
                 ],
                 "type": "object"
               }
             ]
           },
-          "type": "array"
-        },
-        "labels": {
-          "items": {
-            "anyOf": [
-              {
-                "items": {
-                  "type": "string"
-                },
-                "type": "array"
-              },
-              {
-                "type": "string"
-              }
-            ]
-          },
-          "type": "array"
-        },
-        "optionKeys": {
-          "additionalProperties": {
-            "additionalProperties": {
-              "items": {
-                "allOf": [
-                  {
-                    "$ref": "#/definitions/Pick<Result,\"h\"|\"w\"|\"x2\"|\"y2\"|\"h2\"|\"w2\"|\"x\"|\"y\"|\"r\"|\"rx\"|\"ry\"|\"row\"|\"col\">"
-                  },
-                  {
-                    "defaultProperties": [
-                    ],
-                    "properties": {
-                      "color": {
-                        "$ref": "#/definitions/KeyColorType"
-                      }
-                    },
-                    "required": [
-                      "color"
-                    ],
-                    "type": "object"
-                  }
-                ]
-              },
-              "type": "array"
-            },
-            "defaultProperties": [
-            ],
-            "type": "object"
-          },
-          "defaultProperties": [
-          ],
-          "type": "object"
-        },
-        "presets": {
-          "additionalProperties": {
-            "items": {
-              "type": "number"
-            },
-            "type": "array"
-          },
-          "defaultProperties": [
-          ],
-          "type": "object"
-        },
-        "width": {
-          "type": "number"
-        }
-      },
-      "required": [
-        "height",
-        "keys",
-        "optionKeys",
-        "width"
-      ],
-      "type": "object"
-    },
-    "matrix": {
-      "defaultProperties": [
-      ],
-      "properties": {
-        "cols": {
-          "type": "number"
-        },
-        "rows": {
-          "type": "number"
-        }
-      },
-      "required": [
-        "cols",
-        "rows"
-      ],
-      "type": "object"
-    },
-    "menus": {
-      "items": {
-        "type": "string"
+          {
+            "type": "string"
+          }
+        ]
       },
       "type": "array"
     },
@@ -3096,6 +3064,7 @@ export const VIADefinitionV3Schema = {
     }
   },
   "required": [
+    "keycodes",
     "layouts",
     "matrix",
     "menus",

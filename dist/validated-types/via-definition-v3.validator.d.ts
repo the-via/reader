@@ -10,10 +10,6 @@ export declare const VIADefinitionV3Schema: {
             "enum": string[];
             "type": string;
         };
-        "MenuId": {
-            "enum": string[];
-            "type": string;
-        };
         "Pick<Result,\"h\"|\"w\"|\"x2\"|\"y2\"|\"h2\"|\"w2\"|\"x\"|\"y\"|\"r\"|\"rx\"|\"ry\"|\"row\"|\"col\">": {
             "defaultProperties": never[];
             "properties": {
@@ -62,70 +58,211 @@ export declare const VIADefinitionV3Schema: {
         };
     };
     "properties": {
-        "customMenus": {
+        "customKeycodes": {
             "items": {
-                "allOf": ({
-                    "defaultProperties": never[];
-                    "properties": {
-                        "label": {
-                            "type": string;
-                        };
-                        "showIf"?: undefined;
-                        "content"?: undefined;
+                "defaultProperties": never[];
+                "properties": {
+                    "name": {
+                        "type": string;
                     };
-                    "required": string[];
+                    "shortName": {
+                        "type": string;
+                    };
+                    "title": {
+                        "type": string;
+                    };
+                };
+                "required": string[];
+                "type": string;
+            };
+            "type": string;
+        };
+        "keycodes": {
+            "items": {
+                "enum": string[];
+                "type": string;
+            };
+            "type": string;
+        };
+        "layouts": {
+            "defaultProperties": never[];
+            "properties": {
+                "height": {
                     "type": string;
-                } | {
-                    "defaultProperties": never[];
-                    "properties": {
-                        "showIf": {
+                };
+                "keys": {
+                    "items": {
+                        "allOf": ({
+                            "$ref": string;
+                            "defaultProperties"?: undefined;
+                            "properties"?: undefined;
+                            "required"?: undefined;
+                            "type"?: undefined;
+                        } | {
+                            "defaultProperties": never[];
+                            "properties": {
+                                "color": {
+                                    "$ref": string;
+                                };
+                            };
+                            "required": string[];
                             "type": string;
-                        };
-                        "label"?: undefined;
-                        "content"?: undefined;
+                            "$ref"?: undefined;
+                        })[];
                     };
                     "type": string;
-                    "required"?: undefined;
-                } | {
-                    "defaultProperties": never[];
-                    "properties": {
-                        "content": {
+                };
+                "labels": {
+                    "items": {
+                        "anyOf": ({
                             "items": {
-                                "anyOf": ({
-                                    "allOf": ({
-                                        "defaultProperties": never[];
-                                        "properties": {
-                                            "label": {
-                                                "type": string;
-                                            };
-                                            "showIf"?: undefined;
-                                            "content"?: undefined;
+                                "type": string;
+                            };
+                            "type": string;
+                        } | {
+                            "type": string;
+                            "items"?: undefined;
+                        })[];
+                    };
+                    "type": string;
+                };
+                "optionKeys": {
+                    "additionalProperties": {
+                        "additionalProperties": {
+                            "items": {
+                                "allOf": ({
+                                    "$ref": string;
+                                    "defaultProperties"?: undefined;
+                                    "properties"?: undefined;
+                                    "required"?: undefined;
+                                    "type"?: undefined;
+                                } | {
+                                    "defaultProperties": never[];
+                                    "properties": {
+                                        "color": {
+                                            "$ref": string;
                                         };
-                                        "required": string[];
-                                        "type": string;
-                                    } | {
-                                        "defaultProperties": never[];
-                                        "properties": {
-                                            "showIf": {
-                                                "type": string;
+                                    };
+                                    "required": string[];
+                                    "type": string;
+                                    "$ref"?: undefined;
+                                })[];
+                            };
+                            "type": string;
+                        };
+                        "defaultProperties": never[];
+                        "type": string;
+                    };
+                    "defaultProperties": never[];
+                    "type": string;
+                };
+                "presets": {
+                    "additionalProperties": {
+                        "items": {
+                            "type": string;
+                        };
+                        "type": string;
+                    };
+                    "defaultProperties": never[];
+                    "type": string;
+                };
+                "width": {
+                    "type": string;
+                };
+            };
+            "required": string[];
+            "type": string;
+        };
+        "matrix": {
+            "defaultProperties": never[];
+            "properties": {
+                "cols": {
+                    "type": string;
+                };
+                "rows": {
+                    "type": string;
+                };
+            };
+            "required": string[];
+            "type": string;
+        };
+        "menus": {
+            "items": {
+                "anyOf": ({
+                    "allOf": ({
+                        "defaultProperties": never[];
+                        "properties": {
+                            "label": {
+                                "type": string;
+                            };
+                            "showIf"?: undefined;
+                            "content"?: undefined;
+                        };
+                        "required": string[];
+                        "type": string;
+                    } | {
+                        "defaultProperties": never[];
+                        "properties": {
+                            "showIf": {
+                                "type": string;
+                            };
+                            "label"?: undefined;
+                            "content"?: undefined;
+                        };
+                        "type": string;
+                        "required"?: undefined;
+                    } | {
+                        "defaultProperties": never[];
+                        "properties": {
+                            "content": {
+                                "items": {
+                                    "anyOf": ({
+                                        "allOf": ({
+                                            "defaultProperties": never[];
+                                            "properties": {
+                                                "label": {
+                                                    "type": string;
+                                                };
+                                                "showIf"?: undefined;
+                                                "content"?: undefined;
                                             };
-                                            "label"?: undefined;
-                                            "content"?: undefined;
-                                        };
-                                        "type": string;
-                                        "required"?: undefined;
-                                    } | {
-                                        "defaultProperties": never[];
-                                        "properties": {
-                                            "content": {
-                                                "items": {
-                                                    "anyOf": ({
-                                                        "allOf": ({
-                                                            "defaultProperties": never[];
-                                                            "properties": {
-                                                                "options": {
-                                                                    "additionalItems": {
-                                                                        "anyOf": {
+                                            "required": string[];
+                                            "type": string;
+                                        } | {
+                                            "defaultProperties": never[];
+                                            "properties": {
+                                                "showIf": {
+                                                    "type": string;
+                                                };
+                                                "label"?: undefined;
+                                                "content"?: undefined;
+                                            };
+                                            "type": string;
+                                            "required"?: undefined;
+                                        } | {
+                                            "defaultProperties": never[];
+                                            "properties": {
+                                                "content": {
+                                                    "items": {
+                                                        "anyOf": ({
+                                                            "allOf": ({
+                                                                "defaultProperties": never[];
+                                                                "properties": {
+                                                                    "options": {
+                                                                        "additionalItems": {
+                                                                            "anyOf": {
+                                                                                "anyOf": ({
+                                                                                    "items": {
+                                                                                        "type": string;
+                                                                                    };
+                                                                                    "type": string;
+                                                                                } | {
+                                                                                    "type": string;
+                                                                                    "items"?: undefined;
+                                                                                })[];
+                                                                            }[];
+                                                                        };
+                                                                        "items": {
                                                                             "anyOf": ({
                                                                                 "items": {
                                                                                     "type": string;
@@ -136,107 +273,71 @@ export declare const VIADefinitionV3Schema: {
                                                                                 "items"?: undefined;
                                                                             })[];
                                                                         }[];
-                                                                    };
-                                                                    "items": {
-                                                                        "anyOf": ({
-                                                                            "items": {
-                                                                                "type": string;
-                                                                            };
-                                                                            "type": string;
-                                                                        } | {
-                                                                            "type": string;
-                                                                            "items"?: undefined;
-                                                                        })[];
-                                                                    }[];
-                                                                    "minItems": number;
-                                                                    "type": string;
-                                                                };
-                                                                "type": {
-                                                                    "enum": string[];
-                                                                    "type": string;
-                                                                };
-                                                                "label"?: undefined;
-                                                                "showIf"?: undefined;
-                                                                "bytes"?: undefined;
-                                                                "content"?: undefined;
-                                                            };
-                                                            "required": string[];
-                                                            "type": string;
-                                                        } | {
-                                                            "defaultProperties": never[];
-                                                            "properties": {
-                                                                "label": {
-                                                                    "type": string;
-                                                                };
-                                                                "options"?: undefined;
-                                                                "type"?: undefined;
-                                                                "showIf"?: undefined;
-                                                                "bytes"?: undefined;
-                                                                "content"?: undefined;
-                                                            };
-                                                            "required": string[];
-                                                            "type": string;
-                                                        } | {
-                                                            "defaultProperties": never[];
-                                                            "properties": {
-                                                                "showIf": {
-                                                                    "type": string;
-                                                                };
-                                                                "options"?: undefined;
-                                                                "type"?: undefined;
-                                                                "label"?: undefined;
-                                                                "bytes"?: undefined;
-                                                                "content"?: undefined;
-                                                            };
-                                                            "type": string;
-                                                            "required"?: undefined;
-                                                        } | {
-                                                            "defaultProperties": never[];
-                                                            "properties": {
-                                                                "bytes": {
-                                                                    "enum": number[];
-                                                                    "type": string;
-                                                                };
-                                                                "options"?: undefined;
-                                                                "type"?: undefined;
-                                                                "label"?: undefined;
-                                                                "showIf"?: undefined;
-                                                                "content"?: undefined;
-                                                            };
-                                                            "type": string;
-                                                            "required"?: undefined;
-                                                        } | {
-                                                            "defaultProperties": never[];
-                                                            "properties": {
-                                                                "content": {
-                                                                    "additionalItems": {
-                                                                        "anyOf": {
-                                                                            "type": string;
-                                                                        }[];
-                                                                    };
-                                                                    "items": {
+                                                                        "minItems": number;
                                                                         "type": string;
-                                                                    }[];
-                                                                    "minItems": number;
-                                                                    "type": string;
+                                                                    };
+                                                                    "type": {
+                                                                        "enum": string[];
+                                                                        "type": string;
+                                                                    };
+                                                                    "label"?: undefined;
+                                                                    "showIf"?: undefined;
+                                                                    "bytes"?: undefined;
+                                                                    "content"?: undefined;
                                                                 };
-                                                                "options"?: undefined;
-                                                                "type"?: undefined;
-                                                                "label"?: undefined;
-                                                                "showIf"?: undefined;
-                                                                "bytes"?: undefined;
-                                                            };
-                                                            "required": string[];
-                                                            "type": string;
-                                                        })[];
-                                                    } | {
-                                                        "allOf": ({
-                                                            "defaultProperties": never[];
-                                                            "properties": {
-                                                                "options": {
-                                                                    "items": {
+                                                                "required": string[];
+                                                                "type": string;
+                                                            } | {
+                                                                "defaultProperties": never[];
+                                                                "properties": {
+                                                                    "label": {
+                                                                        "type": string;
+                                                                    };
+                                                                    "options"?: undefined;
+                                                                    "type"?: undefined;
+                                                                    "showIf"?: undefined;
+                                                                    "bytes"?: undefined;
+                                                                    "content"?: undefined;
+                                                                };
+                                                                "required": string[];
+                                                                "type": string;
+                                                            } | {
+                                                                "defaultProperties": never[];
+                                                                "properties": {
+                                                                    "showIf": {
+                                                                        "type": string;
+                                                                    };
+                                                                    "options"?: undefined;
+                                                                    "type"?: undefined;
+                                                                    "label"?: undefined;
+                                                                    "bytes"?: undefined;
+                                                                    "content"?: undefined;
+                                                                };
+                                                                "type": string;
+                                                                "required"?: undefined;
+                                                            } | {
+                                                                "defaultProperties": never[];
+                                                                "properties": {
+                                                                    "bytes": {
+                                                                        "enum": number[];
+                                                                        "type": string;
+                                                                    };
+                                                                    "options"?: undefined;
+                                                                    "type"?: undefined;
+                                                                    "label"?: undefined;
+                                                                    "showIf"?: undefined;
+                                                                    "content"?: undefined;
+                                                                };
+                                                                "type": string;
+                                                                "required"?: undefined;
+                                                            } | {
+                                                                "defaultProperties": never[];
+                                                                "properties": {
+                                                                    "content": {
                                                                         "additionalItems": {
-                                                                            "type": string;
+                                                                            "anyOf": {
+                                                                                "type": string;
+                                                                            }[];
                                                                         };
                                                                         "items": {
                                                                             "type": string;
@@ -244,274 +345,833 @@ export declare const VIADefinitionV3Schema: {
                                                                         "minItems": number;
                                                                         "type": string;
                                                                     };
-                                                                    "type": string;
+                                                                    "options"?: undefined;
+                                                                    "type"?: undefined;
+                                                                    "label"?: undefined;
+                                                                    "showIf"?: undefined;
+                                                                    "bytes"?: undefined;
                                                                 };
-                                                                "type": {
-                                                                    "enum": string[];
-                                                                    "type": string;
-                                                                };
-                                                                "label"?: undefined;
-                                                                "showIf"?: undefined;
-                                                                "bytes"?: undefined;
-                                                                "content"?: undefined;
-                                                            };
-                                                            "required": string[];
-                                                            "type": string;
+                                                                "required": string[];
+                                                                "type": string;
+                                                            })[];
                                                         } | {
+                                                            "allOf": ({
+                                                                "defaultProperties": never[];
+                                                                "properties": {
+                                                                    "options": {
+                                                                        "items": {
+                                                                            "additionalItems": {
+                                                                                "type": string;
+                                                                            };
+                                                                            "items": {
+                                                                                "type": string;
+                                                                            }[];
+                                                                            "minItems": number;
+                                                                            "type": string;
+                                                                        };
+                                                                        "type": string;
+                                                                    };
+                                                                    "type": {
+                                                                        "enum": string[];
+                                                                        "type": string;
+                                                                    };
+                                                                    "label"?: undefined;
+                                                                    "showIf"?: undefined;
+                                                                    "bytes"?: undefined;
+                                                                    "content"?: undefined;
+                                                                };
+                                                                "required": string[];
+                                                                "type": string;
+                                                            } | {
+                                                                "defaultProperties": never[];
+                                                                "properties": {
+                                                                    "label": {
+                                                                        "type": string;
+                                                                    };
+                                                                    "options"?: undefined;
+                                                                    "type"?: undefined;
+                                                                    "showIf"?: undefined;
+                                                                    "bytes"?: undefined;
+                                                                    "content"?: undefined;
+                                                                };
+                                                                "required": string[];
+                                                                "type": string;
+                                                            } | {
+                                                                "defaultProperties": never[];
+                                                                "properties": {
+                                                                    "showIf": {
+                                                                        "type": string;
+                                                                    };
+                                                                    "options"?: undefined;
+                                                                    "type"?: undefined;
+                                                                    "label"?: undefined;
+                                                                    "bytes"?: undefined;
+                                                                    "content"?: undefined;
+                                                                };
+                                                                "type": string;
+                                                                "required"?: undefined;
+                                                            } | {
+                                                                "defaultProperties": never[];
+                                                                "properties": {
+                                                                    "bytes": {
+                                                                        "enum": number[];
+                                                                        "type": string;
+                                                                    };
+                                                                    "options"?: undefined;
+                                                                    "type"?: undefined;
+                                                                    "label"?: undefined;
+                                                                    "showIf"?: undefined;
+                                                                    "content"?: undefined;
+                                                                };
+                                                                "type": string;
+                                                                "required"?: undefined;
+                                                            } | {
+                                                                "defaultProperties": never[];
+                                                                "properties": {
+                                                                    "content": {
+                                                                        "additionalItems": {
+                                                                            "anyOf": {
+                                                                                "type": string;
+                                                                            }[];
+                                                                        };
+                                                                        "items": {
+                                                                            "type": string;
+                                                                        }[];
+                                                                        "minItems": number;
+                                                                        "type": string;
+                                                                    };
+                                                                    "options"?: undefined;
+                                                                    "type"?: undefined;
+                                                                    "label"?: undefined;
+                                                                    "showIf"?: undefined;
+                                                                    "bytes"?: undefined;
+                                                                };
+                                                                "required": string[];
+                                                                "type": string;
+                                                            })[];
+                                                        } | {
+                                                            "allOf": ({
+                                                                "defaultProperties": never[];
+                                                                "properties": {
+                                                                    "options": {
+                                                                        "additionalItems": {
+                                                                            "anyOf": {
+                                                                                "type": string;
+                                                                            }[];
+                                                                        };
+                                                                        "items": {
+                                                                            "type": string;
+                                                                        }[];
+                                                                        "minItems": number;
+                                                                        "type": string;
+                                                                    };
+                                                                    "type": {
+                                                                        "enum": string[];
+                                                                        "type": string;
+                                                                    };
+                                                                    "unit": {
+                                                                        "type": string;
+                                                                    };
+                                                                    "label"?: undefined;
+                                                                    "showIf"?: undefined;
+                                                                    "bytes"?: undefined;
+                                                                    "content"?: undefined;
+                                                                };
+                                                                "required": string[];
+                                                                "type": string;
+                                                            } | {
+                                                                "defaultProperties": never[];
+                                                                "properties": {
+                                                                    "label": {
+                                                                        "type": string;
+                                                                    };
+                                                                    "options"?: undefined;
+                                                                    "type"?: undefined;
+                                                                    "unit"?: undefined;
+                                                                    "showIf"?: undefined;
+                                                                    "bytes"?: undefined;
+                                                                    "content"?: undefined;
+                                                                };
+                                                                "required": string[];
+                                                                "type": string;
+                                                            } | {
+                                                                "defaultProperties": never[];
+                                                                "properties": {
+                                                                    "showIf": {
+                                                                        "type": string;
+                                                                    };
+                                                                    "options"?: undefined;
+                                                                    "type"?: undefined;
+                                                                    "unit"?: undefined;
+                                                                    "label"?: undefined;
+                                                                    "bytes"?: undefined;
+                                                                    "content"?: undefined;
+                                                                };
+                                                                "type": string;
+                                                                "required"?: undefined;
+                                                            } | {
+                                                                "defaultProperties": never[];
+                                                                "properties": {
+                                                                    "bytes": {
+                                                                        "enum": number[];
+                                                                        "type": string;
+                                                                    };
+                                                                    "options"?: undefined;
+                                                                    "type"?: undefined;
+                                                                    "unit"?: undefined;
+                                                                    "label"?: undefined;
+                                                                    "showIf"?: undefined;
+                                                                    "content"?: undefined;
+                                                                };
+                                                                "type": string;
+                                                                "required"?: undefined;
+                                                            } | {
+                                                                "defaultProperties": never[];
+                                                                "properties": {
+                                                                    "content": {
+                                                                        "additionalItems": {
+                                                                            "anyOf": {
+                                                                                "type": string;
+                                                                            }[];
+                                                                        };
+                                                                        "items": {
+                                                                            "type": string;
+                                                                        }[];
+                                                                        "minItems": number;
+                                                                        "type": string;
+                                                                    };
+                                                                    "options"?: undefined;
+                                                                    "type"?: undefined;
+                                                                    "unit"?: undefined;
+                                                                    "label"?: undefined;
+                                                                    "showIf"?: undefined;
+                                                                    "bytes"?: undefined;
+                                                                };
+                                                                "required": string[];
+                                                                "type": string;
+                                                            })[];
+                                                        } | {
+                                                            "allOf": ({
+                                                                "defaultProperties": never[];
+                                                                "properties": {
+                                                                    "type": {
+                                                                        "enum": string[];
+                                                                        "type": string;
+                                                                    };
+                                                                    "label"?: undefined;
+                                                                    "showIf"?: undefined;
+                                                                    "bytes"?: undefined;
+                                                                    "content"?: undefined;
+                                                                };
+                                                                "required": string[];
+                                                                "type": string;
+                                                            } | {
+                                                                "defaultProperties": never[];
+                                                                "properties": {
+                                                                    "label": {
+                                                                        "type": string;
+                                                                    };
+                                                                    "type"?: undefined;
+                                                                    "showIf"?: undefined;
+                                                                    "bytes"?: undefined;
+                                                                    "content"?: undefined;
+                                                                };
+                                                                "required": string[];
+                                                                "type": string;
+                                                            } | {
+                                                                "defaultProperties": never[];
+                                                                "properties": {
+                                                                    "showIf": {
+                                                                        "type": string;
+                                                                    };
+                                                                    "type"?: undefined;
+                                                                    "label"?: undefined;
+                                                                    "bytes"?: undefined;
+                                                                    "content"?: undefined;
+                                                                };
+                                                                "type": string;
+                                                                "required"?: undefined;
+                                                            } | {
+                                                                "defaultProperties": never[];
+                                                                "properties": {
+                                                                    "bytes": {
+                                                                        "enum": number[];
+                                                                        "type": string;
+                                                                    };
+                                                                    "type"?: undefined;
+                                                                    "label"?: undefined;
+                                                                    "showIf"?: undefined;
+                                                                    "content"?: undefined;
+                                                                };
+                                                                "type": string;
+                                                                "required"?: undefined;
+                                                            } | {
+                                                                "defaultProperties": never[];
+                                                                "properties": {
+                                                                    "content": {
+                                                                        "additionalItems": {
+                                                                            "anyOf": {
+                                                                                "type": string;
+                                                                            }[];
+                                                                        };
+                                                                        "items": {
+                                                                            "type": string;
+                                                                        }[];
+                                                                        "minItems": number;
+                                                                        "type": string;
+                                                                    };
+                                                                    "type"?: undefined;
+                                                                    "label"?: undefined;
+                                                                    "showIf"?: undefined;
+                                                                    "bytes"?: undefined;
+                                                                };
+                                                                "required": string[];
+                                                                "type": string;
+                                                            })[];
+                                                        } | {
+                                                            "allOf": ({
+                                                                "defaultProperties": never[];
+                                                                "properties": {
+                                                                    "label": {
+                                                                        "type": string;
+                                                                    };
+                                                                    "showIf"?: undefined;
+                                                                    "bytes"?: undefined;
+                                                                    "content"?: undefined;
+                                                                };
+                                                                "required": string[];
+                                                                "type": string;
+                                                            } | {
+                                                                "defaultProperties": never[];
+                                                                "properties": {
+                                                                    "showIf": {
+                                                                        "type": string;
+                                                                    };
+                                                                    "label"?: undefined;
+                                                                    "bytes"?: undefined;
+                                                                    "content"?: undefined;
+                                                                };
+                                                                "type": string;
+                                                                "required"?: undefined;
+                                                            } | {
+                                                                "defaultProperties": never[];
+                                                                "properties": {
+                                                                    "bytes": {
+                                                                        "enum": number[];
+                                                                        "type": string;
+                                                                    };
+                                                                    "label"?: undefined;
+                                                                    "showIf"?: undefined;
+                                                                    "content"?: undefined;
+                                                                };
+                                                                "type": string;
+                                                                "required"?: undefined;
+                                                            } | {
+                                                                "defaultProperties": never[];
+                                                                "properties": {
+                                                                    "content": {
+                                                                        "type": string;
+                                                                    };
+                                                                    "label"?: undefined;
+                                                                    "showIf"?: undefined;
+                                                                    "bytes"?: undefined;
+                                                                };
+                                                                "required": string[];
+                                                                "type": string;
+                                                            })[];
+                                                        } | {
+                                                            "allOf": ({
+                                                                "defaultProperties": never[];
+                                                                "properties": {
+                                                                    "showIf": {
+                                                                        "type": string;
+                                                                    };
+                                                                    "content"?: undefined;
+                                                                };
+                                                                "type": string;
+                                                                "required"?: undefined;
+                                                            } | {
+                                                                "defaultProperties": never[];
+                                                                "properties": {
+                                                                    "content": {
+                                                                        "items": {
+                                                                            "anyOf": ({
+                                                                                "allOf": ({
+                                                                                    "defaultProperties": never[];
+                                                                                    "properties": {
+                                                                                        "options": {
+                                                                                            "additionalItems": {
+                                                                                                "anyOf": {
+                                                                                                    "anyOf": ({
+                                                                                                        "items": {
+                                                                                                            "type": string;
+                                                                                                        };
+                                                                                                        "type": string;
+                                                                                                    } | {
+                                                                                                        "type": string;
+                                                                                                        "items"?: undefined;
+                                                                                                    })[];
+                                                                                                }[];
+                                                                                            };
+                                                                                            "items": {
+                                                                                                "anyOf": ({
+                                                                                                    "items": {
+                                                                                                        "type": string;
+                                                                                                    };
+                                                                                                    "type": string;
+                                                                                                } | {
+                                                                                                    "type": string;
+                                                                                                    "items"?: undefined;
+                                                                                                })[];
+                                                                                            }[];
+                                                                                            "minItems": number;
+                                                                                            "type": string;
+                                                                                        };
+                                                                                        "type": {
+                                                                                            "enum": string[];
+                                                                                            "type": string;
+                                                                                        };
+                                                                                        "label"?: undefined;
+                                                                                        "showIf"?: undefined;
+                                                                                        "bytes"?: undefined;
+                                                                                        "content"?: undefined;
+                                                                                    };
+                                                                                    "required": string[];
+                                                                                    "type": string;
+                                                                                } | {
+                                                                                    "defaultProperties": never[];
+                                                                                    "properties": {
+                                                                                        "label": {
+                                                                                            "type": string;
+                                                                                        };
+                                                                                        "options"?: undefined;
+                                                                                        "type"?: undefined;
+                                                                                        "showIf"?: undefined;
+                                                                                        "bytes"?: undefined;
+                                                                                        "content"?: undefined;
+                                                                                    };
+                                                                                    "required": string[];
+                                                                                    "type": string;
+                                                                                } | {
+                                                                                    "defaultProperties": never[];
+                                                                                    "properties": {
+                                                                                        "showIf": {
+                                                                                            "type": string;
+                                                                                        };
+                                                                                        "options"?: undefined;
+                                                                                        "type"?: undefined;
+                                                                                        "label"?: undefined;
+                                                                                        "bytes"?: undefined;
+                                                                                        "content"?: undefined;
+                                                                                    };
+                                                                                    "type": string;
+                                                                                    "required"?: undefined;
+                                                                                } | {
+                                                                                    "defaultProperties": never[];
+                                                                                    "properties": {
+                                                                                        "bytes": {
+                                                                                            "enum": number[];
+                                                                                            "type": string;
+                                                                                        };
+                                                                                        "options"?: undefined;
+                                                                                        "type"?: undefined;
+                                                                                        "label"?: undefined;
+                                                                                        "showIf"?: undefined;
+                                                                                        "content"?: undefined;
+                                                                                    };
+                                                                                    "type": string;
+                                                                                    "required"?: undefined;
+                                                                                } | {
+                                                                                    "defaultProperties": never[];
+                                                                                    "properties": {
+                                                                                        "content": {
+                                                                                            "additionalItems": {
+                                                                                                "anyOf": {
+                                                                                                    "type": string;
+                                                                                                }[];
+                                                                                            };
+                                                                                            "items": {
+                                                                                                "type": string;
+                                                                                            }[];
+                                                                                            "minItems": number;
+                                                                                            "type": string;
+                                                                                        };
+                                                                                        "options"?: undefined;
+                                                                                        "type"?: undefined;
+                                                                                        "label"?: undefined;
+                                                                                        "showIf"?: undefined;
+                                                                                        "bytes"?: undefined;
+                                                                                    };
+                                                                                    "required": string[];
+                                                                                    "type": string;
+                                                                                })[];
+                                                                            } | {
+                                                                                "allOf": ({
+                                                                                    "defaultProperties": never[];
+                                                                                    "properties": {
+                                                                                        "options": {
+                                                                                            "items": {
+                                                                                                "additionalItems": {
+                                                                                                    "type": string;
+                                                                                                };
+                                                                                                "items": {
+                                                                                                    "type": string;
+                                                                                                }[];
+                                                                                                "minItems": number;
+                                                                                                "type": string;
+                                                                                            };
+                                                                                            "type": string;
+                                                                                        };
+                                                                                        "type": {
+                                                                                            "enum": string[];
+                                                                                            "type": string;
+                                                                                        };
+                                                                                        "label"?: undefined;
+                                                                                        "showIf"?: undefined;
+                                                                                        "bytes"?: undefined;
+                                                                                        "content"?: undefined;
+                                                                                    };
+                                                                                    "required": string[];
+                                                                                    "type": string;
+                                                                                } | {
+                                                                                    "defaultProperties": never[];
+                                                                                    "properties": {
+                                                                                        "label": {
+                                                                                            "type": string;
+                                                                                        };
+                                                                                        "options"?: undefined;
+                                                                                        "type"?: undefined;
+                                                                                        "showIf"?: undefined;
+                                                                                        "bytes"?: undefined;
+                                                                                        "content"?: undefined;
+                                                                                    };
+                                                                                    "required": string[];
+                                                                                    "type": string;
+                                                                                } | {
+                                                                                    "defaultProperties": never[];
+                                                                                    "properties": {
+                                                                                        "showIf": {
+                                                                                            "type": string;
+                                                                                        };
+                                                                                        "options"?: undefined;
+                                                                                        "type"?: undefined;
+                                                                                        "label"?: undefined;
+                                                                                        "bytes"?: undefined;
+                                                                                        "content"?: undefined;
+                                                                                    };
+                                                                                    "type": string;
+                                                                                    "required"?: undefined;
+                                                                                } | {
+                                                                                    "defaultProperties": never[];
+                                                                                    "properties": {
+                                                                                        "bytes": {
+                                                                                            "enum": number[];
+                                                                                            "type": string;
+                                                                                        };
+                                                                                        "options"?: undefined;
+                                                                                        "type"?: undefined;
+                                                                                        "label"?: undefined;
+                                                                                        "showIf"?: undefined;
+                                                                                        "content"?: undefined;
+                                                                                    };
+                                                                                    "type": string;
+                                                                                    "required"?: undefined;
+                                                                                } | {
+                                                                                    "defaultProperties": never[];
+                                                                                    "properties": {
+                                                                                        "content": {
+                                                                                            "additionalItems": {
+                                                                                                "anyOf": {
+                                                                                                    "type": string;
+                                                                                                }[];
+                                                                                            };
+                                                                                            "items": {
+                                                                                                "type": string;
+                                                                                            }[];
+                                                                                            "minItems": number;
+                                                                                            "type": string;
+                                                                                        };
+                                                                                        "options"?: undefined;
+                                                                                        "type"?: undefined;
+                                                                                        "label"?: undefined;
+                                                                                        "showIf"?: undefined;
+                                                                                        "bytes"?: undefined;
+                                                                                    };
+                                                                                    "required": string[];
+                                                                                    "type": string;
+                                                                                })[];
+                                                                            } | {
+                                                                                "allOf": ({
+                                                                                    "defaultProperties": never[];
+                                                                                    "properties": {
+                                                                                        "options": {
+                                                                                            "additionalItems": {
+                                                                                                "anyOf": {
+                                                                                                    "type": string;
+                                                                                                }[];
+                                                                                            };
+                                                                                            "items": {
+                                                                                                "type": string;
+                                                                                            }[];
+                                                                                            "minItems": number;
+                                                                                            "type": string;
+                                                                                        };
+                                                                                        "type": {
+                                                                                            "enum": string[];
+                                                                                            "type": string;
+                                                                                        };
+                                                                                        "unit": {
+                                                                                            "type": string;
+                                                                                        };
+                                                                                        "label"?: undefined;
+                                                                                        "showIf"?: undefined;
+                                                                                        "bytes"?: undefined;
+                                                                                        "content"?: undefined;
+                                                                                    };
+                                                                                    "required": string[];
+                                                                                    "type": string;
+                                                                                } | {
+                                                                                    "defaultProperties": never[];
+                                                                                    "properties": {
+                                                                                        "label": {
+                                                                                            "type": string;
+                                                                                        };
+                                                                                        "options"?: undefined;
+                                                                                        "type"?: undefined;
+                                                                                        "unit"?: undefined;
+                                                                                        "showIf"?: undefined;
+                                                                                        "bytes"?: undefined;
+                                                                                        "content"?: undefined;
+                                                                                    };
+                                                                                    "required": string[];
+                                                                                    "type": string;
+                                                                                } | {
+                                                                                    "defaultProperties": never[];
+                                                                                    "properties": {
+                                                                                        "showIf": {
+                                                                                            "type": string;
+                                                                                        };
+                                                                                        "options"?: undefined;
+                                                                                        "type"?: undefined;
+                                                                                        "unit"?: undefined;
+                                                                                        "label"?: undefined;
+                                                                                        "bytes"?: undefined;
+                                                                                        "content"?: undefined;
+                                                                                    };
+                                                                                    "type": string;
+                                                                                    "required"?: undefined;
+                                                                                } | {
+                                                                                    "defaultProperties": never[];
+                                                                                    "properties": {
+                                                                                        "bytes": {
+                                                                                            "enum": number[];
+                                                                                            "type": string;
+                                                                                        };
+                                                                                        "options"?: undefined;
+                                                                                        "type"?: undefined;
+                                                                                        "unit"?: undefined;
+                                                                                        "label"?: undefined;
+                                                                                        "showIf"?: undefined;
+                                                                                        "content"?: undefined;
+                                                                                    };
+                                                                                    "type": string;
+                                                                                    "required"?: undefined;
+                                                                                } | {
+                                                                                    "defaultProperties": never[];
+                                                                                    "properties": {
+                                                                                        "content": {
+                                                                                            "additionalItems": {
+                                                                                                "anyOf": {
+                                                                                                    "type": string;
+                                                                                                }[];
+                                                                                            };
+                                                                                            "items": {
+                                                                                                "type": string;
+                                                                                            }[];
+                                                                                            "minItems": number;
+                                                                                            "type": string;
+                                                                                        };
+                                                                                        "options"?: undefined;
+                                                                                        "type"?: undefined;
+                                                                                        "unit"?: undefined;
+                                                                                        "label"?: undefined;
+                                                                                        "showIf"?: undefined;
+                                                                                        "bytes"?: undefined;
+                                                                                    };
+                                                                                    "required": string[];
+                                                                                    "type": string;
+                                                                                })[];
+                                                                            } | {
+                                                                                "allOf": ({
+                                                                                    "defaultProperties": never[];
+                                                                                    "properties": {
+                                                                                        "type": {
+                                                                                            "enum": string[];
+                                                                                            "type": string;
+                                                                                        };
+                                                                                        "label"?: undefined;
+                                                                                        "showIf"?: undefined;
+                                                                                        "bytes"?: undefined;
+                                                                                        "content"?: undefined;
+                                                                                    };
+                                                                                    "required": string[];
+                                                                                    "type": string;
+                                                                                } | {
+                                                                                    "defaultProperties": never[];
+                                                                                    "properties": {
+                                                                                        "label": {
+                                                                                            "type": string;
+                                                                                        };
+                                                                                        "type"?: undefined;
+                                                                                        "showIf"?: undefined;
+                                                                                        "bytes"?: undefined;
+                                                                                        "content"?: undefined;
+                                                                                    };
+                                                                                    "required": string[];
+                                                                                    "type": string;
+                                                                                } | {
+                                                                                    "defaultProperties": never[];
+                                                                                    "properties": {
+                                                                                        "showIf": {
+                                                                                            "type": string;
+                                                                                        };
+                                                                                        "type"?: undefined;
+                                                                                        "label"?: undefined;
+                                                                                        "bytes"?: undefined;
+                                                                                        "content"?: undefined;
+                                                                                    };
+                                                                                    "type": string;
+                                                                                    "required"?: undefined;
+                                                                                } | {
+                                                                                    "defaultProperties": never[];
+                                                                                    "properties": {
+                                                                                        "bytes": {
+                                                                                            "enum": number[];
+                                                                                            "type": string;
+                                                                                        };
+                                                                                        "type"?: undefined;
+                                                                                        "label"?: undefined;
+                                                                                        "showIf"?: undefined;
+                                                                                        "content"?: undefined;
+                                                                                    };
+                                                                                    "type": string;
+                                                                                    "required"?: undefined;
+                                                                                } | {
+                                                                                    "defaultProperties": never[];
+                                                                                    "properties": {
+                                                                                        "content": {
+                                                                                            "additionalItems": {
+                                                                                                "anyOf": {
+                                                                                                    "type": string;
+                                                                                                }[];
+                                                                                            };
+                                                                                            "items": {
+                                                                                                "type": string;
+                                                                                            }[];
+                                                                                            "minItems": number;
+                                                                                            "type": string;
+                                                                                        };
+                                                                                        "type"?: undefined;
+                                                                                        "label"?: undefined;
+                                                                                        "showIf"?: undefined;
+                                                                                        "bytes"?: undefined;
+                                                                                    };
+                                                                                    "required": string[];
+                                                                                    "type": string;
+                                                                                })[];
+                                                                            } | {
+                                                                                "allOf": ({
+                                                                                    "defaultProperties": never[];
+                                                                                    "properties": {
+                                                                                        "label": {
+                                                                                            "type": string;
+                                                                                        };
+                                                                                        "showIf"?: undefined;
+                                                                                        "bytes"?: undefined;
+                                                                                        "content"?: undefined;
+                                                                                    };
+                                                                                    "required": string[];
+                                                                                    "type": string;
+                                                                                } | {
+                                                                                    "defaultProperties": never[];
+                                                                                    "properties": {
+                                                                                        "showIf": {
+                                                                                            "type": string;
+                                                                                        };
+                                                                                        "label"?: undefined;
+                                                                                        "bytes"?: undefined;
+                                                                                        "content"?: undefined;
+                                                                                    };
+                                                                                    "type": string;
+                                                                                    "required"?: undefined;
+                                                                                } | {
+                                                                                    "defaultProperties": never[];
+                                                                                    "properties": {
+                                                                                        "bytes": {
+                                                                                            "enum": number[];
+                                                                                            "type": string;
+                                                                                        };
+                                                                                        "label"?: undefined;
+                                                                                        "showIf"?: undefined;
+                                                                                        "content"?: undefined;
+                                                                                    };
+                                                                                    "type": string;
+                                                                                    "required"?: undefined;
+                                                                                } | {
+                                                                                    "defaultProperties": never[];
+                                                                                    "properties": {
+                                                                                        "content": {
+                                                                                            "type": string;
+                                                                                        };
+                                                                                        "label"?: undefined;
+                                                                                        "showIf"?: undefined;
+                                                                                        "bytes"?: undefined;
+                                                                                    };
+                                                                                    "required": string[];
+                                                                                    "type": string;
+                                                                                })[];
+                                                                            })[];
+                                                                        };
+                                                                        "type": string;
+                                                                    };
+                                                                    "showIf"?: undefined;
+                                                                };
+                                                                "required": string[];
+                                                                "type": string;
+                                                            })[];
+                                                        })[];
+                                                    };
+                                                    "type": string;
+                                                };
+                                                "label"?: undefined;
+                                                "showIf"?: undefined;
+                                            };
+                                            "required": string[];
+                                            "type": string;
+                                        })[];
+                                    } | {
+                                        "allOf": ({
+                                            "defaultProperties": never[];
+                                            "properties": {
+                                                "showIf": {
+                                                    "type": string;
+                                                };
+                                                "content"?: undefined;
+                                            };
+                                            "type": string;
+                                            "required"?: undefined;
+                                        } | {
+                                            "defaultProperties": never[];
+                                            "properties": {
+                                                "content": {
+                                                    "items": {
+                                                        "allOf": ({
                                                             "defaultProperties": never[];
                                                             "properties": {
                                                                 "label": {
                                                                     "type": string;
                                                                 };
-                                                                "options"?: undefined;
-                                                                "type"?: undefined;
                                                                 "showIf"?: undefined;
-                                                                "bytes"?: undefined;
-                                                                "content"?: undefined;
-                                                            };
-                                                            "required": string[];
-                                                            "type": string;
-                                                        } | {
-                                                            "defaultProperties": never[];
-                                                            "properties": {
-                                                                "showIf": {
-                                                                    "type": string;
-                                                                };
-                                                                "options"?: undefined;
-                                                                "type"?: undefined;
-                                                                "label"?: undefined;
-                                                                "bytes"?: undefined;
-                                                                "content"?: undefined;
-                                                            };
-                                                            "type": string;
-                                                            "required"?: undefined;
-                                                        } | {
-                                                            "defaultProperties": never[];
-                                                            "properties": {
-                                                                "bytes": {
-                                                                    "enum": number[];
-                                                                    "type": string;
-                                                                };
-                                                                "options"?: undefined;
-                                                                "type"?: undefined;
-                                                                "label"?: undefined;
-                                                                "showIf"?: undefined;
-                                                                "content"?: undefined;
-                                                            };
-                                                            "type": string;
-                                                            "required"?: undefined;
-                                                        } | {
-                                                            "defaultProperties": never[];
-                                                            "properties": {
-                                                                "content": {
-                                                                    "additionalItems": {
-                                                                        "anyOf": {
-                                                                            "type": string;
-                                                                        }[];
-                                                                    };
-                                                                    "items": {
-                                                                        "type": string;
-                                                                    }[];
-                                                                    "minItems": number;
-                                                                    "type": string;
-                                                                };
-                                                                "options"?: undefined;
-                                                                "type"?: undefined;
-                                                                "label"?: undefined;
-                                                                "showIf"?: undefined;
-                                                                "bytes"?: undefined;
-                                                            };
-                                                            "required": string[];
-                                                            "type": string;
-                                                        })[];
-                                                    } | {
-                                                        "allOf": ({
-                                                            "defaultProperties": never[];
-                                                            "properties": {
-                                                                "options": {
-                                                                    "additionalItems": {
-                                                                        "anyOf": {
-                                                                            "type": string;
-                                                                        }[];
-                                                                    };
-                                                                    "items": {
-                                                                        "type": string;
-                                                                    }[];
-                                                                    "minItems": number;
-                                                                    "type": string;
-                                                                };
-                                                                "type": {
-                                                                    "enum": string[];
-                                                                    "type": string;
-                                                                };
-                                                                "unit": {
-                                                                    "type": string;
-                                                                };
-                                                                "label"?: undefined;
-                                                                "showIf"?: undefined;
-                                                                "bytes"?: undefined;
-                                                                "content"?: undefined;
-                                                            };
-                                                            "required": string[];
-                                                            "type": string;
-                                                        } | {
-                                                            "defaultProperties": never[];
-                                                            "properties": {
-                                                                "label": {
-                                                                    "type": string;
-                                                                };
-                                                                "options"?: undefined;
-                                                                "type"?: undefined;
-                                                                "unit"?: undefined;
-                                                                "showIf"?: undefined;
-                                                                "bytes"?: undefined;
-                                                                "content"?: undefined;
-                                                            };
-                                                            "required": string[];
-                                                            "type": string;
-                                                        } | {
-                                                            "defaultProperties": never[];
-                                                            "properties": {
-                                                                "showIf": {
-                                                                    "type": string;
-                                                                };
-                                                                "options"?: undefined;
-                                                                "type"?: undefined;
-                                                                "unit"?: undefined;
-                                                                "label"?: undefined;
-                                                                "bytes"?: undefined;
-                                                                "content"?: undefined;
-                                                            };
-                                                            "type": string;
-                                                            "required"?: undefined;
-                                                        } | {
-                                                            "defaultProperties": never[];
-                                                            "properties": {
-                                                                "bytes": {
-                                                                    "enum": number[];
-                                                                    "type": string;
-                                                                };
-                                                                "options"?: undefined;
-                                                                "type"?: undefined;
-                                                                "unit"?: undefined;
-                                                                "label"?: undefined;
-                                                                "showIf"?: undefined;
-                                                                "content"?: undefined;
-                                                            };
-                                                            "type": string;
-                                                            "required"?: undefined;
-                                                        } | {
-                                                            "defaultProperties": never[];
-                                                            "properties": {
-                                                                "content": {
-                                                                    "additionalItems": {
-                                                                        "anyOf": {
-                                                                            "type": string;
-                                                                        }[];
-                                                                    };
-                                                                    "items": {
-                                                                        "type": string;
-                                                                    }[];
-                                                                    "minItems": number;
-                                                                    "type": string;
-                                                                };
-                                                                "options"?: undefined;
-                                                                "type"?: undefined;
-                                                                "unit"?: undefined;
-                                                                "label"?: undefined;
-                                                                "showIf"?: undefined;
-                                                                "bytes"?: undefined;
-                                                            };
-                                                            "required": string[];
-                                                            "type": string;
-                                                        })[];
-                                                    } | {
-                                                        "allOf": ({
-                                                            "defaultProperties": never[];
-                                                            "properties": {
-                                                                "type": {
-                                                                    "enum": string[];
-                                                                    "type": string;
-                                                                };
-                                                                "label"?: undefined;
-                                                                "showIf"?: undefined;
-                                                                "bytes"?: undefined;
-                                                                "content"?: undefined;
-                                                            };
-                                                            "required": string[];
-                                                            "type": string;
-                                                        } | {
-                                                            "defaultProperties": never[];
-                                                            "properties": {
-                                                                "label": {
-                                                                    "type": string;
-                                                                };
-                                                                "type"?: undefined;
-                                                                "showIf"?: undefined;
-                                                                "bytes"?: undefined;
-                                                                "content"?: undefined;
-                                                            };
-                                                            "required": string[];
-                                                            "type": string;
-                                                        } | {
-                                                            "defaultProperties": never[];
-                                                            "properties": {
-                                                                "showIf": {
-                                                                    "type": string;
-                                                                };
-                                                                "type"?: undefined;
-                                                                "label"?: undefined;
-                                                                "bytes"?: undefined;
-                                                                "content"?: undefined;
-                                                            };
-                                                            "type": string;
-                                                            "required"?: undefined;
-                                                        } | {
-                                                            "defaultProperties": never[];
-                                                            "properties": {
-                                                                "bytes": {
-                                                                    "enum": number[];
-                                                                    "type": string;
-                                                                };
-                                                                "type"?: undefined;
-                                                                "label"?: undefined;
-                                                                "showIf"?: undefined;
-                                                                "content"?: undefined;
-                                                            };
-                                                            "type": string;
-                                                            "required"?: undefined;
-                                                        } | {
-                                                            "defaultProperties": never[];
-                                                            "properties": {
-                                                                "content": {
-                                                                    "additionalItems": {
-                                                                        "anyOf": {
-                                                                            "type": string;
-                                                                        }[];
-                                                                    };
-                                                                    "items": {
-                                                                        "type": string;
-                                                                    }[];
-                                                                    "minItems": number;
-                                                                    "type": string;
-                                                                };
-                                                                "type"?: undefined;
-                                                                "label"?: undefined;
-                                                                "showIf"?: undefined;
-                                                                "bytes"?: undefined;
-                                                            };
-                                                            "required": string[];
-                                                            "type": string;
-                                                        })[];
-                                                    } | {
-                                                        "allOf": ({
-                                                            "defaultProperties": never[];
-                                                            "properties": {
-                                                                "label": {
-                                                                    "type": string;
-                                                                };
-                                                                "showIf"?: undefined;
-                                                                "bytes"?: undefined;
                                                                 "content"?: undefined;
                                                             };
                                                             "required": string[];
@@ -523,44 +1183,6 @@ export declare const VIADefinitionV3Schema: {
                                                                     "type": string;
                                                                 };
                                                                 "label"?: undefined;
-                                                                "bytes"?: undefined;
-                                                                "content"?: undefined;
-                                                            };
-                                                            "type": string;
-                                                            "required"?: undefined;
-                                                        } | {
-                                                            "defaultProperties": never[];
-                                                            "properties": {
-                                                                "bytes": {
-                                                                    "enum": number[];
-                                                                    "type": string;
-                                                                };
-                                                                "label"?: undefined;
-                                                                "showIf"?: undefined;
-                                                                "content"?: undefined;
-                                                            };
-                                                            "type": string;
-                                                            "required"?: undefined;
-                                                        } | {
-                                                            "defaultProperties": never[];
-                                                            "properties": {
-                                                                "content": {
-                                                                    "type": string;
-                                                                };
-                                                                "label"?: undefined;
-                                                                "showIf"?: undefined;
-                                                                "bytes"?: undefined;
-                                                            };
-                                                            "required": string[];
-                                                            "type": string;
-                                                        })[];
-                                                    } | {
-                                                        "allOf": ({
-                                                            "defaultProperties": never[];
-                                                            "properties": {
-                                                                "showIf": {
-                                                                    "type": string;
-                                                                };
                                                                 "content"?: undefined;
                                                             };
                                                             "type": string;
@@ -1005,526 +1627,41 @@ export declare const VIADefinitionV3Schema: {
                                                                                 "required": string[];
                                                                                 "type": string;
                                                                             })[];
-                                                                        })[];
-                                                                    };
-                                                                    "type": string;
-                                                                };
-                                                                "showIf"?: undefined;
-                                                            };
-                                                            "required": string[];
-                                                            "type": string;
-                                                        })[];
-                                                    })[];
-                                                };
-                                                "type": string;
-                                            };
-                                            "label"?: undefined;
-                                            "showIf"?: undefined;
-                                        };
-                                        "required": string[];
-                                        "type": string;
-                                    })[];
-                                } | {
-                                    "allOf": ({
-                                        "defaultProperties": never[];
-                                        "properties": {
-                                            "showIf": {
-                                                "type": string;
-                                            };
-                                            "content"?: undefined;
-                                        };
-                                        "type": string;
-                                        "required"?: undefined;
-                                    } | {
-                                        "defaultProperties": never[];
-                                        "properties": {
-                                            "content": {
-                                                "items": {
-                                                    "allOf": ({
-                                                        "defaultProperties": never[];
-                                                        "properties": {
-                                                            "label": {
-                                                                "type": string;
-                                                            };
-                                                            "showIf"?: undefined;
-                                                            "content"?: undefined;
-                                                        };
-                                                        "required": string[];
-                                                        "type": string;
-                                                    } | {
-                                                        "defaultProperties": never[];
-                                                        "properties": {
-                                                            "showIf": {
-                                                                "type": string;
-                                                            };
-                                                            "label"?: undefined;
-                                                            "content"?: undefined;
-                                                        };
-                                                        "type": string;
-                                                        "required"?: undefined;
-                                                    } | {
-                                                        "defaultProperties": never[];
-                                                        "properties": {
-                                                            "content": {
-                                                                "items": {
-                                                                    "anyOf": ({
-                                                                        "allOf": ({
-                                                                            "defaultProperties": never[];
-                                                                            "properties": {
-                                                                                "options": {
-                                                                                    "additionalItems": {
-                                                                                        "anyOf": {
-                                                                                            "anyOf": ({
-                                                                                                "items": {
-                                                                                                    "type": string;
-                                                                                                };
-                                                                                                "type": string;
-                                                                                            } | {
-                                                                                                "type": string;
-                                                                                                "items"?: undefined;
-                                                                                            })[];
-                                                                                        }[];
-                                                                                    };
-                                                                                    "items": {
-                                                                                        "anyOf": ({
-                                                                                            "items": {
-                                                                                                "type": string;
-                                                                                            };
-                                                                                            "type": string;
-                                                                                        } | {
-                                                                                            "type": string;
-                                                                                            "items"?: undefined;
-                                                                                        })[];
-                                                                                    }[];
-                                                                                    "minItems": number;
-                                                                                    "type": string;
-                                                                                };
-                                                                                "type": {
-                                                                                    "enum": string[];
-                                                                                    "type": string;
-                                                                                };
-                                                                                "label"?: undefined;
-                                                                                "showIf"?: undefined;
-                                                                                "bytes"?: undefined;
-                                                                                "content"?: undefined;
-                                                                            };
-                                                                            "required": string[];
-                                                                            "type": string;
                                                                         } | {
-                                                                            "defaultProperties": never[];
-                                                                            "properties": {
-                                                                                "label": {
-                                                                                    "type": string;
-                                                                                };
-                                                                                "options"?: undefined;
-                                                                                "type"?: undefined;
-                                                                                "showIf"?: undefined;
-                                                                                "bytes"?: undefined;
-                                                                                "content"?: undefined;
-                                                                            };
-                                                                            "required": string[];
-                                                                            "type": string;
-                                                                        } | {
-                                                                            "defaultProperties": never[];
-                                                                            "properties": {
-                                                                                "showIf": {
-                                                                                    "type": string;
-                                                                                };
-                                                                                "options"?: undefined;
-                                                                                "type"?: undefined;
-                                                                                "label"?: undefined;
-                                                                                "bytes"?: undefined;
-                                                                                "content"?: undefined;
-                                                                            };
-                                                                            "type": string;
-                                                                            "required"?: undefined;
-                                                                        } | {
-                                                                            "defaultProperties": never[];
-                                                                            "properties": {
-                                                                                "bytes": {
-                                                                                    "enum": number[];
-                                                                                    "type": string;
-                                                                                };
-                                                                                "options"?: undefined;
-                                                                                "type"?: undefined;
-                                                                                "label"?: undefined;
-                                                                                "showIf"?: undefined;
-                                                                                "content"?: undefined;
-                                                                            };
-                                                                            "type": string;
-                                                                            "required"?: undefined;
-                                                                        } | {
-                                                                            "defaultProperties": never[];
-                                                                            "properties": {
-                                                                                "content": {
-                                                                                    "additionalItems": {
-                                                                                        "anyOf": {
-                                                                                            "type": string;
-                                                                                        }[];
-                                                                                    };
-                                                                                    "items": {
+                                                                            "allOf": ({
+                                                                                "defaultProperties": never[];
+                                                                                "properties": {
+                                                                                    "showIf": {
                                                                                         "type": string;
-                                                                                    }[];
-                                                                                    "minItems": number;
-                                                                                    "type": string;
+                                                                                    };
+                                                                                    "content"?: undefined;
                                                                                 };
-                                                                                "options"?: undefined;
-                                                                                "type"?: undefined;
-                                                                                "label"?: undefined;
-                                                                                "showIf"?: undefined;
-                                                                                "bytes"?: undefined;
-                                                                            };
-                                                                            "required": string[];
-                                                                            "type": string;
-                                                                        })[];
-                                                                    } | {
-                                                                        "allOf": ({
-                                                                            "defaultProperties": never[];
-                                                                            "properties": {
-                                                                                "options": {
-                                                                                    "items": {
-                                                                                        "additionalItems": {
-                                                                                            "type": string;
-                                                                                        };
+                                                                                "type": string;
+                                                                                "required"?: undefined;
+                                                                            } | {
+                                                                                "defaultProperties": never[];
+                                                                                "properties": {
+                                                                                    "content": {
                                                                                         "items": {
-                                                                                            "type": string;
-                                                                                        }[];
-                                                                                        "minItems": number;
-                                                                                        "type": string;
-                                                                                    };
-                                                                                    "type": string;
-                                                                                };
-                                                                                "type": {
-                                                                                    "enum": string[];
-                                                                                    "type": string;
-                                                                                };
-                                                                                "label"?: undefined;
-                                                                                "showIf"?: undefined;
-                                                                                "bytes"?: undefined;
-                                                                                "content"?: undefined;
-                                                                            };
-                                                                            "required": string[];
-                                                                            "type": string;
-                                                                        } | {
-                                                                            "defaultProperties": never[];
-                                                                            "properties": {
-                                                                                "label": {
-                                                                                    "type": string;
-                                                                                };
-                                                                                "options"?: undefined;
-                                                                                "type"?: undefined;
-                                                                                "showIf"?: undefined;
-                                                                                "bytes"?: undefined;
-                                                                                "content"?: undefined;
-                                                                            };
-                                                                            "required": string[];
-                                                                            "type": string;
-                                                                        } | {
-                                                                            "defaultProperties": never[];
-                                                                            "properties": {
-                                                                                "showIf": {
-                                                                                    "type": string;
-                                                                                };
-                                                                                "options"?: undefined;
-                                                                                "type"?: undefined;
-                                                                                "label"?: undefined;
-                                                                                "bytes"?: undefined;
-                                                                                "content"?: undefined;
-                                                                            };
-                                                                            "type": string;
-                                                                            "required"?: undefined;
-                                                                        } | {
-                                                                            "defaultProperties": never[];
-                                                                            "properties": {
-                                                                                "bytes": {
-                                                                                    "enum": number[];
-                                                                                    "type": string;
-                                                                                };
-                                                                                "options"?: undefined;
-                                                                                "type"?: undefined;
-                                                                                "label"?: undefined;
-                                                                                "showIf"?: undefined;
-                                                                                "content"?: undefined;
-                                                                            };
-                                                                            "type": string;
-                                                                            "required"?: undefined;
-                                                                        } | {
-                                                                            "defaultProperties": never[];
-                                                                            "properties": {
-                                                                                "content": {
-                                                                                    "additionalItems": {
-                                                                                        "anyOf": {
-                                                                                            "type": string;
-                                                                                        }[];
-                                                                                    };
-                                                                                    "items": {
-                                                                                        "type": string;
-                                                                                    }[];
-                                                                                    "minItems": number;
-                                                                                    "type": string;
-                                                                                };
-                                                                                "options"?: undefined;
-                                                                                "type"?: undefined;
-                                                                                "label"?: undefined;
-                                                                                "showIf"?: undefined;
-                                                                                "bytes"?: undefined;
-                                                                            };
-                                                                            "required": string[];
-                                                                            "type": string;
-                                                                        })[];
-                                                                    } | {
-                                                                        "allOf": ({
-                                                                            "defaultProperties": never[];
-                                                                            "properties": {
-                                                                                "options": {
-                                                                                    "additionalItems": {
-                                                                                        "anyOf": {
-                                                                                            "type": string;
-                                                                                        }[];
-                                                                                    };
-                                                                                    "items": {
-                                                                                        "type": string;
-                                                                                    }[];
-                                                                                    "minItems": number;
-                                                                                    "type": string;
-                                                                                };
-                                                                                "type": {
-                                                                                    "enum": string[];
-                                                                                    "type": string;
-                                                                                };
-                                                                                "unit": {
-                                                                                    "type": string;
-                                                                                };
-                                                                                "label"?: undefined;
-                                                                                "showIf"?: undefined;
-                                                                                "bytes"?: undefined;
-                                                                                "content"?: undefined;
-                                                                            };
-                                                                            "required": string[];
-                                                                            "type": string;
-                                                                        } | {
-                                                                            "defaultProperties": never[];
-                                                                            "properties": {
-                                                                                "label": {
-                                                                                    "type": string;
-                                                                                };
-                                                                                "options"?: undefined;
-                                                                                "type"?: undefined;
-                                                                                "unit"?: undefined;
-                                                                                "showIf"?: undefined;
-                                                                                "bytes"?: undefined;
-                                                                                "content"?: undefined;
-                                                                            };
-                                                                            "required": string[];
-                                                                            "type": string;
-                                                                        } | {
-                                                                            "defaultProperties": never[];
-                                                                            "properties": {
-                                                                                "showIf": {
-                                                                                    "type": string;
-                                                                                };
-                                                                                "options"?: undefined;
-                                                                                "type"?: undefined;
-                                                                                "unit"?: undefined;
-                                                                                "label"?: undefined;
-                                                                                "bytes"?: undefined;
-                                                                                "content"?: undefined;
-                                                                            };
-                                                                            "type": string;
-                                                                            "required"?: undefined;
-                                                                        } | {
-                                                                            "defaultProperties": never[];
-                                                                            "properties": {
-                                                                                "bytes": {
-                                                                                    "enum": number[];
-                                                                                    "type": string;
-                                                                                };
-                                                                                "options"?: undefined;
-                                                                                "type"?: undefined;
-                                                                                "unit"?: undefined;
-                                                                                "label"?: undefined;
-                                                                                "showIf"?: undefined;
-                                                                                "content"?: undefined;
-                                                                            };
-                                                                            "type": string;
-                                                                            "required"?: undefined;
-                                                                        } | {
-                                                                            "defaultProperties": never[];
-                                                                            "properties": {
-                                                                                "content": {
-                                                                                    "additionalItems": {
-                                                                                        "anyOf": {
-                                                                                            "type": string;
-                                                                                        }[];
-                                                                                    };
-                                                                                    "items": {
-                                                                                        "type": string;
-                                                                                    }[];
-                                                                                    "minItems": number;
-                                                                                    "type": string;
-                                                                                };
-                                                                                "options"?: undefined;
-                                                                                "type"?: undefined;
-                                                                                "unit"?: undefined;
-                                                                                "label"?: undefined;
-                                                                                "showIf"?: undefined;
-                                                                                "bytes"?: undefined;
-                                                                            };
-                                                                            "required": string[];
-                                                                            "type": string;
-                                                                        })[];
-                                                                    } | {
-                                                                        "allOf": ({
-                                                                            "defaultProperties": never[];
-                                                                            "properties": {
-                                                                                "type": {
-                                                                                    "enum": string[];
-                                                                                    "type": string;
-                                                                                };
-                                                                                "label"?: undefined;
-                                                                                "showIf"?: undefined;
-                                                                                "bytes"?: undefined;
-                                                                                "content"?: undefined;
-                                                                            };
-                                                                            "required": string[];
-                                                                            "type": string;
-                                                                        } | {
-                                                                            "defaultProperties": never[];
-                                                                            "properties": {
-                                                                                "label": {
-                                                                                    "type": string;
-                                                                                };
-                                                                                "type"?: undefined;
-                                                                                "showIf"?: undefined;
-                                                                                "bytes"?: undefined;
-                                                                                "content"?: undefined;
-                                                                            };
-                                                                            "required": string[];
-                                                                            "type": string;
-                                                                        } | {
-                                                                            "defaultProperties": never[];
-                                                                            "properties": {
-                                                                                "showIf": {
-                                                                                    "type": string;
-                                                                                };
-                                                                                "type"?: undefined;
-                                                                                "label"?: undefined;
-                                                                                "bytes"?: undefined;
-                                                                                "content"?: undefined;
-                                                                            };
-                                                                            "type": string;
-                                                                            "required"?: undefined;
-                                                                        } | {
-                                                                            "defaultProperties": never[];
-                                                                            "properties": {
-                                                                                "bytes": {
-                                                                                    "enum": number[];
-                                                                                    "type": string;
-                                                                                };
-                                                                                "type"?: undefined;
-                                                                                "label"?: undefined;
-                                                                                "showIf"?: undefined;
-                                                                                "content"?: undefined;
-                                                                            };
-                                                                            "type": string;
-                                                                            "required"?: undefined;
-                                                                        } | {
-                                                                            "defaultProperties": never[];
-                                                                            "properties": {
-                                                                                "content": {
-                                                                                    "additionalItems": {
-                                                                                        "anyOf": {
-                                                                                            "type": string;
-                                                                                        }[];
-                                                                                    };
-                                                                                    "items": {
-                                                                                        "type": string;
-                                                                                    }[];
-                                                                                    "minItems": number;
-                                                                                    "type": string;
-                                                                                };
-                                                                                "type"?: undefined;
-                                                                                "label"?: undefined;
-                                                                                "showIf"?: undefined;
-                                                                                "bytes"?: undefined;
-                                                                            };
-                                                                            "required": string[];
-                                                                            "type": string;
-                                                                        })[];
-                                                                    } | {
-                                                                        "allOf": ({
-                                                                            "defaultProperties": never[];
-                                                                            "properties": {
-                                                                                "label": {
-                                                                                    "type": string;
-                                                                                };
-                                                                                "showIf"?: undefined;
-                                                                                "bytes"?: undefined;
-                                                                                "content"?: undefined;
-                                                                            };
-                                                                            "required": string[];
-                                                                            "type": string;
-                                                                        } | {
-                                                                            "defaultProperties": never[];
-                                                                            "properties": {
-                                                                                "showIf": {
-                                                                                    "type": string;
-                                                                                };
-                                                                                "label"?: undefined;
-                                                                                "bytes"?: undefined;
-                                                                                "content"?: undefined;
-                                                                            };
-                                                                            "type": string;
-                                                                            "required"?: undefined;
-                                                                        } | {
-                                                                            "defaultProperties": never[];
-                                                                            "properties": {
-                                                                                "bytes": {
-                                                                                    "enum": number[];
-                                                                                    "type": string;
-                                                                                };
-                                                                                "label"?: undefined;
-                                                                                "showIf"?: undefined;
-                                                                                "content"?: undefined;
-                                                                            };
-                                                                            "type": string;
-                                                                            "required"?: undefined;
-                                                                        } | {
-                                                                            "defaultProperties": never[];
-                                                                            "properties": {
-                                                                                "content": {
-                                                                                    "type": string;
-                                                                                };
-                                                                                "label"?: undefined;
-                                                                                "showIf"?: undefined;
-                                                                                "bytes"?: undefined;
-                                                                            };
-                                                                            "required": string[];
-                                                                            "type": string;
-                                                                        })[];
-                                                                    } | {
-                                                                        "allOf": ({
-                                                                            "defaultProperties": never[];
-                                                                            "properties": {
-                                                                                "showIf": {
-                                                                                    "type": string;
-                                                                                };
-                                                                                "content"?: undefined;
-                                                                            };
-                                                                            "type": string;
-                                                                            "required"?: undefined;
-                                                                        } | {
-                                                                            "defaultProperties": never[];
-                                                                            "properties": {
-                                                                                "content": {
-                                                                                    "items": {
-                                                                                        "anyOf": ({
-                                                                                            "allOf": ({
-                                                                                                "defaultProperties": never[];
-                                                                                                "properties": {
-                                                                                                    "options": {
-                                                                                                        "additionalItems": {
-                                                                                                            "anyOf": {
+                                                                                            "anyOf": ({
+                                                                                                "allOf": ({
+                                                                                                    "defaultProperties": never[];
+                                                                                                    "properties": {
+                                                                                                        "options": {
+                                                                                                            "additionalItems": {
+                                                                                                                "anyOf": {
+                                                                                                                    "anyOf": ({
+                                                                                                                        "items": {
+                                                                                                                            "type": string;
+                                                                                                                        };
+                                                                                                                        "type": string;
+                                                                                                                    } | {
+                                                                                                                        "type": string;
+                                                                                                                        "items"?: undefined;
+                                                                                                                    })[];
+                                                                                                                }[];
+                                                                                                            };
+                                                                                                            "items": {
                                                                                                                 "anyOf": ({
                                                                                                                     "items": {
                                                                                                                         "type": string;
@@ -1535,107 +1672,71 @@ export declare const VIADefinitionV3Schema: {
                                                                                                                     "items"?: undefined;
                                                                                                                 })[];
                                                                                                             }[];
-                                                                                                        };
-                                                                                                        "items": {
-                                                                                                            "anyOf": ({
-                                                                                                                "items": {
-                                                                                                                    "type": string;
-                                                                                                                };
-                                                                                                                "type": string;
-                                                                                                            } | {
-                                                                                                                "type": string;
-                                                                                                                "items"?: undefined;
-                                                                                                            })[];
-                                                                                                        }[];
-                                                                                                        "minItems": number;
-                                                                                                        "type": string;
-                                                                                                    };
-                                                                                                    "type": {
-                                                                                                        "enum": string[];
-                                                                                                        "type": string;
-                                                                                                    };
-                                                                                                    "label"?: undefined;
-                                                                                                    "showIf"?: undefined;
-                                                                                                    "bytes"?: undefined;
-                                                                                                    "content"?: undefined;
-                                                                                                };
-                                                                                                "required": string[];
-                                                                                                "type": string;
-                                                                                            } | {
-                                                                                                "defaultProperties": never[];
-                                                                                                "properties": {
-                                                                                                    "label": {
-                                                                                                        "type": string;
-                                                                                                    };
-                                                                                                    "options"?: undefined;
-                                                                                                    "type"?: undefined;
-                                                                                                    "showIf"?: undefined;
-                                                                                                    "bytes"?: undefined;
-                                                                                                    "content"?: undefined;
-                                                                                                };
-                                                                                                "required": string[];
-                                                                                                "type": string;
-                                                                                            } | {
-                                                                                                "defaultProperties": never[];
-                                                                                                "properties": {
-                                                                                                    "showIf": {
-                                                                                                        "type": string;
-                                                                                                    };
-                                                                                                    "options"?: undefined;
-                                                                                                    "type"?: undefined;
-                                                                                                    "label"?: undefined;
-                                                                                                    "bytes"?: undefined;
-                                                                                                    "content"?: undefined;
-                                                                                                };
-                                                                                                "type": string;
-                                                                                                "required"?: undefined;
-                                                                                            } | {
-                                                                                                "defaultProperties": never[];
-                                                                                                "properties": {
-                                                                                                    "bytes": {
-                                                                                                        "enum": number[];
-                                                                                                        "type": string;
-                                                                                                    };
-                                                                                                    "options"?: undefined;
-                                                                                                    "type"?: undefined;
-                                                                                                    "label"?: undefined;
-                                                                                                    "showIf"?: undefined;
-                                                                                                    "content"?: undefined;
-                                                                                                };
-                                                                                                "type": string;
-                                                                                                "required"?: undefined;
-                                                                                            } | {
-                                                                                                "defaultProperties": never[];
-                                                                                                "properties": {
-                                                                                                    "content": {
-                                                                                                        "additionalItems": {
-                                                                                                            "anyOf": {
-                                                                                                                "type": string;
-                                                                                                            }[];
-                                                                                                        };
-                                                                                                        "items": {
+                                                                                                            "minItems": number;
                                                                                                             "type": string;
-                                                                                                        }[];
-                                                                                                        "minItems": number;
-                                                                                                        "type": string;
+                                                                                                        };
+                                                                                                        "type": {
+                                                                                                            "enum": string[];
+                                                                                                            "type": string;
+                                                                                                        };
+                                                                                                        "label"?: undefined;
+                                                                                                        "showIf"?: undefined;
+                                                                                                        "bytes"?: undefined;
+                                                                                                        "content"?: undefined;
                                                                                                     };
-                                                                                                    "options"?: undefined;
-                                                                                                    "type"?: undefined;
-                                                                                                    "label"?: undefined;
-                                                                                                    "showIf"?: undefined;
-                                                                                                    "bytes"?: undefined;
-                                                                                                };
-                                                                                                "required": string[];
-                                                                                                "type": string;
-                                                                                            })[];
-                                                                                        } | {
-                                                                                            "allOf": ({
-                                                                                                "defaultProperties": never[];
-                                                                                                "properties": {
-                                                                                                    "options": {
-                                                                                                        "items": {
+                                                                                                    "required": string[];
+                                                                                                    "type": string;
+                                                                                                } | {
+                                                                                                    "defaultProperties": never[];
+                                                                                                    "properties": {
+                                                                                                        "label": {
+                                                                                                            "type": string;
+                                                                                                        };
+                                                                                                        "options"?: undefined;
+                                                                                                        "type"?: undefined;
+                                                                                                        "showIf"?: undefined;
+                                                                                                        "bytes"?: undefined;
+                                                                                                        "content"?: undefined;
+                                                                                                    };
+                                                                                                    "required": string[];
+                                                                                                    "type": string;
+                                                                                                } | {
+                                                                                                    "defaultProperties": never[];
+                                                                                                    "properties": {
+                                                                                                        "showIf": {
+                                                                                                            "type": string;
+                                                                                                        };
+                                                                                                        "options"?: undefined;
+                                                                                                        "type"?: undefined;
+                                                                                                        "label"?: undefined;
+                                                                                                        "bytes"?: undefined;
+                                                                                                        "content"?: undefined;
+                                                                                                    };
+                                                                                                    "type": string;
+                                                                                                    "required"?: undefined;
+                                                                                                } | {
+                                                                                                    "defaultProperties": never[];
+                                                                                                    "properties": {
+                                                                                                        "bytes": {
+                                                                                                            "enum": number[];
+                                                                                                            "type": string;
+                                                                                                        };
+                                                                                                        "options"?: undefined;
+                                                                                                        "type"?: undefined;
+                                                                                                        "label"?: undefined;
+                                                                                                        "showIf"?: undefined;
+                                                                                                        "content"?: undefined;
+                                                                                                    };
+                                                                                                    "type": string;
+                                                                                                    "required"?: undefined;
+                                                                                                } | {
+                                                                                                    "defaultProperties": never[];
+                                                                                                    "properties": {
+                                                                                                        "content": {
                                                                                                             "additionalItems": {
-                                                                                                                "type": string;
+                                                                                                                "anyOf": {
+                                                                                                                    "type": string;
+                                                                                                                }[];
                                                                                                             };
                                                                                                             "items": {
                                                                                                                 "type": string;
@@ -1643,505 +1744,382 @@ export declare const VIADefinitionV3Schema: {
                                                                                                             "minItems": number;
                                                                                                             "type": string;
                                                                                                         };
-                                                                                                        "type": string;
+                                                                                                        "options"?: undefined;
+                                                                                                        "type"?: undefined;
+                                                                                                        "label"?: undefined;
+                                                                                                        "showIf"?: undefined;
+                                                                                                        "bytes"?: undefined;
                                                                                                     };
-                                                                                                    "type": {
-                                                                                                        "enum": string[];
-                                                                                                        "type": string;
-                                                                                                    };
-                                                                                                    "label"?: undefined;
-                                                                                                    "showIf"?: undefined;
-                                                                                                    "bytes"?: undefined;
-                                                                                                    "content"?: undefined;
-                                                                                                };
-                                                                                                "required": string[];
-                                                                                                "type": string;
+                                                                                                    "required": string[];
+                                                                                                    "type": string;
+                                                                                                })[];
                                                                                             } | {
-                                                                                                "defaultProperties": never[];
-                                                                                                "properties": {
-                                                                                                    "label": {
-                                                                                                        "type": string;
+                                                                                                "allOf": ({
+                                                                                                    "defaultProperties": never[];
+                                                                                                    "properties": {
+                                                                                                        "options": {
+                                                                                                            "items": {
+                                                                                                                "additionalItems": {
+                                                                                                                    "type": string;
+                                                                                                                };
+                                                                                                                "items": {
+                                                                                                                    "type": string;
+                                                                                                                }[];
+                                                                                                                "minItems": number;
+                                                                                                                "type": string;
+                                                                                                            };
+                                                                                                            "type": string;
+                                                                                                        };
+                                                                                                        "type": {
+                                                                                                            "enum": string[];
+                                                                                                            "type": string;
+                                                                                                        };
+                                                                                                        "label"?: undefined;
+                                                                                                        "showIf"?: undefined;
+                                                                                                        "bytes"?: undefined;
+                                                                                                        "content"?: undefined;
                                                                                                     };
-                                                                                                    "options"?: undefined;
-                                                                                                    "type"?: undefined;
-                                                                                                    "showIf"?: undefined;
-                                                                                                    "bytes"?: undefined;
-                                                                                                    "content"?: undefined;
-                                                                                                };
-                                                                                                "required": string[];
-                                                                                                "type": string;
-                                                                                            } | {
-                                                                                                "defaultProperties": never[];
-                                                                                                "properties": {
-                                                                                                    "showIf": {
-                                                                                                        "type": string;
+                                                                                                    "required": string[];
+                                                                                                    "type": string;
+                                                                                                } | {
+                                                                                                    "defaultProperties": never[];
+                                                                                                    "properties": {
+                                                                                                        "label": {
+                                                                                                            "type": string;
+                                                                                                        };
+                                                                                                        "options"?: undefined;
+                                                                                                        "type"?: undefined;
+                                                                                                        "showIf"?: undefined;
+                                                                                                        "bytes"?: undefined;
+                                                                                                        "content"?: undefined;
                                                                                                     };
-                                                                                                    "options"?: undefined;
-                                                                                                    "type"?: undefined;
-                                                                                                    "label"?: undefined;
-                                                                                                    "bytes"?: undefined;
-                                                                                                    "content"?: undefined;
-                                                                                                };
-                                                                                                "type": string;
-                                                                                                "required"?: undefined;
-                                                                                            } | {
-                                                                                                "defaultProperties": never[];
-                                                                                                "properties": {
-                                                                                                    "bytes": {
-                                                                                                        "enum": number[];
-                                                                                                        "type": string;
+                                                                                                    "required": string[];
+                                                                                                    "type": string;
+                                                                                                } | {
+                                                                                                    "defaultProperties": never[];
+                                                                                                    "properties": {
+                                                                                                        "showIf": {
+                                                                                                            "type": string;
+                                                                                                        };
+                                                                                                        "options"?: undefined;
+                                                                                                        "type"?: undefined;
+                                                                                                        "label"?: undefined;
+                                                                                                        "bytes"?: undefined;
+                                                                                                        "content"?: undefined;
                                                                                                     };
-                                                                                                    "options"?: undefined;
-                                                                                                    "type"?: undefined;
-                                                                                                    "label"?: undefined;
-                                                                                                    "showIf"?: undefined;
-                                                                                                    "content"?: undefined;
-                                                                                                };
-                                                                                                "type": string;
-                                                                                                "required"?: undefined;
-                                                                                            } | {
-                                                                                                "defaultProperties": never[];
-                                                                                                "properties": {
-                                                                                                    "content": {
-                                                                                                        "additionalItems": {
-                                                                                                            "anyOf": {
+                                                                                                    "type": string;
+                                                                                                    "required"?: undefined;
+                                                                                                } | {
+                                                                                                    "defaultProperties": never[];
+                                                                                                    "properties": {
+                                                                                                        "bytes": {
+                                                                                                            "enum": number[];
+                                                                                                            "type": string;
+                                                                                                        };
+                                                                                                        "options"?: undefined;
+                                                                                                        "type"?: undefined;
+                                                                                                        "label"?: undefined;
+                                                                                                        "showIf"?: undefined;
+                                                                                                        "content"?: undefined;
+                                                                                                    };
+                                                                                                    "type": string;
+                                                                                                    "required"?: undefined;
+                                                                                                } | {
+                                                                                                    "defaultProperties": never[];
+                                                                                                    "properties": {
+                                                                                                        "content": {
+                                                                                                            "additionalItems": {
+                                                                                                                "anyOf": {
+                                                                                                                    "type": string;
+                                                                                                                }[];
+                                                                                                            };
+                                                                                                            "items": {
                                                                                                                 "type": string;
                                                                                                             }[];
-                                                                                                        };
-                                                                                                        "items": {
+                                                                                                            "minItems": number;
                                                                                                             "type": string;
-                                                                                                        }[];
-                                                                                                        "minItems": number;
-                                                                                                        "type": string;
+                                                                                                        };
+                                                                                                        "options"?: undefined;
+                                                                                                        "type"?: undefined;
+                                                                                                        "label"?: undefined;
+                                                                                                        "showIf"?: undefined;
+                                                                                                        "bytes"?: undefined;
                                                                                                     };
-                                                                                                    "options"?: undefined;
-                                                                                                    "type"?: undefined;
-                                                                                                    "label"?: undefined;
-                                                                                                    "showIf"?: undefined;
-                                                                                                    "bytes"?: undefined;
-                                                                                                };
-                                                                                                "required": string[];
-                                                                                                "type": string;
-                                                                                            })[];
-                                                                                        } | {
-                                                                                            "allOf": ({
-                                                                                                "defaultProperties": never[];
-                                                                                                "properties": {
-                                                                                                    "options": {
-                                                                                                        "additionalItems": {
-                                                                                                            "anyOf": {
+                                                                                                    "required": string[];
+                                                                                                    "type": string;
+                                                                                                })[];
+                                                                                            } | {
+                                                                                                "allOf": ({
+                                                                                                    "defaultProperties": never[];
+                                                                                                    "properties": {
+                                                                                                        "options": {
+                                                                                                            "additionalItems": {
+                                                                                                                "anyOf": {
+                                                                                                                    "type": string;
+                                                                                                                }[];
+                                                                                                            };
+                                                                                                            "items": {
                                                                                                                 "type": string;
                                                                                                             }[];
-                                                                                                        };
-                                                                                                        "items": {
+                                                                                                            "minItems": number;
                                                                                                             "type": string;
-                                                                                                        }[];
-                                                                                                        "minItems": number;
-                                                                                                        "type": string;
+                                                                                                        };
+                                                                                                        "type": {
+                                                                                                            "enum": string[];
+                                                                                                            "type": string;
+                                                                                                        };
+                                                                                                        "unit": {
+                                                                                                            "type": string;
+                                                                                                        };
+                                                                                                        "label"?: undefined;
+                                                                                                        "showIf"?: undefined;
+                                                                                                        "bytes"?: undefined;
+                                                                                                        "content"?: undefined;
                                                                                                     };
-                                                                                                    "type": {
-                                                                                                        "enum": string[];
-                                                                                                        "type": string;
+                                                                                                    "required": string[];
+                                                                                                    "type": string;
+                                                                                                } | {
+                                                                                                    "defaultProperties": never[];
+                                                                                                    "properties": {
+                                                                                                        "label": {
+                                                                                                            "type": string;
+                                                                                                        };
+                                                                                                        "options"?: undefined;
+                                                                                                        "type"?: undefined;
+                                                                                                        "unit"?: undefined;
+                                                                                                        "showIf"?: undefined;
+                                                                                                        "bytes"?: undefined;
+                                                                                                        "content"?: undefined;
                                                                                                     };
-                                                                                                    "unit": {
-                                                                                                        "type": string;
+                                                                                                    "required": string[];
+                                                                                                    "type": string;
+                                                                                                } | {
+                                                                                                    "defaultProperties": never[];
+                                                                                                    "properties": {
+                                                                                                        "showIf": {
+                                                                                                            "type": string;
+                                                                                                        };
+                                                                                                        "options"?: undefined;
+                                                                                                        "type"?: undefined;
+                                                                                                        "unit"?: undefined;
+                                                                                                        "label"?: undefined;
+                                                                                                        "bytes"?: undefined;
+                                                                                                        "content"?: undefined;
                                                                                                     };
-                                                                                                    "label"?: undefined;
-                                                                                                    "showIf"?: undefined;
-                                                                                                    "bytes"?: undefined;
-                                                                                                    "content"?: undefined;
-                                                                                                };
-                                                                                                "required": string[];
-                                                                                                "type": string;
-                                                                                            } | {
-                                                                                                "defaultProperties": never[];
-                                                                                                "properties": {
-                                                                                                    "label": {
-                                                                                                        "type": string;
+                                                                                                    "type": string;
+                                                                                                    "required"?: undefined;
+                                                                                                } | {
+                                                                                                    "defaultProperties": never[];
+                                                                                                    "properties": {
+                                                                                                        "bytes": {
+                                                                                                            "enum": number[];
+                                                                                                            "type": string;
+                                                                                                        };
+                                                                                                        "options"?: undefined;
+                                                                                                        "type"?: undefined;
+                                                                                                        "unit"?: undefined;
+                                                                                                        "label"?: undefined;
+                                                                                                        "showIf"?: undefined;
+                                                                                                        "content"?: undefined;
                                                                                                     };
-                                                                                                    "options"?: undefined;
-                                                                                                    "type"?: undefined;
-                                                                                                    "unit"?: undefined;
-                                                                                                    "showIf"?: undefined;
-                                                                                                    "bytes"?: undefined;
-                                                                                                    "content"?: undefined;
-                                                                                                };
-                                                                                                "required": string[];
-                                                                                                "type": string;
-                                                                                            } | {
-                                                                                                "defaultProperties": never[];
-                                                                                                "properties": {
-                                                                                                    "showIf": {
-                                                                                                        "type": string;
-                                                                                                    };
-                                                                                                    "options"?: undefined;
-                                                                                                    "type"?: undefined;
-                                                                                                    "unit"?: undefined;
-                                                                                                    "label"?: undefined;
-                                                                                                    "bytes"?: undefined;
-                                                                                                    "content"?: undefined;
-                                                                                                };
-                                                                                                "type": string;
-                                                                                                "required"?: undefined;
-                                                                                            } | {
-                                                                                                "defaultProperties": never[];
-                                                                                                "properties": {
-                                                                                                    "bytes": {
-                                                                                                        "enum": number[];
-                                                                                                        "type": string;
-                                                                                                    };
-                                                                                                    "options"?: undefined;
-                                                                                                    "type"?: undefined;
-                                                                                                    "unit"?: undefined;
-                                                                                                    "label"?: undefined;
-                                                                                                    "showIf"?: undefined;
-                                                                                                    "content"?: undefined;
-                                                                                                };
-                                                                                                "type": string;
-                                                                                                "required"?: undefined;
-                                                                                            } | {
-                                                                                                "defaultProperties": never[];
-                                                                                                "properties": {
-                                                                                                    "content": {
-                                                                                                        "additionalItems": {
-                                                                                                            "anyOf": {
+                                                                                                    "type": string;
+                                                                                                    "required"?: undefined;
+                                                                                                } | {
+                                                                                                    "defaultProperties": never[];
+                                                                                                    "properties": {
+                                                                                                        "content": {
+                                                                                                            "additionalItems": {
+                                                                                                                "anyOf": {
+                                                                                                                    "type": string;
+                                                                                                                }[];
+                                                                                                            };
+                                                                                                            "items": {
                                                                                                                 "type": string;
                                                                                                             }[];
-                                                                                                        };
-                                                                                                        "items": {
+                                                                                                            "minItems": number;
                                                                                                             "type": string;
-                                                                                                        }[];
-                                                                                                        "minItems": number;
-                                                                                                        "type": string;
+                                                                                                        };
+                                                                                                        "options"?: undefined;
+                                                                                                        "type"?: undefined;
+                                                                                                        "unit"?: undefined;
+                                                                                                        "label"?: undefined;
+                                                                                                        "showIf"?: undefined;
+                                                                                                        "bytes"?: undefined;
                                                                                                     };
-                                                                                                    "options"?: undefined;
-                                                                                                    "type"?: undefined;
-                                                                                                    "unit"?: undefined;
-                                                                                                    "label"?: undefined;
-                                                                                                    "showIf"?: undefined;
-                                                                                                    "bytes"?: undefined;
-                                                                                                };
-                                                                                                "required": string[];
-                                                                                                "type": string;
-                                                                                            })[];
-                                                                                        } | {
-                                                                                            "allOf": ({
-                                                                                                "defaultProperties": never[];
-                                                                                                "properties": {
-                                                                                                    "type": {
-                                                                                                        "enum": string[];
-                                                                                                        "type": string;
-                                                                                                    };
-                                                                                                    "label"?: undefined;
-                                                                                                    "showIf"?: undefined;
-                                                                                                    "bytes"?: undefined;
-                                                                                                    "content"?: undefined;
-                                                                                                };
-                                                                                                "required": string[];
-                                                                                                "type": string;
+                                                                                                    "required": string[];
+                                                                                                    "type": string;
+                                                                                                })[];
                                                                                             } | {
-                                                                                                "defaultProperties": never[];
-                                                                                                "properties": {
-                                                                                                    "label": {
-                                                                                                        "type": string;
+                                                                                                "allOf": ({
+                                                                                                    "defaultProperties": never[];
+                                                                                                    "properties": {
+                                                                                                        "type": {
+                                                                                                            "enum": string[];
+                                                                                                            "type": string;
+                                                                                                        };
+                                                                                                        "label"?: undefined;
+                                                                                                        "showIf"?: undefined;
+                                                                                                        "bytes"?: undefined;
+                                                                                                        "content"?: undefined;
                                                                                                     };
-                                                                                                    "type"?: undefined;
-                                                                                                    "showIf"?: undefined;
-                                                                                                    "bytes"?: undefined;
-                                                                                                    "content"?: undefined;
-                                                                                                };
-                                                                                                "required": string[];
-                                                                                                "type": string;
-                                                                                            } | {
-                                                                                                "defaultProperties": never[];
-                                                                                                "properties": {
-                                                                                                    "showIf": {
-                                                                                                        "type": string;
+                                                                                                    "required": string[];
+                                                                                                    "type": string;
+                                                                                                } | {
+                                                                                                    "defaultProperties": never[];
+                                                                                                    "properties": {
+                                                                                                        "label": {
+                                                                                                            "type": string;
+                                                                                                        };
+                                                                                                        "type"?: undefined;
+                                                                                                        "showIf"?: undefined;
+                                                                                                        "bytes"?: undefined;
+                                                                                                        "content"?: undefined;
                                                                                                     };
-                                                                                                    "type"?: undefined;
-                                                                                                    "label"?: undefined;
-                                                                                                    "bytes"?: undefined;
-                                                                                                    "content"?: undefined;
-                                                                                                };
-                                                                                                "type": string;
-                                                                                                "required"?: undefined;
-                                                                                            } | {
-                                                                                                "defaultProperties": never[];
-                                                                                                "properties": {
-                                                                                                    "bytes": {
-                                                                                                        "enum": number[];
-                                                                                                        "type": string;
+                                                                                                    "required": string[];
+                                                                                                    "type": string;
+                                                                                                } | {
+                                                                                                    "defaultProperties": never[];
+                                                                                                    "properties": {
+                                                                                                        "showIf": {
+                                                                                                            "type": string;
+                                                                                                        };
+                                                                                                        "type"?: undefined;
+                                                                                                        "label"?: undefined;
+                                                                                                        "bytes"?: undefined;
+                                                                                                        "content"?: undefined;
                                                                                                     };
-                                                                                                    "type"?: undefined;
-                                                                                                    "label"?: undefined;
-                                                                                                    "showIf"?: undefined;
-                                                                                                    "content"?: undefined;
-                                                                                                };
-                                                                                                "type": string;
-                                                                                                "required"?: undefined;
-                                                                                            } | {
-                                                                                                "defaultProperties": never[];
-                                                                                                "properties": {
-                                                                                                    "content": {
-                                                                                                        "additionalItems": {
-                                                                                                            "anyOf": {
+                                                                                                    "type": string;
+                                                                                                    "required"?: undefined;
+                                                                                                } | {
+                                                                                                    "defaultProperties": never[];
+                                                                                                    "properties": {
+                                                                                                        "bytes": {
+                                                                                                            "enum": number[];
+                                                                                                            "type": string;
+                                                                                                        };
+                                                                                                        "type"?: undefined;
+                                                                                                        "label"?: undefined;
+                                                                                                        "showIf"?: undefined;
+                                                                                                        "content"?: undefined;
+                                                                                                    };
+                                                                                                    "type": string;
+                                                                                                    "required"?: undefined;
+                                                                                                } | {
+                                                                                                    "defaultProperties": never[];
+                                                                                                    "properties": {
+                                                                                                        "content": {
+                                                                                                            "additionalItems": {
+                                                                                                                "anyOf": {
+                                                                                                                    "type": string;
+                                                                                                                }[];
+                                                                                                            };
+                                                                                                            "items": {
                                                                                                                 "type": string;
                                                                                                             }[];
-                                                                                                        };
-                                                                                                        "items": {
+                                                                                                            "minItems": number;
                                                                                                             "type": string;
-                                                                                                        }[];
-                                                                                                        "minItems": number;
-                                                                                                        "type": string;
+                                                                                                        };
+                                                                                                        "type"?: undefined;
+                                                                                                        "label"?: undefined;
+                                                                                                        "showIf"?: undefined;
+                                                                                                        "bytes"?: undefined;
                                                                                                     };
-                                                                                                    "type"?: undefined;
-                                                                                                    "label"?: undefined;
-                                                                                                    "showIf"?: undefined;
-                                                                                                    "bytes"?: undefined;
-                                                                                                };
-                                                                                                "required": string[];
-                                                                                                "type": string;
+                                                                                                    "required": string[];
+                                                                                                    "type": string;
+                                                                                                })[];
+                                                                                            } | {
+                                                                                                "allOf": ({
+                                                                                                    "defaultProperties": never[];
+                                                                                                    "properties": {
+                                                                                                        "label": {
+                                                                                                            "type": string;
+                                                                                                        };
+                                                                                                        "showIf"?: undefined;
+                                                                                                        "bytes"?: undefined;
+                                                                                                        "content"?: undefined;
+                                                                                                    };
+                                                                                                    "required": string[];
+                                                                                                    "type": string;
+                                                                                                } | {
+                                                                                                    "defaultProperties": never[];
+                                                                                                    "properties": {
+                                                                                                        "showIf": {
+                                                                                                            "type": string;
+                                                                                                        };
+                                                                                                        "label"?: undefined;
+                                                                                                        "bytes"?: undefined;
+                                                                                                        "content"?: undefined;
+                                                                                                    };
+                                                                                                    "type": string;
+                                                                                                    "required"?: undefined;
+                                                                                                } | {
+                                                                                                    "defaultProperties": never[];
+                                                                                                    "properties": {
+                                                                                                        "bytes": {
+                                                                                                            "enum": number[];
+                                                                                                            "type": string;
+                                                                                                        };
+                                                                                                        "label"?: undefined;
+                                                                                                        "showIf"?: undefined;
+                                                                                                        "content"?: undefined;
+                                                                                                    };
+                                                                                                    "type": string;
+                                                                                                    "required"?: undefined;
+                                                                                                } | {
+                                                                                                    "defaultProperties": never[];
+                                                                                                    "properties": {
+                                                                                                        "content": {
+                                                                                                            "type": string;
+                                                                                                        };
+                                                                                                        "label"?: undefined;
+                                                                                                        "showIf"?: undefined;
+                                                                                                        "bytes"?: undefined;
+                                                                                                    };
+                                                                                                    "required": string[];
+                                                                                                    "type": string;
+                                                                                                })[];
                                                                                             })[];
-                                                                                        } | {
-                                                                                            "allOf": ({
-                                                                                                "defaultProperties": never[];
-                                                                                                "properties": {
-                                                                                                    "label": {
-                                                                                                        "type": string;
-                                                                                                    };
-                                                                                                    "showIf"?: undefined;
-                                                                                                    "bytes"?: undefined;
-                                                                                                    "content"?: undefined;
-                                                                                                };
-                                                                                                "required": string[];
-                                                                                                "type": string;
-                                                                                            } | {
-                                                                                                "defaultProperties": never[];
-                                                                                                "properties": {
-                                                                                                    "showIf": {
-                                                                                                        "type": string;
-                                                                                                    };
-                                                                                                    "label"?: undefined;
-                                                                                                    "bytes"?: undefined;
-                                                                                                    "content"?: undefined;
-                                                                                                };
-                                                                                                "type": string;
-                                                                                                "required"?: undefined;
-                                                                                            } | {
-                                                                                                "defaultProperties": never[];
-                                                                                                "properties": {
-                                                                                                    "bytes": {
-                                                                                                        "enum": number[];
-                                                                                                        "type": string;
-                                                                                                    };
-                                                                                                    "label"?: undefined;
-                                                                                                    "showIf"?: undefined;
-                                                                                                    "content"?: undefined;
-                                                                                                };
-                                                                                                "type": string;
-                                                                                                "required"?: undefined;
-                                                                                            } | {
-                                                                                                "defaultProperties": never[];
-                                                                                                "properties": {
-                                                                                                    "content": {
-                                                                                                        "type": string;
-                                                                                                    };
-                                                                                                    "label"?: undefined;
-                                                                                                    "showIf"?: undefined;
-                                                                                                    "bytes"?: undefined;
-                                                                                                };
-                                                                                                "required": string[];
-                                                                                                "type": string;
-                                                                                            })[];
-                                                                                        })[];
+                                                                                        };
+                                                                                        "type": string;
                                                                                     };
-                                                                                    "type": string;
+                                                                                    "showIf"?: undefined;
                                                                                 };
-                                                                                "showIf"?: undefined;
-                                                                            };
-                                                                            "required": string[];
-                                                                            "type": string;
+                                                                                "required": string[];
+                                                                                "type": string;
+                                                                            })[];
                                                                         })[];
-                                                                    })[];
+                                                                    };
+                                                                    "type": string;
                                                                 };
-                                                                "type": string;
+                                                                "label"?: undefined;
+                                                                "showIf"?: undefined;
                                                             };
-                                                            "label"?: undefined;
-                                                            "showIf"?: undefined;
-                                                        };
-                                                        "required": string[];
-                                                        "type": string;
-                                                    })[];
+                                                            "required": string[];
+                                                            "type": string;
+                                                        })[];
+                                                    };
+                                                    "type": string;
                                                 };
-                                                "type": string;
+                                                "showIf"?: undefined;
                                             };
-                                            "showIf"?: undefined;
-                                        };
-                                        "required": string[];
-                                        "type": string;
+                                            "required": string[];
+                                            "type": string;
+                                        })[];
                                     })[];
-                                })[];
-                            };
-                            "type": string;
-                        };
-                        "label"?: undefined;
-                        "showIf"?: undefined;
-                    };
-                    "required": string[];
-                    "type": string;
-                })[];
-            };
-            "type": string;
-        };
-        "keycodes": {
-            "items": {
-                "anyOf": ({
-                    "defaultProperties": never[];
-                    "properties": {
-                        "keycodes": {
-                            "items": {
-                                "defaultProperties": never[];
-                                "properties": {
-                                    "hexValue": {
-                                        "type": string;
-                                    };
-                                    "name": {
-                                        "type": string;
-                                    };
-                                    "shortName": {
-                                        "type": string;
-                                    };
-                                    "title": {
-                                        "type": string;
-                                    };
                                 };
-                                "required": string[];
                                 "type": string;
                             };
-                            "type": string;
+                            "label"?: undefined;
+                            "showIf"?: undefined;
                         };
-                        "menu": {
-                            "$ref": string;
-                        };
-                    };
-                    "required": string[];
-                    "type": string;
-                    "enum"?: undefined;
+                        "required": string[];
+                        "type": string;
+                    })[];
+                    "type"?: undefined;
                 } | {
-                    "enum": string[];
                     "type": string;
-                    "defaultProperties"?: undefined;
-                    "properties"?: undefined;
-                    "required"?: undefined;
+                    "allOf"?: undefined;
                 })[];
-            };
-            "type": string;
-        };
-        "layouts": {
-            "defaultProperties": never[];
-            "properties": {
-                "height": {
-                    "type": string;
-                };
-                "keys": {
-                    "items": {
-                        "allOf": ({
-                            "$ref": string;
-                            "defaultProperties"?: undefined;
-                            "properties"?: undefined;
-                            "required"?: undefined;
-                            "type"?: undefined;
-                        } | {
-                            "defaultProperties": never[];
-                            "properties": {
-                                "color": {
-                                    "$ref": string;
-                                };
-                            };
-                            "required": string[];
-                            "type": string;
-                            "$ref"?: undefined;
-                        })[];
-                    };
-                    "type": string;
-                };
-                "labels": {
-                    "items": {
-                        "anyOf": ({
-                            "items": {
-                                "type": string;
-                            };
-                            "type": string;
-                        } | {
-                            "type": string;
-                            "items"?: undefined;
-                        })[];
-                    };
-                    "type": string;
-                };
-                "optionKeys": {
-                    "additionalProperties": {
-                        "additionalProperties": {
-                            "items": {
-                                "allOf": ({
-                                    "$ref": string;
-                                    "defaultProperties"?: undefined;
-                                    "properties"?: undefined;
-                                    "required"?: undefined;
-                                    "type"?: undefined;
-                                } | {
-                                    "defaultProperties": never[];
-                                    "properties": {
-                                        "color": {
-                                            "$ref": string;
-                                        };
-                                    };
-                                    "required": string[];
-                                    "type": string;
-                                    "$ref"?: undefined;
-                                })[];
-                            };
-                            "type": string;
-                        };
-                        "defaultProperties": never[];
-                        "type": string;
-                    };
-                    "defaultProperties": never[];
-                    "type": string;
-                };
-                "presets": {
-                    "additionalProperties": {
-                        "items": {
-                            "type": string;
-                        };
-                        "type": string;
-                    };
-                    "defaultProperties": never[];
-                    "type": string;
-                };
-                "width": {
-                    "type": string;
-                };
-            };
-            "required": string[];
-            "type": string;
-        };
-        "matrix": {
-            "defaultProperties": never[];
-            "properties": {
-                "cols": {
-                    "type": string;
-                };
-                "rows": {
-                    "type": string;
-                };
-            };
-            "required": string[];
-            "type": string;
-        };
-        "menus": {
-            "items": {
-                "type": string;
             };
             "type": string;
         };

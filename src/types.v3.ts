@@ -99,39 +99,40 @@ export type CustomKeycode = {
   name: string;
   title: string;
   shortName?: string;
-  hexValue: string;
 };
-
-export enum CustomFeatures {
-  RotaryEncoder = 'rotary-encoder',
-}
-
-export enum MenuId {
-  Basic = 'basic',
-  Lighting = 'lighting',
-  Media = 'media',
-  Macro = 'macro',
-  Layers = 'layers',
-  Special = 'special',
-  Custom = 'custom',
-}
 
 export enum BuiltInKeycodeModule {
   Default = 'via/keycodes',
-  QMKLighting = 'core/keycodes/qmk_lighting',
+  QMKLighting = 'via/qmk_lighting',
+  WTLighting = 'via/wt_lighting',
 }
+
+export const defaultKeycodes: BuiltInKeycodeModule[] = [
+  BuiltInKeycodeModule.Default,
+];
+
+export enum BuiltInMenuModule {
+  Keymap = 'via/keymap',
+  Layouts = 'via/layouts',
+  Macros = 'via/macros',
+  SaveLoad = 'via/save_load',
+}
+
+export const defaultMenus: BuiltInMenuModule[] = [
+  BuiltInMenuModule.Keymap,
+  BuiltInMenuModule.Layouts,
+  BuiltInMenuModule.Macros,
+  BuiltInMenuModule.SaveLoad,
+];
 
 export type KeyboardDefinitionV3 = {
   name: string;
   vendorId: string;
   productId: string;
   matrix: MatrixInfo;
-  menus: string[];
-  customMenus?: VIAMenu[];
-  keycodes?: (
-    | BuiltInKeycodeModule
-    | {menu: MenuId; keycodes: CustomKeycode[]}
-  )[];
+  menus?: (BuiltInMenuModule | VIAMenu | string)[];
+  keycodes?: BuiltInKeycodeModule[];
+  customKeycodes?: CustomKeycode[];
   layouts: {
     keymap: KLELayoutDefinition;
     labels?: LayoutLabel[];
@@ -166,12 +167,9 @@ export type VIADefinitionV3 = {
   name: string;
   vendorProductId: number;
   matrix: MatrixInfo;
-  menus: string[];
-  customMenus?: VIAMenu[];
-  keycodes?: (
-    | BuiltInKeycodeModule
-    | {menu: MenuId; keycodes: CustomKeycode[]}
-  )[];
+  menus: (BuiltInMenuModule | VIAMenu | string)[];
+  keycodes: BuiltInKeycodeModule[];
+  customKeycodes?: CustomKeycode[];
   layouts: {
     width: number;
     height: number;
