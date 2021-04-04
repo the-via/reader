@@ -102,13 +102,13 @@ export type CustomKeycode = {
 };
 
 export enum BuiltInKeycodeModule {
-  Default = 'via/keycodes',
+  VIAKeycodes = 'via/keycodes',
   QMKLighting = 'via/qmk_lighting',
   WTLighting = 'via/wt_lighting',
 }
 
 export const defaultKeycodes: BuiltInKeycodeModule[] = [
-  BuiltInKeycodeModule.Default,
+  BuiltInKeycodeModule.VIAKeycodes,
 ];
 
 export enum BuiltInMenuModule {

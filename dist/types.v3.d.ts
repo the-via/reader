@@ -91,7 +91,7 @@ export declare type CustomKeycode = {
     shortName?: string;
 };
 export declare enum BuiltInKeycodeModule {
-    Default = "via/keycodes",
+    VIAKeycodes = "via/keycodes",
     QMKLighting = "via/qmk_lighting",
     WTLighting = "via/wt_lighting"
 }

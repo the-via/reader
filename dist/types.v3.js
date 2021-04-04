@@ -8,12 +8,12 @@ var KeycodeType;
 })(KeycodeType = exports.KeycodeType || (exports.KeycodeType = {}));
 var BuiltInKeycodeModule;
 (function (BuiltInKeycodeModule) {
-    BuiltInKeycodeModule["Default"] = "via/keycodes";
+    BuiltInKeycodeModule["VIAKeycodes"] = "via/keycodes";
     BuiltInKeycodeModule["QMKLighting"] = "via/qmk_lighting";
     BuiltInKeycodeModule["WTLighting"] = "via/wt_lighting";
 })(BuiltInKeycodeModule = exports.BuiltInKeycodeModule || (exports.BuiltInKeycodeModule = {}));
 exports.defaultKeycodes = [
-    BuiltInKeycodeModule.Default,
+    BuiltInKeycodeModule.VIAKeycodes,
 ];
 var BuiltInMenuModule;
 (function (BuiltInMenuModule) {
