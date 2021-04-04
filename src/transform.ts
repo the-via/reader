@@ -1,8 +1,6 @@
 import {kleLayoutToVIALayout} from './kle-parser';
 import validateV3 from './validated-types/keyboard-definition-v3.validator';
 import {
-  BuiltInKeycodeModule,
-  BuiltInMenuModule,
   defaultKeycodes,
   defaultMenus,
   KeyboardDefinitionV3,
@@ -11,12 +9,32 @@ import {
 } from './types.v3';
 export {VIADefinitionV3, KeyboardDefinitionV3};
 
+function getHexHint(value: string) {
+  const borkedHexPattern = /^[Oo]x/;
+  return value.match(borkedHexPattern)
+    ? `Did you mean '${value.replace(borkedHexPattern, '0x')}' instead?`
+    : '';
+}
+
 export function getVendorProductId({
   productId,
   vendorId,
 }: Pick<KeyboardDefinitionV3, 'productId' | 'vendorId'>): number {
   const parsedVendorId = parseInt(vendorId, 16);
   const parsedProductId = parseInt(productId, 16);
+
+  if (isNaN(parsedVendorId)) {
+    throw new Error(
+      `vendorId could not be parsed: '${vendorId}'. ${getHexHint(vendorId)}`
+    );
+  }
+
+  if (isNaN(parsedProductId)) {
+    throw new Error(
+      `productId could not be parsed: '${productId}'. ${getHexHint(productId)}`
+    );
+  }
+
   return parsedVendorId * 65536 + parsedProductId;
 }
 
@@ -61,9 +79,15 @@ export function validateKeyBounds(
 export function keyboardDefinitionV3ToVIADefinitionV3(
   definition: KeyboardDefinitionV3
 ): VIADefinitionV3 {
-  const {name, menus, keycodes, customKeycodes, matrix, layouts} = validateV3(
-    definition
-  );
+  const {
+    name,
+    menus,
+    keycodes,
+    customKeycodes,
+    matrix,
+    layouts,
+    firmwareVersion,
+  } = validateV3(definition);
 
   validateLayouts(layouts);
   const {keymap, ...partialLayout} = layouts;
@@ -74,18 +98,19 @@ export function keyboardDefinitionV3ToVIADefinitionV3(
   validateKeyBounds(matrix, viaLayouts);
   return {
     name,
-    layouts: viaLayouts,
-    matrix,
+    vendorProductId: getVendorProductId(definition),
+    firmwareVersion,
     menus: menus ?? defaultMenus,
     keycodes: keycodes ?? defaultKeycodes,
     customKeycodes,
-    vendorProductId: getVendorProductId(definition),
+    matrix,
+    layouts: viaLayouts,
   };
 }
 
 export function generateVIADefinitionV3LookupMap(
   definitions: KeyboardDefinitionV3[]
-) {
+): Record<string, VIADefinitionV3> {
   return definitions
     .map(keyboardDefinitionV3ToVIADefinitionV3)
     .reduce((p, n) => ({...p, [n.vendorProductId]: n}), {});

@@ -98,6 +98,9 @@ exports.VIADefinitionV3Schema = {
             },
             "type": "array"
         },
+        "firmwareVersion": {
+            "type": "number"
+        },
         "keycodes": {
             "items": {
                 "enum": [
@@ -2921,6 +2924,7 @@ exports.VIADefinitionV3Schema = {
         }
     },
     "required": [
+        "firmwareVersion",
         "keycodes",
         "layouts",
         "matrix",

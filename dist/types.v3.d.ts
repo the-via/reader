@@ -143,6 +143,7 @@ export declare type VIALayout = {
 export declare type VIADefinitionV3 = {
     name: string;
     vendorProductId: number;
+    firmwareVersion: number;
     matrix: MatrixInfo;
     menus: (BuiltInMenuModule | VIAMenu | string)[];
     keycodes: BuiltInKeycodeModule[];
@@ -161,5 +162,11 @@ export declare type VIADefinitionV3 = {
             };
         };
     };
+};
+export declare type KeyboardDefinitionIndex = {
+    generatedAt: number;
+    version: string;
+    theme: ThemeDefinition;
+    vendorProductIds: string[];
 };
 export {};

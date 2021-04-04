@@ -77,6 +77,9 @@ export declare const VIADefinitionV3Schema: {
             };
             "type": string;
         };
+        "firmwareVersion": {
+            "type": string;
+        };
         "keycodes": {
             "items": {
                 "enum": string[];

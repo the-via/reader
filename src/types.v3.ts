@@ -167,6 +167,7 @@ export type VIALayout = {
 export type VIADefinitionV3 = {
   name: string;
   vendorProductId: number;
+  firmwareVersion: number;
   matrix: MatrixInfo;
   menus: (BuiltInMenuModule | VIAMenu | string)[];
   keycodes: BuiltInKeycodeModule[];
@@ -181,4 +182,11 @@ export type VIADefinitionV3 = {
     keys: VIAKey[];
     optionKeys: {[g: string]: {[o: string]: VIAKey[]}};
   };
+};
+
+export type KeyboardDefinitionIndex = {
+  generatedAt: number;
+  version: string;
+  theme: ThemeDefinition;
+  vendorProductIds: string[];
 };

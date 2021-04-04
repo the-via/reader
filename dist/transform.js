@@ -28,10 +28,22 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var kle_parser_1 = require("./kle-parser");
 var keyboard_definition_v3_validator_1 = __importDefault(require("./validated-types/keyboard-definition-v3.validator"));
 var types_v3_1 = require("./types.v3");
+function getHexHint(value) {
+    var borkedHexPattern = /^[Oo]x/;
+    return value.match(borkedHexPattern)
+        ? "Did you mean '" + value.replace(borkedHexPattern, '0x') + "' instead?"
+        : '';
+}
 function getVendorProductId(_a) {
     var productId = _a.productId, vendorId = _a.vendorId;
     var parsedVendorId = parseInt(vendorId, 16);
     var parsedProductId = parseInt(productId, 16);
+    if (isNaN(parsedVendorId)) {
+        throw new Error("vendorId could not be parsed: '" + vendorId + "'. " + getHexHint(vendorId));
+    }
+    if (isNaN(parsedProductId)) {
+        throw new Error("productId could not be parsed: '" + productId + "'. " + getHexHint(productId));
+    }
     return parsedVendorId * 65536 + parsedProductId;
 }
 exports.getVendorProductId = getVendorProductId;
@@ -70,19 +82,20 @@ function validateKeyBounds(matrix, layouts) {
 }
 exports.validateKeyBounds = validateKeyBounds;
 function keyboardDefinitionV3ToVIADefinitionV3(definition) {
-    var _a = keyboard_definition_v3_validator_1.default(definition), name = _a.name, menus = _a.menus, keycodes = _a.keycodes, customKeycodes = _a.customKeycodes, matrix = _a.matrix, layouts = _a.layouts;
+    var _a = keyboard_definition_v3_validator_1.default(definition), name = _a.name, menus = _a.menus, keycodes = _a.keycodes, customKeycodes = _a.customKeycodes, matrix = _a.matrix, layouts = _a.layouts, firmwareVersion = _a.firmwareVersion;
     validateLayouts(layouts);
     var keymap = layouts.keymap, partialLayout = __rest(layouts, ["keymap"]);
     var viaLayouts = __assign(__assign({}, partialLayout), kle_parser_1.kleLayoutToVIALayout(layouts.keymap));
     validateKeyBounds(matrix, viaLayouts);
     return {
         name: name,
-        layouts: viaLayouts,
-        matrix: matrix,
+        vendorProductId: getVendorProductId(definition),
+        firmwareVersion: firmwareVersion,
         menus: (menus !== null && menus !== void 0 ? menus : types_v3_1.defaultMenus),
         keycodes: (keycodes !== null && keycodes !== void 0 ? keycodes : types_v3_1.defaultKeycodes),
         customKeycodes: customKeycodes,
-        vendorProductId: getVendorProductId(definition),
+        matrix: matrix,
+        layouts: viaLayouts,
     };
 }
 exports.keyboardDefinitionV3ToVIADefinitionV3 = keyboardDefinitionV3ToVIADefinitionV3;

@@ -103,6 +103,9 @@ export const VIADefinitionV3Schema = {
       },
       "type": "array"
     },
+    "firmwareVersion": {
+      "type": "number"
+    },
     "keycodes": {
       "items": {
         "enum": [
@@ -3064,6 +3067,7 @@ export const VIADefinitionV3Schema = {
     }
   },
   "required": [
+    "firmwareVersion",
     "keycodes",
     "layouts",
     "matrix",
