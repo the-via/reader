@@ -58,6 +58,9 @@ exports.KeyboardDefinitionV3Schema = {
             },
             "type": "array"
         },
+        "firmwareVersion": {
+            "type": "number"
+        },
         "keycodes": {
             "items": {
                 "enum": [
@@ -2852,6 +2855,7 @@ exports.KeyboardDefinitionV3Schema = {
         }
     },
     "required": [
+        "firmwareVersion",
         "layouts",
         "matrix",
         "name",

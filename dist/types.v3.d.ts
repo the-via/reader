@@ -107,6 +107,7 @@ export declare type KeyboardDefinitionV3 = {
     name: string;
     vendorId: string;
     productId: string;
+    firmwareVersion: number;
     matrix: MatrixInfo;
     menus?: (BuiltInMenuModule | VIAMenu | string)[];
     keycodes?: BuiltInKeycodeModule[];

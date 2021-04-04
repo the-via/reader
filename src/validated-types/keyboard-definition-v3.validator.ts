@@ -63,6 +63,9 @@ export const KeyboardDefinitionV3Schema = {
       },
       "type": "array"
     },
+    "firmwareVersion": {
+      "type": "number"
+    },
     "keycodes": {
       "items": {
         "enum": [
@@ -2992,6 +2995,7 @@ export const KeyboardDefinitionV3Schema = {
     }
   },
   "required": [
+    "firmwareVersion",
     "layouts",
     "matrix",
     "name",

@@ -51,6 +51,9 @@ export declare const KeyboardDefinitionV3Schema: {
             };
             "type": string;
         };
+        "firmwareVersion": {
+            "type": string;
+        };
         "keycodes": {
             "items": {
                 "enum": string[];
