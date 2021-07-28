@@ -1,5 +1,5 @@
 const invariant = require('invariant');
-const util = require('util');
+const inspect = require('util-inspect');
 import {
   Formatting,
   Cursor,
@@ -14,7 +14,7 @@ import {
   Decal,
   VIAKey,
   OptionalDimensions,
-  KLEDimensions
+  KLEDimensions,
 } from './types';
 import {SIGINT} from 'constants';
 import {cursorTo} from 'readline';
@@ -37,7 +37,7 @@ type OuterReduceState = {
 
 export function rawKLEToKLELayout(kle: string): KLELayout {
   const kleArr = kle.split(',\n');
-  return kleArr.map(row =>
+  return kleArr.map((row) =>
     JSON.parse(
       row
         .replace(/\n/g, '\\n')
@@ -50,7 +50,7 @@ export function rawKLEToKLELayout(kle: string): KLELayout {
 
 export function filterGroups(keys: Result[]) {
   // Currently extract out non x,0 groups i.e. always choose the first option
-  return keys.filter(key => key.group.option === 0);
+  return keys.filter((key) => key.group.option === 0);
 }
 
 // Finds the closest to the top-left corner
@@ -68,7 +68,7 @@ function calculateDelta(a: Result, b: Result) {
   const [aX2 = 0, aY2 = 0, bX2 = 0, bY2 = 0] = [a.x2, a.y2, b.x2, b.y2];
   return {
     x: b.x - a.x + Math.min(0, bX2) - Math.min(0, aX2),
-    y: b.y - a.y + Math.min(0, bY2) - Math.min(0, aY2)
+    y: b.y - a.y + Math.min(0, bY2) - Math.min(0, aY2),
   };
 }
 
@@ -80,20 +80,20 @@ function getBoundingBox(key: Result) {
     xStart: Math.min(x, x + x2),
     yStart: Math.min(y, y + y2),
     xEnd: Math.max(x + w, x + x2 + w2),
-    yEnd: Math.max(y + h, y + y2 + h2)
+    yEnd: Math.max(y + h, y + y2 + h2),
   };
 
   const rotatedPoints = [
     {x: box.xStart, y: box.yStart},
     {x: box.xEnd, y: box.yStart},
     {x: box.xStart, y: box.yEnd},
-    {x: box.xEnd, y: box.yEnd}
-  ].map(p => applyRotation(p.x, p.y, ...extraArgs));
+    {x: box.xEnd, y: box.yEnd},
+  ].map((p) => applyRotation(p.x, p.y, ...extraArgs));
   return {
-    xStart: Math.min(...rotatedPoints.map(p => p.x)),
-    xEnd: Math.max(...rotatedPoints.map(p => p.x)),
-    yStart: Math.min(...rotatedPoints.map(p => p.y)),
-    yEnd: Math.max(...rotatedPoints.map(p => p.y))
+    xStart: Math.min(...rotatedPoints.map((p) => p.x)),
+    xEnd: Math.max(...rotatedPoints.map((p) => p.x)),
+    yStart: Math.min(...rotatedPoints.map((p) => p.y)),
+    yEnd: Math.max(...rotatedPoints.map((p) => p.y)),
   };
 }
 
@@ -108,7 +108,7 @@ function applyRotation(
   const [normX, normY] = [x - xOrigin, y - yOrigin];
   return {
     x: xOrigin + normX * Math.cos(rad) - normY * Math.sin(rad),
-    y: yOrigin + normX * Math.sin(rad) + normY * Math.cos(rad)
+    y: yOrigin + normX * Math.sin(rad) + normY * Math.cos(rad),
   };
 }
 
@@ -117,7 +117,7 @@ export function extractGroups(
   origin: {x: number; y: number},
   colorMap: {[k: string]: KeyColorType}
 ): GroupOptionMap<VIAKey> {
-  const groups = keys.filter(key => key.group.key !== -1);
+  const groups = keys.filter((key) => key.group.key !== -1);
   const groupedKeys = groups.reduce(
     (p, n) => ({
       ...p,
@@ -125,8 +125,8 @@ export function extractGroups(
         ...(p[n.group.key] || {}),
         [n.group.option]: ((p[n.group.key] || {})[n.group.option] || []).concat(
           n
-        )
-      }
+        ),
+      },
     }),
     {} as GroupOptionMap<Result>
   );
@@ -138,20 +138,20 @@ export function extractGroups(
     const normalizedOptions = Object.entries(options).reduce(
       (p, [option, results]) => ({
         ...p,
-        [option]: (delta =>
-          results.map(res => ({
+        [option]: ((delta) =>
+          results.map((res) => ({
             ...res,
             x: res.x - delta.x,
-            y: res.y - delta.y
+            y: res.y - delta.y,
           })))(calculateDelta(zeroPivot, findPivot(results)))
-          .filter(r => !r.d) // Remove decal keys
-          .map(r => resultToVIAKey(r, origin, colorMap)) // Resolve key colors and normalize position using origin
+          .filter((r) => !r.d) // Remove decal keys
+          .map((r) => resultToVIAKey(r, origin, colorMap)), // Resolve key colors and normalize position using origin
       }),
       p
     );
     return {
       ...p,
-      [group]: normalizedOptions
+      [group]: normalizedOptions,
     };
   }, {});
 }
@@ -160,8 +160,8 @@ export function extractGroups(
 function extractPair(pair: string) {
   const arr = pair.split(/[，,]/);
   invariant(arr.length === 2, `${pair} is not a pair`);
-  const numArr = arr.map(v => parseInt(v, 10));
-  if (numArr.some(num => Number.isNaN(num))) {
+  const numArr = arr.map((v) => parseInt(v, 10));
+  if (numArr.some((num) => Number.isNaN(num))) {
     throw Error(`Invalid pair: ${pair}`);
   }
   return numArr;
@@ -179,12 +179,12 @@ function resultToVIAKey(
     y: result.y - delta.y,
     rx: result.rx - delta.x,
     ry: result.ry - delta.y,
-    color: colorMap[`${c}:${t}`] || KeyColorType.Alpha
+    color: colorMap[`${c}:${t}`] || KeyColorType.Alpha,
   };
 }
 
 export function kleLayoutToVIALayout(kle: KLELayout): VIALayout {
-  const filteredKLE = kle.filter(elem => Array.isArray(elem)) as KLEElem[][];
+  const filteredKLE = kle.filter((elem) => Array.isArray(elem)) as KLEElem[][];
   const parsedKLE = filteredKLE.reduce<OuterReduceState>(
     (prev: OuterReduceState, kle: KLEElem[]) => {
       const parsedRow = kle.reduce<InnerReduceState>(
@@ -204,7 +204,7 @@ export function kleLayoutToVIALayout(kle: KLELayout): VIALayout {
             x2,
             w2,
             h2,
-            colorCount
+            colorCount,
           }: InnerReduceState,
           n
         ) => {
@@ -221,12 +221,14 @@ export function kleLayoutToVIALayout(kle: KLELayout): VIALayout {
               res,
               d,
               w,
-              cursor: {x, y}
+              cursor: {x, y},
             };
-            obj = (['y2', 'x2', 'w2', 'h2', 'r', 'rx', 'ry', 'h', 'w'] as (
-              | keyof OptionalDimensions
-              | keyof KLEDimensions
-            )[]).reduce(
+            obj = (
+              ['y2', 'x2', 'w2', 'h2', 'r', 'rx', 'ry', 'h', 'w'] as (
+                | keyof OptionalDimensions
+                | keyof KLEDimensions
+              )[]
+            ).reduce(
               (p, prop) =>
                 typeof n[prop] === 'number' ? {...p, [prop]: n[prop]} : p,
               obj
@@ -237,19 +239,19 @@ export function kleLayoutToVIALayout(kle: KLELayout): VIALayout {
             if (typeof n.ry === 'number' || typeof n.rx === 'number') {
               obj = {
                 ...obj,
-                cursor: {...obj.cursor, y: obj.ry}
+                cursor: {...obj.cursor, y: obj.ry},
               };
             }
             if (typeof n.y === 'number') {
               obj = {
                 ...obj,
-                cursor: {...obj.cursor, y: obj.cursor.y + n.y}
+                cursor: {...obj.cursor, y: obj.cursor.y + n.y},
               };
             }
             if (typeof n.x === 'number') {
               obj = {
                 ...obj,
-                cursor: {...obj.cursor, x: x + n.x}
+                cursor: {...obj.cursor, x: x + n.x},
               };
             }
             if (typeof n.c === 'string') {
@@ -271,7 +273,7 @@ export function kleLayoutToVIALayout(kle: KLELayout): VIALayout {
               [colorCountKey]:
                 colorCount[colorCountKey] === undefined
                   ? 1
-                  : colorCount[colorCountKey] + 1
+                  : colorCount[colorCountKey] + 1,
             };
             const currKey = {
               c,
@@ -292,8 +294,8 @@ export function kleLayoutToVIALayout(kle: KLELayout): VIALayout {
               h2,
               group: {
                 key: group,
-                option
-              }
+                option,
+              },
             };
 
             // Reset carry properties
@@ -308,7 +310,7 @@ export function kleLayoutToVIALayout(kle: KLELayout): VIALayout {
               colorCount: newColorCount,
               t,
               cursor: {x: x + w, y},
-              res: [...res, currKey]
+              res: [...res, currKey],
             };
           }
           return {
@@ -322,7 +324,7 @@ export function kleLayoutToVIALayout(kle: KLELayout): VIALayout {
             ry,
             res,
             colorCount,
-            cursor: {x, y}
+            cursor: {x, y},
           };
         },
         {
@@ -332,7 +334,7 @@ export function kleLayoutToVIALayout(kle: KLELayout): VIALayout {
           h: 1,
           w: 1,
           d: false,
-          res: []
+          res: [],
         }
       );
       return {
@@ -343,16 +345,16 @@ export function kleLayoutToVIALayout(kle: KLELayout): VIALayout {
           t: parsedRow.t,
           r: parsedRow.r,
           rx: parsedRow.rx,
-          ry: parsedRow.ry
+          ry: parsedRow.ry,
         },
-        res: [...prev.res, parsedRow.res]
+        res: [...prev.res, parsedRow.res],
       };
     },
     {
       cursor: {x: 0, y: 0},
       prevRow: {c: '#cccccc', t: '#000000', r: 0, rx: 0, ry: 0},
       res: [],
-      colorCount: {}
+      colorCount: {},
     }
   );
 
@@ -363,26 +365,26 @@ export function kleLayoutToVIALayout(kle: KLELayout): VIALayout {
     throw new Error(
       'Please correct layout, too many colors:' +
         '\n' +
-        util.inspect(colorCount, false, null, true)
+        inspect(colorCount, false, null, true)
     );
   }
 
   const colorMap = {
     [colorCountKeys[0]]: KeyColorType.Alpha,
     [colorCountKeys[1]]: KeyColorType.Mod,
-    [colorCountKeys[2]]: KeyColorType.Accent
+    [colorCountKeys[2]]: KeyColorType.Accent,
   };
 
   const flatRes = res.flat();
   const defaultRes = filterGroups(flatRes);
   const boundingBoxes = defaultRes.map(getBoundingBox);
-  const minX = Math.min(...boundingBoxes.map(b => b.xStart));
-  const minY = Math.min(...boundingBoxes.map(b => b.yStart));
-  const width = Math.max(...boundingBoxes.map(b => b.xEnd)) - minX;
-  const height = Math.max(...boundingBoxes.map(b => b.yEnd)) - minY;
+  const minX = Math.min(...boundingBoxes.map((b) => b.xStart));
+  const minY = Math.min(...boundingBoxes.map((b) => b.yStart));
+  const width = Math.max(...boundingBoxes.map((b) => b.xEnd)) - minX;
+  const height = Math.max(...boundingBoxes.map((b) => b.yEnd)) - minY;
   const keys = defaultRes
-    .filter(k => k.group.key === -1 && !k.d) // Remove option keys and decals
-    .map(k => resultToVIAKey(k, {x: minX, y: minY}, colorMap));
+    .filter((k) => k.group.key === -1 && !k.d) // Remove option keys and decals
+    .map((k) => resultToVIAKey(k, {x: minX, y: minY}, colorMap));
   const optionKeys = extractGroups(flatRes, {x: minX, y: minY}, colorMap);
 
   return {width, height, optionKeys, keys};

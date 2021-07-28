@@ -30,7 +30,7 @@ var __spreadArrays = (this && this.__spreadArrays) || function () {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var invariant = require('invariant');
-var util = require('util');
+var inspect = require('util-inspect');
 var types_1 = require("./types");
 function rawKLEToKLELayout(kle) {
     var kleArr = kle.split(',\n');
@@ -61,7 +61,7 @@ function calculateDelta(a, b) {
     var _a = [a.x2, a.y2, b.x2, b.y2], _b = _a[0], aX2 = _b === void 0 ? 0 : _b, _c = _a[1], aY2 = _c === void 0 ? 0 : _c, _d = _a[2], bX2 = _d === void 0 ? 0 : _d, _e = _a[3], bY2 = _e === void 0 ? 0 : _e;
     return {
         x: b.x - a.x + Math.min(0, bX2) - Math.min(0, aX2),
-        y: b.y - a.y + Math.min(0, bY2) - Math.min(0, aY2)
+        y: b.y - a.y + Math.min(0, bY2) - Math.min(0, aY2),
     };
 }
 function getBoundingBox(key) {
@@ -72,19 +72,19 @@ function getBoundingBox(key) {
         xStart: Math.min(x, x + x2),
         yStart: Math.min(y, y + y2),
         xEnd: Math.max(x + w, x + x2 + w2),
-        yEnd: Math.max(y + h, y + y2 + h2)
+        yEnd: Math.max(y + h, y + y2 + h2),
     };
     var rotatedPoints = [
         { x: box.xStart, y: box.yStart },
         { x: box.xEnd, y: box.yStart },
         { x: box.xStart, y: box.yEnd },
-        { x: box.xEnd, y: box.yEnd }
+        { x: box.xEnd, y: box.yEnd },
     ].map(function (p) { return applyRotation.apply(void 0, __spreadArrays([p.x, p.y], extraArgs)); });
     return {
         xStart: Math.min.apply(Math, rotatedPoints.map(function (p) { return p.x; })),
         xEnd: Math.max.apply(Math, rotatedPoints.map(function (p) { return p.x; })),
         yStart: Math.min.apply(Math, rotatedPoints.map(function (p) { return p.y; })),
-        yEnd: Math.max.apply(Math, rotatedPoints.map(function (p) { return p.y; }))
+        yEnd: Math.max.apply(Math, rotatedPoints.map(function (p) { return p.y; })),
     };
 }
 function applyRotation(x, y, xOrigin, yOrigin, rotation) {
@@ -92,7 +92,7 @@ function applyRotation(x, y, xOrigin, yOrigin, rotation) {
     var _a = [x - xOrigin, y - yOrigin], normX = _a[0], normY = _a[1];
     return {
         x: xOrigin + normX * Math.cos(rad) - normY * Math.sin(rad),
-        y: yOrigin + normX * Math.sin(rad) + normY * Math.cos(rad)
+        y: yOrigin + normX * Math.sin(rad) + normY * Math.cos(rad),
     };
 }
 function extractGroups(keys, origin, colorMap) {
@@ -114,8 +114,7 @@ function extractGroups(keys, origin, colorMap) {
                 return results.map(function (res) { return (__assign(__assign({}, res), { x: res.x - delta.x, y: res.y - delta.y })); });
             })(calculateDelta(zeroPivot, findPivot(results)))
                 .filter(function (r) { return !r.d; }) // Remove decal keys
-                .map(function (r) { return resultToVIAKey(r, origin, colorMap); }) // Resolve key colors and normalize position using origin
-            , _b)));
+                .map(function (r) { return resultToVIAKey(r, origin, colorMap); }), _b)));
         }, p);
         return __assign(__assign({}, p), (_b = {}, _b[group] = normalizedOptions, _b));
     }, {});
@@ -155,7 +154,7 @@ function kleLayoutToVIALayout(kle) {
                     res: res,
                     d: d,
                     w: w,
-                    cursor: { x: x, y: y }
+                    cursor: { x: x, y: y },
                 };
                 obj = ['y2', 'x2', 'w2', 'h2', 'r', 'rx', 'ry', 'h', 'w'].reduce(function (p, prop) {
                     var _a;
@@ -210,8 +209,8 @@ function kleLayoutToVIALayout(kle) {
                     h2: h2,
                     group: {
                         key: group,
-                        option: option
-                    }
+                        option: option,
+                    },
                 };
                 // Reset carry properties
                 return {
@@ -225,7 +224,7 @@ function kleLayoutToVIALayout(kle) {
                     colorCount: newColorCount,
                     t: t,
                     cursor: { x: x + w, y: y },
-                    res: __spreadArrays(res, [currKey])
+                    res: __spreadArrays(res, [currKey]),
                 };
             }
             return {
@@ -239,7 +238,7 @@ function kleLayoutToVIALayout(kle) {
                 ry: ry,
                 res: res,
                 colorCount: colorCount,
-                cursor: { x: x, y: y }
+                cursor: { x: x, y: y },
             };
         }, __assign(__assign({}, prev.prevRow), { cursor: prev.cursor, colorCount: prev.colorCount, h: 1, w: 1, d: false, res: [] }));
         return {
@@ -250,15 +249,15 @@ function kleLayoutToVIALayout(kle) {
                 t: parsedRow.t,
                 r: parsedRow.r,
                 rx: parsedRow.rx,
-                ry: parsedRow.ry
+                ry: parsedRow.ry,
             },
-            res: __spreadArrays(prev.res, [parsedRow.res])
+            res: __spreadArrays(prev.res, [parsedRow.res]),
         };
     }, {
         cursor: { x: 0, y: 0 },
         prevRow: { c: '#cccccc', t: '#000000', r: 0, rx: 0, ry: 0 },
         res: [],
-        colorCount: {}
+        colorCount: {},
     });
     var colorCount = parsedKLE.colorCount, res = parsedKLE.res;
     var colorCountKeys = Object.keys(colorCount);
@@ -266,7 +265,7 @@ function kleLayoutToVIALayout(kle) {
     if (colorCountKeys.length > 3) {
         throw new Error('Please correct layout, too many colors:' +
             '\n' +
-            util.inspect(colorCount, false, null, true));
+            inspect(colorCount, false, null, true));
     }
     var colorMap = (_a = {},
         _a[colorCountKeys[0]] = types_1.KeyColorType.Alpha,

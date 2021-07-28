@@ -22,9 +22,10 @@
     "husky": "^3.1.0",
     "invariant": "^2.2.4",
     "typescript": "^3.7.2",
-    "util": "^0.12.4"
+    "util": "^0.12.4",
+    "util-inspect": "^0.1.8"
   },
   "devDependencies": {
-    "typescript-json-validator": "^2.4.0"
+    "typescript-json-validator": "2.4.2"
   }
 }
