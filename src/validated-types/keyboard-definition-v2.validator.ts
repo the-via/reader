@@ -3,36 +3,29 @@
 import {inspect} from 'util';
 import Ajv = require('ajv');
 import KeyboardDefinitionV2 from './keyboard-definition-v2';
-export const ajv = new Ajv({
-  allErrors: true,
-  coerceTypes: false,
-  format: 'fast',
-  nullable: true,
-  unicode: true,
-  uniqueItems: true,
-  useDefaults: true
-});
+export const ajv = new Ajv({"allErrors":true,"coerceTypes":false,"format":"fast","nullable":true,"unicode":true,"uniqueItems":true,"useDefaults":true});
 
 ajv.addMetaSchema(require('ajv/lib/refs/json-schema-draft-06.json'));
 
 export {KeyboardDefinitionV2};
 export const KeyboardDefinitionV2Schema = {
-  $schema: 'http://json-schema.org/draft-07/schema#',
-  defaultProperties: [],
-  definitions: {
-    LightingTypeDefinition: {
-      enum: [
-        'none',
-        'qmk_backlight',
-        'qmk_backlight_rgblight',
-        'qmk_rgblight',
-        'wt_mono_backlight',
-        'wt_rgb_backlight'
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "defaultProperties": [
+  ],
+  "definitions": {
+    "LightingTypeDefinition": {
+      "enum": [
+        "none",
+        "qmk_backlight",
+        "qmk_backlight_rgblight",
+        "qmk_rgblight",
+        "wt_mono_backlight",
+        "wt_rgb_backlight"
       ],
-      type: 'string'
+      "type": "string"
     },
-    LightingValue: {
-      enum: [
+    "LightingValue": {
+      "enum": [
         1,
         10,
         11,
@@ -60,2799 +53,3103 @@ export const KeyboardDefinitionV2Schema = {
         8,
         9
       ],
-      type: 'number'
+      "type": "number"
     },
-    'Partial<VIALightingTypeDefinition>': {
-      defaultProperties: [],
-      properties: {
-        effects: {
-          items: {
-            additionalItems: {
-              anyOf: [
+    "Partial<VIALightingTypeDefinition>": {
+      "defaultProperties": [
+      ],
+      "properties": {
+        "effects": {
+          "items": {
+            "additionalItems": {
+              "anyOf": [
                 {
-                  type: 'string'
+                  "type": "string"
                 },
                 {
-                  type: 'number'
+                  "type": "number"
                 }
               ]
             },
-            items: [
+            "items": [
               {
-                type: 'string'
+                "type": "string"
               },
               {
-                type: 'number'
+                "type": "number"
               }
             ],
-            minItems: 2,
-            type: 'array'
+            "minItems": 2,
+            "type": "array"
           },
-          type: 'array'
+          "type": "array"
         },
-        keycodes: {
-          enum: ['none', 'qmk', 'wt'],
-          type: 'string'
+        "keycodes": {
+          "enum": [
+            "none",
+            "qmk",
+            "wt"
+          ],
+          "type": "string"
         },
-        supportedLightingValues: {
-          items: {
-            $ref: '#/definitions/LightingValue'
+        "supportedLightingValues": {
+          "items": {
+            "$ref": "#/definitions/LightingValue"
           },
-          type: 'array'
+          "type": "array"
         },
-        underglowEffects: {
-          items: {
-            additionalItems: {
-              anyOf: [
+        "underglowEffects": {
+          "items": {
+            "additionalItems": {
+              "anyOf": [
                 {
-                  type: 'string'
+                  "type": "string"
                 },
                 {
-                  type: 'number'
+                  "type": "number"
                 }
               ]
             },
-            items: [
+            "items": [
               {
-                type: 'string'
+                "type": "string"
               },
               {
-                type: 'number'
+                "type": "number"
               }
             ],
-            minItems: 2,
-            type: 'array'
+            "minItems": 2,
+            "type": "array"
           },
-          type: 'array'
+          "type": "array"
         }
       },
-      type: 'object'
+      "type": "object"
     },
-    'Partial<{c:string;t:string;x:number;y:number;w:number;a:number;}>': {
-      defaultProperties: [],
-      properties: {
-        a: {
-          type: 'number'
+    "Partial<{c:string;t:string;x:number;y:number;w:number;a:number;}>": {
+      "defaultProperties": [
+      ],
+      "properties": {
+        "a": {
+          "type": "number"
         },
-        c: {
-          type: 'string'
+        "c": {
+          "type": "string"
         },
-        t: {
-          type: 'string'
+        "t": {
+          "type": "string"
         },
-        w: {
-          type: 'number'
+        "w": {
+          "type": "number"
         },
-        x: {
-          type: 'number'
+        "x": {
+          "type": "number"
         },
-        y: {
-          type: 'number'
+        "y": {
+          "type": "number"
         }
       },
-      type: 'object'
+      "type": "object"
     }
   },
-  properties: {
-    customFeatures: {
-      items: {
-        enum: ['rotary-encoder'],
-        type: 'string'
+  "properties": {
+    "customFeatures": {
+      "items": {
+        "enum": [
+          "rotary-encoder"
+        ],
+        "type": "string"
       },
-      type: 'array'
+      "type": "array"
     },
-    customKeycodes: {
-      items: {
-        defaultProperties: [],
-        properties: {
-          name: {
-            type: 'string'
+    "customKeycodes": {
+      "items": {
+        "defaultProperties": [
+        ],
+        "properties": {
+          "name": {
+            "type": "string"
           },
-          shortName: {
-            type: 'string'
+          "shortName": {
+            "type": "string"
           },
-          title: {
-            type: 'string'
+          "title": {
+            "type": "string"
           }
         },
-        required: ['name', 'title'],
-        type: 'object'
+        "required": [
+          "name",
+          "title"
+        ],
+        "type": "object"
       },
-      type: 'array'
+      "type": "array"
     },
-    customMenus: {
-      items: {
-        allOf: [
+    "customMenus": {
+      "items": {
+        "allOf": [
           {
-            defaultProperties: [],
-            properties: {
-              label: {
-                type: 'string'
+            "defaultProperties": [
+            ],
+            "properties": {
+              "label": {
+                "type": "string"
               }
             },
-            required: ['label'],
-            type: 'object'
+            "required": [
+              "label"
+            ],
+            "type": "object"
           },
           {
-            defaultProperties: [],
-            properties: {
-              showIf: {
-                type: 'string'
+            "defaultProperties": [
+            ],
+            "properties": {
+              "showIf": {
+                "type": "string"
               }
             },
-            type: 'object'
+            "type": "object"
           },
           {
-            defaultProperties: [],
-            properties: {
-              content: {
-                items: {
-                  anyOf: [
+            "defaultProperties": [
+            ],
+            "properties": {
+              "content": {
+                "items": {
+                  "anyOf": [
                     {
-                      allOf: [
+                      "allOf": [
                         {
-                          defaultProperties: [],
-                          properties: {
-                            label: {
-                              type: 'string'
+                          "defaultProperties": [
+                          ],
+                          "properties": {
+                            "label": {
+                              "type": "string"
                             }
                           },
-                          required: ['label'],
-                          type: 'object'
+                          "required": [
+                            "label"
+                          ],
+                          "type": "object"
                         },
                         {
-                          defaultProperties: [],
-                          properties: {
-                            showIf: {
-                              type: 'string'
+                          "defaultProperties": [
+                          ],
+                          "properties": {
+                            "showIf": {
+                              "type": "string"
                             }
                           },
-                          type: 'object'
+                          "type": "object"
                         },
                         {
-                          defaultProperties: [],
-                          properties: {
-                            content: {
-                              items: {
-                                anyOf: [
+                          "defaultProperties": [
+                          ],
+                          "properties": {
+                            "content": {
+                              "items": {
+                                "anyOf": [
                                   {
-                                    allOf: [
+                                    "allOf": [
                                       {
-                                        defaultProperties: [],
-                                        properties: {
-                                          options: {
-                                            additionalItems: {
-                                              anyOf: [
+                                        "defaultProperties": [
+                                        ],
+                                        "properties": {
+                                          "options": {
+                                            "additionalItems": {
+                                              "anyOf": [
                                                 {
-                                                  anyOf: [
+                                                  "anyOf": [
                                                     {
-                                                      items: {
-                                                        type: 'number'
+                                                      "items": {
+                                                        "type": "number"
                                                       },
-                                                      type: 'array'
+                                                      "type": "array"
                                                     },
                                                     {
-                                                      type: 'number'
+                                                      "type": "number"
                                                     }
                                                   ]
                                                 },
                                                 {
-                                                  anyOf: [
+                                                  "anyOf": [
                                                     {
-                                                      items: {
-                                                        type: 'number'
+                                                      "items": {
+                                                        "type": "number"
                                                       },
-                                                      type: 'array'
+                                                      "type": "array"
                                                     },
                                                     {
-                                                      type: 'number'
+                                                      "type": "number"
                                                     }
                                                   ]
                                                 }
                                               ]
                                             },
-                                            items: [
+                                            "items": [
                                               {
-                                                anyOf: [
+                                                "anyOf": [
                                                   {
-                                                    items: {
-                                                      type: 'number'
+                                                    "items": {
+                                                      "type": "number"
                                                     },
-                                                    type: 'array'
+                                                    "type": "array"
                                                   },
                                                   {
-                                                    type: 'number'
+                                                    "type": "number"
                                                   }
                                                 ]
                                               },
                                               {
-                                                anyOf: [
+                                                "anyOf": [
                                                   {
-                                                    items: {
-                                                      type: 'number'
+                                                    "items": {
+                                                      "type": "number"
                                                     },
-                                                    type: 'array'
+                                                    "type": "array"
                                                   },
                                                   {
-                                                    type: 'number'
+                                                    "type": "number"
                                                   }
                                                 ]
                                               }
                                             ],
-                                            minItems: 2,
-                                            type: 'array'
+                                            "minItems": 2,
+                                            "type": "array"
                                           },
-                                          type: {
-                                            enum: ['toggle'],
-                                            type: 'string'
+                                          "type": {
+                                            "enum": [
+                                              "toggle"
+                                            ],
+                                            "type": "string"
                                           }
                                         },
-                                        required: ['type'],
-                                        type: 'object'
+                                        "required": [
+                                          "type"
+                                        ],
+                                        "type": "object"
                                       },
                                       {
-                                        defaultProperties: [],
-                                        properties: {
-                                          label: {
-                                            type: 'string'
+                                        "defaultProperties": [
+                                        ],
+                                        "properties": {
+                                          "label": {
+                                            "type": "string"
                                           }
                                         },
-                                        required: ['label'],
-                                        type: 'object'
+                                        "required": [
+                                          "label"
+                                        ],
+                                        "type": "object"
                                       },
                                       {
-                                        defaultProperties: [],
-                                        properties: {
-                                          showIf: {
-                                            type: 'string'
+                                        "defaultProperties": [
+                                        ],
+                                        "properties": {
+                                          "showIf": {
+                                            "type": "string"
                                           }
                                         },
-                                        type: 'object'
+                                        "type": "object"
                                       },
                                       {
-                                        defaultProperties: [],
-                                        properties: {
-                                          bytes: {
-                                            enum: [1, 2, 3, 4],
-                                            type: 'number'
+                                        "defaultProperties": [
+                                        ],
+                                        "properties": {
+                                          "bytes": {
+                                            "enum": [
+                                              1,
+                                              2,
+                                              3,
+                                              4
+                                            ],
+                                            "type": "number"
                                           }
                                         },
-                                        type: 'object'
+                                        "type": "object"
                                       },
                                       {
-                                        defaultProperties: [],
-                                        properties: {
-                                          content: {
-                                            additionalItems: {
-                                              anyOf: [
+                                        "defaultProperties": [
+                                        ],
+                                        "properties": {
+                                          "content": {
+                                            "additionalItems": {
+                                              "anyOf": [
                                                 {
-                                                  type: 'string'
+                                                  "type": "string"
                                                 },
                                                 {
-                                                  type: 'number'
+                                                  "type": "number"
                                                 },
                                                 {
-                                                  type: 'number'
+                                                  "type": "number"
                                                 }
                                               ]
                                             },
-                                            items: [
+                                            "items": [
                                               {
-                                                type: 'string'
+                                                "type": "string"
                                               },
                                               {
-                                                type: 'number'
+                                                "type": "number"
                                               },
                                               {
-                                                type: 'number'
+                                                "type": "number"
                                               }
                                             ],
-                                            minItems: 3,
-                                            type: 'array'
+                                            "minItems": 3,
+                                            "type": "array"
                                           }
                                         },
-                                        required: ['content'],
-                                        type: 'object'
+                                        "required": [
+                                          "content"
+                                        ],
+                                        "type": "object"
                                       }
                                     ]
                                   },
                                   {
-                                    allOf: [
+                                    "allOf": [
                                       {
-                                        defaultProperties: [],
-                                        properties: {
-                                          options: {
-                                            items: {
-                                              additionalItems: {
-                                                type: 'number'
+                                        "defaultProperties": [
+                                        ],
+                                        "properties": {
+                                          "options": {
+                                            "items": {
+                                              "additionalItems": {
+                                                "type": "number"
                                               },
-                                              items: [
+                                              "items": [
                                                 {
-                                                  type: 'string'
+                                                  "type": "string"
                                                 },
                                                 {
-                                                  type: 'number'
+                                                  "type": "number"
                                                 }
                                               ],
-                                              minItems: 2,
-                                              type: 'array'
+                                              "minItems": 2,
+                                              "type": "array"
                                             },
-                                            type: 'array'
+                                            "type": "array"
                                           },
-                                          type: {
-                                            enum: ['dropdown'],
-                                            type: 'string'
+                                          "type": {
+                                            "enum": [
+                                              "dropdown"
+                                            ],
+                                            "type": "string"
                                           }
                                         },
-                                        required: ['options', 'type'],
-                                        type: 'object'
+                                        "required": [
+                                          "options",
+                                          "type"
+                                        ],
+                                        "type": "object"
                                       },
                                       {
-                                        defaultProperties: [],
-                                        properties: {
-                                          label: {
-                                            type: 'string'
+                                        "defaultProperties": [
+                                        ],
+                                        "properties": {
+                                          "label": {
+                                            "type": "string"
                                           }
                                         },
-                                        required: ['label'],
-                                        type: 'object'
+                                        "required": [
+                                          "label"
+                                        ],
+                                        "type": "object"
                                       },
                                       {
-                                        defaultProperties: [],
-                                        properties: {
-                                          showIf: {
-                                            type: 'string'
+                                        "defaultProperties": [
+                                        ],
+                                        "properties": {
+                                          "showIf": {
+                                            "type": "string"
                                           }
                                         },
-                                        type: 'object'
+                                        "type": "object"
                                       },
                                       {
-                                        defaultProperties: [],
-                                        properties: {
-                                          bytes: {
-                                            enum: [1, 2, 3, 4],
-                                            type: 'number'
+                                        "defaultProperties": [
+                                        ],
+                                        "properties": {
+                                          "bytes": {
+                                            "enum": [
+                                              1,
+                                              2,
+                                              3,
+                                              4
+                                            ],
+                                            "type": "number"
                                           }
                                         },
-                                        type: 'object'
+                                        "type": "object"
                                       },
                                       {
-                                        defaultProperties: [],
-                                        properties: {
-                                          content: {
-                                            additionalItems: {
-                                              anyOf: [
+                                        "defaultProperties": [
+                                        ],
+                                        "properties": {
+                                          "content": {
+                                            "additionalItems": {
+                                              "anyOf": [
                                                 {
-                                                  type: 'string'
+                                                  "type": "string"
                                                 },
                                                 {
-                                                  type: 'number'
+                                                  "type": "number"
                                                 },
                                                 {
-                                                  type: 'number'
+                                                  "type": "number"
                                                 }
                                               ]
                                             },
-                                            items: [
+                                            "items": [
                                               {
-                                                type: 'string'
+                                                "type": "string"
                                               },
                                               {
-                                                type: 'number'
+                                                "type": "number"
                                               },
                                               {
-                                                type: 'number'
+                                                "type": "number"
                                               }
                                             ],
-                                            minItems: 3,
-                                            type: 'array'
+                                            "minItems": 3,
+                                            "type": "array"
                                           }
                                         },
-                                        required: ['content'],
-                                        type: 'object'
+                                        "required": [
+                                          "content"
+                                        ],
+                                        "type": "object"
                                       }
                                     ]
                                   },
                                   {
-                                    allOf: [
+                                    "allOf": [
                                       {
-                                        defaultProperties: [],
-                                        properties: {
-                                          options: {
-                                            additionalItems: {
-                                              anyOf: [
+                                        "defaultProperties": [
+                                        ],
+                                        "properties": {
+                                          "options": {
+                                            "additionalItems": {
+                                              "anyOf": [
                                                 {
-                                                  type: 'number'
+                                                  "type": "number"
                                                 },
                                                 {
-                                                  type: 'number'
+                                                  "type": "number"
                                                 }
                                               ]
                                             },
-                                            items: [
+                                            "items": [
                                               {
-                                                type: 'number'
+                                                "type": "number"
                                               },
                                               {
-                                                type: 'number'
+                                                "type": "number"
                                               }
                                             ],
-                                            minItems: 2,
-                                            type: 'array'
+                                            "minItems": 2,
+                                            "type": "array"
                                           },
-                                          type: {
-                                            enum: ['range'],
-                                            type: 'string'
+                                          "type": {
+                                            "enum": [
+                                              "range"
+                                            ],
+                                            "type": "string"
                                           },
-                                          unit: {
-                                            type: 'string'
+                                          "unit": {
+                                            "type": "string"
                                           }
                                         },
-                                        required: ['options', 'type'],
-                                        type: 'object'
+                                        "required": [
+                                          "options",
+                                          "type"
+                                        ],
+                                        "type": "object"
                                       },
                                       {
-                                        defaultProperties: [],
-                                        properties: {
-                                          label: {
-                                            type: 'string'
+                                        "defaultProperties": [
+                                        ],
+                                        "properties": {
+                                          "label": {
+                                            "type": "string"
                                           }
                                         },
-                                        required: ['label'],
-                                        type: 'object'
+                                        "required": [
+                                          "label"
+                                        ],
+                                        "type": "object"
                                       },
                                       {
-                                        defaultProperties: [],
-                                        properties: {
-                                          showIf: {
-                                            type: 'string'
+                                        "defaultProperties": [
+                                        ],
+                                        "properties": {
+                                          "showIf": {
+                                            "type": "string"
                                           }
                                         },
-                                        type: 'object'
+                                        "type": "object"
                                       },
                                       {
-                                        defaultProperties: [],
-                                        properties: {
-                                          bytes: {
-                                            enum: [1, 2, 3, 4],
-                                            type: 'number'
+                                        "defaultProperties": [
+                                        ],
+                                        "properties": {
+                                          "bytes": {
+                                            "enum": [
+                                              1,
+                                              2,
+                                              3,
+                                              4
+                                            ],
+                                            "type": "number"
                                           }
                                         },
-                                        type: 'object'
+                                        "type": "object"
                                       },
                                       {
-                                        defaultProperties: [],
-                                        properties: {
-                                          content: {
-                                            additionalItems: {
-                                              anyOf: [
+                                        "defaultProperties": [
+                                        ],
+                                        "properties": {
+                                          "content": {
+                                            "additionalItems": {
+                                              "anyOf": [
                                                 {
-                                                  type: 'string'
+                                                  "type": "string"
                                                 },
                                                 {
-                                                  type: 'number'
+                                                  "type": "number"
                                                 },
                                                 {
-                                                  type: 'number'
+                                                  "type": "number"
                                                 }
                                               ]
                                             },
-                                            items: [
+                                            "items": [
                                               {
-                                                type: 'string'
+                                                "type": "string"
                                               },
                                               {
-                                                type: 'number'
+                                                "type": "number"
                                               },
                                               {
-                                                type: 'number'
+                                                "type": "number"
                                               }
                                             ],
-                                            minItems: 3,
-                                            type: 'array'
+                                            "minItems": 3,
+                                            "type": "array"
                                           }
                                         },
-                                        required: ['content'],
-                                        type: 'object'
+                                        "required": [
+                                          "content"
+                                        ],
+                                        "type": "object"
                                       }
                                     ]
                                   },
                                   {
-                                    allOf: [
+                                    "allOf": [
                                       {
-                                        defaultProperties: [],
-                                        properties: {
-                                          type: {
-                                            enum: ['keycode'],
-                                            type: 'string'
+                                        "defaultProperties": [
+                                        ],
+                                        "properties": {
+                                          "type": {
+                                            "enum": [
+                                              "keycode"
+                                            ],
+                                            "type": "string"
                                           }
                                         },
-                                        required: ['type'],
-                                        type: 'object'
+                                        "required": [
+                                          "type"
+                                        ],
+                                        "type": "object"
                                       },
                                       {
-                                        defaultProperties: [],
-                                        properties: {
-                                          label: {
-                                            type: 'string'
+                                        "defaultProperties": [
+                                        ],
+                                        "properties": {
+                                          "label": {
+                                            "type": "string"
                                           }
                                         },
-                                        required: ['label'],
-                                        type: 'object'
+                                        "required": [
+                                          "label"
+                                        ],
+                                        "type": "object"
                                       },
                                       {
-                                        defaultProperties: [],
-                                        properties: {
-                                          showIf: {
-                                            type: 'string'
+                                        "defaultProperties": [
+                                        ],
+                                        "properties": {
+                                          "showIf": {
+                                            "type": "string"
                                           }
                                         },
-                                        type: 'object'
+                                        "type": "object"
                                       },
                                       {
-                                        defaultProperties: [],
-                                        properties: {
-                                          bytes: {
-                                            enum: [1, 2, 3, 4],
-                                            type: 'number'
+                                        "defaultProperties": [
+                                        ],
+                                        "properties": {
+                                          "bytes": {
+                                            "enum": [
+                                              1,
+                                              2,
+                                              3,
+                                              4
+                                            ],
+                                            "type": "number"
                                           }
                                         },
-                                        type: 'object'
+                                        "type": "object"
                                       },
                                       {
-                                        defaultProperties: [],
-                                        properties: {
-                                          content: {
-                                            additionalItems: {
-                                              anyOf: [
+                                        "defaultProperties": [
+                                        ],
+                                        "properties": {
+                                          "content": {
+                                            "additionalItems": {
+                                              "anyOf": [
                                                 {
-                                                  type: 'string'
+                                                  "type": "string"
                                                 },
                                                 {
-                                                  type: 'number'
+                                                  "type": "number"
                                                 },
                                                 {
-                                                  type: 'number'
+                                                  "type": "number"
                                                 }
                                               ]
                                             },
-                                            items: [
+                                            "items": [
                                               {
-                                                type: 'string'
+                                                "type": "string"
                                               },
                                               {
-                                                type: 'number'
+                                                "type": "number"
                                               },
                                               {
-                                                type: 'number'
+                                                "type": "number"
                                               }
                                             ],
-                                            minItems: 3,
-                                            type: 'array'
+                                            "minItems": 3,
+                                            "type": "array"
                                           }
                                         },
-                                        required: ['content'],
-                                        type: 'object'
+                                        "required": [
+                                          "content"
+                                        ],
+                                        "type": "object"
                                       }
                                     ]
                                   },
                                   {
-                                    allOf: [
+                                    "allOf": [
                                       {
-                                        defaultProperties: [],
-                                        properties: {
-                                          type: {
-                                            enum: ['color'],
-                                            type: 'string'
+                                        "defaultProperties": [
+                                        ],
+                                        "properties": {
+                                          "type": {
+                                            "enum": [
+                                              "color"
+                                            ],
+                                            "type": "string"
                                           }
                                         },
-                                        required: ['type'],
-                                        type: 'object'
+                                        "required": [
+                                          "type"
+                                        ],
+                                        "type": "object"
                                       },
                                       {
-                                        defaultProperties: [],
-                                        properties: {
-                                          label: {
-                                            type: 'string'
+                                        "defaultProperties": [
+                                        ],
+                                        "properties": {
+                                          "label": {
+                                            "type": "string"
                                           }
                                         },
-                                        required: ['label'],
-                                        type: 'object'
+                                        "required": [
+                                          "label"
+                                        ],
+                                        "type": "object"
                                       },
                                       {
-                                        defaultProperties: [],
-                                        properties: {
-                                          showIf: {
-                                            type: 'string'
+                                        "defaultProperties": [
+                                        ],
+                                        "properties": {
+                                          "showIf": {
+                                            "type": "string"
                                           }
                                         },
-                                        type: 'object'
+                                        "type": "object"
                                       },
                                       {
-                                        defaultProperties: [],
-                                        properties: {
-                                          bytes: {
-                                            enum: [1, 2, 3, 4],
-                                            type: 'number'
+                                        "defaultProperties": [
+                                        ],
+                                        "properties": {
+                                          "bytes": {
+                                            "enum": [
+                                              1,
+                                              2,
+                                              3,
+                                              4
+                                            ],
+                                            "type": "number"
                                           }
                                         },
-                                        type: 'object'
+                                        "type": "object"
                                       },
                                       {
-                                        defaultProperties: [],
-                                        properties: {
-                                          content: {
-                                            additionalItems: {
-                                              anyOf: [
+                                        "defaultProperties": [
+                                        ],
+                                        "properties": {
+                                          "content": {
+                                            "additionalItems": {
+                                              "anyOf": [
                                                 {
-                                                  type: 'string'
+                                                  "type": "string"
                                                 },
                                                 {
-                                                  type: 'number'
+                                                  "type": "number"
                                                 },
                                                 {
-                                                  type: 'number'
+                                                  "type": "number"
                                                 }
                                               ]
                                             },
-                                            items: [
+                                            "items": [
                                               {
-                                                type: 'string'
+                                                "type": "string"
                                               },
                                               {
-                                                type: 'number'
+                                                "type": "number"
                                               },
                                               {
-                                                type: 'number'
+                                                "type": "number"
                                               }
                                             ],
-                                            minItems: 3,
-                                            type: 'array'
+                                            "minItems": 3,
+                                            "type": "array"
                                           }
                                         },
-                                        required: ['content'],
-                                        type: 'object'
+                                        "required": [
+                                          "content"
+                                        ],
+                                        "type": "object"
                                       }
                                     ]
                                   },
                                   {
-                                    allOf: [
+                                    "allOf": [
                                       {
-                                        defaultProperties: [],
-                                        properties: {
-                                          label: {
-                                            type: 'string'
+                                        "defaultProperties": [
+                                        ],
+                                        "properties": {
+                                          "label": {
+                                            "type": "string"
                                           }
                                         },
-                                        required: ['label'],
-                                        type: 'object'
+                                        "required": [
+                                          "label"
+                                        ],
+                                        "type": "object"
                                       },
                                       {
-                                        defaultProperties: [],
-                                        properties: {
-                                          showIf: {
-                                            type: 'string'
+                                        "defaultProperties": [
+                                        ],
+                                        "properties": {
+                                          "showIf": {
+                                            "type": "string"
                                           }
                                         },
-                                        type: 'object'
+                                        "type": "object"
                                       },
                                       {
-                                        defaultProperties: [],
-                                        properties: {
-                                          bytes: {
-                                            enum: [1, 2, 3, 4],
-                                            type: 'number'
+                                        "defaultProperties": [
+                                        ],
+                                        "properties": {
+                                          "bytes": {
+                                            "enum": [
+                                              1,
+                                              2,
+                                              3,
+                                              4
+                                            ],
+                                            "type": "number"
                                           }
                                         },
-                                        type: 'object'
+                                        "type": "object"
                                       },
                                       {
-                                        defaultProperties: [],
-                                        properties: {
-                                          content: {
-                                            type: 'string'
+                                        "defaultProperties": [
+                                        ],
+                                        "properties": {
+                                          "content": {
+                                            "type": "string"
                                           }
                                         },
-                                        required: ['content'],
-                                        type: 'object'
+                                        "required": [
+                                          "content"
+                                        ],
+                                        "type": "object"
                                       }
                                     ]
                                   },
                                   {
-                                    allOf: [
+                                    "allOf": [
                                       {
-                                        defaultProperties: [],
-                                        properties: {
-                                          showIf: {
-                                            type: 'string'
+                                        "defaultProperties": [
+                                        ],
+                                        "properties": {
+                                          "showIf": {
+                                            "type": "string"
                                           }
                                         },
-                                        type: 'object'
+                                        "type": "object"
                                       },
                                       {
-                                        defaultProperties: [],
-                                        properties: {
-                                          content: {
-                                            items: {
-                                              anyOf: [
+                                        "defaultProperties": [
+                                        ],
+                                        "properties": {
+                                          "content": {
+                                            "items": {
+                                              "anyOf": [
                                                 {
-                                                  allOf: [
+                                                  "allOf": [
                                                     {
-                                                      defaultProperties: [],
-                                                      properties: {
-                                                        options: {
-                                                          additionalItems: {
-                                                            anyOf: [
+                                                      "defaultProperties": [
+                                                      ],
+                                                      "properties": {
+                                                        "options": {
+                                                          "additionalItems": {
+                                                            "anyOf": [
                                                               {
-                                                                anyOf: [
+                                                                "anyOf": [
                                                                   {
-                                                                    items: {
-                                                                      type:
-                                                                        'number'
+                                                                    "items": {
+                                                                      "type": "number"
                                                                     },
-                                                                    type:
-                                                                      'array'
+                                                                    "type": "array"
                                                                   },
                                                                   {
-                                                                    type:
-                                                                      'number'
+                                                                    "type": "number"
                                                                   }
                                                                 ]
                                                               },
                                                               {
-                                                                anyOf: [
+                                                                "anyOf": [
                                                                   {
-                                                                    items: {
-                                                                      type:
-                                                                        'number'
+                                                                    "items": {
+                                                                      "type": "number"
                                                                     },
-                                                                    type:
-                                                                      'array'
+                                                                    "type": "array"
                                                                   },
                                                                   {
-                                                                    type:
-                                                                      'number'
+                                                                    "type": "number"
                                                                   }
                                                                 ]
                                                               }
                                                             ]
                                                           },
-                                                          items: [
+                                                          "items": [
                                                             {
-                                                              anyOf: [
+                                                              "anyOf": [
                                                                 {
-                                                                  items: {
-                                                                    type:
-                                                                      'number'
+                                                                  "items": {
+                                                                    "type": "number"
                                                                   },
-                                                                  type: 'array'
+                                                                  "type": "array"
                                                                 },
                                                                 {
-                                                                  type: 'number'
+                                                                  "type": "number"
                                                                 }
                                                               ]
                                                             },
                                                             {
-                                                              anyOf: [
+                                                              "anyOf": [
                                                                 {
-                                                                  items: {
-                                                                    type:
-                                                                      'number'
+                                                                  "items": {
+                                                                    "type": "number"
                                                                   },
-                                                                  type: 'array'
+                                                                  "type": "array"
                                                                 },
                                                                 {
-                                                                  type: 'number'
+                                                                  "type": "number"
                                                                 }
                                                               ]
                                                             }
                                                           ],
-                                                          minItems: 2,
-                                                          type: 'array'
+                                                          "minItems": 2,
+                                                          "type": "array"
                                                         },
-                                                        type: {
-                                                          enum: ['toggle'],
-                                                          type: 'string'
+                                                        "type": {
+                                                          "enum": [
+                                                            "toggle"
+                                                          ],
+                                                          "type": "string"
                                                         }
                                                       },
-                                                      required: ['type'],
-                                                      type: 'object'
+                                                      "required": [
+                                                        "type"
+                                                      ],
+                                                      "type": "object"
                                                     },
                                                     {
-                                                      defaultProperties: [],
-                                                      properties: {
-                                                        label: {
-                                                          type: 'string'
+                                                      "defaultProperties": [
+                                                      ],
+                                                      "properties": {
+                                                        "label": {
+                                                          "type": "string"
                                                         }
                                                       },
-                                                      required: ['label'],
-                                                      type: 'object'
+                                                      "required": [
+                                                        "label"
+                                                      ],
+                                                      "type": "object"
                                                     },
                                                     {
-                                                      defaultProperties: [],
-                                                      properties: {
-                                                        showIf: {
-                                                          type: 'string'
+                                                      "defaultProperties": [
+                                                      ],
+                                                      "properties": {
+                                                        "showIf": {
+                                                          "type": "string"
                                                         }
                                                       },
-                                                      type: 'object'
+                                                      "type": "object"
                                                     },
                                                     {
-                                                      defaultProperties: [],
-                                                      properties: {
-                                                        bytes: {
-                                                          enum: [1, 2, 3, 4],
-                                                          type: 'number'
+                                                      "defaultProperties": [
+                                                      ],
+                                                      "properties": {
+                                                        "bytes": {
+                                                          "enum": [
+                                                            1,
+                                                            2,
+                                                            3,
+                                                            4
+                                                          ],
+                                                          "type": "number"
                                                         }
                                                       },
-                                                      type: 'object'
+                                                      "type": "object"
                                                     },
                                                     {
-                                                      defaultProperties: [],
-                                                      properties: {
-                                                        content: {
-                                                          additionalItems: {
-                                                            anyOf: [
+                                                      "defaultProperties": [
+                                                      ],
+                                                      "properties": {
+                                                        "content": {
+                                                          "additionalItems": {
+                                                            "anyOf": [
                                                               {
-                                                                type: 'string'
+                                                                "type": "string"
                                                               },
                                                               {
-                                                                type: 'number'
+                                                                "type": "number"
                                                               },
                                                               {
-                                                                type: 'number'
+                                                                "type": "number"
                                                               }
                                                             ]
                                                           },
-                                                          items: [
+                                                          "items": [
                                                             {
-                                                              type: 'string'
+                                                              "type": "string"
                                                             },
                                                             {
-                                                              type: 'number'
+                                                              "type": "number"
                                                             },
                                                             {
-                                                              type: 'number'
+                                                              "type": "number"
                                                             }
                                                           ],
-                                                          minItems: 3,
-                                                          type: 'array'
+                                                          "minItems": 3,
+                                                          "type": "array"
                                                         }
                                                       },
-                                                      required: ['content'],
-                                                      type: 'object'
+                                                      "required": [
+                                                        "content"
+                                                      ],
+                                                      "type": "object"
                                                     }
                                                   ]
                                                 },
                                                 {
-                                                  allOf: [
+                                                  "allOf": [
                                                     {
-                                                      defaultProperties: [],
-                                                      properties: {
-                                                        options: {
-                                                          items: {
-                                                            additionalItems: {
-                                                              type: 'number'
+                                                      "defaultProperties": [
+                                                      ],
+                                                      "properties": {
+                                                        "options": {
+                                                          "items": {
+                                                            "additionalItems": {
+                                                              "type": "number"
                                                             },
-                                                            items: [
+                                                            "items": [
                                                               {
-                                                                type: 'string'
+                                                                "type": "string"
                                                               },
                                                               {
-                                                                type: 'number'
+                                                                "type": "number"
                                                               }
                                                             ],
-                                                            minItems: 2,
-                                                            type: 'array'
+                                                            "minItems": 2,
+                                                            "type": "array"
                                                           },
-                                                          type: 'array'
+                                                          "type": "array"
                                                         },
-                                                        type: {
-                                                          enum: ['dropdown'],
-                                                          type: 'string'
+                                                        "type": {
+                                                          "enum": [
+                                                            "dropdown"
+                                                          ],
+                                                          "type": "string"
                                                         }
                                                       },
-                                                      required: [
-                                                        'options',
-                                                        'type'
+                                                      "required": [
+                                                        "options",
+                                                        "type"
                                                       ],
-                                                      type: 'object'
+                                                      "type": "object"
                                                     },
                                                     {
-                                                      defaultProperties: [],
-                                                      properties: {
-                                                        label: {
-                                                          type: 'string'
-                                                        }
-                                                      },
-                                                      required: ['label'],
-                                                      type: 'object'
-                                                    },
-                                                    {
-                                                      defaultProperties: [],
-                                                      properties: {
-                                                        showIf: {
-                                                          type: 'string'
-                                                        }
-                                                      },
-                                                      type: 'object'
-                                                    },
-                                                    {
-                                                      defaultProperties: [],
-                                                      properties: {
-                                                        bytes: {
-                                                          enum: [1, 2, 3, 4],
-                                                          type: 'number'
-                                                        }
-                                                      },
-                                                      type: 'object'
-                                                    },
-                                                    {
-                                                      defaultProperties: [],
-                                                      properties: {
-                                                        content: {
-                                                          additionalItems: {
-                                                            anyOf: [
-                                                              {
-                                                                type: 'string'
-                                                              },
-                                                              {
-                                                                type: 'number'
-                                                              },
-                                                              {
-                                                                type: 'number'
-                                                              }
-                                                            ]
-                                                          },
-                                                          items: [
-                                                            {
-                                                              type: 'string'
-                                                            },
-                                                            {
-                                                              type: 'number'
-                                                            },
-                                                            {
-                                                              type: 'number'
-                                                            }
-                                                          ],
-                                                          minItems: 3,
-                                                          type: 'array'
-                                                        }
-                                                      },
-                                                      required: ['content'],
-                                                      type: 'object'
-                                                    }
-                                                  ]
-                                                },
-                                                {
-                                                  allOf: [
-                                                    {
-                                                      defaultProperties: [],
-                                                      properties: {
-                                                        options: {
-                                                          additionalItems: {
-                                                            anyOf: [
-                                                              {
-                                                                type: 'number'
-                                                              },
-                                                              {
-                                                                type: 'number'
-                                                              }
-                                                            ]
-                                                          },
-                                                          items: [
-                                                            {
-                                                              type: 'number'
-                                                            },
-                                                            {
-                                                              type: 'number'
-                                                            }
-                                                          ],
-                                                          minItems: 2,
-                                                          type: 'array'
-                                                        },
-                                                        type: {
-                                                          enum: ['range'],
-                                                          type: 'string'
-                                                        },
-                                                        unit: {
-                                                          type: 'string'
-                                                        }
-                                                      },
-                                                      required: [
-                                                        'options',
-                                                        'type'
+                                                      "defaultProperties": [
                                                       ],
-                                                      type: 'object'
-                                                    },
-                                                    {
-                                                      defaultProperties: [],
-                                                      properties: {
-                                                        label: {
-                                                          type: 'string'
+                                                      "properties": {
+                                                        "label": {
+                                                          "type": "string"
                                                         }
                                                       },
-                                                      required: ['label'],
-                                                      type: 'object'
+                                                      "required": [
+                                                        "label"
+                                                      ],
+                                                      "type": "object"
                                                     },
                                                     {
-                                                      defaultProperties: [],
-                                                      properties: {
-                                                        showIf: {
-                                                          type: 'string'
+                                                      "defaultProperties": [
+                                                      ],
+                                                      "properties": {
+                                                        "showIf": {
+                                                          "type": "string"
                                                         }
                                                       },
-                                                      type: 'object'
+                                                      "type": "object"
                                                     },
                                                     {
-                                                      defaultProperties: [],
-                                                      properties: {
-                                                        bytes: {
-                                                          enum: [1, 2, 3, 4],
-                                                          type: 'number'
+                                                      "defaultProperties": [
+                                                      ],
+                                                      "properties": {
+                                                        "bytes": {
+                                                          "enum": [
+                                                            1,
+                                                            2,
+                                                            3,
+                                                            4
+                                                          ],
+                                                          "type": "number"
                                                         }
                                                       },
-                                                      type: 'object'
+                                                      "type": "object"
                                                     },
                                                     {
-                                                      defaultProperties: [],
-                                                      properties: {
-                                                        content: {
-                                                          additionalItems: {
-                                                            anyOf: [
+                                                      "defaultProperties": [
+                                                      ],
+                                                      "properties": {
+                                                        "content": {
+                                                          "additionalItems": {
+                                                            "anyOf": [
                                                               {
-                                                                type: 'string'
+                                                                "type": "string"
                                                               },
                                                               {
-                                                                type: 'number'
+                                                                "type": "number"
                                                               },
                                                               {
-                                                                type: 'number'
+                                                                "type": "number"
                                                               }
                                                             ]
                                                           },
-                                                          items: [
+                                                          "items": [
                                                             {
-                                                              type: 'string'
+                                                              "type": "string"
                                                             },
                                                             {
-                                                              type: 'number'
+                                                              "type": "number"
                                                             },
                                                             {
-                                                              type: 'number'
+                                                              "type": "number"
                                                             }
                                                           ],
-                                                          minItems: 3,
-                                                          type: 'array'
+                                                          "minItems": 3,
+                                                          "type": "array"
                                                         }
                                                       },
-                                                      required: ['content'],
-                                                      type: 'object'
+                                                      "required": [
+                                                        "content"
+                                                      ],
+                                                      "type": "object"
                                                     }
                                                   ]
                                                 },
                                                 {
-                                                  allOf: [
+                                                  "allOf": [
                                                     {
-                                                      defaultProperties: [],
-                                                      properties: {
-                                                        type: {
-                                                          enum: ['keycode'],
-                                                          type: 'string'
-                                                        }
-                                                      },
-                                                      required: ['type'],
-                                                      type: 'object'
-                                                    },
-                                                    {
-                                                      defaultProperties: [],
-                                                      properties: {
-                                                        label: {
-                                                          type: 'string'
-                                                        }
-                                                      },
-                                                      required: ['label'],
-                                                      type: 'object'
-                                                    },
-                                                    {
-                                                      defaultProperties: [],
-                                                      properties: {
-                                                        showIf: {
-                                                          type: 'string'
-                                                        }
-                                                      },
-                                                      type: 'object'
-                                                    },
-                                                    {
-                                                      defaultProperties: [],
-                                                      properties: {
-                                                        bytes: {
-                                                          enum: [1, 2, 3, 4],
-                                                          type: 'number'
-                                                        }
-                                                      },
-                                                      type: 'object'
-                                                    },
-                                                    {
-                                                      defaultProperties: [],
-                                                      properties: {
-                                                        content: {
-                                                          additionalItems: {
-                                                            anyOf: [
+                                                      "defaultProperties": [
+                                                      ],
+                                                      "properties": {
+                                                        "options": {
+                                                          "additionalItems": {
+                                                            "anyOf": [
                                                               {
-                                                                type: 'string'
+                                                                "type": "number"
                                                               },
                                                               {
-                                                                type: 'number'
-                                                              },
-                                                              {
-                                                                type: 'number'
+                                                                "type": "number"
                                                               }
                                                             ]
                                                           },
-                                                          items: [
+                                                          "items": [
                                                             {
-                                                              type: 'string'
+                                                              "type": "number"
                                                             },
                                                             {
-                                                              type: 'number'
-                                                            },
-                                                            {
-                                                              type: 'number'
+                                                              "type": "number"
                                                             }
                                                           ],
-                                                          minItems: 3,
-                                                          type: 'array'
+                                                          "minItems": 2,
+                                                          "type": "array"
+                                                        },
+                                                        "type": {
+                                                          "enum": [
+                                                            "range"
+                                                          ],
+                                                          "type": "string"
+                                                        },
+                                                        "unit": {
+                                                          "type": "string"
                                                         }
                                                       },
-                                                      required: ['content'],
-                                                      type: 'object'
+                                                      "required": [
+                                                        "options",
+                                                        "type"
+                                                      ],
+                                                      "type": "object"
+                                                    },
+                                                    {
+                                                      "defaultProperties": [
+                                                      ],
+                                                      "properties": {
+                                                        "label": {
+                                                          "type": "string"
+                                                        }
+                                                      },
+                                                      "required": [
+                                                        "label"
+                                                      ],
+                                                      "type": "object"
+                                                    },
+                                                    {
+                                                      "defaultProperties": [
+                                                      ],
+                                                      "properties": {
+                                                        "showIf": {
+                                                          "type": "string"
+                                                        }
+                                                      },
+                                                      "type": "object"
+                                                    },
+                                                    {
+                                                      "defaultProperties": [
+                                                      ],
+                                                      "properties": {
+                                                        "bytes": {
+                                                          "enum": [
+                                                            1,
+                                                            2,
+                                                            3,
+                                                            4
+                                                          ],
+                                                          "type": "number"
+                                                        }
+                                                      },
+                                                      "type": "object"
+                                                    },
+                                                    {
+                                                      "defaultProperties": [
+                                                      ],
+                                                      "properties": {
+                                                        "content": {
+                                                          "additionalItems": {
+                                                            "anyOf": [
+                                                              {
+                                                                "type": "string"
+                                                              },
+                                                              {
+                                                                "type": "number"
+                                                              },
+                                                              {
+                                                                "type": "number"
+                                                              }
+                                                            ]
+                                                          },
+                                                          "items": [
+                                                            {
+                                                              "type": "string"
+                                                            },
+                                                            {
+                                                              "type": "number"
+                                                            },
+                                                            {
+                                                              "type": "number"
+                                                            }
+                                                          ],
+                                                          "minItems": 3,
+                                                          "type": "array"
+                                                        }
+                                                      },
+                                                      "required": [
+                                                        "content"
+                                                      ],
+                                                      "type": "object"
                                                     }
                                                   ]
                                                 },
                                                 {
-                                                  allOf: [
+                                                  "allOf": [
                                                     {
-                                                      defaultProperties: [],
-                                                      properties: {
-                                                        type: {
-                                                          enum: ['color'],
-                                                          type: 'string'
+                                                      "defaultProperties": [
+                                                      ],
+                                                      "properties": {
+                                                        "type": {
+                                                          "enum": [
+                                                            "keycode"
+                                                          ],
+                                                          "type": "string"
                                                         }
                                                       },
-                                                      required: ['type'],
-                                                      type: 'object'
+                                                      "required": [
+                                                        "type"
+                                                      ],
+                                                      "type": "object"
                                                     },
                                                     {
-                                                      defaultProperties: [],
-                                                      properties: {
-                                                        label: {
-                                                          type: 'string'
+                                                      "defaultProperties": [
+                                                      ],
+                                                      "properties": {
+                                                        "label": {
+                                                          "type": "string"
                                                         }
                                                       },
-                                                      required: ['label'],
-                                                      type: 'object'
+                                                      "required": [
+                                                        "label"
+                                                      ],
+                                                      "type": "object"
                                                     },
                                                     {
-                                                      defaultProperties: [],
-                                                      properties: {
-                                                        showIf: {
-                                                          type: 'string'
+                                                      "defaultProperties": [
+                                                      ],
+                                                      "properties": {
+                                                        "showIf": {
+                                                          "type": "string"
                                                         }
                                                       },
-                                                      type: 'object'
+                                                      "type": "object"
                                                     },
                                                     {
-                                                      defaultProperties: [],
-                                                      properties: {
-                                                        bytes: {
-                                                          enum: [1, 2, 3, 4],
-                                                          type: 'number'
+                                                      "defaultProperties": [
+                                                      ],
+                                                      "properties": {
+                                                        "bytes": {
+                                                          "enum": [
+                                                            1,
+                                                            2,
+                                                            3,
+                                                            4
+                                                          ],
+                                                          "type": "number"
                                                         }
                                                       },
-                                                      type: 'object'
+                                                      "type": "object"
                                                     },
                                                     {
-                                                      defaultProperties: [],
-                                                      properties: {
-                                                        content: {
-                                                          additionalItems: {
-                                                            anyOf: [
+                                                      "defaultProperties": [
+                                                      ],
+                                                      "properties": {
+                                                        "content": {
+                                                          "additionalItems": {
+                                                            "anyOf": [
                                                               {
-                                                                type: 'string'
+                                                                "type": "string"
                                                               },
                                                               {
-                                                                type: 'number'
+                                                                "type": "number"
                                                               },
                                                               {
-                                                                type: 'number'
+                                                                "type": "number"
                                                               }
                                                             ]
                                                           },
-                                                          items: [
+                                                          "items": [
                                                             {
-                                                              type: 'string'
+                                                              "type": "string"
                                                             },
                                                             {
-                                                              type: 'number'
+                                                              "type": "number"
                                                             },
                                                             {
-                                                              type: 'number'
+                                                              "type": "number"
                                                             }
                                                           ],
-                                                          minItems: 3,
-                                                          type: 'array'
+                                                          "minItems": 3,
+                                                          "type": "array"
                                                         }
                                                       },
-                                                      required: ['content'],
-                                                      type: 'object'
+                                                      "required": [
+                                                        "content"
+                                                      ],
+                                                      "type": "object"
                                                     }
                                                   ]
                                                 },
                                                 {
-                                                  allOf: [
+                                                  "allOf": [
                                                     {
-                                                      defaultProperties: [],
-                                                      properties: {
-                                                        label: {
-                                                          type: 'string'
+                                                      "defaultProperties": [
+                                                      ],
+                                                      "properties": {
+                                                        "type": {
+                                                          "enum": [
+                                                            "color"
+                                                          ],
+                                                          "type": "string"
                                                         }
                                                       },
-                                                      required: ['label'],
-                                                      type: 'object'
+                                                      "required": [
+                                                        "type"
+                                                      ],
+                                                      "type": "object"
                                                     },
                                                     {
-                                                      defaultProperties: [],
-                                                      properties: {
-                                                        showIf: {
-                                                          type: 'string'
+                                                      "defaultProperties": [
+                                                      ],
+                                                      "properties": {
+                                                        "label": {
+                                                          "type": "string"
                                                         }
                                                       },
-                                                      type: 'object'
+                                                      "required": [
+                                                        "label"
+                                                      ],
+                                                      "type": "object"
                                                     },
                                                     {
-                                                      defaultProperties: [],
-                                                      properties: {
-                                                        bytes: {
-                                                          enum: [1, 2, 3, 4],
-                                                          type: 'number'
+                                                      "defaultProperties": [
+                                                      ],
+                                                      "properties": {
+                                                        "showIf": {
+                                                          "type": "string"
                                                         }
                                                       },
-                                                      type: 'object'
+                                                      "type": "object"
                                                     },
                                                     {
-                                                      defaultProperties: [],
-                                                      properties: {
-                                                        content: {
-                                                          type: 'string'
+                                                      "defaultProperties": [
+                                                      ],
+                                                      "properties": {
+                                                        "bytes": {
+                                                          "enum": [
+                                                            1,
+                                                            2,
+                                                            3,
+                                                            4
+                                                          ],
+                                                          "type": "number"
                                                         }
                                                       },
-                                                      required: ['content'],
-                                                      type: 'object'
+                                                      "type": "object"
+                                                    },
+                                                    {
+                                                      "defaultProperties": [
+                                                      ],
+                                                      "properties": {
+                                                        "content": {
+                                                          "additionalItems": {
+                                                            "anyOf": [
+                                                              {
+                                                                "type": "string"
+                                                              },
+                                                              {
+                                                                "type": "number"
+                                                              },
+                                                              {
+                                                                "type": "number"
+                                                              }
+                                                            ]
+                                                          },
+                                                          "items": [
+                                                            {
+                                                              "type": "string"
+                                                            },
+                                                            {
+                                                              "type": "number"
+                                                            },
+                                                            {
+                                                              "type": "number"
+                                                            }
+                                                          ],
+                                                          "minItems": 3,
+                                                          "type": "array"
+                                                        }
+                                                      },
+                                                      "required": [
+                                                        "content"
+                                                      ],
+                                                      "type": "object"
+                                                    }
+                                                  ]
+                                                },
+                                                {
+                                                  "allOf": [
+                                                    {
+                                                      "defaultProperties": [
+                                                      ],
+                                                      "properties": {
+                                                        "label": {
+                                                          "type": "string"
+                                                        }
+                                                      },
+                                                      "required": [
+                                                        "label"
+                                                      ],
+                                                      "type": "object"
+                                                    },
+                                                    {
+                                                      "defaultProperties": [
+                                                      ],
+                                                      "properties": {
+                                                        "showIf": {
+                                                          "type": "string"
+                                                        }
+                                                      },
+                                                      "type": "object"
+                                                    },
+                                                    {
+                                                      "defaultProperties": [
+                                                      ],
+                                                      "properties": {
+                                                        "bytes": {
+                                                          "enum": [
+                                                            1,
+                                                            2,
+                                                            3,
+                                                            4
+                                                          ],
+                                                          "type": "number"
+                                                        }
+                                                      },
+                                                      "type": "object"
+                                                    },
+                                                    {
+                                                      "defaultProperties": [
+                                                      ],
+                                                      "properties": {
+                                                        "content": {
+                                                          "type": "string"
+                                                        }
+                                                      },
+                                                      "required": [
+                                                        "content"
+                                                      ],
+                                                      "type": "object"
                                                     }
                                                   ]
                                                 }
                                               ]
                                             },
-                                            type: 'array'
+                                            "type": "array"
                                           }
                                         },
-                                        required: ['content'],
-                                        type: 'object'
+                                        "required": [
+                                          "content"
+                                        ],
+                                        "type": "object"
                                       }
                                     ]
                                   }
                                 ]
                               },
-                              type: 'array'
+                              "type": "array"
                             }
                           },
-                          required: ['content'],
-                          type: 'object'
+                          "required": [
+                            "content"
+                          ],
+                          "type": "object"
                         }
                       ]
                     },
                     {
-                      allOf: [
+                      "allOf": [
                         {
-                          defaultProperties: [],
-                          properties: {
-                            showIf: {
-                              type: 'string'
+                          "defaultProperties": [
+                          ],
+                          "properties": {
+                            "showIf": {
+                              "type": "string"
                             }
                           },
-                          type: 'object'
+                          "type": "object"
                         },
                         {
-                          defaultProperties: [],
-                          properties: {
-                            content: {
-                              items: {
-                                allOf: [
+                          "defaultProperties": [
+                          ],
+                          "properties": {
+                            "content": {
+                              "items": {
+                                "allOf": [
                                   {
-                                    defaultProperties: [],
-                                    properties: {
-                                      label: {
-                                        type: 'string'
+                                    "defaultProperties": [
+                                    ],
+                                    "properties": {
+                                      "label": {
+                                        "type": "string"
                                       }
                                     },
-                                    required: ['label'],
-                                    type: 'object'
+                                    "required": [
+                                      "label"
+                                    ],
+                                    "type": "object"
                                   },
                                   {
-                                    defaultProperties: [],
-                                    properties: {
-                                      showIf: {
-                                        type: 'string'
+                                    "defaultProperties": [
+                                    ],
+                                    "properties": {
+                                      "showIf": {
+                                        "type": "string"
                                       }
                                     },
-                                    type: 'object'
+                                    "type": "object"
                                   },
                                   {
-                                    defaultProperties: [],
-                                    properties: {
-                                      content: {
-                                        items: {
-                                          anyOf: [
+                                    "defaultProperties": [
+                                    ],
+                                    "properties": {
+                                      "content": {
+                                        "items": {
+                                          "anyOf": [
                                             {
-                                              allOf: [
+                                              "allOf": [
                                                 {
-                                                  defaultProperties: [],
-                                                  properties: {
-                                                    options: {
-                                                      additionalItems: {
-                                                        anyOf: [
+                                                  "defaultProperties": [
+                                                  ],
+                                                  "properties": {
+                                                    "options": {
+                                                      "additionalItems": {
+                                                        "anyOf": [
                                                           {
-                                                            anyOf: [
+                                                            "anyOf": [
                                                               {
-                                                                items: {
-                                                                  type: 'number'
+                                                                "items": {
+                                                                  "type": "number"
                                                                 },
-                                                                type: 'array'
+                                                                "type": "array"
                                                               },
                                                               {
-                                                                type: 'number'
+                                                                "type": "number"
                                                               }
                                                             ]
                                                           },
                                                           {
-                                                            anyOf: [
+                                                            "anyOf": [
                                                               {
-                                                                items: {
-                                                                  type: 'number'
+                                                                "items": {
+                                                                  "type": "number"
                                                                 },
-                                                                type: 'array'
+                                                                "type": "array"
                                                               },
                                                               {
-                                                                type: 'number'
+                                                                "type": "number"
                                                               }
                                                             ]
                                                           }
                                                         ]
                                                       },
-                                                      items: [
+                                                      "items": [
                                                         {
-                                                          anyOf: [
+                                                          "anyOf": [
                                                             {
-                                                              items: {
-                                                                type: 'number'
+                                                              "items": {
+                                                                "type": "number"
                                                               },
-                                                              type: 'array'
+                                                              "type": "array"
                                                             },
                                                             {
-                                                              type: 'number'
+                                                              "type": "number"
                                                             }
                                                           ]
                                                         },
                                                         {
-                                                          anyOf: [
+                                                          "anyOf": [
                                                             {
-                                                              items: {
-                                                                type: 'number'
+                                                              "items": {
+                                                                "type": "number"
                                                               },
-                                                              type: 'array'
+                                                              "type": "array"
                                                             },
                                                             {
-                                                              type: 'number'
+                                                              "type": "number"
                                                             }
                                                           ]
                                                         }
                                                       ],
-                                                      minItems: 2,
-                                                      type: 'array'
+                                                      "minItems": 2,
+                                                      "type": "array"
                                                     },
-                                                    type: {
-                                                      enum: ['toggle'],
-                                                      type: 'string'
+                                                    "type": {
+                                                      "enum": [
+                                                        "toggle"
+                                                      ],
+                                                      "type": "string"
                                                     }
                                                   },
-                                                  required: ['type'],
-                                                  type: 'object'
+                                                  "required": [
+                                                    "type"
+                                                  ],
+                                                  "type": "object"
                                                 },
                                                 {
-                                                  defaultProperties: [],
-                                                  properties: {
-                                                    label: {
-                                                      type: 'string'
+                                                  "defaultProperties": [
+                                                  ],
+                                                  "properties": {
+                                                    "label": {
+                                                      "type": "string"
                                                     }
                                                   },
-                                                  required: ['label'],
-                                                  type: 'object'
+                                                  "required": [
+                                                    "label"
+                                                  ],
+                                                  "type": "object"
                                                 },
                                                 {
-                                                  defaultProperties: [],
-                                                  properties: {
-                                                    showIf: {
-                                                      type: 'string'
+                                                  "defaultProperties": [
+                                                  ],
+                                                  "properties": {
+                                                    "showIf": {
+                                                      "type": "string"
                                                     }
                                                   },
-                                                  type: 'object'
+                                                  "type": "object"
                                                 },
                                                 {
-                                                  defaultProperties: [],
-                                                  properties: {
-                                                    bytes: {
-                                                      enum: [1, 2, 3, 4],
-                                                      type: 'number'
+                                                  "defaultProperties": [
+                                                  ],
+                                                  "properties": {
+                                                    "bytes": {
+                                                      "enum": [
+                                                        1,
+                                                        2,
+                                                        3,
+                                                        4
+                                                      ],
+                                                      "type": "number"
                                                     }
                                                   },
-                                                  type: 'object'
+                                                  "type": "object"
                                                 },
                                                 {
-                                                  defaultProperties: [],
-                                                  properties: {
-                                                    content: {
-                                                      additionalItems: {
-                                                        anyOf: [
+                                                  "defaultProperties": [
+                                                  ],
+                                                  "properties": {
+                                                    "content": {
+                                                      "additionalItems": {
+                                                        "anyOf": [
                                                           {
-                                                            type: 'string'
+                                                            "type": "string"
                                                           },
                                                           {
-                                                            type: 'number'
+                                                            "type": "number"
                                                           },
                                                           {
-                                                            type: 'number'
+                                                            "type": "number"
                                                           }
                                                         ]
                                                       },
-                                                      items: [
+                                                      "items": [
                                                         {
-                                                          type: 'string'
+                                                          "type": "string"
                                                         },
                                                         {
-                                                          type: 'number'
+                                                          "type": "number"
                                                         },
                                                         {
-                                                          type: 'number'
+                                                          "type": "number"
                                                         }
                                                       ],
-                                                      minItems: 3,
-                                                      type: 'array'
+                                                      "minItems": 3,
+                                                      "type": "array"
                                                     }
                                                   },
-                                                  required: ['content'],
-                                                  type: 'object'
+                                                  "required": [
+                                                    "content"
+                                                  ],
+                                                  "type": "object"
                                                 }
                                               ]
                                             },
                                             {
-                                              allOf: [
+                                              "allOf": [
                                                 {
-                                                  defaultProperties: [],
-                                                  properties: {
-                                                    options: {
-                                                      items: {
-                                                        additionalItems: {
-                                                          type: 'number'
+                                                  "defaultProperties": [
+                                                  ],
+                                                  "properties": {
+                                                    "options": {
+                                                      "items": {
+                                                        "additionalItems": {
+                                                          "type": "number"
                                                         },
-                                                        items: [
+                                                        "items": [
                                                           {
-                                                            type: 'string'
+                                                            "type": "string"
                                                           },
                                                           {
-                                                            type: 'number'
+                                                            "type": "number"
                                                           }
                                                         ],
-                                                        minItems: 2,
-                                                        type: 'array'
+                                                        "minItems": 2,
+                                                        "type": "array"
                                                       },
-                                                      type: 'array'
+                                                      "type": "array"
                                                     },
-                                                    type: {
-                                                      enum: ['dropdown'],
-                                                      type: 'string'
+                                                    "type": {
+                                                      "enum": [
+                                                        "dropdown"
+                                                      ],
+                                                      "type": "string"
                                                     }
                                                   },
-                                                  required: ['options', 'type'],
-                                                  type: 'object'
+                                                  "required": [
+                                                    "options",
+                                                    "type"
+                                                  ],
+                                                  "type": "object"
                                                 },
                                                 {
-                                                  defaultProperties: [],
-                                                  properties: {
-                                                    label: {
-                                                      type: 'string'
+                                                  "defaultProperties": [
+                                                  ],
+                                                  "properties": {
+                                                    "label": {
+                                                      "type": "string"
                                                     }
                                                   },
-                                                  required: ['label'],
-                                                  type: 'object'
+                                                  "required": [
+                                                    "label"
+                                                  ],
+                                                  "type": "object"
                                                 },
                                                 {
-                                                  defaultProperties: [],
-                                                  properties: {
-                                                    showIf: {
-                                                      type: 'string'
+                                                  "defaultProperties": [
+                                                  ],
+                                                  "properties": {
+                                                    "showIf": {
+                                                      "type": "string"
                                                     }
                                                   },
-                                                  type: 'object'
+                                                  "type": "object"
                                                 },
                                                 {
-                                                  defaultProperties: [],
-                                                  properties: {
-                                                    bytes: {
-                                                      enum: [1, 2, 3, 4],
-                                                      type: 'number'
+                                                  "defaultProperties": [
+                                                  ],
+                                                  "properties": {
+                                                    "bytes": {
+                                                      "enum": [
+                                                        1,
+                                                        2,
+                                                        3,
+                                                        4
+                                                      ],
+                                                      "type": "number"
                                                     }
                                                   },
-                                                  type: 'object'
+                                                  "type": "object"
                                                 },
                                                 {
-                                                  defaultProperties: [],
-                                                  properties: {
-                                                    content: {
-                                                      additionalItems: {
-                                                        anyOf: [
+                                                  "defaultProperties": [
+                                                  ],
+                                                  "properties": {
+                                                    "content": {
+                                                      "additionalItems": {
+                                                        "anyOf": [
                                                           {
-                                                            type: 'string'
+                                                            "type": "string"
                                                           },
                                                           {
-                                                            type: 'number'
+                                                            "type": "number"
                                                           },
                                                           {
-                                                            type: 'number'
+                                                            "type": "number"
                                                           }
                                                         ]
                                                       },
-                                                      items: [
+                                                      "items": [
                                                         {
-                                                          type: 'string'
+                                                          "type": "string"
                                                         },
                                                         {
-                                                          type: 'number'
+                                                          "type": "number"
                                                         },
                                                         {
-                                                          type: 'number'
+                                                          "type": "number"
                                                         }
                                                       ],
-                                                      minItems: 3,
-                                                      type: 'array'
+                                                      "minItems": 3,
+                                                      "type": "array"
                                                     }
                                                   },
-                                                  required: ['content'],
-                                                  type: 'object'
+                                                  "required": [
+                                                    "content"
+                                                  ],
+                                                  "type": "object"
                                                 }
                                               ]
                                             },
                                             {
-                                              allOf: [
+                                              "allOf": [
                                                 {
-                                                  defaultProperties: [],
-                                                  properties: {
-                                                    options: {
-                                                      additionalItems: {
-                                                        anyOf: [
+                                                  "defaultProperties": [
+                                                  ],
+                                                  "properties": {
+                                                    "options": {
+                                                      "additionalItems": {
+                                                        "anyOf": [
                                                           {
-                                                            type: 'number'
+                                                            "type": "number"
                                                           },
                                                           {
-                                                            type: 'number'
+                                                            "type": "number"
                                                           }
                                                         ]
                                                       },
-                                                      items: [
+                                                      "items": [
                                                         {
-                                                          type: 'number'
+                                                          "type": "number"
                                                         },
                                                         {
-                                                          type: 'number'
+                                                          "type": "number"
                                                         }
                                                       ],
-                                                      minItems: 2,
-                                                      type: 'array'
+                                                      "minItems": 2,
+                                                      "type": "array"
                                                     },
-                                                    type: {
-                                                      enum: ['range'],
-                                                      type: 'string'
+                                                    "type": {
+                                                      "enum": [
+                                                        "range"
+                                                      ],
+                                                      "type": "string"
                                                     },
-                                                    unit: {
-                                                      type: 'string'
+                                                    "unit": {
+                                                      "type": "string"
                                                     }
                                                   },
-                                                  required: ['options', 'type'],
-                                                  type: 'object'
+                                                  "required": [
+                                                    "options",
+                                                    "type"
+                                                  ],
+                                                  "type": "object"
                                                 },
                                                 {
-                                                  defaultProperties: [],
-                                                  properties: {
-                                                    label: {
-                                                      type: 'string'
+                                                  "defaultProperties": [
+                                                  ],
+                                                  "properties": {
+                                                    "label": {
+                                                      "type": "string"
                                                     }
                                                   },
-                                                  required: ['label'],
-                                                  type: 'object'
+                                                  "required": [
+                                                    "label"
+                                                  ],
+                                                  "type": "object"
                                                 },
                                                 {
-                                                  defaultProperties: [],
-                                                  properties: {
-                                                    showIf: {
-                                                      type: 'string'
+                                                  "defaultProperties": [
+                                                  ],
+                                                  "properties": {
+                                                    "showIf": {
+                                                      "type": "string"
                                                     }
                                                   },
-                                                  type: 'object'
+                                                  "type": "object"
                                                 },
                                                 {
-                                                  defaultProperties: [],
-                                                  properties: {
-                                                    bytes: {
-                                                      enum: [1, 2, 3, 4],
-                                                      type: 'number'
+                                                  "defaultProperties": [
+                                                  ],
+                                                  "properties": {
+                                                    "bytes": {
+                                                      "enum": [
+                                                        1,
+                                                        2,
+                                                        3,
+                                                        4
+                                                      ],
+                                                      "type": "number"
                                                     }
                                                   },
-                                                  type: 'object'
+                                                  "type": "object"
                                                 },
                                                 {
-                                                  defaultProperties: [],
-                                                  properties: {
-                                                    content: {
-                                                      additionalItems: {
-                                                        anyOf: [
+                                                  "defaultProperties": [
+                                                  ],
+                                                  "properties": {
+                                                    "content": {
+                                                      "additionalItems": {
+                                                        "anyOf": [
                                                           {
-                                                            type: 'string'
+                                                            "type": "string"
                                                           },
                                                           {
-                                                            type: 'number'
+                                                            "type": "number"
                                                           },
                                                           {
-                                                            type: 'number'
+                                                            "type": "number"
                                                           }
                                                         ]
                                                       },
-                                                      items: [
+                                                      "items": [
                                                         {
-                                                          type: 'string'
+                                                          "type": "string"
                                                         },
                                                         {
-                                                          type: 'number'
+                                                          "type": "number"
                                                         },
                                                         {
-                                                          type: 'number'
+                                                          "type": "number"
                                                         }
                                                       ],
-                                                      minItems: 3,
-                                                      type: 'array'
+                                                      "minItems": 3,
+                                                      "type": "array"
                                                     }
                                                   },
-                                                  required: ['content'],
-                                                  type: 'object'
+                                                  "required": [
+                                                    "content"
+                                                  ],
+                                                  "type": "object"
                                                 }
                                               ]
                                             },
                                             {
-                                              allOf: [
+                                              "allOf": [
                                                 {
-                                                  defaultProperties: [],
-                                                  properties: {
-                                                    type: {
-                                                      enum: ['keycode'],
-                                                      type: 'string'
+                                                  "defaultProperties": [
+                                                  ],
+                                                  "properties": {
+                                                    "type": {
+                                                      "enum": [
+                                                        "keycode"
+                                                      ],
+                                                      "type": "string"
                                                     }
                                                   },
-                                                  required: ['type'],
-                                                  type: 'object'
+                                                  "required": [
+                                                    "type"
+                                                  ],
+                                                  "type": "object"
                                                 },
                                                 {
-                                                  defaultProperties: [],
-                                                  properties: {
-                                                    label: {
-                                                      type: 'string'
+                                                  "defaultProperties": [
+                                                  ],
+                                                  "properties": {
+                                                    "label": {
+                                                      "type": "string"
                                                     }
                                                   },
-                                                  required: ['label'],
-                                                  type: 'object'
+                                                  "required": [
+                                                    "label"
+                                                  ],
+                                                  "type": "object"
                                                 },
                                                 {
-                                                  defaultProperties: [],
-                                                  properties: {
-                                                    showIf: {
-                                                      type: 'string'
+                                                  "defaultProperties": [
+                                                  ],
+                                                  "properties": {
+                                                    "showIf": {
+                                                      "type": "string"
                                                     }
                                                   },
-                                                  type: 'object'
+                                                  "type": "object"
                                                 },
                                                 {
-                                                  defaultProperties: [],
-                                                  properties: {
-                                                    bytes: {
-                                                      enum: [1, 2, 3, 4],
-                                                      type: 'number'
+                                                  "defaultProperties": [
+                                                  ],
+                                                  "properties": {
+                                                    "bytes": {
+                                                      "enum": [
+                                                        1,
+                                                        2,
+                                                        3,
+                                                        4
+                                                      ],
+                                                      "type": "number"
                                                     }
                                                   },
-                                                  type: 'object'
+                                                  "type": "object"
                                                 },
                                                 {
-                                                  defaultProperties: [],
-                                                  properties: {
-                                                    content: {
-                                                      additionalItems: {
-                                                        anyOf: [
+                                                  "defaultProperties": [
+                                                  ],
+                                                  "properties": {
+                                                    "content": {
+                                                      "additionalItems": {
+                                                        "anyOf": [
                                                           {
-                                                            type: 'string'
+                                                            "type": "string"
                                                           },
                                                           {
-                                                            type: 'number'
+                                                            "type": "number"
                                                           },
                                                           {
-                                                            type: 'number'
+                                                            "type": "number"
                                                           }
                                                         ]
                                                       },
-                                                      items: [
+                                                      "items": [
                                                         {
-                                                          type: 'string'
+                                                          "type": "string"
                                                         },
                                                         {
-                                                          type: 'number'
+                                                          "type": "number"
                                                         },
                                                         {
-                                                          type: 'number'
+                                                          "type": "number"
                                                         }
                                                       ],
-                                                      minItems: 3,
-                                                      type: 'array'
+                                                      "minItems": 3,
+                                                      "type": "array"
                                                     }
                                                   },
-                                                  required: ['content'],
-                                                  type: 'object'
+                                                  "required": [
+                                                    "content"
+                                                  ],
+                                                  "type": "object"
                                                 }
                                               ]
                                             },
                                             {
-                                              allOf: [
+                                              "allOf": [
                                                 {
-                                                  defaultProperties: [],
-                                                  properties: {
-                                                    type: {
-                                                      enum: ['color'],
-                                                      type: 'string'
+                                                  "defaultProperties": [
+                                                  ],
+                                                  "properties": {
+                                                    "type": {
+                                                      "enum": [
+                                                        "color"
+                                                      ],
+                                                      "type": "string"
                                                     }
                                                   },
-                                                  required: ['type'],
-                                                  type: 'object'
+                                                  "required": [
+                                                    "type"
+                                                  ],
+                                                  "type": "object"
                                                 },
                                                 {
-                                                  defaultProperties: [],
-                                                  properties: {
-                                                    label: {
-                                                      type: 'string'
+                                                  "defaultProperties": [
+                                                  ],
+                                                  "properties": {
+                                                    "label": {
+                                                      "type": "string"
                                                     }
                                                   },
-                                                  required: ['label'],
-                                                  type: 'object'
+                                                  "required": [
+                                                    "label"
+                                                  ],
+                                                  "type": "object"
                                                 },
                                                 {
-                                                  defaultProperties: [],
-                                                  properties: {
-                                                    showIf: {
-                                                      type: 'string'
+                                                  "defaultProperties": [
+                                                  ],
+                                                  "properties": {
+                                                    "showIf": {
+                                                      "type": "string"
                                                     }
                                                   },
-                                                  type: 'object'
+                                                  "type": "object"
                                                 },
                                                 {
-                                                  defaultProperties: [],
-                                                  properties: {
-                                                    bytes: {
-                                                      enum: [1, 2, 3, 4],
-                                                      type: 'number'
+                                                  "defaultProperties": [
+                                                  ],
+                                                  "properties": {
+                                                    "bytes": {
+                                                      "enum": [
+                                                        1,
+                                                        2,
+                                                        3,
+                                                        4
+                                                      ],
+                                                      "type": "number"
                                                     }
                                                   },
-                                                  type: 'object'
+                                                  "type": "object"
                                                 },
                                                 {
-                                                  defaultProperties: [],
-                                                  properties: {
-                                                    content: {
-                                                      additionalItems: {
-                                                        anyOf: [
+                                                  "defaultProperties": [
+                                                  ],
+                                                  "properties": {
+                                                    "content": {
+                                                      "additionalItems": {
+                                                        "anyOf": [
                                                           {
-                                                            type: 'string'
+                                                            "type": "string"
                                                           },
                                                           {
-                                                            type: 'number'
+                                                            "type": "number"
                                                           },
                                                           {
-                                                            type: 'number'
+                                                            "type": "number"
                                                           }
                                                         ]
                                                       },
-                                                      items: [
+                                                      "items": [
                                                         {
-                                                          type: 'string'
+                                                          "type": "string"
                                                         },
                                                         {
-                                                          type: 'number'
+                                                          "type": "number"
                                                         },
                                                         {
-                                                          type: 'number'
+                                                          "type": "number"
                                                         }
                                                       ],
-                                                      minItems: 3,
-                                                      type: 'array'
+                                                      "minItems": 3,
+                                                      "type": "array"
                                                     }
                                                   },
-                                                  required: ['content'],
-                                                  type: 'object'
+                                                  "required": [
+                                                    "content"
+                                                  ],
+                                                  "type": "object"
                                                 }
                                               ]
                                             },
                                             {
-                                              allOf: [
+                                              "allOf": [
                                                 {
-                                                  defaultProperties: [],
-                                                  properties: {
-                                                    label: {
-                                                      type: 'string'
+                                                  "defaultProperties": [
+                                                  ],
+                                                  "properties": {
+                                                    "label": {
+                                                      "type": "string"
                                                     }
                                                   },
-                                                  required: ['label'],
-                                                  type: 'object'
+                                                  "required": [
+                                                    "label"
+                                                  ],
+                                                  "type": "object"
                                                 },
                                                 {
-                                                  defaultProperties: [],
-                                                  properties: {
-                                                    showIf: {
-                                                      type: 'string'
+                                                  "defaultProperties": [
+                                                  ],
+                                                  "properties": {
+                                                    "showIf": {
+                                                      "type": "string"
                                                     }
                                                   },
-                                                  type: 'object'
+                                                  "type": "object"
                                                 },
                                                 {
-                                                  defaultProperties: [],
-                                                  properties: {
-                                                    bytes: {
-                                                      enum: [1, 2, 3, 4],
-                                                      type: 'number'
+                                                  "defaultProperties": [
+                                                  ],
+                                                  "properties": {
+                                                    "bytes": {
+                                                      "enum": [
+                                                        1,
+                                                        2,
+                                                        3,
+                                                        4
+                                                      ],
+                                                      "type": "number"
                                                     }
                                                   },
-                                                  type: 'object'
+                                                  "type": "object"
                                                 },
                                                 {
-                                                  defaultProperties: [],
-                                                  properties: {
-                                                    content: {
-                                                      type: 'string'
+                                                  "defaultProperties": [
+                                                  ],
+                                                  "properties": {
+                                                    "content": {
+                                                      "type": "string"
                                                     }
                                                   },
-                                                  required: ['content'],
-                                                  type: 'object'
+                                                  "required": [
+                                                    "content"
+                                                  ],
+                                                  "type": "object"
                                                 }
                                               ]
                                             },
                                             {
-                                              allOf: [
+                                              "allOf": [
                                                 {
-                                                  defaultProperties: [],
-                                                  properties: {
-                                                    showIf: {
-                                                      type: 'string'
+                                                  "defaultProperties": [
+                                                  ],
+                                                  "properties": {
+                                                    "showIf": {
+                                                      "type": "string"
                                                     }
                                                   },
-                                                  type: 'object'
+                                                  "type": "object"
                                                 },
                                                 {
-                                                  defaultProperties: [],
-                                                  properties: {
-                                                    content: {
-                                                      items: {
-                                                        anyOf: [
+                                                  "defaultProperties": [
+                                                  ],
+                                                  "properties": {
+                                                    "content": {
+                                                      "items": {
+                                                        "anyOf": [
                                                           {
-                                                            allOf: [
+                                                            "allOf": [
                                                               {
-                                                                defaultProperties: [],
-                                                                properties: {
-                                                                  options: {
-                                                                    additionalItems: {
-                                                                      anyOf: [
+                                                                "defaultProperties": [
+                                                                ],
+                                                                "properties": {
+                                                                  "options": {
+                                                                    "additionalItems": {
+                                                                      "anyOf": [
                                                                         {
-                                                                          anyOf: [
+                                                                          "anyOf": [
                                                                             {
-                                                                              items: {
-                                                                                type:
-                                                                                  'number'
+                                                                              "items": {
+                                                                                "type": "number"
                                                                               },
-                                                                              type:
-                                                                                'array'
+                                                                              "type": "array"
                                                                             },
                                                                             {
-                                                                              type:
-                                                                                'number'
+                                                                              "type": "number"
                                                                             }
                                                                           ]
                                                                         },
                                                                         {
-                                                                          anyOf: [
+                                                                          "anyOf": [
                                                                             {
-                                                                              items: {
-                                                                                type:
-                                                                                  'number'
+                                                                              "items": {
+                                                                                "type": "number"
                                                                               },
-                                                                              type:
-                                                                                'array'
+                                                                              "type": "array"
                                                                             },
                                                                             {
-                                                                              type:
-                                                                                'number'
+                                                                              "type": "number"
                                                                             }
                                                                           ]
                                                                         }
                                                                       ]
                                                                     },
-                                                                    items: [
+                                                                    "items": [
                                                                       {
-                                                                        anyOf: [
+                                                                        "anyOf": [
                                                                           {
-                                                                            items: {
-                                                                              type:
-                                                                                'number'
+                                                                            "items": {
+                                                                              "type": "number"
                                                                             },
-                                                                            type:
-                                                                              'array'
+                                                                            "type": "array"
                                                                           },
                                                                           {
-                                                                            type:
-                                                                              'number'
+                                                                            "type": "number"
                                                                           }
                                                                         ]
                                                                       },
                                                                       {
-                                                                        anyOf: [
+                                                                        "anyOf": [
                                                                           {
-                                                                            items: {
-                                                                              type:
-                                                                                'number'
+                                                                            "items": {
+                                                                              "type": "number"
                                                                             },
-                                                                            type:
-                                                                              'array'
+                                                                            "type": "array"
                                                                           },
                                                                           {
-                                                                            type:
-                                                                              'number'
+                                                                            "type": "number"
                                                                           }
                                                                         ]
                                                                       }
                                                                     ],
-                                                                    minItems: 2,
-                                                                    type:
-                                                                      'array'
+                                                                    "minItems": 2,
+                                                                    "type": "array"
                                                                   },
-                                                                  type: {
-                                                                    enum: [
-                                                                      'toggle'
+                                                                  "type": {
+                                                                    "enum": [
+                                                                      "toggle"
                                                                     ],
-                                                                    type:
-                                                                      'string'
+                                                                    "type": "string"
                                                                   }
                                                                 },
-                                                                required: [
-                                                                  'type'
+                                                                "required": [
+                                                                  "type"
                                                                 ],
-                                                                type: 'object'
+                                                                "type": "object"
                                                               },
                                                               {
-                                                                defaultProperties: [],
-                                                                properties: {
-                                                                  label: {
-                                                                    type:
-                                                                      'string'
-                                                                  }
-                                                                },
-                                                                required: [
-                                                                  'label'
+                                                                "defaultProperties": [
                                                                 ],
-                                                                type: 'object'
-                                                              },
-                                                              {
-                                                                defaultProperties: [],
-                                                                properties: {
-                                                                  showIf: {
-                                                                    type:
-                                                                      'string'
+                                                                "properties": {
+                                                                  "label": {
+                                                                    "type": "string"
                                                                   }
                                                                 },
-                                                                type: 'object'
+                                                                "required": [
+                                                                  "label"
+                                                                ],
+                                                                "type": "object"
                                                               },
                                                               {
-                                                                defaultProperties: [],
-                                                                properties: {
-                                                                  bytes: {
-                                                                    enum: [
+                                                                "defaultProperties": [
+                                                                ],
+                                                                "properties": {
+                                                                  "showIf": {
+                                                                    "type": "string"
+                                                                  }
+                                                                },
+                                                                "type": "object"
+                                                              },
+                                                              {
+                                                                "defaultProperties": [
+                                                                ],
+                                                                "properties": {
+                                                                  "bytes": {
+                                                                    "enum": [
                                                                       1,
                                                                       2,
                                                                       3,
                                                                       4
                                                                     ],
-                                                                    type:
-                                                                      'number'
+                                                                    "type": "number"
                                                                   }
                                                                 },
-                                                                type: 'object'
+                                                                "type": "object"
                                                               },
                                                               {
-                                                                defaultProperties: [],
-                                                                properties: {
-                                                                  content: {
-                                                                    additionalItems: {
-                                                                      anyOf: [
+                                                                "defaultProperties": [
+                                                                ],
+                                                                "properties": {
+                                                                  "content": {
+                                                                    "additionalItems": {
+                                                                      "anyOf": [
                                                                         {
-                                                                          type:
-                                                                            'string'
+                                                                          "type": "string"
                                                                         },
                                                                         {
-                                                                          type:
-                                                                            'number'
+                                                                          "type": "number"
                                                                         },
                                                                         {
-                                                                          type:
-                                                                            'number'
+                                                                          "type": "number"
                                                                         }
                                                                       ]
                                                                     },
-                                                                    items: [
+                                                                    "items": [
                                                                       {
-                                                                        type:
-                                                                          'string'
+                                                                        "type": "string"
                                                                       },
                                                                       {
-                                                                        type:
-                                                                          'number'
+                                                                        "type": "number"
                                                                       },
                                                                       {
-                                                                        type:
-                                                                          'number'
+                                                                        "type": "number"
                                                                       }
                                                                     ],
-                                                                    minItems: 3,
-                                                                    type:
-                                                                      'array'
+                                                                    "minItems": 3,
+                                                                    "type": "array"
                                                                   }
                                                                 },
-                                                                required: [
-                                                                  'content'
+                                                                "required": [
+                                                                  "content"
                                                                 ],
-                                                                type: 'object'
+                                                                "type": "object"
                                                               }
                                                             ]
                                                           },
                                                           {
-                                                            allOf: [
+                                                            "allOf": [
                                                               {
-                                                                defaultProperties: [],
-                                                                properties: {
-                                                                  options: {
-                                                                    items: {
-                                                                      additionalItems: {
-                                                                        type:
-                                                                          'number'
+                                                                "defaultProperties": [
+                                                                ],
+                                                                "properties": {
+                                                                  "options": {
+                                                                    "items": {
+                                                                      "additionalItems": {
+                                                                        "type": "number"
                                                                       },
-                                                                      items: [
+                                                                      "items": [
                                                                         {
-                                                                          type:
-                                                                            'string'
+                                                                          "type": "string"
                                                                         },
                                                                         {
-                                                                          type:
-                                                                            'number'
+                                                                          "type": "number"
                                                                         }
                                                                       ],
-                                                                      minItems: 2,
-                                                                      type:
-                                                                        'array'
+                                                                      "minItems": 2,
+                                                                      "type": "array"
                                                                     },
-                                                                    type:
-                                                                      'array'
+                                                                    "type": "array"
                                                                   },
-                                                                  type: {
-                                                                    enum: [
-                                                                      'dropdown'
+                                                                  "type": {
+                                                                    "enum": [
+                                                                      "dropdown"
                                                                     ],
-                                                                    type:
-                                                                      'string'
+                                                                    "type": "string"
                                                                   }
                                                                 },
-                                                                required: [
-                                                                  'options',
-                                                                  'type'
+                                                                "required": [
+                                                                  "options",
+                                                                  "type"
                                                                 ],
-                                                                type: 'object'
+                                                                "type": "object"
                                                               },
                                                               {
-                                                                defaultProperties: [],
-                                                                properties: {
-                                                                  label: {
-                                                                    type:
-                                                                      'string'
-                                                                  }
-                                                                },
-                                                                required: [
-                                                                  'label'
+                                                                "defaultProperties": [
                                                                 ],
-                                                                type: 'object'
-                                                              },
-                                                              {
-                                                                defaultProperties: [],
-                                                                properties: {
-                                                                  showIf: {
-                                                                    type:
-                                                                      'string'
+                                                                "properties": {
+                                                                  "label": {
+                                                                    "type": "string"
                                                                   }
                                                                 },
-                                                                type: 'object'
+                                                                "required": [
+                                                                  "label"
+                                                                ],
+                                                                "type": "object"
                                                               },
                                                               {
-                                                                defaultProperties: [],
-                                                                properties: {
-                                                                  bytes: {
-                                                                    enum: [
+                                                                "defaultProperties": [
+                                                                ],
+                                                                "properties": {
+                                                                  "showIf": {
+                                                                    "type": "string"
+                                                                  }
+                                                                },
+                                                                "type": "object"
+                                                              },
+                                                              {
+                                                                "defaultProperties": [
+                                                                ],
+                                                                "properties": {
+                                                                  "bytes": {
+                                                                    "enum": [
                                                                       1,
                                                                       2,
                                                                       3,
                                                                       4
                                                                     ],
-                                                                    type:
-                                                                      'number'
+                                                                    "type": "number"
                                                                   }
                                                                 },
-                                                                type: 'object'
+                                                                "type": "object"
                                                               },
                                                               {
-                                                                defaultProperties: [],
-                                                                properties: {
-                                                                  content: {
-                                                                    additionalItems: {
-                                                                      anyOf: [
+                                                                "defaultProperties": [
+                                                                ],
+                                                                "properties": {
+                                                                  "content": {
+                                                                    "additionalItems": {
+                                                                      "anyOf": [
                                                                         {
-                                                                          type:
-                                                                            'string'
+                                                                          "type": "string"
                                                                         },
                                                                         {
-                                                                          type:
-                                                                            'number'
+                                                                          "type": "number"
                                                                         },
                                                                         {
-                                                                          type:
-                                                                            'number'
+                                                                          "type": "number"
                                                                         }
                                                                       ]
                                                                     },
-                                                                    items: [
+                                                                    "items": [
                                                                       {
-                                                                        type:
-                                                                          'string'
+                                                                        "type": "string"
                                                                       },
                                                                       {
-                                                                        type:
-                                                                          'number'
+                                                                        "type": "number"
                                                                       },
                                                                       {
-                                                                        type:
-                                                                          'number'
+                                                                        "type": "number"
                                                                       }
                                                                     ],
-                                                                    minItems: 3,
-                                                                    type:
-                                                                      'array'
+                                                                    "minItems": 3,
+                                                                    "type": "array"
                                                                   }
                                                                 },
-                                                                required: [
-                                                                  'content'
+                                                                "required": [
+                                                                  "content"
                                                                 ],
-                                                                type: 'object'
+                                                                "type": "object"
                                                               }
                                                             ]
                                                           },
                                                           {
-                                                            allOf: [
+                                                            "allOf": [
                                                               {
-                                                                defaultProperties: [],
-                                                                properties: {
-                                                                  options: {
-                                                                    additionalItems: {
-                                                                      anyOf: [
+                                                                "defaultProperties": [
+                                                                ],
+                                                                "properties": {
+                                                                  "options": {
+                                                                    "additionalItems": {
+                                                                      "anyOf": [
                                                                         {
-                                                                          type:
-                                                                            'number'
+                                                                          "type": "number"
                                                                         },
                                                                         {
-                                                                          type:
-                                                                            'number'
+                                                                          "type": "number"
                                                                         }
                                                                       ]
                                                                     },
-                                                                    items: [
+                                                                    "items": [
                                                                       {
-                                                                        type:
-                                                                          'number'
+                                                                        "type": "number"
                                                                       },
                                                                       {
-                                                                        type:
-                                                                          'number'
+                                                                        "type": "number"
                                                                       }
                                                                     ],
-                                                                    minItems: 2,
-                                                                    type:
-                                                                      'array'
+                                                                    "minItems": 2,
+                                                                    "type": "array"
                                                                   },
-                                                                  type: {
-                                                                    enum: [
-                                                                      'range'
+                                                                  "type": {
+                                                                    "enum": [
+                                                                      "range"
                                                                     ],
-                                                                    type:
-                                                                      'string'
+                                                                    "type": "string"
                                                                   },
-                                                                  unit: {
-                                                                    type:
-                                                                      'string'
+                                                                  "unit": {
+                                                                    "type": "string"
                                                                   }
                                                                 },
-                                                                required: [
-                                                                  'options',
-                                                                  'type'
+                                                                "required": [
+                                                                  "options",
+                                                                  "type"
                                                                 ],
-                                                                type: 'object'
+                                                                "type": "object"
                                                               },
                                                               {
-                                                                defaultProperties: [],
-                                                                properties: {
-                                                                  label: {
-                                                                    type:
-                                                                      'string'
-                                                                  }
-                                                                },
-                                                                required: [
-                                                                  'label'
+                                                                "defaultProperties": [
                                                                 ],
-                                                                type: 'object'
-                                                              },
-                                                              {
-                                                                defaultProperties: [],
-                                                                properties: {
-                                                                  showIf: {
-                                                                    type:
-                                                                      'string'
+                                                                "properties": {
+                                                                  "label": {
+                                                                    "type": "string"
                                                                   }
                                                                 },
-                                                                type: 'object'
+                                                                "required": [
+                                                                  "label"
+                                                                ],
+                                                                "type": "object"
                                                               },
                                                               {
-                                                                defaultProperties: [],
-                                                                properties: {
-                                                                  bytes: {
-                                                                    enum: [
+                                                                "defaultProperties": [
+                                                                ],
+                                                                "properties": {
+                                                                  "showIf": {
+                                                                    "type": "string"
+                                                                  }
+                                                                },
+                                                                "type": "object"
+                                                              },
+                                                              {
+                                                                "defaultProperties": [
+                                                                ],
+                                                                "properties": {
+                                                                  "bytes": {
+                                                                    "enum": [
                                                                       1,
                                                                       2,
                                                                       3,
                                                                       4
                                                                     ],
-                                                                    type:
-                                                                      'number'
+                                                                    "type": "number"
                                                                   }
                                                                 },
-                                                                type: 'object'
+                                                                "type": "object"
                                                               },
                                                               {
-                                                                defaultProperties: [],
-                                                                properties: {
-                                                                  content: {
-                                                                    additionalItems: {
-                                                                      anyOf: [
+                                                                "defaultProperties": [
+                                                                ],
+                                                                "properties": {
+                                                                  "content": {
+                                                                    "additionalItems": {
+                                                                      "anyOf": [
                                                                         {
-                                                                          type:
-                                                                            'string'
+                                                                          "type": "string"
                                                                         },
                                                                         {
-                                                                          type:
-                                                                            'number'
+                                                                          "type": "number"
                                                                         },
                                                                         {
-                                                                          type:
-                                                                            'number'
+                                                                          "type": "number"
                                                                         }
                                                                       ]
                                                                     },
-                                                                    items: [
+                                                                    "items": [
                                                                       {
-                                                                        type:
-                                                                          'string'
+                                                                        "type": "string"
                                                                       },
                                                                       {
-                                                                        type:
-                                                                          'number'
+                                                                        "type": "number"
                                                                       },
                                                                       {
-                                                                        type:
-                                                                          'number'
+                                                                        "type": "number"
                                                                       }
                                                                     ],
-                                                                    minItems: 3,
-                                                                    type:
-                                                                      'array'
+                                                                    "minItems": 3,
+                                                                    "type": "array"
                                                                   }
                                                                 },
-                                                                required: [
-                                                                  'content'
+                                                                "required": [
+                                                                  "content"
                                                                 ],
-                                                                type: 'object'
+                                                                "type": "object"
                                                               }
                                                             ]
                                                           },
                                                           {
-                                                            allOf: [
+                                                            "allOf": [
                                                               {
-                                                                defaultProperties: [],
-                                                                properties: {
-                                                                  type: {
-                                                                    enum: [
-                                                                      'keycode'
+                                                                "defaultProperties": [
+                                                                ],
+                                                                "properties": {
+                                                                  "type": {
+                                                                    "enum": [
+                                                                      "keycode"
                                                                     ],
-                                                                    type:
-                                                                      'string'
+                                                                    "type": "string"
                                                                   }
                                                                 },
-                                                                required: [
-                                                                  'type'
+                                                                "required": [
+                                                                  "type"
                                                                 ],
-                                                                type: 'object'
+                                                                "type": "object"
                                                               },
                                                               {
-                                                                defaultProperties: [],
-                                                                properties: {
-                                                                  label: {
-                                                                    type:
-                                                                      'string'
-                                                                  }
-                                                                },
-                                                                required: [
-                                                                  'label'
+                                                                "defaultProperties": [
                                                                 ],
-                                                                type: 'object'
-                                                              },
-                                                              {
-                                                                defaultProperties: [],
-                                                                properties: {
-                                                                  showIf: {
-                                                                    type:
-                                                                      'string'
+                                                                "properties": {
+                                                                  "label": {
+                                                                    "type": "string"
                                                                   }
                                                                 },
-                                                                type: 'object'
+                                                                "required": [
+                                                                  "label"
+                                                                ],
+                                                                "type": "object"
                                                               },
                                                               {
-                                                                defaultProperties: [],
-                                                                properties: {
-                                                                  bytes: {
-                                                                    enum: [
+                                                                "defaultProperties": [
+                                                                ],
+                                                                "properties": {
+                                                                  "showIf": {
+                                                                    "type": "string"
+                                                                  }
+                                                                },
+                                                                "type": "object"
+                                                              },
+                                                              {
+                                                                "defaultProperties": [
+                                                                ],
+                                                                "properties": {
+                                                                  "bytes": {
+                                                                    "enum": [
                                                                       1,
                                                                       2,
                                                                       3,
                                                                       4
                                                                     ],
-                                                                    type:
-                                                                      'number'
+                                                                    "type": "number"
                                                                   }
                                                                 },
-                                                                type: 'object'
+                                                                "type": "object"
                                                               },
                                                               {
-                                                                defaultProperties: [],
-                                                                properties: {
-                                                                  content: {
-                                                                    additionalItems: {
-                                                                      anyOf: [
+                                                                "defaultProperties": [
+                                                                ],
+                                                                "properties": {
+                                                                  "content": {
+                                                                    "additionalItems": {
+                                                                      "anyOf": [
                                                                         {
-                                                                          type:
-                                                                            'string'
+                                                                          "type": "string"
                                                                         },
                                                                         {
-                                                                          type:
-                                                                            'number'
+                                                                          "type": "number"
                                                                         },
                                                                         {
-                                                                          type:
-                                                                            'number'
+                                                                          "type": "number"
                                                                         }
                                                                       ]
                                                                     },
-                                                                    items: [
+                                                                    "items": [
                                                                       {
-                                                                        type:
-                                                                          'string'
+                                                                        "type": "string"
                                                                       },
                                                                       {
-                                                                        type:
-                                                                          'number'
+                                                                        "type": "number"
                                                                       },
                                                                       {
-                                                                        type:
-                                                                          'number'
+                                                                        "type": "number"
                                                                       }
                                                                     ],
-                                                                    minItems: 3,
-                                                                    type:
-                                                                      'array'
+                                                                    "minItems": 3,
+                                                                    "type": "array"
                                                                   }
                                                                 },
-                                                                required: [
-                                                                  'content'
+                                                                "required": [
+                                                                  "content"
                                                                 ],
-                                                                type: 'object'
+                                                                "type": "object"
                                                               }
                                                             ]
                                                           },
                                                           {
-                                                            allOf: [
+                                                            "allOf": [
                                                               {
-                                                                defaultProperties: [],
-                                                                properties: {
-                                                                  type: {
-                                                                    enum: [
-                                                                      'color'
+                                                                "defaultProperties": [
+                                                                ],
+                                                                "properties": {
+                                                                  "type": {
+                                                                    "enum": [
+                                                                      "color"
                                                                     ],
-                                                                    type:
-                                                                      'string'
+                                                                    "type": "string"
                                                                   }
                                                                 },
-                                                                required: [
-                                                                  'type'
+                                                                "required": [
+                                                                  "type"
                                                                 ],
-                                                                type: 'object'
+                                                                "type": "object"
                                                               },
                                                               {
-                                                                defaultProperties: [],
-                                                                properties: {
-                                                                  label: {
-                                                                    type:
-                                                                      'string'
-                                                                  }
-                                                                },
-                                                                required: [
-                                                                  'label'
+                                                                "defaultProperties": [
                                                                 ],
-                                                                type: 'object'
-                                                              },
-                                                              {
-                                                                defaultProperties: [],
-                                                                properties: {
-                                                                  showIf: {
-                                                                    type:
-                                                                      'string'
+                                                                "properties": {
+                                                                  "label": {
+                                                                    "type": "string"
                                                                   }
                                                                 },
-                                                                type: 'object'
+                                                                "required": [
+                                                                  "label"
+                                                                ],
+                                                                "type": "object"
                                                               },
                                                               {
-                                                                defaultProperties: [],
-                                                                properties: {
-                                                                  bytes: {
-                                                                    enum: [
+                                                                "defaultProperties": [
+                                                                ],
+                                                                "properties": {
+                                                                  "showIf": {
+                                                                    "type": "string"
+                                                                  }
+                                                                },
+                                                                "type": "object"
+                                                              },
+                                                              {
+                                                                "defaultProperties": [
+                                                                ],
+                                                                "properties": {
+                                                                  "bytes": {
+                                                                    "enum": [
                                                                       1,
                                                                       2,
                                                                       3,
                                                                       4
                                                                     ],
-                                                                    type:
-                                                                      'number'
+                                                                    "type": "number"
                                                                   }
                                                                 },
-                                                                type: 'object'
+                                                                "type": "object"
                                                               },
                                                               {
-                                                                defaultProperties: [],
-                                                                properties: {
-                                                                  content: {
-                                                                    additionalItems: {
-                                                                      anyOf: [
+                                                                "defaultProperties": [
+                                                                ],
+                                                                "properties": {
+                                                                  "content": {
+                                                                    "additionalItems": {
+                                                                      "anyOf": [
                                                                         {
-                                                                          type:
-                                                                            'string'
+                                                                          "type": "string"
                                                                         },
                                                                         {
-                                                                          type:
-                                                                            'number'
+                                                                          "type": "number"
                                                                         },
                                                                         {
-                                                                          type:
-                                                                            'number'
+                                                                          "type": "number"
                                                                         }
                                                                       ]
                                                                     },
-                                                                    items: [
+                                                                    "items": [
                                                                       {
-                                                                        type:
-                                                                          'string'
+                                                                        "type": "string"
                                                                       },
                                                                       {
-                                                                        type:
-                                                                          'number'
+                                                                        "type": "number"
                                                                       },
                                                                       {
-                                                                        type:
-                                                                          'number'
+                                                                        "type": "number"
                                                                       }
                                                                     ],
-                                                                    minItems: 3,
-                                                                    type:
-                                                                      'array'
+                                                                    "minItems": 3,
+                                                                    "type": "array"
                                                                   }
                                                                 },
-                                                                required: [
-                                                                  'content'
+                                                                "required": [
+                                                                  "content"
                                                                 ],
-                                                                type: 'object'
+                                                                "type": "object"
                                                               }
                                                             ]
                                                           },
                                                           {
-                                                            allOf: [
+                                                            "allOf": [
                                                               {
-                                                                defaultProperties: [],
-                                                                properties: {
-                                                                  label: {
-                                                                    type:
-                                                                      'string'
-                                                                  }
-                                                                },
-                                                                required: [
-                                                                  'label'
+                                                                "defaultProperties": [
                                                                 ],
-                                                                type: 'object'
-                                                              },
-                                                              {
-                                                                defaultProperties: [],
-                                                                properties: {
-                                                                  showIf: {
-                                                                    type:
-                                                                      'string'
+                                                                "properties": {
+                                                                  "label": {
+                                                                    "type": "string"
                                                                   }
                                                                 },
-                                                                type: 'object'
+                                                                "required": [
+                                                                  "label"
+                                                                ],
+                                                                "type": "object"
                                                               },
                                                               {
-                                                                defaultProperties: [],
-                                                                properties: {
-                                                                  bytes: {
-                                                                    enum: [
+                                                                "defaultProperties": [
+                                                                ],
+                                                                "properties": {
+                                                                  "showIf": {
+                                                                    "type": "string"
+                                                                  }
+                                                                },
+                                                                "type": "object"
+                                                              },
+                                                              {
+                                                                "defaultProperties": [
+                                                                ],
+                                                                "properties": {
+                                                                  "bytes": {
+                                                                    "enum": [
                                                                       1,
                                                                       2,
                                                                       3,
                                                                       4
                                                                     ],
-                                                                    type:
-                                                                      'number'
+                                                                    "type": "number"
                                                                   }
                                                                 },
-                                                                type: 'object'
+                                                                "type": "object"
                                                               },
                                                               {
-                                                                defaultProperties: [],
-                                                                properties: {
-                                                                  content: {
-                                                                    type:
-                                                                      'string'
+                                                                "defaultProperties": [
+                                                                ],
+                                                                "properties": {
+                                                                  "content": {
+                                                                    "type": "string"
                                                                   }
                                                                 },
-                                                                required: [
-                                                                  'content'
+                                                                "required": [
+                                                                  "content"
                                                                 ],
-                                                                type: 'object'
+                                                                "type": "object"
                                                               }
                                                             ]
                                                           }
                                                         ]
                                                       },
-                                                      type: 'array'
+                                                      "type": "array"
                                                     }
                                                   },
-                                                  required: ['content'],
-                                                  type: 'object'
+                                                  "required": [
+                                                    "content"
+                                                  ],
+                                                  "type": "object"
                                                 }
                                               ]
                                             }
                                           ]
                                         },
-                                        type: 'array'
+                                        "type": "array"
                                       }
                                     },
-                                    required: ['content'],
-                                    type: 'object'
+                                    "required": [
+                                      "content"
+                                    ],
+                                    "type": "object"
                                   }
                                 ]
                               },
-                              type: 'array'
+                              "type": "array"
                             }
                           },
-                          required: ['content'],
-                          type: 'object'
+                          "required": [
+                            "content"
+                          ],
+                          "type": "object"
                         }
                       ]
                     }
                   ]
                 },
-                type: 'array'
+                "type": "array"
               }
             },
-            required: ['content'],
-            type: 'object'
+            "required": [
+              "content"
+            ],
+            "type": "object"
           }
         ]
       },
-      type: 'array'
+      "type": "array"
     },
-    layouts: {
-      defaultProperties: [],
-      properties: {
-        keymap: {
-          items: {
-            anyOf: [
+    "layouts": {
+      "defaultProperties": [
+      ],
+      "properties": {
+        "keymap": {
+          "items": {
+            "anyOf": [
               {
-                defaultProperties: [],
-                properties: {
-                  name: {
-                    type: 'string'
+                "defaultProperties": [
+                ],
+                "properties": {
+                  "name": {
+                    "type": "string"
                   }
                 },
-                type: 'object'
+                "type": "object"
               },
               {
-                items: {
-                  anyOf: [
+                "items": {
+                  "anyOf": [
                     {
-                      $ref:
-                        '#/definitions/Partial<{c:string;t:string;x:number;y:number;w:number;a:number;}>'
+                      "$ref": "#/definitions/Partial<{c:string;t:string;x:number;y:number;w:number;a:number;}>"
                     },
                     {
-                      type: 'string'
+                      "type": "string"
                     }
                   ]
                 },
-                type: 'array'
+                "type": "array"
               }
             ]
           },
-          type: 'array'
+          "type": "array"
         },
-        labels: {
-          items: {
-            anyOf: [
+        "labels": {
+          "items": {
+            "anyOf": [
               {
-                items: {
-                  type: 'string'
+                "items": {
+                  "type": "string"
                 },
-                type: 'array'
+                "type": "array"
               },
               {
-                type: 'string'
+                "type": "string"
               }
             ]
           },
-          type: 'array'
+          "type": "array"
         },
-        presets: {
-          additionalProperties: {
-            items: {
-              type: 'number'
+        "presets": {
+          "additionalProperties": {
+            "items": {
+              "type": "number"
             },
-            type: 'array'
+            "type": "array"
           },
-          defaultProperties: [],
-          type: 'object'
+          "defaultProperties": [
+          ],
+          "type": "object"
         }
       },
-      required: ['keymap'],
-      type: 'object'
+      "required": [
+        "keymap"
+      ],
+      "type": "object"
     },
-    lighting: {
-      anyOf: [
+    "lighting": {
+      "anyOf": [
         {
-          allOf: [
+          "allOf": [
             {
-              $ref: '#/definitions/Partial<VIALightingTypeDefinition>'
+              "$ref": "#/definitions/Partial<VIALightingTypeDefinition>"
             },
             {
-              defaultProperties: [],
-              properties: {
-                extends: {
-                  $ref: '#/definitions/LightingTypeDefinition'
+              "defaultProperties": [
+              ],
+              "properties": {
+                "extends": {
+                  "$ref": "#/definitions/LightingTypeDefinition"
                 }
               },
-              required: ['extends'],
-              type: 'object'
+              "required": [
+                "extends"
+              ],
+              "type": "object"
             }
           ]
         },
         {
-          enum: [
-            'none',
-            'qmk_backlight',
-            'qmk_backlight_rgblight',
-            'qmk_rgblight',
-            'wt_mono_backlight',
-            'wt_rgb_backlight'
+          "enum": [
+            "none",
+            "qmk_backlight",
+            "qmk_backlight_rgblight",
+            "qmk_rgblight",
+            "wt_mono_backlight",
+            "wt_rgb_backlight"
           ],
-          type: 'string'
+          "type": "string"
         }
       ]
     },
-    matrix: {
-      defaultProperties: [],
-      properties: {
-        cols: {
-          type: 'number'
+    "matrix": {
+      "defaultProperties": [
+      ],
+      "properties": {
+        "cols": {
+          "type": "number"
         },
-        rows: {
-          type: 'number'
+        "rows": {
+          "type": "number"
         }
       },
-      required: ['cols', 'rows'],
-      type: 'object'
+      "required": [
+        "cols",
+        "rows"
+      ],
+      "type": "object"
     },
-    name: {
-      type: 'string'
+    "name": {
+      "type": "string"
     },
-    productId: {
-      type: 'string'
+    "productId": {
+      "type": "string"
     },
-    vendorId: {
-      type: 'string'
+    "vendorId": {
+      "type": "string"
     }
   },
-  required: ['layouts', 'lighting', 'matrix', 'name', 'productId', 'vendorId'],
-  type: 'object'
+  "required": [
+    "layouts",
+    "lighting",
+    "matrix",
+    "name",
+    "productId",
+    "vendorId"
+  ],
+  "type": "object"
 };
-export type ValidateFunction<T> = ((data: unknown) => data is T) &
-  Pick<Ajv.ValidateFunction, 'errors'>;
-export const isKeyboardDefinitionV2 = ajv.compile(
-  KeyboardDefinitionV2Schema
-) as ValidateFunction<KeyboardDefinitionV2>;
+export type ValidateFunction<T> = ((data: unknown) => data is T) & Pick<Ajv.ValidateFunction, 'errors'>
+export const isKeyboardDefinitionV2 = ajv.compile(KeyboardDefinitionV2Schema) as ValidateFunction<KeyboardDefinitionV2>;
 export default function validate(value: unknown): KeyboardDefinitionV2 {
   if (isKeyboardDefinitionV2(value)) {
     return value;
   } else {
     throw new Error(
-      ajv.errorsText(
-        isKeyboardDefinitionV2.errors!.filter((e: any) => e.keyword !== 'if'),
-        {dataVar: 'KeyboardDefinitionV2'}
-      ) +
-        '\n\n' +
-        inspect(value)
+      ajv.errorsText(isKeyboardDefinitionV2.errors!.filter((e: any) => e.keyword !== 'if'), {dataVar: 'KeyboardDefinitionV2'}) +
+      '\n\n' +
+      inspect(value),
     );
   }
 }
