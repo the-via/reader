@@ -7,6 +7,7 @@ export * from './transform';
 export * from './kle-parser';
 export * from './types.v3';
 export * from './types.v2';
+export * from './types.common';
 export * from './menu-types';
 export * from './themes';
 export {parseConfig} from './config-h-parser';

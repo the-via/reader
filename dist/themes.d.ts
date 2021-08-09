@@ -1,4 +1,4 @@
-import { ThemeDefinition } from './types.v3';
+import { ThemeDefinition } from './types.common';
 export declare const THEMES: {
     [theme: string]: ThemeDefinition;
 };

@@ -1,12 +1,21 @@
 import {kleLayoutToVIALayout} from './kle-parser';
 import validateV3 from './validated-types/keyboard-definition-v3.validator';
+import validateV2 from './validated-types/keyboard-definition-v2.validator';
 import {
   defaultKeycodes,
   defaultMenus,
   KeyboardDefinitionV3,
   VIADefinitionV3,
-  VIALayout,
 } from './types.v3';
+import {VIALayout} from './types.common';
+import {
+  KeyboardDefinitionV2,
+  LightingTypeDefinitionV2,
+  VIADefinitionV2,
+  VIALightingTypeDefinition,
+} from './types.v2';
+import {LightingPreset} from './lighting-presets';
+
 export {VIADefinitionV3, KeyboardDefinitionV3};
 
 function getHexHint(value: string) {
@@ -114,4 +123,46 @@ export function generateVIADefinitionV3LookupMap(
   return definitions
     .map(keyboardDefinitionV3ToVIADefinitionV3)
     .reduce((p, n) => ({...p, [n.vendorProductId]: n}), {});
+}
+
+export function keyboardDefinitionV2ToVIADefinitionV2(
+  definition: KeyboardDefinitionV2
+): VIADefinitionV2 {
+  const {
+    name,
+    customFeatures,
+    customMenus,
+    customKeycodes,
+    lighting,
+    matrix,
+    layouts,
+  } = validateV2(definition);
+
+  validateLayouts(layouts);
+  const {keymap, ...partialLayout} = layouts;
+  const viaLayouts = {
+    ...partialLayout,
+    ...kleLayoutToVIALayout(layouts.keymap),
+  };
+  validateKeyBounds(matrix, viaLayouts);
+  return {
+    name,
+    lighting,
+    layouts: viaLayouts,
+    matrix,
+    customFeatures,
+    customKeycodes,
+    customMenus,
+    vendorProductId: getVendorProductId(definition),
+  };
+}
+
+export function getLightingDefinition(
+  definition: LightingTypeDefinitionV2
+): VIALightingTypeDefinition {
+  if (typeof definition === 'string') {
+    return LightingPreset[definition];
+  } else {
+    return {...LightingPreset[definition.extends], ...definition};
+  }
 }

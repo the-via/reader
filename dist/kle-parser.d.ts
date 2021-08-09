@@ -1,4 +1,4 @@
-import { Result, VIALayout, KLELayout, KeyColorType, VIAKey } from './types.v3';
+import { Result, VIALayout, KLELayout, KeyColorType, VIAKey } from './types.common';
 export declare function rawKLEToKLELayout(kle: string): KLELayout;
 export declare function filterGroups(keys: Result[]): Result[];
 export declare function findPivot(keys: Result[]): Result;

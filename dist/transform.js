@@ -25,9 +25,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.getLightingDefinition = exports.keyboardDefinitionV2ToVIADefinitionV2 = exports.generateVIADefinitionV3LookupMap = exports.keyboardDefinitionV3ToVIADefinitionV3 = exports.validateKeyBounds = exports.validateLayouts = exports.getVendorProductId = void 0;
 var kle_parser_1 = require("./kle-parser");
 var keyboard_definition_v3_validator_1 = __importDefault(require("./validated-types/keyboard-definition-v3.validator"));
+var keyboard_definition_v2_validator_1 = __importDefault(require("./validated-types/keyboard-definition-v2.validator"));
 var types_v3_1 = require("./types.v3");
+var lighting_presets_1 = require("./lighting-presets");
 function getHexHint(value) {
     var borkedHexPattern = /^[Oo]x/;
     return value.match(borkedHexPattern)
@@ -91,8 +94,8 @@ function keyboardDefinitionV3ToVIADefinitionV3(definition) {
         name: name,
         vendorProductId: getVendorProductId(definition),
         firmwareVersion: firmwareVersion,
-        menus: (menus !== null && menus !== void 0 ? menus : types_v3_1.defaultMenus),
-        keycodes: (keycodes !== null && keycodes !== void 0 ? keycodes : types_v3_1.defaultKeycodes),
+        menus: menus !== null && menus !== void 0 ? menus : types_v3_1.defaultMenus,
+        keycodes: keycodes !== null && keycodes !== void 0 ? keycodes : types_v3_1.defaultKeycodes,
         customKeycodes: customKeycodes,
         matrix: matrix,
         layouts: viaLayouts,
@@ -108,3 +111,30 @@ function generateVIADefinitionV3LookupMap(definitions) {
     }, {});
 }
 exports.generateVIADefinitionV3LookupMap = generateVIADefinitionV3LookupMap;
+function keyboardDefinitionV2ToVIADefinitionV2(definition) {
+    var _a = keyboard_definition_v2_validator_1.default(definition), name = _a.name, customFeatures = _a.customFeatures, customMenus = _a.customMenus, customKeycodes = _a.customKeycodes, lighting = _a.lighting, matrix = _a.matrix, layouts = _a.layouts;
+    validateLayouts(layouts);
+    var keymap = layouts.keymap, partialLayout = __rest(layouts, ["keymap"]);
+    var viaLayouts = __assign(__assign({}, partialLayout), kle_parser_1.kleLayoutToVIALayout(layouts.keymap));
+    validateKeyBounds(matrix, viaLayouts);
+    return {
+        name: name,
+        lighting: lighting,
+        layouts: viaLayouts,
+        matrix: matrix,
+        customFeatures: customFeatures,
+        customKeycodes: customKeycodes,
+        customMenus: customMenus,
+        vendorProductId: getVendorProductId(definition),
+    };
+}
+exports.keyboardDefinitionV2ToVIADefinitionV2 = keyboardDefinitionV2ToVIADefinitionV2;
+function getLightingDefinition(definition) {
+    if (typeof definition === 'string') {
+        return lighting_presets_1.LightingPreset[definition];
+    }
+    else {
+        return __assign(__assign({}, lighting_presets_1.LightingPreset[definition.extends]), definition);
+    }
+}
+exports.getLightingDefinition = getLightingDefinition;

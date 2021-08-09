@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.CustomFeaturesV2 = exports.LightingTypeDefinition = exports.LightingValue = void 0;
 var LightingValue;
 (function (LightingValue) {
     LightingValue[LightingValue["BACKLIGHT_USE_SPLIT_BACKSPACE"] = 1] = "BACKLIGHT_USE_SPLIT_BACKSPACE";
@@ -39,19 +40,7 @@ var LightingTypeDefinition;
     LightingTypeDefinition["WTRGBBacklight"] = "wt_rgb_backlight";
     LightingTypeDefinition["WTMonoBacklight"] = "wt_mono_backlight";
 })(LightingTypeDefinition = exports.LightingTypeDefinition || (exports.LightingTypeDefinition = {}));
-var KeycodeTypeV2;
-(function (KeycodeTypeV2) {
-    KeycodeTypeV2["QMK"] = "qmk";
-    KeycodeTypeV2["WT"] = "wt";
-    KeycodeTypeV2["None"] = "none";
-})(KeycodeTypeV2 = exports.KeycodeTypeV2 || (exports.KeycodeTypeV2 = {}));
 var CustomFeaturesV2;
 (function (CustomFeaturesV2) {
     CustomFeaturesV2["RotaryEncoder"] = "rotary-encoder";
 })(CustomFeaturesV2 = exports.CustomFeaturesV2 || (exports.CustomFeaturesV2 = {}));
-var KeyColorTypeV2;
-(function (KeyColorTypeV2) {
-    KeyColorTypeV2["Alpha"] = "alpha";
-    KeyColorTypeV2["Mod"] = "mod";
-    KeyColorTypeV2["Accent"] = "accent";
-})(KeyColorTypeV2 = exports.KeyColorTypeV2 || (exports.KeyColorTypeV2 = {}));

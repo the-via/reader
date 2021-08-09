@@ -1,11 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var KeycodeType;
-(function (KeycodeType) {
-    KeycodeType["QMK"] = "qmk";
-    KeycodeType["WT"] = "wt";
-    KeycodeType["None"] = "none";
-})(KeycodeType = exports.KeycodeType || (exports.KeycodeType = {}));
+exports.defaultMenus = exports.BuiltInMenuModule = exports.defaultKeycodes = exports.BuiltInKeycodeModule = void 0;
 var BuiltInKeycodeModule;
 (function (BuiltInKeycodeModule) {
     BuiltInKeycodeModule["VIAKeycodes"] = "via/keycodes";
@@ -28,9 +23,3 @@ exports.defaultMenus = [
     BuiltInMenuModule.Macros,
     BuiltInMenuModule.SaveLoad,
 ];
-var KeyColorType;
-(function (KeyColorType) {
-    KeyColorType["Alpha"] = "alpha";
-    KeyColorType["Mod"] = "mod";
-    KeyColorType["Accent"] = "accent";
-})(KeyColorType = exports.KeyColorType || (exports.KeyColorType = {}));

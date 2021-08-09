@@ -13,7 +13,7 @@ export const VIADefinitionV2Schema = {
   "defaultProperties": [
   ],
   "definitions": {
-    "KeyColorTypeV2": {
+    "KeyColorType": {
       "enum": [
         "accent",
         "alpha",
@@ -134,7 +134,7 @@ export const VIADefinitionV2Schema = {
       },
       "type": "object"
     },
-    "Pick<ResultV2,\"h\"|\"w\"|\"x2\"|\"y2\"|\"h2\"|\"w2\"|\"x\"|\"y\"|\"r\"|\"rx\"|\"ry\"|\"row\"|\"col\">": {
+    "Pick<Result,\"x2\"|\"y2\"|\"h2\"|\"w2\"|\"h\"|\"w\"|\"x\"|\"y\"|\"r\"|\"rx\"|\"ry\"|\"row\"|\"col\">": {
       "defaultProperties": [
       ],
       "properties": {
@@ -3052,14 +3052,14 @@ export const VIADefinitionV2Schema = {
           "items": {
             "allOf": [
               {
-                "$ref": "#/definitions/Pick<ResultV2,\"h\"|\"w\"|\"x2\"|\"y2\"|\"h2\"|\"w2\"|\"x\"|\"y\"|\"r\"|\"rx\"|\"ry\"|\"row\"|\"col\">"
+                "$ref": "#/definitions/Pick<Result,\"x2\"|\"y2\"|\"h2\"|\"w2\"|\"h\"|\"w\"|\"x\"|\"y\"|\"r\"|\"rx\"|\"ry\"|\"row\"|\"col\">"
               },
               {
                 "defaultProperties": [
                 ],
                 "properties": {
                   "color": {
-                    "$ref": "#/definitions/KeyColorTypeV2"
+                    "$ref": "#/definitions/KeyColorType"
                   }
                 },
                 "required": [
@@ -3093,14 +3093,14 @@ export const VIADefinitionV2Schema = {
               "items": {
                 "allOf": [
                   {
-                    "$ref": "#/definitions/Pick<ResultV2,\"h\"|\"w\"|\"x2\"|\"y2\"|\"h2\"|\"w2\"|\"x\"|\"y\"|\"r\"|\"rx\"|\"ry\"|\"row\"|\"col\">"
+                    "$ref": "#/definitions/Pick<Result,\"x2\"|\"y2\"|\"h2\"|\"w2\"|\"h\"|\"w\"|\"x\"|\"y\"|\"r\"|\"rx\"|\"ry\"|\"row\"|\"col\">"
                   },
                   {
                     "defaultProperties": [
                     ],
                     "properties": {
                       "color": {
-                        "$ref": "#/definitions/KeyColorTypeV2"
+                        "$ref": "#/definitions/KeyColorType"
                       }
                     },
                     "required": [

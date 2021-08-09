@@ -11,6 +11,7 @@ var __assign = (this && this.__assign) || function () {
     return __assign.apply(this, arguments);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.parseConfig = void 0;
 var LS;
 (function (LS) {
     LS[LS["START"] = 1] = "START";
