@@ -1,7 +1,7 @@
 import {parseLayout} from './layout-h-parser';
 import {parseConfig} from './config-h-parser';
 
-import * as glob from 'glob';
+import { glob } from 'glob';
 import {getVendorProductId} from '.';
 const fs = require('fs');
 const util = require('util');

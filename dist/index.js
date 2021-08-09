@@ -10,7 +10,6 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
     for (var p in m) if (p !== "default" && !exports.hasOwnProperty(p)) __createBinding(exports, m, p);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-__exportStar(require("./validated-types/keyboard-definition-v3.validator"), exports);
 var via_definition_v3_validator_1 = require("./validated-types/via-definition-v3.validator");
 Object.defineProperty(exports, "isVIADefinitionV3", { enumerable: true, get: function () { return via_definition_v3_validator_1.isVIADefinitionV3; } });
 var via_definition_v2_validator_1 = require("./validated-types/via-definition-v2.validator");
