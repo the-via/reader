@@ -25,5 +25,6 @@ __exportStar(require("./types.v2"), exports);
 __exportStar(require("./types.common"), exports);
 __exportStar(require("./menu-types"), exports);
 __exportStar(require("./themes"), exports);
+__exportStar(require("./types.guards"), exports);
 var config_h_parser_1 = require("./config-h-parser");
 Object.defineProperty(exports, "parseConfig", { enumerable: true, get: function () { return config_h_parser_1.parseConfig; } });

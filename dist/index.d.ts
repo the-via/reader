@@ -9,4 +9,5 @@ export * from './types.v2';
 export * from './types.common';
 export * from './menu-types';
 export * from './themes';
+export * from './types.guards';
 export { parseConfig } from './config-h-parser';
