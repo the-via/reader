@@ -1,6 +1,10 @@
 import {VIAMenu} from './menu-types';
 import {VIADefinitionV2} from './types.v2';
-import {BuiltInKeycodeModule, VIADefinitionV3} from './types.v3';
+import {
+  BuiltInKeycodeModule,
+  BuiltInMenuModule,
+  VIADefinitionV3,
+} from './types.v3';
 
 export function isTypeVIADefinitionV2(
   def: VIADefinitionV2 | VIADefinitionV3
@@ -15,14 +19,16 @@ export function isTypeVIADefinitionV3(
 }
 
 export function isBuiltInKeycodeModule(
-  value: any
+  value: BuiltInMenuModule | VIAMenu | string
 ): value is BuiltInKeycodeModule {
   return Object.values(BuiltInKeycodeModule).includes(
     value as BuiltInKeycodeModule
   );
 }
 
-export function isVIAMenu(value: any): value is VIAMenu {
+export function isVIAMenu(
+  value: BuiltInMenuModule | VIAMenu | string
+): value is VIAMenu {
   const viaMenu = value as VIAMenu;
   return viaMenu.label !== undefined && viaMenu.content !== undefined;
 }
