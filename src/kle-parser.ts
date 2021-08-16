@@ -1,5 +1,5 @@
 const invariant = require('invariant');
-const util = require('util');
+const inspect = require('util-inspect');
 import {
   Formatting,
   Cursor,
@@ -363,7 +363,7 @@ export function kleLayoutToVIALayout(kle: KLELayout): VIALayout {
     throw new Error(
       'Please correct layout, too many colors:' +
         '\n' +
-        util.inspect(colorCount, false, null, true)
+        inspect(colorCount, false, null, true)
     );
   }
 

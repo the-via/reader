@@ -31,7 +31,7 @@ var __spreadArrays = (this && this.__spreadArrays) || function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.kleLayoutToVIALayout = exports.extractGroups = exports.findPivot = exports.filterGroups = exports.rawKLEToKLELayout = void 0;
 var invariant = require('invariant');
-var util = require('util');
+var inspect = require('util-inspect');
 var types_common_1 = require("./types.common");
 function rawKLEToKLELayout(kle) {
     var kleArr = kle.split(',\n');
@@ -266,7 +266,7 @@ function kleLayoutToVIALayout(kle) {
     if (colorCountKeys.length > 3) {
         throw new Error('Please correct layout, too many colors:' +
             '\n' +
-            util.inspect(colorCount, false, null, true));
+            inspect(colorCount, false, null, true));
     }
     var colorMap = (_a = {},
         _a[colorCountKeys[0]] = types_common_1.KeyColorType.Alpha,
