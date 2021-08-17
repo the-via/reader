@@ -74,5 +74,5 @@ export type KeyboardDefinitionIndex = {
   generatedAt: number;
   version: string;
   theme: ThemeDefinition;
-  vendorProductIds: string[];
+  vendorProductIds: number[];
 };
