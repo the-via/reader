@@ -13,3 +13,8 @@ var KeyColorType;
     KeyColorType["Mod"] = "mod";
     KeyColorType["Accent"] = "accent";
 })(KeyColorType = exports.KeyColorType || (exports.KeyColorType = {}));
+var DefinitionType;
+(function (DefinitionType) {
+    DefinitionType["v2"] = "v2";
+    DefinitionType["v3"] = "v3";
+})(DefinitionType || (DefinitionType = {}));

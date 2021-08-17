@@ -1,5 +1,5 @@
 import { VIAMenu } from './menu-types';
-import { VIAKey, ThemeDefinition, MatrixInfo, CustomKeycode, KLELayoutDefinition, LayoutLabel } from './types.common';
+import { VIAKey, MatrixInfo, CustomKeycode, KLELayoutDefinition, LayoutLabel } from './types.common';
 export declare enum BuiltInKeycodeModule {
     VIAKeycodes = "via/keycodes",
     QMKLighting = "via/qmk_lighting",
@@ -52,10 +52,4 @@ export declare type VIADefinitionV3 = {
             };
         };
     };
-};
-export declare type KeyboardDefinitionIndex = {
-    generatedAt: number;
-    version: string;
-    theme: ThemeDefinition;
-    vendorProductIds: number[];
 };

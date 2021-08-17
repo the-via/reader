@@ -1,7 +1,6 @@
 import {VIAMenu} from './menu-types';
 import {
   VIAKey,
-  ThemeDefinition,
   MatrixInfo,
   CustomKeycode,
   KLELayoutDefinition,
@@ -68,11 +67,4 @@ export type VIADefinitionV3 = {
     keys: VIAKey[];
     optionKeys: {[g: string]: {[o: string]: VIAKey[]}};
   };
-};
-
-export type KeyboardDefinitionIndex = {
-  generatedAt: number;
-  version: string;
-  theme: ThemeDefinition;
-  vendorProductIds: number[];
 };

@@ -122,3 +122,17 @@ export type VIALayout = {
   keys: VIAKey[];
   optionKeys: {[g: string]: {[o: string]: VIAKey[]}};
 };
+
+enum DefinitionType {
+  v2 = 'v2',
+  v3 = 'v3',
+}
+
+type DefinitionVersionMap = {[key in DefinitionType]?: string};
+
+export type KeyboardDefinitionIndex = {
+  generatedAt: number;
+  version: string;
+  theme: ThemeDefinition;
+  vendorProductIds: Record<number, DefinitionVersionMap>;
+};
