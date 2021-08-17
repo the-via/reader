@@ -25,7 +25,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getLightingDefinition = exports.keyboardDefinitionV2ToVIADefinitionV2 = exports.generateVIADefinitionV3LookupMap = exports.keyboardDefinitionV3ToVIADefinitionV3 = exports.validateKeyBounds = exports.validateLayouts = exports.getVendorProductId = void 0;
+exports.generateVIADefinitionV2LookupMap = exports.getLightingDefinition = exports.keyboardDefinitionV2ToVIADefinitionV2 = exports.generateVIADefinitionV3LookupMap = exports.keyboardDefinitionV3ToVIADefinitionV3 = exports.validateKeyBounds = exports.validateLayouts = exports.getVendorProductId = void 0;
 var kle_parser_1 = require("./kle-parser");
 var keyboard_definition_v3_validator_1 = __importDefault(require("./validated-types/keyboard-definition-v3.validator"));
 var keyboard_definition_v2_validator_1 = __importDefault(require("./validated-types/keyboard-definition-v2.validator"));
@@ -138,3 +138,12 @@ function getLightingDefinition(definition) {
     }
 }
 exports.getLightingDefinition = getLightingDefinition;
+function generateVIADefinitionV2LookupMap(definitions) {
+    return definitions
+        .map(keyboardDefinitionV2ToVIADefinitionV2)
+        .reduce(function (p, n) {
+        var _a;
+        return (__assign(__assign({}, p), (_a = {}, _a[n.vendorProductId] = n, _a)));
+    }, {});
+}
+exports.generateVIADefinitionV2LookupMap = generateVIADefinitionV2LookupMap;

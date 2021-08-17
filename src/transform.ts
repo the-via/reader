@@ -166,3 +166,11 @@ export function getLightingDefinition(
     return {...LightingPreset[definition.extends], ...definition};
   }
 }
+
+export function generateVIADefinitionV2LookupMap(
+  definitions: KeyboardDefinitionV2[]
+) {
+  return definitions
+    .map(keyboardDefinitionV2ToVIADefinitionV2)
+    .reduce((p, n) => ({...p, [n.vendorProductId]: n}), {});
+}

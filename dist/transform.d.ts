@@ -9,3 +9,4 @@ export declare function keyboardDefinitionV3ToVIADefinitionV3(definition: Keyboa
 export declare function generateVIADefinitionV3LookupMap(definitions: KeyboardDefinitionV3[]): Record<string, VIADefinitionV3>;
 export declare function keyboardDefinitionV2ToVIADefinitionV2(definition: KeyboardDefinitionV2): VIADefinitionV2;
 export declare function getLightingDefinition(definition: LightingTypeDefinitionV2): VIALightingTypeDefinition;
+export declare function generateVIADefinitionV2LookupMap(definitions: KeyboardDefinitionV2[]): {};
