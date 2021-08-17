@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.KeyColorType = exports.KeycodeType = void 0;
+exports.DefinitionVersion = exports.KeyColorType = exports.KeycodeType = void 0;
 var KeycodeType;
 (function (KeycodeType) {
     KeycodeType["QMK"] = "qmk";
@@ -13,8 +13,8 @@ var KeyColorType;
     KeyColorType["Mod"] = "mod";
     KeyColorType["Accent"] = "accent";
 })(KeyColorType = exports.KeyColorType || (exports.KeyColorType = {}));
-var DefinitionType;
-(function (DefinitionType) {
-    DefinitionType["v2"] = "v2";
-    DefinitionType["v3"] = "v3";
-})(DefinitionType || (DefinitionType = {}));
+var DefinitionVersion;
+(function (DefinitionVersion) {
+    DefinitionVersion["v2"] = "v2";
+    DefinitionVersion["v3"] = "v3";
+})(DefinitionVersion = exports.DefinitionVersion || (exports.DefinitionVersion = {}));

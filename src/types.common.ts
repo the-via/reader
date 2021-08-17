@@ -123,12 +123,12 @@ export type VIALayout = {
   optionKeys: {[g: string]: {[o: string]: VIAKey[]}};
 };
 
-enum DefinitionType {
+export enum DefinitionVersion {
   v2 = 'v2',
   v3 = 'v3',
 }
 
-type DefinitionVersionMap = {[key in DefinitionType]?: string};
+export type DefinitionVersionMap = {[key in DefinitionVersion]?: string};
 
 export type KeyboardDefinitionIndex = {
   generatedAt: number;

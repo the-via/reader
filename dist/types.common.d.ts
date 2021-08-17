@@ -109,12 +109,12 @@ export declare type VIALayout = {
         };
     };
 };
-declare enum DefinitionType {
+export declare enum DefinitionVersion {
     v2 = "v2",
     v3 = "v3"
 }
-declare type DefinitionVersionMap = {
-    [key in DefinitionType]?: string;
+export declare type DefinitionVersionMap = {
+    [key in DefinitionVersion]?: string;
 };
 export declare type KeyboardDefinitionIndex = {
     generatedAt: number;
@@ -122,4 +122,3 @@ export declare type KeyboardDefinitionIndex = {
     theme: ThemeDefinition;
     vendorProductIds: Record<number, DefinitionVersionMap>;
 };
-export {};
