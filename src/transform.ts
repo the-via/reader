@@ -18,17 +18,17 @@ import {LightingPreset} from './lighting-presets';
 
 export {VIADefinitionV3, KeyboardDefinitionV3};
 
-function getHexHint(value: string) {
+const getHexHint = (value: string) => {
   const borkedHexPattern = /^[Oo]x/;
   return value.match(borkedHexPattern)
     ? `Did you mean '${value.replace(borkedHexPattern, '0x')}' instead?`
     : '';
-}
+};
 
-export function getVendorProductId({
+export const getVendorProductId = ({
   productId,
   vendorId,
-}: Pick<KeyboardDefinitionV3, 'productId' | 'vendorId'>): number {
+}: Pick<KeyboardDefinitionV3, 'productId' | 'vendorId'>): number => {
   const parsedVendorId = parseInt(vendorId, 16);
   const parsedProductId = parseInt(productId, 16);
 
@@ -45,11 +45,11 @@ export function getVendorProductId({
   }
 
   return parsedVendorId * 65536 + parsedProductId;
-}
+};
 
-export function validateLayouts(
+export const validateLayouts = (
   layouts: KeyboardDefinitionV3['layouts']
-): VIALayout {
+): VIALayout => {
   const {labels = [], keymap} = layouts;
   const viaLayout = kleLayoutToVIALayout(keymap);
   const missingLabels = labels.filter(
@@ -63,12 +63,12 @@ export function validateLayouts(
     );
   }
   return viaLayout;
-}
+};
 
-export function validateKeyBounds(
+export const validateKeyBounds = (
   matrix: VIADefinitionV3['matrix'],
   layouts: VIADefinitionV3['layouts']
-) {
+) => {
   const {rows, cols} = matrix;
   const optionKeys = Object.values(layouts.optionKeys).flatMap((group) =>
     Object.values(group).flat()
@@ -83,11 +83,11 @@ export function validateKeyBounds(
         .join(',')}`
     );
   }
-}
+};
 
-export function keyboardDefinitionV3ToVIADefinitionV3(
+export const keyboardDefinitionV3ToVIADefinitionV3 = (
   definition: KeyboardDefinitionV3
-): VIADefinitionV3 {
+): VIADefinitionV3 => {
   const {
     name,
     menus,
@@ -115,19 +115,11 @@ export function keyboardDefinitionV3ToVIADefinitionV3(
     matrix,
     layouts: viaLayouts,
   };
-}
+};
 
-export function generateVIADefinitionV3LookupMap(
-  definitions: KeyboardDefinitionV3[]
-): Record<string, VIADefinitionV3> {
-  return definitions
-    .map(keyboardDefinitionV3ToVIADefinitionV3)
-    .reduce((p, n) => ({...p, [n.vendorProductId]: n}), {});
-}
-
-export function keyboardDefinitionV2ToVIADefinitionV2(
+export const keyboardDefinitionV2ToVIADefinitionV2 = (
   definition: KeyboardDefinitionV2
-): VIADefinitionV2 {
+): VIADefinitionV2 => {
   const {
     name,
     customFeatures,
@@ -155,22 +147,22 @@ export function keyboardDefinitionV2ToVIADefinitionV2(
     customMenus,
     vendorProductId: getVendorProductId(definition),
   };
-}
+};
 
-export function getLightingDefinition(
+export const getLightingDefinition = (
   definition: LightingTypeDefinitionV2
-): VIALightingTypeDefinition {
-  if (typeof definition === 'string') {
-    return LightingPreset[definition];
-  } else {
-    return {...LightingPreset[definition.extends], ...definition};
-  }
-}
+): VIALightingTypeDefinition =>
+  typeof definition === 'string'
+    ? LightingPreset[definition]
+    : {...LightingPreset[definition.extends], ...definition};
 
-export function generateVIADefinitionV2LookupMap(
-  definitions: KeyboardDefinitionV2[]
-) {
-  return definitions
-    .map(keyboardDefinitionV2ToVIADefinitionV2)
+export const generateVIADefinitionLookupMap = <
+  TInput extends KeyboardDefinitionV2 | KeyboardDefinitionV3,
+  TOutput extends VIADefinitionV2 | VIADefinitionV3
+>(
+  definitions: TInput[],
+  mapper: (definition: TInput) => TOutput
+): Record<number, TOutput> =>
+  definitions
+    .map(mapper)
     .reduce((p, n) => ({...p, [n.vendorProductId]: n}), {});
-}
