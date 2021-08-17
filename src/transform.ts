@@ -155,14 +155,3 @@ export const getLightingDefinition = (
   typeof definition === 'string'
     ? LightingPreset[definition]
     : {...LightingPreset[definition.extends], ...definition};
-
-export const generateVIADefinitionLookupMap = <
-  TInput extends KeyboardDefinitionV2 | KeyboardDefinitionV3,
-  TOutput extends VIADefinitionV2 | VIADefinitionV3
->(
-  definitions: TInput[],
-  mapper: (definition: TInput) => TOutput
-): Record<number, TOutput> =>
-  definitions
-    .map(mapper)
-    .reduce((p, n) => ({...p, [n.vendorProductId]: n}), {});

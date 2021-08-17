@@ -25,7 +25,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.generateVIADefinitionLookupMap = exports.getLightingDefinition = exports.keyboardDefinitionV2ToVIADefinitionV2 = exports.keyboardDefinitionV3ToVIADefinitionV3 = exports.validateKeyBounds = exports.validateLayouts = exports.getVendorProductId = void 0;
+exports.getLightingDefinition = exports.keyboardDefinitionV2ToVIADefinitionV2 = exports.keyboardDefinitionV3ToVIADefinitionV3 = exports.validateKeyBounds = exports.validateLayouts = exports.getVendorProductId = void 0;
 var kle_parser_1 = require("./kle-parser");
 var keyboard_definition_v3_validator_1 = __importDefault(require("./validated-types/keyboard-definition-v3.validator"));
 var keyboard_definition_v2_validator_1 = __importDefault(require("./validated-types/keyboard-definition-v2.validator"));
@@ -119,12 +119,4 @@ exports.getLightingDefinition = function (definition) {
     return typeof definition === 'string'
         ? lighting_presets_1.LightingPreset[definition]
         : __assign(__assign({}, lighting_presets_1.LightingPreset[definition.extends]), definition);
-};
-exports.generateVIADefinitionLookupMap = function (definitions, mapper) {
-    return definitions
-        .map(mapper)
-        .reduce(function (p, n) {
-        var _a;
-        return (__assign(__assign({}, p), (_a = {}, _a[n.vendorProductId] = n, _a)));
-    }, {});
 };

@@ -8,4 +8,3 @@ export declare const validateKeyBounds: (matrix: VIADefinitionV3['matrix'], layo
 export declare const keyboardDefinitionV3ToVIADefinitionV3: (definition: KeyboardDefinitionV3) => VIADefinitionV3;
 export declare const keyboardDefinitionV2ToVIADefinitionV2: (definition: KeyboardDefinitionV2) => VIADefinitionV2;
 export declare const getLightingDefinition: (definition: LightingTypeDefinitionV2) => VIALightingTypeDefinition;
-export declare const generateVIADefinitionLookupMap: <TInput extends KeyboardDefinitionV3 | KeyboardDefinitionV2, TOutput extends VIADefinitionV3 | VIADefinitionV2>(definitions: TInput[], mapper: (definition: TInput) => TOutput) => Record<number, TOutput>;
