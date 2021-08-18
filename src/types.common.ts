@@ -128,11 +128,11 @@ export enum DefinitionVersion {
   v3 = 'v3',
 }
 
-export type DefinitionVersionMap = {[key in DefinitionVersion]?: string};
-
 export type KeyboardDefinitionIndex = {
   generatedAt: number;
   version: string;
   theme: ThemeDefinition;
-  vendorProductIds: Record<number, DefinitionVersionMap>;
+  vendorProductIds: {[key in DefinitionVersion]: number[]};
+  // The idea here is that anything in 'v2' will have both v2 and v3 defs
+  // so 'v3' only contains defs that aren't v2
 };

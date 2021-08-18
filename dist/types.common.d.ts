@@ -113,12 +113,11 @@ export declare enum DefinitionVersion {
     v2 = "v2",
     v3 = "v3"
 }
-export declare type DefinitionVersionMap = {
-    [key in DefinitionVersion]?: string;
-};
 export declare type KeyboardDefinitionIndex = {
     generatedAt: number;
     version: string;
     theme: ThemeDefinition;
-    vendorProductIds: Record<number, DefinitionVersionMap>;
+    vendorProductIds: {
+        [key in DefinitionVersion]: number[];
+    };
 };
