@@ -123,10 +123,13 @@ export type VIALayout = {
   optionKeys: {[g: string]: {[o: string]: VIAKey[]}};
 };
 
-export enum DefinitionVersion {
-  v2 = 'v2',
-  v3 = 'v3',
-}
+export type VendorProductDefintionMap = Record<
+  string,
+  {v2: boolean; v3: boolean}
+>;
+
+export type DefinitionVersion =
+  keyof VendorProductDefintionMap[keyof VendorProductDefintionMap];
 
 export type KeyboardDefinitionIndex = {
   generatedAt: number;

@@ -109,10 +109,11 @@ export declare type VIALayout = {
         };
     };
 };
-export declare enum DefinitionVersion {
-    v2 = "v2",
-    v3 = "v3"
-}
+export declare type VendorProductDefintionMap = Record<string, {
+    v2: boolean;
+    v3: boolean;
+}>;
+export declare type DefinitionVersion = keyof VendorProductDefintionMap[keyof VendorProductDefintionMap];
 export declare type KeyboardDefinitionIndex = {
     generatedAt: number;
     version: string;
