@@ -116,7 +116,7 @@ function extractGroups(keys, origin, colorMap) {
             })(calculateDelta(zeroPivot, findPivot(results)))
                 .filter(function (r) { return !r.d; }) // Remove decal keys
                 .map(function (r) { return resultToVIAKey(r, origin, colorMap); }), _b)));
-        }, p);
+        }, {});
         return __assign(__assign({}, p), (_b = {}, _b[group] = normalizedOptions, _b));
     }, {});
 }

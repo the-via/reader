@@ -145,7 +145,7 @@ export function extractGroups(
           .filter((r) => !r.d) // Remove decal keys
           .map((r) => resultToVIAKey(r, origin, colorMap)), // Resolve key colors and normalize position using origin
       }),
-      p
+      {}
     );
     return {
       ...p,
