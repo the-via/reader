@@ -1,3 +1,6 @@
+import {VIADefinitionV2} from './types.v2';
+import {VIADefinitionV3} from './types.v3';
+
 export type Rotation = {
   r: number;
   rx: number;
@@ -123,13 +126,11 @@ export type VIALayout = {
   optionKeys: {[g: string]: {[o: string]: VIAKey[]}};
 };
 
-export type VendorProductDefintionMap = Record<
-  string,
-  {v2: boolean; v3: boolean}
->;
+export type DefinitionVersionMap = {v2: VIADefinitionV2; v3: VIADefinitionV3};
+export type KeyboardDictionary = Record<string, DefinitionVersionMap>;
 
 export type DefinitionVersion =
-  keyof VendorProductDefintionMap[keyof VendorProductDefintionMap];
+  keyof KeyboardDictionary[keyof KeyboardDictionary];
 
 export type KeyboardDefinitionIndex = {
   generatedAt: number;
