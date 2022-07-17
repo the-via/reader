@@ -65,6 +65,29 @@ function calculateDelta(a, b) {
         y: b.y - a.y + Math.min(0, bY2) - Math.min(0, aY2),
     };
 }
+function getPivotPoint(a) {
+    // complicated keys like ISO and BAE combine two rectangles
+    // so first identify the top-left most rectangle and then get that
+    // point
+    var x = a.x, y = a.y, _a = a.x2, x2 = _a === void 0 ? 0 : _a, _b = a.y2, y2 = _b === void 0 ? 0 : _b;
+    var isSecondRect = y2 === 0 ? x > x + x2 : y2 < 0;
+    return isSecondRect
+        ? { x: x + x2, y: y + y2 }
+        : {
+            x: x,
+            y: y,
+        };
+}
+// New and improved algorithm: identify top and the leftmost corner of each pivot and
+// measure the distance between those two
+function calculateDelta2(a, b) {
+    var aPivotPoint = getPivotPoint(a);
+    var bPivotPoint = getPivotPoint(b);
+    return {
+        x: bPivotPoint.x - aPivotPoint.x,
+        y: bPivotPoint.y - aPivotPoint.y,
+    };
+}
 function getBoundingBox(key) {
     var _a = key.x2, x2 = _a === void 0 ? 0 : _a, _b = key.y2, y2 = _b === void 0 ? 0 : _b, x = key.x, y = key.y, _c = key.w, w = _c === void 0 ? 1 : _c, _d = key.h, h = _d === void 0 ? 1 : _d, _e = key.r, r = _e === void 0 ? 0 : _e, _f = key.rx, rx = _f === void 0 ? 0 : _f, _g = key.ry, ry = _g === void 0 ? 0 : _g;
     var _h = key.h2, h2 = _h === void 0 ? h : _h, _j = key.w2, w2 = _j === void 0 ? w : _j;
@@ -113,7 +136,7 @@ function extractGroups(keys, origin, colorMap) {
             var option = _a[0], results = _a[1];
             return (__assign(__assign({}, p), (_b = {}, _b[option] = (function (delta) {
                 return results.map(function (res) { return (__assign(__assign({}, res), { x: res.x - delta.x, y: res.y - delta.y })); });
-            })(calculateDelta(zeroPivot, findPivot(results)))
+            })(calculateDelta2(zeroPivot, findPivot(results)))
                 .filter(function (r) { return !r.d; }) // Remove decal keys
                 .map(function (r) { return resultToVIAKey(r, origin, colorMap); }), _b)));
         }, {});
@@ -182,6 +205,14 @@ function kleLayoutToVIALayout(kle) {
                 return obj;
             }
             else if (typeof n === 'string') {
+                // Keys can currently be
+                // 1. Matrix
+                // 2. Matrix + Group
+                // 3. Decal
+                // 4. Encoder
+                // 5. Encoder + Group
+                // 6. Encoder + Matrix (Encoder with Click)
+                // 7. Encoder + Matrix + Group (Encoder with Click)
                 var colorCountKey = c + ":" + t;
                 var labels = n.split('\n');
                 // Ignore row,col + requirement if key is a decal key

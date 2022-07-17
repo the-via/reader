@@ -70,6 +70,32 @@ function calculateDelta(a: Result, b: Result) {
   };
 }
 
+function getPivotPoint(a: Result) {
+  // complicated keys like ISO and BAE combine two rectangles
+  // so first identify the top-left most rectangle and then get that
+  // point
+
+  const {x, y, x2 = 0, y2 = 0} = a;
+  const isSecondRect = y2 === 0 ? x > x + x2 : y2 < 0;
+  return isSecondRect
+    ? {x: x + x2, y: y + y2}
+    : {
+        x,
+        y,
+      };
+}
+
+// New and improved algorithm: identify top and the leftmost corner of each pivot and
+// measure the distance between those two
+function calculateDelta2(a: Result, b: Result) {
+  const aPivotPoint = getPivotPoint(a);
+  const bPivotPoint = getPivotPoint(b);
+  return {
+    x: bPivotPoint.x - aPivotPoint.x,
+    y: bPivotPoint.y - aPivotPoint.y,
+  };
+}
+
 function getBoundingBox(key: Result) {
   const {x2 = 0, y2 = 0, x, y, w = 1, h = 1, r = 0, rx = 0, ry = 0} = key;
   const {h2 = h, w2 = w} = key;
@@ -141,7 +167,7 @@ export function extractGroups(
             ...res,
             x: res.x - delta.x,
             y: res.y - delta.y,
-          })))(calculateDelta(zeroPivot, findPivot(results)))
+          })))(calculateDelta2(zeroPivot, findPivot(results)))
           .filter((r) => !r.d) // Remove decal keys
           .map((r) => resultToVIAKey(r, origin, colorMap)), // Resolve key colors and normalize position using origin
       }),
@@ -260,6 +286,14 @@ export function kleLayoutToVIALayout(kle: KLELayout): VIALayout {
             }
             return obj as InnerReduceState;
           } else if (typeof n === 'string') {
+            // Keys can currently be
+            // 1. Matrix
+            // 2. Matrix + Group
+            // 3. Decal
+            // 4. Encoder
+            // 5. Encoder + Group
+            // 6. Encoder + Matrix (Encoder with Click)
+            // 7. Encoder + Matrix + Group (Encoder with Click)
             const colorCountKey = `${c}:${t}`;
             const labels = n.split('\n');
             // Ignore row,col + requirement if key is a decal key
@@ -376,6 +410,7 @@ export function kleLayoutToVIALayout(kle: KLELayout): VIALayout {
   const flatRes = res.flat();
   const defaultRes = filterGroups(flatRes);
   const boundingBoxes = defaultRes.map(getBoundingBox);
+
   const minX = Math.min(...boundingBoxes.map((b) => b.xStart));
   const minY = Math.min(...boundingBoxes.map((b) => b.yStart));
   const width = Math.max(...boundingBoxes.map((b) => b.xEnd)) - minX;
