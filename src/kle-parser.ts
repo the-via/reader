@@ -33,6 +33,8 @@ type OuterReduceState = {
   res: Result[][];
 };
 
+const ENCODER_REGEX = /^[eE]\d+\s*$/;
+
 export function rawKLEToKLELayout(kle: string): KLELayout {
   const kleArr = kle.split(',\n');
   return kleArr.map((row) =>
@@ -297,7 +299,13 @@ export function kleLayoutToVIALayout(kle: KLELayout): VIALayout {
             const colorCountKey = `${c}:${t}`;
             const labels = n.split('\n');
             // Ignore row,col + requirement if key is a decal key
-            const [row, col] = d ? [0, 0] : extractPair(labels[0]);
+            const isDecalOrEncoder = d || ENCODER_REGEX.test(labels[0]);
+            const encoderId = labels.filter(
+              (label) => label && ENCODER_REGEX.test(label)
+            )[0];
+            const [row, col] = isDecalOrEncoder
+              ? [0, 0]
+              : extractPair(labels[0]);
             const groupLabel = labels[3] || '-1,0';
             const [group, option] = extractPair(groupLabel);
             const newColorCount = {
@@ -310,6 +318,7 @@ export function kleLayoutToVIALayout(kle: KLELayout): VIALayout {
             const currKey = {
               c,
               t,
+              ei: encoderId,
               row,
               col,
               x: x + rx,

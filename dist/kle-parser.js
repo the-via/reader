@@ -33,6 +33,7 @@ exports.kleLayoutToVIALayout = exports.extractGroups = exports.findPivot = expor
 var invariant = require('invariant');
 var inspect = require('util-inspect');
 var types_common_1 = require("./types.common");
+var ENCODER_REGEX = /^[eE]\d+\s*$/;
 function rawKLEToKLELayout(kle) {
     var kleArr = kle.split(',\n');
     return kleArr.map(function (row) {
@@ -216,7 +217,11 @@ function kleLayoutToVIALayout(kle) {
                 var colorCountKey = c + ":" + t;
                 var labels = n.split('\n');
                 // Ignore row,col + requirement if key is a decal key
-                var _d = d ? [0, 0] : extractPair(labels[0]), row = _d[0], col = _d[1];
+                var isDecalOrEncoder = d || ENCODER_REGEX.test(labels[0]);
+                var encoderId = labels.filter(function (label) { return label && ENCODER_REGEX.test(label); })[0];
+                var _d = isDecalOrEncoder
+                    ? [0, 0]
+                    : extractPair(labels[0]), row = _d[0], col = _d[1];
                 var groupLabel = labels[3] || '-1,0';
                 var _e = extractPair(groupLabel), group = _e[0], option = _e[1];
                 var newColorCount = __assign(__assign({}, colorCount), (_b = {}, _b[colorCountKey] = colorCount[colorCountKey] === undefined
@@ -225,6 +230,7 @@ function kleLayoutToVIALayout(kle) {
                 var currKey = {
                     c: c,
                     t: t,
+                    ei: encoderId,
                     row: row,
                     col: col,
                     x: x + rx,
