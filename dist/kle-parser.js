@@ -164,8 +164,8 @@ function kleLayoutToVIALayout(kle) {
     var filteredKLE = kle.filter(function (elem) { return Array.isArray(elem); });
     var parsedKLE = filteredKLE.reduce(function (prev, kle) {
         var parsedRow = kle.reduce(function (_a, n) {
-            var _b;
-            var _c = _a.cursor, x = _c.x, y = _c.y, res = _a.res, c = _a.c, h = _a.h, t = _a.t, r = _a.r, d = _a.d, rx = _a.rx, ry = _a.ry, w = _a.w, y2 = _a.y2, x2 = _a.x2, w2 = _a.w2, h2 = _a.h2, colorCount = _a.colorCount;
+            var _b, _c, _d, _e, _f, _g, _h, _j, _k;
+            var _l = _a.cursor, x = _l.x, y = _l.y, res = _a.res, c = _a.c, h = _a.h, t = _a.t, r = _a.r, d = _a.d, rx = _a.rx, ry = _a.ry, w = _a.w, y2 = _a.y2, x2 = _a.x2, w2 = _a.w2, h2 = _a.h2, colorCount = _a.colorCount;
             // Check if object and apply formatting
             if (typeof n !== 'string') {
                 var obj = {
@@ -216,21 +216,44 @@ function kleLayoutToVIALayout(kle) {
                 // 7. Encoder + Matrix + Group (Encoder with Click)
                 var colorCountKey = c + ":" + t;
                 var labels = n.split('\n');
-                // Ignore row,col + requirement if key is a decal key
-                var isDecalOrEncoder = d || ENCODER_REGEX.test(labels[0]);
-                var encoderId = labels.filter(function (label) { return label && ENCODER_REGEX.test(label); })[0];
-                var _d = isDecalOrEncoder
-                    ? [0, 0]
-                    : extractPair(labels[0]), row = _d[0], col = _d[1];
-                var groupLabel = labels[3] || '-1,0';
-                var _e = extractPair(groupLabel), group = _e[0], option = _e[1];
-                var newColorCount = __assign(__assign({}, colorCount), (_b = {}, _b[colorCountKey] = colorCount[colorCountKey] === undefined
+                var group = void 0, option = void 0, row = void 0, col = void 0;
+                var currKey = {};
+                var encoderLabel = labels.filter(function (label) { return label && ENCODER_REGEX.test(label); })[0];
+                // Encoder key
+                if (encoderLabel !== undefined) {
+                    currKey.ei = +encoderLabel.slice(1);
+                    var firstLabel = labels[0];
+                    var shortenedLabels = labels.filter(function (i) { return i; });
+                    // this is eid + matrix + group
+                    if (shortenedLabels.length === 3) {
+                        _b = extractPair(shortenedLabels[0]), row = _b[0], col = _b[1];
+                        _c = extractPair(shortenedLabels[1]), group = _c[0], option = _c[1];
+                    }
+                    else if (shortenedLabels.length === 2 &&
+                        firstLabel === undefined) {
+                        // group + eid
+                        _d = [-1, -1], row = _d[0], col = _d[1];
+                        _e = extractPair(shortenedLabels[0]), group = _e[0], option = _e[1];
+                    }
+                    else if (shortenedLabels.length === 2) {
+                        // matrix + eid
+                        _f = extractPair(shortenedLabels[0]), row = _f[0], col = _f[1];
+                        _g = [-1, 0], group = _g[0], option = _g[1];
+                    }
+                }
+                else {
+                    // Ignore row,col + requirement if key is a decal key
+                    var isDecal = d;
+                    _h = isDecal ? [0, 0] : extractPair(labels[0]), row = _h[0], col = _h[1];
+                    var groupLabel = labels[3] || '-1,0';
+                    _j = extractPair(groupLabel), group = _j[0], option = _j[1];
+                }
+                var newColorCount = __assign(__assign({}, colorCount), (_k = {}, _k[colorCountKey] = colorCount[colorCountKey] === undefined
                     ? 1
-                    : colorCount[colorCountKey] + 1, _b));
-                var currKey = {
+                    : colorCount[colorCountKey] + 1, _k));
+                currKey = __assign(__assign({}, currKey), {
                     c: c,
                     t: t,
-                    ei: encoderId,
                     row: row,
                     col: col,
                     x: x + rx,
@@ -249,7 +272,7 @@ function kleLayoutToVIALayout(kle) {
                         key: group,
                         option: option,
                     },
-                };
+                });
                 // Reset carry properties
                 return {
                     h: 1,

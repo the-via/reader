@@ -22,10 +22,13 @@ exports.VIADefinitionV3Schema = {
             ],
             "type": "string"
         },
-        "Pick<Result,\"x2\"|\"y2\"|\"h2\"|\"w2\"|\"h\"|\"w\"|\"x\"|\"y\"|\"r\"|\"rx\"|\"ry\"|\"row\"|\"col\">": {
+        "Pick<Result,\"x2\"|\"y2\"|\"h2\"|\"w2\"|\"h\"|\"w\"|\"x\"|\"y\"|\"r\"|\"rx\"|\"ry\"|\"row\"|\"col\"|\"ei\">": {
             "defaultProperties": [],
             "properties": {
                 "col": {
+                    "type": "number"
+                },
+                "ei": {
                     "type": "number"
                 },
                 "h": {
@@ -126,7 +129,7 @@ exports.VIADefinitionV3Schema = {
                     "items": {
                         "allOf": [
                             {
-                                "$ref": "#/definitions/Pick<Result,\"x2\"|\"y2\"|\"h2\"|\"w2\"|\"h\"|\"w\"|\"x\"|\"y\"|\"r\"|\"rx\"|\"ry\"|\"row\"|\"col\">"
+                                "$ref": "#/definitions/Pick<Result,\"x2\"|\"y2\"|\"h2\"|\"w2\"|\"h\"|\"w\"|\"x\"|\"y\"|\"r\"|\"rx\"|\"ry\"|\"row\"|\"col\"|\"ei\">"
                             },
                             {
                                 "defaultProperties": [],
@@ -166,7 +169,7 @@ exports.VIADefinitionV3Schema = {
                             "items": {
                                 "allOf": [
                                     {
-                                        "$ref": "#/definitions/Pick<Result,\"x2\"|\"y2\"|\"h2\"|\"w2\"|\"h\"|\"w\"|\"x\"|\"y\"|\"r\"|\"rx\"|\"ry\"|\"row\"|\"col\">"
+                                        "$ref": "#/definitions/Pick<Result,\"x2\"|\"y2\"|\"h2\"|\"w2\"|\"h\"|\"w\"|\"x\"|\"y\"|\"r\"|\"rx\"|\"ry\"|\"row\"|\"col\"|\"ei\">"
                                     },
                                     {
                                         "defaultProperties": [],

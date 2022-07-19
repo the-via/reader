@@ -29,6 +29,7 @@ export declare type LegendColor = string;
 export declare type MatrixPosition = {
     row: number;
     col: number;
+    ei?: number;
 };
 export declare type Cursor = {
     x: number;

@@ -64,10 +64,13 @@ export declare const VIADefinitionV2Schema: {
             };
             type: string;
         };
-        "Pick<Result,\"x2\"|\"y2\"|\"h2\"|\"w2\"|\"h\"|\"w\"|\"x\"|\"y\"|\"r\"|\"rx\"|\"ry\"|\"row\"|\"col\">": {
+        "Pick<Result,\"x2\"|\"y2\"|\"h2\"|\"w2\"|\"h\"|\"w\"|\"x\"|\"y\"|\"r\"|\"rx\"|\"ry\"|\"row\"|\"col\"|\"ei\">": {
             defaultProperties: never[];
             properties: {
                 col: {
+                    type: string;
+                };
+                ei: {
                     type: string;
                 };
                 h: {

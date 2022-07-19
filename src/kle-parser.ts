@@ -297,17 +297,40 @@ export function kleLayoutToVIALayout(kle: KLELayout): VIALayout {
             // 6. Encoder + Matrix (Encoder with Click)
             // 7. Encoder + Matrix + Group (Encoder with Click)
             const colorCountKey = `${c}:${t}`;
-            const labels = n.split('\n');
-            // Ignore row,col + requirement if key is a decal key
-            const isDecalOrEncoder = d || ENCODER_REGEX.test(labels[0]);
-            const encoderId = labels.filter(
+            const labels: string[] = n.split('\n');
+            let group, option, row, col;
+            let currKey: any = {};
+            const encoderLabel = labels.filter(
               (label) => label && ENCODER_REGEX.test(label)
             )[0];
-            const [row, col] = isDecalOrEncoder
-              ? [0, 0]
-              : extractPair(labels[0]);
-            const groupLabel = labels[3] || '-1,0';
-            const [group, option] = extractPair(groupLabel);
+            // Encoder key
+            if (encoderLabel !== undefined) {
+              currKey.ei = +encoderLabel.slice(1);
+              const firstLabel = labels[0];
+              const shortenedLabels = labels.filter((i) => i);
+              // this is eid + matrix + group
+              if (shortenedLabels.length === 3) {
+                [row, col] = extractPair(shortenedLabels[0]);
+                [group, option] = extractPair(shortenedLabels[1]);
+              } else if (
+                shortenedLabels.length === 2 &&
+                firstLabel === undefined
+              ) {
+                // group + eid
+                [row, col] = [-1, -1];
+                [group, option] = extractPair(shortenedLabels[0]);
+              } else if (shortenedLabels.length === 2) {
+                // matrix + eid
+                [row, col] = extractPair(shortenedLabels[0]);
+                [group, option] = [-1, 0];
+              }
+            } else {
+              // Ignore row,col + requirement if key is a decal key
+              const isDecal = d;
+              [row, col] = isDecal ? [0, 0] : extractPair(labels[0]);
+              const groupLabel = labels[3] || '-1,0';
+              [group, option] = extractPair(groupLabel);
+            }
             const newColorCount = {
               ...colorCount,
               [colorCountKey]:
@@ -315,27 +338,29 @@ export function kleLayoutToVIALayout(kle: KLELayout): VIALayout {
                   ? 1
                   : colorCount[colorCountKey] + 1,
             };
-            const currKey = {
-              c,
-              t,
-              ei: encoderId,
-              row,
-              col,
-              x: x + rx,
-              y,
-              r,
-              rx,
-              ry,
-              d,
-              h,
-              w,
-              w2,
-              y2,
-              x2,
-              h2,
-              group: {
-                key: group,
-                option,
+            currKey = {
+              ...currKey,
+              ...{
+                c,
+                t,
+                row,
+                col,
+                x: x + rx,
+                y,
+                r,
+                rx,
+                ry,
+                d,
+                h,
+                w,
+                w2,
+                y2,
+                x2,
+                h2,
+                group: {
+                  key: group,
+                  option,
+                },
               },
             };
 
