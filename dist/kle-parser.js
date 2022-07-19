@@ -229,8 +229,7 @@ function kleLayoutToVIALayout(kle) {
                         _b = extractPair(shortenedLabels[0]), row = _b[0], col = _b[1];
                         _c = extractPair(shortenedLabels[1]), group = _c[0], option = _c[1];
                     }
-                    else if (shortenedLabels.length === 2 &&
-                        firstLabel === undefined) {
+                    else if (shortenedLabels.length === 2 && firstLabel === '') {
                         // group + eid
                         _d = [-1, -1], row = _d[0], col = _d[1];
                         _e = extractPair(shortenedLabels[0]), group = _e[0], option = _e[1];

@@ -312,10 +312,7 @@ export function kleLayoutToVIALayout(kle: KLELayout): VIALayout {
               if (shortenedLabels.length === 3) {
                 [row, col] = extractPair(shortenedLabels[0]);
                 [group, option] = extractPair(shortenedLabels[1]);
-              } else if (
-                shortenedLabels.length === 2 &&
-                firstLabel === undefined
-              ) {
+              } else if (shortenedLabels.length === 2 && firstLabel === '') {
                 // group + eid
                 [row, col] = [-1, -1];
                 [group, option] = extractPair(shortenedLabels[0]);
