@@ -323,6 +323,9 @@ export function kleLayoutToVIALayout(kle: KLELayout): VIALayout {
                 // matrix + eid
                 [row, col] = extractPair(shortenedLabels[0]);
                 [group, option] = [-1, 0];
+              } else {
+                [row, col] = [-1, -1];
+                [group, option] = [-1, 0];
               }
             } else {
               // Ignore row,col + requirement if key is a decal key

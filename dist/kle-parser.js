@@ -164,8 +164,8 @@ function kleLayoutToVIALayout(kle) {
     var filteredKLE = kle.filter(function (elem) { return Array.isArray(elem); });
     var parsedKLE = filteredKLE.reduce(function (prev, kle) {
         var parsedRow = kle.reduce(function (_a, n) {
-            var _b, _c, _d, _e, _f, _g, _h, _j, _k;
-            var _l = _a.cursor, x = _l.x, y = _l.y, res = _a.res, c = _a.c, h = _a.h, t = _a.t, r = _a.r, d = _a.d, rx = _a.rx, ry = _a.ry, w = _a.w, y2 = _a.y2, x2 = _a.x2, w2 = _a.w2, h2 = _a.h2, colorCount = _a.colorCount;
+            var _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m;
+            var _o = _a.cursor, x = _o.x, y = _o.y, res = _a.res, c = _a.c, h = _a.h, t = _a.t, r = _a.r, d = _a.d, rx = _a.rx, ry = _a.ry, w = _a.w, y2 = _a.y2, x2 = _a.x2, w2 = _a.w2, h2 = _a.h2, colorCount = _a.colorCount;
             // Check if object and apply formatting
             if (typeof n !== 'string') {
                 var obj = {
@@ -240,17 +240,21 @@ function kleLayoutToVIALayout(kle) {
                         _f = extractPair(shortenedLabels[0]), row = _f[0], col = _f[1];
                         _g = [-1, 0], group = _g[0], option = _g[1];
                     }
+                    else {
+                        _h = [-1, -1], row = _h[0], col = _h[1];
+                        _j = [-1, 0], group = _j[0], option = _j[1];
+                    }
                 }
                 else {
                     // Ignore row,col + requirement if key is a decal key
                     var isDecal = d;
-                    _h = isDecal ? [0, 0] : extractPair(labels[0]), row = _h[0], col = _h[1];
+                    _k = isDecal ? [0, 0] : extractPair(labels[0]), row = _k[0], col = _k[1];
                     var groupLabel = labels[3] || '-1,0';
-                    _j = extractPair(groupLabel), group = _j[0], option = _j[1];
+                    _l = extractPair(groupLabel), group = _l[0], option = _l[1];
                 }
-                var newColorCount = __assign(__assign({}, colorCount), (_k = {}, _k[colorCountKey] = colorCount[colorCountKey] === undefined
+                var newColorCount = __assign(__assign({}, colorCount), (_m = {}, _m[colorCountKey] = colorCount[colorCountKey] === undefined
                     ? 1
-                    : colorCount[colorCountKey] + 1, _k));
+                    : colorCount[colorCountKey] + 1, _m));
                 currKey = __assign(__assign({}, currKey), {
                     c: c,
                     t: t,
