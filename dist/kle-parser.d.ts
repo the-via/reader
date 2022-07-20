@@ -7,6 +7,12 @@ declare type GroupOptionMap<A> = {
         [option: string]: A[];
     };
 };
+export declare function getBoundingBox(key: Result): {
+    xStart: number;
+    xEnd: number;
+    yStart: number;
+    yEnd: number;
+};
 export declare function extractGroups(keys: Result[], origin: {
     x: number;
     y: number;

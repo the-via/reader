@@ -29,7 +29,7 @@ var __spreadArrays = (this && this.__spreadArrays) || function () {
     return r;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.kleLayoutToVIALayout = exports.extractGroups = exports.findPivot = exports.filterGroups = exports.rawKLEToKLELayout = void 0;
+exports.kleLayoutToVIALayout = exports.extractGroups = exports.getBoundingBox = exports.findPivot = exports.filterGroups = exports.rawKLEToKLELayout = void 0;
 var invariant = require('invariant');
 var inspect = require('util-inspect');
 var types_common_1 = require("./types.common");
@@ -112,6 +112,7 @@ function getBoundingBox(key) {
         yEnd: Math.max.apply(Math, rotatedPoints.map(function (p) { return p.y; })),
     };
 }
+exports.getBoundingBox = getBoundingBox;
 function applyRotation(x, y, xOrigin, yOrigin, rotation) {
     var rad = (rotation * Math.PI) / 180;
     var _a = [x - xOrigin, y - yOrigin], normX = _a[0], normY = _a[1];

@@ -98,7 +98,7 @@ function calculateDelta2(a: Result, b: Result) {
   };
 }
 
-function getBoundingBox(key: Result) {
+export function getBoundingBox(key: Result) {
   const {x2 = 0, y2 = 0, x, y, w = 1, h = 1, r = 0, rx = 0, ry = 0} = key;
   const {h2 = h, w2 = w} = key;
   const extraArgs: [number, number, number] = [rx, ry, r];
