@@ -90,7 +90,7 @@ exports.keyboardDefinitionV3ToVIADefinitionV3 = function (definition) {
     return {
         name: name,
         vendorProductId: exports.getVendorProductId(definition),
-        firmwareVersion: firmwareVersion,
+        firmwareVersion: firmwareVersion !== null && firmwareVersion !== void 0 ? firmwareVersion : 0,
         menus: menus !== null && menus !== void 0 ? menus : types_v3_1.defaultMenus,
         keycodes: keycodes !== null && keycodes !== void 0 ? keycodes : types_v3_1.defaultKeycodes,
         customKeycodes: customKeycodes,

@@ -50,7 +50,7 @@ export type KeyboardDefinitionV3 = {
 export type VIADefinitionV3 = {
   name: string;
   vendorProductId: number;
-  firmwareVersion?: number;
+  firmwareVersion: number;
   matrix: MatrixInfo;
   menus: (BuiltInMenuModule | VIAMenu | string)[];
   keycodes: BuiltInKeycodeModule[];

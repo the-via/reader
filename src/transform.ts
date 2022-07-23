@@ -108,7 +108,7 @@ export const keyboardDefinitionV3ToVIADefinitionV3 = (
   return {
     name,
     vendorProductId: getVendorProductId(definition),
-    firmwareVersion,
+    firmwareVersion: firmwareVersion ?? 0,
     menus: menus ?? defaultMenus,
     keycodes: keycodes ?? defaultKeycodes,
     customKeycodes,

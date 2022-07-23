@@ -32,7 +32,7 @@ export declare type KeyboardDefinitionV3 = {
 export declare type VIADefinitionV3 = {
     name: string;
     vendorProductId: number;
-    firmwareVersion?: number;
+    firmwareVersion: number;
     matrix: MatrixInfo;
     menus: (BuiltInMenuModule | VIAMenu | string)[];
     keycodes: BuiltInKeycodeModule[];
