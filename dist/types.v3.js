@@ -13,13 +13,11 @@ exports.defaultKeycodes = [
 var BuiltInMenuModule;
 (function (BuiltInMenuModule) {
     BuiltInMenuModule["Keymap"] = "via/keymap";
-    BuiltInMenuModule["Layouts"] = "via/layouts";
     BuiltInMenuModule["Macros"] = "via/macros";
     BuiltInMenuModule["SaveLoad"] = "via/save_load";
 })(BuiltInMenuModule = exports.BuiltInMenuModule || (exports.BuiltInMenuModule = {}));
 exports.defaultMenus = [
     BuiltInMenuModule.Keymap,
-    BuiltInMenuModule.Layouts,
     BuiltInMenuModule.Macros,
     BuiltInMenuModule.SaveLoad,
 ];

@@ -3070,7 +3070,6 @@ export const VIADefinitionV3Schema = {
     }
   },
   "required": [
-    "firmwareVersion",
     "keycodes",
     "layouts",
     "matrix",

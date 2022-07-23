@@ -2931,7 +2931,6 @@ exports.VIADefinitionV3Schema = {
         }
     },
     "required": [
-        "firmwareVersion",
         "keycodes",
         "layouts",
         "matrix",

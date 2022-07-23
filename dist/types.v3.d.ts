@@ -8,7 +8,6 @@ export declare enum BuiltInKeycodeModule {
 export declare const defaultKeycodes: BuiltInKeycodeModule[];
 export declare enum BuiltInMenuModule {
     Keymap = "via/keymap",
-    Layouts = "via/layouts",
     Macros = "via/macros",
     SaveLoad = "via/save_load"
 }
@@ -17,7 +16,7 @@ export declare type KeyboardDefinitionV3 = {
     name: string;
     vendorId: string;
     productId: string;
-    firmwareVersion: number;
+    firmwareVersion?: number;
     matrix: MatrixInfo;
     menus?: (BuiltInMenuModule | VIAMenu | string)[];
     keycodes?: BuiltInKeycodeModule[];
@@ -33,7 +32,7 @@ export declare type KeyboardDefinitionV3 = {
 export declare type VIADefinitionV3 = {
     name: string;
     vendorProductId: number;
-    firmwareVersion: number;
+    firmwareVersion?: number;
     matrix: MatrixInfo;
     menus: (BuiltInMenuModule | VIAMenu | string)[];
     keycodes: BuiltInKeycodeModule[];

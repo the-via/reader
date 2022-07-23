@@ -19,14 +19,12 @@ export const defaultKeycodes: BuiltInKeycodeModule[] = [
 
 export enum BuiltInMenuModule {
   Keymap = 'via/keymap',
-  Layouts = 'via/layouts',
   Macros = 'via/macros',
   SaveLoad = 'via/save_load',
 }
 
 export const defaultMenus: BuiltInMenuModule[] = [
   BuiltInMenuModule.Keymap,
-  BuiltInMenuModule.Layouts,
   BuiltInMenuModule.Macros,
   BuiltInMenuModule.SaveLoad,
 ];
@@ -35,7 +33,7 @@ export type KeyboardDefinitionV3 = {
   name: string;
   vendorId: string;
   productId: string;
-  firmwareVersion: number;
+  firmwareVersion?: number;
   matrix: MatrixInfo;
   menus?: (BuiltInMenuModule | VIAMenu | string)[];
   keycodes?: BuiltInKeycodeModule[];
@@ -52,7 +50,7 @@ export type KeyboardDefinitionV3 = {
 export type VIADefinitionV3 = {
   name: string;
   vendorProductId: number;
-  firmwareVersion: number;
+  firmwareVersion?: number;
   matrix: MatrixInfo;
   menus: (BuiltInMenuModule | VIAMenu | string)[];
   keycodes: BuiltInKeycodeModule[];

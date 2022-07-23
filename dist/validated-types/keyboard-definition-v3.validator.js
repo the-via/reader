@@ -2859,7 +2859,6 @@ exports.KeyboardDefinitionV3Schema = {
         }
     },
     "required": [
-        "firmwareVersion",
         "layouts",
         "matrix",
         "name",
