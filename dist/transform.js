@@ -29,7 +29,6 @@ exports.getLightingDefinition = exports.keyboardDefinitionV2ToVIADefinitionV2 = 
 var kle_parser_1 = require("./kle-parser");
 var keyboard_definition_v3_validator_1 = __importDefault(require("./validated-types/keyboard-definition-v3.validator"));
 var keyboard_definition_v2_validator_1 = __importDefault(require("./validated-types/keyboard-definition-v2.validator"));
-var types_v3_1 = require("./types.v3");
 var lighting_presets_1 = require("./lighting-presets");
 var getHexHint = function (value) {
     var borkedHexPattern = /^[Oo]x/;
@@ -91,8 +90,8 @@ exports.keyboardDefinitionV3ToVIADefinitionV3 = function (definition) {
         name: name,
         vendorProductId: exports.getVendorProductId(definition),
         firmwareVersion: firmwareVersion !== null && firmwareVersion !== void 0 ? firmwareVersion : 0,
-        menus: menus !== null && menus !== void 0 ? menus : types_v3_1.defaultMenus,
-        keycodes: keycodes !== null && keycodes !== void 0 ? keycodes : types_v3_1.defaultKeycodes,
+        menus: menus !== null && menus !== void 0 ? menus : [],
+        keycodes: keycodes !== null && keycodes !== void 0 ? keycodes : [],
         customKeycodes: customKeycodes,
         matrix: matrix,
         layouts: viaLayouts,

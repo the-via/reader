@@ -69,9 +69,7 @@ export const KeyboardDefinitionV3Schema = {
     "keycodes": {
       "items": {
         "enum": [
-          "via/keycodes",
-          "via/qmk_lighting",
-          "via/wt_lighting"
+          "qmk_lighting"
         ],
         "type": "string"
       },

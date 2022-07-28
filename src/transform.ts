@@ -1,12 +1,7 @@
 import {kleLayoutToVIALayout} from './kle-parser';
 import validateV3 from './validated-types/keyboard-definition-v3.validator';
 import validateV2 from './validated-types/keyboard-definition-v2.validator';
-import {
-  defaultKeycodes,
-  defaultMenus,
-  KeyboardDefinitionV3,
-  VIADefinitionV3,
-} from './types.v3';
+import {KeyboardDefinitionV3, VIADefinitionV3} from './types.v3';
 import {VIALayout} from './types.common';
 import {
   KeyboardDefinitionV2,
@@ -109,8 +104,8 @@ export const keyboardDefinitionV3ToVIADefinitionV3 = (
     name,
     vendorProductId: getVendorProductId(definition),
     firmwareVersion: firmwareVersion ?? 0,
-    menus: menus ?? defaultMenus,
-    keycodes: keycodes ?? defaultKeycodes,
+    menus: menus ?? [],
+    keycodes: keycodes ?? [],
     customKeycodes,
     matrix,
     layouts: viaLayouts,

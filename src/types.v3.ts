@@ -8,26 +8,10 @@ import {
 } from './types.common';
 
 export enum BuiltInKeycodeModule {
-  VIAKeycodes = 'via/keycodes',
-  QMKLighting = 'via/qmk_lighting',
-  WTLighting = 'via/wt_lighting',
+  QMKLighting = 'qmk_lighting',
 }
 
-export const defaultKeycodes: BuiltInKeycodeModule[] = [
-  BuiltInKeycodeModule.VIAKeycodes,
-];
-
-export enum BuiltInMenuModule {
-  Keymap = 'via/keymap',
-  Macros = 'via/macros',
-  SaveLoad = 'via/save_load',
-}
-
-export const defaultMenus: BuiltInMenuModule[] = [
-  BuiltInMenuModule.Keymap,
-  BuiltInMenuModule.Macros,
-  BuiltInMenuModule.SaveLoad,
-];
+export const defaultKeycodes: BuiltInKeycodeModule[] = [];
 
 export type KeyboardDefinitionV3 = {
   name: string;
@@ -35,7 +19,7 @@ export type KeyboardDefinitionV3 = {
   productId: string;
   firmwareVersion?: number;
   matrix: MatrixInfo;
-  menus?: (BuiltInMenuModule | VIAMenu | string)[];
+  menus?: (VIAMenu | string)[];
   keycodes?: BuiltInKeycodeModule[];
   customKeycodes?: CustomKeycode[];
   layouts: {
@@ -52,7 +36,7 @@ export type VIADefinitionV3 = {
   vendorProductId: number;
   firmwareVersion: number;
   matrix: MatrixInfo;
-  menus: (BuiltInMenuModule | VIAMenu | string)[];
+  menus: (VIAMenu | string)[];
   keycodes: BuiltInKeycodeModule[];
   customKeycodes?: CustomKeycode[];
   layouts: {
