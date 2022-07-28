@@ -472,22 +472,32 @@ export const VIADefinitionV3Schema = {
                                             ],
                                             "properties": {
                                               "options": {
-                                                "items": {
-                                                  "additionalItems": {
-                                                    "type": "number"
-                                                  },
-                                                  "items": [
-                                                    {
+                                                "anyOf": [
+                                                  {
+                                                    "items": {
                                                       "type": "string"
                                                     },
-                                                    {
-                                                      "type": "number"
-                                                    }
-                                                  ],
-                                                  "minItems": 2,
-                                                  "type": "array"
-                                                },
-                                                "type": "array"
+                                                    "type": "array"
+                                                  },
+                                                  {
+                                                    "items": {
+                                                      "additionalItems": {
+                                                        "type": "number"
+                                                      },
+                                                      "items": [
+                                                        {
+                                                          "type": "string"
+                                                        },
+                                                        {
+                                                          "type": "number"
+                                                        }
+                                                      ],
+                                                      "minItems": 2,
+                                                      "type": "array"
+                                                    },
+                                                    "type": "array"
+                                                  }
+                                                ]
                                               },
                                               "type": {
                                                 "enum": [
@@ -1139,22 +1149,32 @@ export const VIADefinitionV3Schema = {
                                                           ],
                                                           "properties": {
                                                             "options": {
-                                                              "items": {
-                                                                "additionalItems": {
-                                                                  "type": "number"
-                                                                },
-                                                                "items": [
-                                                                  {
+                                                              "anyOf": [
+                                                                {
+                                                                  "items": {
                                                                     "type": "string"
                                                                   },
-                                                                  {
-                                                                    "type": "number"
-                                                                  }
-                                                                ],
-                                                                "minItems": 2,
-                                                                "type": "array"
-                                                              },
-                                                              "type": "array"
+                                                                  "type": "array"
+                                                                },
+                                                                {
+                                                                  "items": {
+                                                                    "additionalItems": {
+                                                                      "type": "number"
+                                                                    },
+                                                                    "items": [
+                                                                      {
+                                                                        "type": "string"
+                                                                      },
+                                                                      {
+                                                                        "type": "number"
+                                                                      }
+                                                                    ],
+                                                                    "minItems": 2,
+                                                                    "type": "array"
+                                                                  },
+                                                                  "type": "array"
+                                                                }
+                                                              ]
                                                             },
                                                             "type": {
                                                               "enum": [
@@ -1860,22 +1880,32 @@ export const VIADefinitionV3Schema = {
                                                       ],
                                                       "properties": {
                                                         "options": {
-                                                          "items": {
-                                                            "additionalItems": {
-                                                              "type": "number"
-                                                            },
-                                                            "items": [
-                                                              {
+                                                          "anyOf": [
+                                                            {
+                                                              "items": {
                                                                 "type": "string"
                                                               },
-                                                              {
-                                                                "type": "number"
-                                                              }
-                                                            ],
-                                                            "minItems": 2,
-                                                            "type": "array"
-                                                          },
-                                                          "type": "array"
+                                                              "type": "array"
+                                                            },
+                                                            {
+                                                              "items": {
+                                                                "additionalItems": {
+                                                                  "type": "number"
+                                                                },
+                                                                "items": [
+                                                                  {
+                                                                    "type": "string"
+                                                                  },
+                                                                  {
+                                                                    "type": "number"
+                                                                  }
+                                                                ],
+                                                                "minItems": 2,
+                                                                "type": "array"
+                                                              },
+                                                              "type": "array"
+                                                            }
+                                                          ]
                                                         },
                                                         "type": {
                                                           "enum": [
@@ -2527,22 +2557,32 @@ export const VIADefinitionV3Schema = {
                                                                     ],
                                                                     "properties": {
                                                                       "options": {
-                                                                        "items": {
-                                                                          "additionalItems": {
-                                                                            "type": "number"
-                                                                          },
-                                                                          "items": [
-                                                                            {
+                                                                        "anyOf": [
+                                                                          {
+                                                                            "items": {
                                                                               "type": "string"
                                                                             },
-                                                                            {
-                                                                              "type": "number"
-                                                                            }
-                                                                          ],
-                                                                          "minItems": 2,
-                                                                          "type": "array"
-                                                                        },
-                                                                        "type": "array"
+                                                                            "type": "array"
+                                                                          },
+                                                                          {
+                                                                            "items": {
+                                                                              "additionalItems": {
+                                                                                "type": "number"
+                                                                              },
+                                                                              "items": [
+                                                                                {
+                                                                                  "type": "string"
+                                                                                },
+                                                                                {
+                                                                                  "type": "number"
+                                                                                }
+                                                                              ],
+                                                                              "minItems": 2,
+                                                                              "type": "array"
+                                                                            },
+                                                                            "type": "array"
+                                                                          }
+                                                                        ]
                                                                       },
                                                                       "type": {
                                                                         "enum": [

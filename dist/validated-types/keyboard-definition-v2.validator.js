@@ -402,22 +402,32 @@ exports.KeyboardDefinitionV2Schema = {
                                                                                 "defaultProperties": [],
                                                                                 "properties": {
                                                                                     "options": {
-                                                                                        "items": {
-                                                                                            "additionalItems": {
-                                                                                                "type": "number"
-                                                                                            },
-                                                                                            "items": [
-                                                                                                {
+                                                                                        "anyOf": [
+                                                                                            {
+                                                                                                "items": {
                                                                                                     "type": "string"
                                                                                                 },
-                                                                                                {
-                                                                                                    "type": "number"
-                                                                                                }
-                                                                                            ],
-                                                                                            "minItems": 2,
-                                                                                            "type": "array"
-                                                                                        },
-                                                                                        "type": "array"
+                                                                                                "type": "array"
+                                                                                            },
+                                                                                            {
+                                                                                                "items": {
+                                                                                                    "additionalItems": {
+                                                                                                        "type": "number"
+                                                                                                    },
+                                                                                                    "items": [
+                                                                                                        {
+                                                                                                            "type": "string"
+                                                                                                        },
+                                                                                                        {
+                                                                                                            "type": "number"
+                                                                                                        }
+                                                                                                    ],
+                                                                                                    "minItems": 2,
+                                                                                                    "type": "array"
+                                                                                                },
+                                                                                                "type": "array"
+                                                                                            }
+                                                                                        ]
                                                                                     },
                                                                                     "type": {
                                                                                         "enum": [
@@ -1038,22 +1048,32 @@ exports.KeyboardDefinitionV2Schema = {
                                                                                                             "defaultProperties": [],
                                                                                                             "properties": {
                                                                                                                 "options": {
-                                                                                                                    "items": {
-                                                                                                                        "additionalItems": {
-                                                                                                                            "type": "number"
-                                                                                                                        },
-                                                                                                                        "items": [
-                                                                                                                            {
+                                                                                                                    "anyOf": [
+                                                                                                                        {
+                                                                                                                            "items": {
                                                                                                                                 "type": "string"
                                                                                                                             },
-                                                                                                                            {
-                                                                                                                                "type": "number"
-                                                                                                                            }
-                                                                                                                        ],
-                                                                                                                        "minItems": 2,
-                                                                                                                        "type": "array"
-                                                                                                                    },
-                                                                                                                    "type": "array"
+                                                                                                                            "type": "array"
+                                                                                                                        },
+                                                                                                                        {
+                                                                                                                            "items": {
+                                                                                                                                "additionalItems": {
+                                                                                                                                    "type": "number"
+                                                                                                                                },
+                                                                                                                                "items": [
+                                                                                                                                    {
+                                                                                                                                        "type": "string"
+                                                                                                                                    },
+                                                                                                                                    {
+                                                                                                                                        "type": "number"
+                                                                                                                                    }
+                                                                                                                                ],
+                                                                                                                                "minItems": 2,
+                                                                                                                                "type": "array"
+                                                                                                                            },
+                                                                                                                            "type": "array"
+                                                                                                                        }
+                                                                                                                    ]
                                                                                                                 },
                                                                                                                 "type": {
                                                                                                                     "enum": [
@@ -1725,22 +1745,32 @@ exports.KeyboardDefinitionV2Schema = {
                                                                                                     "defaultProperties": [],
                                                                                                     "properties": {
                                                                                                         "options": {
-                                                                                                            "items": {
-                                                                                                                "additionalItems": {
-                                                                                                                    "type": "number"
-                                                                                                                },
-                                                                                                                "items": [
-                                                                                                                    {
+                                                                                                            "anyOf": [
+                                                                                                                {
+                                                                                                                    "items": {
                                                                                                                         "type": "string"
                                                                                                                     },
-                                                                                                                    {
-                                                                                                                        "type": "number"
-                                                                                                                    }
-                                                                                                                ],
-                                                                                                                "minItems": 2,
-                                                                                                                "type": "array"
-                                                                                                            },
-                                                                                                            "type": "array"
+                                                                                                                    "type": "array"
+                                                                                                                },
+                                                                                                                {
+                                                                                                                    "items": {
+                                                                                                                        "additionalItems": {
+                                                                                                                            "type": "number"
+                                                                                                                        },
+                                                                                                                        "items": [
+                                                                                                                            {
+                                                                                                                                "type": "string"
+                                                                                                                            },
+                                                                                                                            {
+                                                                                                                                "type": "number"
+                                                                                                                            }
+                                                                                                                        ],
+                                                                                                                        "minItems": 2,
+                                                                                                                        "type": "array"
+                                                                                                                    },
+                                                                                                                    "type": "array"
+                                                                                                                }
+                                                                                                            ]
                                                                                                         },
                                                                                                         "type": {
                                                                                                             "enum": [
@@ -2361,22 +2391,32 @@ exports.KeyboardDefinitionV2Schema = {
                                                                                                                                 "defaultProperties": [],
                                                                                                                                 "properties": {
                                                                                                                                     "options": {
-                                                                                                                                        "items": {
-                                                                                                                                            "additionalItems": {
-                                                                                                                                                "type": "number"
-                                                                                                                                            },
-                                                                                                                                            "items": [
-                                                                                                                                                {
+                                                                                                                                        "anyOf": [
+                                                                                                                                            {
+                                                                                                                                                "items": {
                                                                                                                                                     "type": "string"
                                                                                                                                                 },
-                                                                                                                                                {
-                                                                                                                                                    "type": "number"
-                                                                                                                                                }
-                                                                                                                                            ],
-                                                                                                                                            "minItems": 2,
-                                                                                                                                            "type": "array"
-                                                                                                                                        },
-                                                                                                                                        "type": "array"
+                                                                                                                                                "type": "array"
+                                                                                                                                            },
+                                                                                                                                            {
+                                                                                                                                                "items": {
+                                                                                                                                                    "additionalItems": {
+                                                                                                                                                        "type": "number"
+                                                                                                                                                    },
+                                                                                                                                                    "items": [
+                                                                                                                                                        {
+                                                                                                                                                            "type": "string"
+                                                                                                                                                        },
+                                                                                                                                                        {
+                                                                                                                                                            "type": "number"
+                                                                                                                                                        }
+                                                                                                                                                    ],
+                                                                                                                                                    "minItems": 2,
+                                                                                                                                                    "type": "array"
+                                                                                                                                                },
+                                                                                                                                                "type": "array"
+                                                                                                                                            }
+                                                                                                                                        ]
                                                                                                                                     },
                                                                                                                                     "type": {
                                                                                                                                         "enum": [

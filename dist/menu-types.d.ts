@@ -22,7 +22,7 @@ export declare type Toggle = {
 };
 export declare type Dropdown = {
     type: 'dropdown';
-    options: [string, number, ...number[]][];
+    options: string[] | [string, number, ...number[]][];
 };
 export declare type Range = {
     type: 'range';

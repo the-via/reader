@@ -284,17 +284,27 @@ export declare const KeyboardDefinitionV2Schema: {
                                                             defaultProperties: never[];
                                                             properties: {
                                                                 options: {
-                                                                    items: {
-                                                                        additionalItems: {
-                                                                            type: string;
-                                                                        };
+                                                                    anyOf: ({
                                                                         items: {
                                                                             type: string;
-                                                                        }[];
-                                                                        minItems: number;
+                                                                            additionalItems?: undefined;
+                                                                            items?: undefined;
+                                                                            minItems?: undefined;
+                                                                        };
                                                                         type: string;
-                                                                    };
-                                                                    type: string;
+                                                                    } | {
+                                                                        items: {
+                                                                            additionalItems: {
+                                                                                type: string;
+                                                                            };
+                                                                            items: {
+                                                                                type: string;
+                                                                            }[];
+                                                                            minItems: number;
+                                                                            type: string;
+                                                                        };
+                                                                        type: string;
+                                                                    })[];
                                                                 };
                                                                 type: {
                                                                     enum: string[];
@@ -735,17 +745,27 @@ export declare const KeyboardDefinitionV2Schema: {
                                                                                 defaultProperties: never[];
                                                                                 properties: {
                                                                                     options: {
-                                                                                        items: {
-                                                                                            additionalItems: {
-                                                                                                type: string;
-                                                                                            };
+                                                                                        anyOf: ({
                                                                                             items: {
                                                                                                 type: string;
-                                                                                            }[];
-                                                                                            minItems: number;
+                                                                                                additionalItems?: undefined;
+                                                                                                items?: undefined;
+                                                                                                minItems?: undefined;
+                                                                                            };
                                                                                             type: string;
-                                                                                        };
-                                                                                        type: string;
+                                                                                        } | {
+                                                                                            items: {
+                                                                                                additionalItems: {
+                                                                                                    type: string;
+                                                                                                };
+                                                                                                items: {
+                                                                                                    type: string;
+                                                                                                }[];
+                                                                                                minItems: number;
+                                                                                                type: string;
+                                                                                            };
+                                                                                            type: string;
+                                                                                        })[];
                                                                                     };
                                                                                     type: {
                                                                                         enum: string[];
@@ -1232,17 +1252,27 @@ export declare const KeyboardDefinitionV2Schema: {
                                                                             defaultProperties: never[];
                                                                             properties: {
                                                                                 options: {
-                                                                                    items: {
-                                                                                        additionalItems: {
-                                                                                            type: string;
-                                                                                        };
+                                                                                    anyOf: ({
                                                                                         items: {
                                                                                             type: string;
-                                                                                        }[];
-                                                                                        minItems: number;
+                                                                                            additionalItems?: undefined;
+                                                                                            items?: undefined;
+                                                                                            minItems?: undefined;
+                                                                                        };
                                                                                         type: string;
-                                                                                    };
-                                                                                    type: string;
+                                                                                    } | {
+                                                                                        items: {
+                                                                                            additionalItems: {
+                                                                                                type: string;
+                                                                                            };
+                                                                                            items: {
+                                                                                                type: string;
+                                                                                            }[];
+                                                                                            minItems: number;
+                                                                                            type: string;
+                                                                                        };
+                                                                                        type: string;
+                                                                                    })[];
                                                                                 };
                                                                                 type: {
                                                                                     enum: string[];
@@ -1683,17 +1713,27 @@ export declare const KeyboardDefinitionV2Schema: {
                                                                                                 defaultProperties: never[];
                                                                                                 properties: {
                                                                                                     options: {
-                                                                                                        items: {
-                                                                                                            additionalItems: {
-                                                                                                                type: string;
-                                                                                                            };
+                                                                                                        anyOf: ({
                                                                                                             items: {
                                                                                                                 type: string;
-                                                                                                            }[];
-                                                                                                            minItems: number;
+                                                                                                                additionalItems?: undefined;
+                                                                                                                items?: undefined;
+                                                                                                                minItems?: undefined;
+                                                                                                            };
                                                                                                             type: string;
-                                                                                                        };
-                                                                                                        type: string;
+                                                                                                        } | {
+                                                                                                            items: {
+                                                                                                                additionalItems: {
+                                                                                                                    type: string;
+                                                                                                                };
+                                                                                                                items: {
+                                                                                                                    type: string;
+                                                                                                                }[];
+                                                                                                                minItems: number;
+                                                                                                                type: string;
+                                                                                                            };
+                                                                                                            type: string;
+                                                                                                        })[];
                                                                                                     };
                                                                                                     type: {
                                                                                                         enum: string[];
