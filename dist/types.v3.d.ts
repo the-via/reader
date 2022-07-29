@@ -1,7 +1,8 @@
 import { VIAMenu } from './menu-types';
 import { VIAKey, MatrixInfo, CustomKeycode, KLELayoutDefinition, LayoutLabel } from './types.common';
 export declare enum BuiltInKeycodeModule {
-    QMKLighting = "qmk_lighting"
+    QMKLighting = "qmk_lighting",
+    WTLighting = "wt_lighting"
 }
 export declare const defaultKeycodes: BuiltInKeycodeModule[];
 export declare type KeyboardDefinitionV3 = {

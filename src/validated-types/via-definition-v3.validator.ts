@@ -112,7 +112,8 @@ export const VIADefinitionV3Schema = {
     "keycodes": {
       "items": {
         "enum": [
-          "qmk_lighting"
+          "qmk_lighting",
+          "wt_lighting"
         ],
         "type": "string"
       },

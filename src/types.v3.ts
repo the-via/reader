@@ -9,6 +9,7 @@ import {
 
 export enum BuiltInKeycodeModule {
   QMKLighting = 'qmk_lighting',
+  WTLighting = 'wt_lighting',
 }
 
 export const defaultKeycodes: BuiltInKeycodeModule[] = [];
