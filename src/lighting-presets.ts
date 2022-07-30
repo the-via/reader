@@ -2,8 +2,8 @@ import {
   LightingTypeDefinition,
   VIALightingTypeDefinition,
   LightingValue,
-  KeycodeType
-} from './types';
+} from './types.v2';
+import {KeycodeType} from './types.common';
 
 export const LightingPreset: {
   [K in LightingTypeDefinition]: VIALightingTypeDefinition;
@@ -12,24 +12,24 @@ export const LightingPreset: {
     effects: [],
     underglowEffects: [],
     keycodes: KeycodeType.None,
-    supportedLightingValues: []
+    supportedLightingValues: [],
   },
   [LightingTypeDefinition.QMKLighting]: {
     effects: [
       ['Off', 0],
-      ['On', 0]
+      ['On', 0],
     ],
     underglowEffects: [],
     keycodes: KeycodeType.QMK,
     supportedLightingValues: [
       LightingValue.BACKLIGHT_BRIGHTNESS,
-      LightingValue.BACKLIGHT_EFFECT
-    ]
+      LightingValue.BACKLIGHT_EFFECT,
+    ],
   },
   [LightingTypeDefinition.QMKBacklightRGBLight]: {
     effects: [
       ['Off', 0],
-      ['On', 0]
+      ['On', 0],
     ],
     underglowEffects: [
       ['All Off', 0],
@@ -68,7 +68,7 @@ export const LightingPreset: {
       ['Gradient 9', 1],
       ['Gradient 10', 1],
       ['RGB Test', 1],
-      ['Alternating', 1]
+      ['Alternating', 1],
     ],
     keycodes: KeycodeType.QMK,
     supportedLightingValues: [
@@ -77,8 +77,8 @@ export const LightingPreset: {
       LightingValue.QMK_RGBLIGHT_BRIGHTNESS,
       LightingValue.QMK_RGBLIGHT_EFFECT,
       LightingValue.QMK_RGBLIGHT_EFFECT_SPEED,
-      LightingValue.QMK_RGBLIGHT_COLOR
-    ]
+      LightingValue.QMK_RGBLIGHT_COLOR,
+    ],
   },
   [LightingTypeDefinition.QMKRGBLight]: {
     effects: [],
@@ -119,21 +119,21 @@ export const LightingPreset: {
       ['Gradient 9', 1],
       ['Gradient 10', 1],
       ['RGB Test', 1],
-      ['Alternating', 1]
+      ['Alternating', 1],
     ],
     keycodes: KeycodeType.QMK,
     supportedLightingValues: [
       LightingValue.QMK_RGBLIGHT_BRIGHTNESS,
       LightingValue.QMK_RGBLIGHT_EFFECT,
       LightingValue.QMK_RGBLIGHT_EFFECT_SPEED,
-      LightingValue.QMK_RGBLIGHT_COLOR
-    ]
+      LightingValue.QMK_RGBLIGHT_COLOR,
+    ],
   },
   [LightingTypeDefinition.WTMonoBacklight]: {
     effects: [
       ['All Off', 0],
       ['All On', 0],
-      ['Raindrops', 0]
+      ['Raindrops', 0],
     ],
     underglowEffects: [],
     keycodes: KeycodeType.WT,
@@ -142,8 +142,8 @@ export const LightingPreset: {
       LightingValue.BACKLIGHT_EFFECT,
       LightingValue.BACKLIGHT_EFFECT_SPEED,
       LightingValue.BACKLIGHT_DISABLE_AFTER_TIMEOUT,
-      LightingValue.BACKLIGHT_DISABLE_WHEN_USB_SUSPENDED
-    ]
+      LightingValue.BACKLIGHT_DISABLE_WHEN_USB_SUSPENDED,
+    ],
   },
   [LightingTypeDefinition.WTRGBBacklight]: {
     effects: [
@@ -157,7 +157,7 @@ export const LightingPreset: {
       ['Cycle Vertical', 0],
       ['Jellybean Raindrops', 0],
       ['Radial All Hues', 0],
-      ['Radial Color 1', 1]
+      ['Radial Color 1', 1],
     ],
     underglowEffects: [],
     keycodes: KeycodeType.WT,
@@ -176,7 +176,7 @@ export const LightingPreset: {
       LightingValue.BACKLIGHT_LAYER_2_INDICATOR_COLOR,
       LightingValue.BACKLIGHT_LAYER_2_INDICATOR_ROW_COL,
       LightingValue.BACKLIGHT_LAYER_3_INDICATOR_COLOR,
-      LightingValue.BACKLIGHT_LAYER_3_INDICATOR_ROW_COL
-    ]
-  }
+      LightingValue.BACKLIGHT_LAYER_3_INDICATOR_ROW_COL,
+    ],
+  },
 };

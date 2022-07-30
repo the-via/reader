@@ -15,9 +15,7 @@ import {
   VIAKey,
   OptionalDimensions,
   KLEDimensions,
-} from './types';
-import {SIGINT} from 'constants';
-import {cursorTo} from 'readline';
+} from './types.common';
 
 type InnerReduceState = Formatting &
   OptionalDimensions &
@@ -34,6 +32,8 @@ type OuterReduceState = {
   prevRow: Formatting & Rotation;
   res: Result[][];
 };
+
+const ENCODER_REGEX = /^[eE]\d+\s*$/;
 
 export function rawKLEToKLELayout(kle: string): KLELayout {
   const kleArr = kle.split(',\n');
@@ -72,7 +72,33 @@ function calculateDelta(a: Result, b: Result) {
   };
 }
 
-function getBoundingBox(key: Result) {
+function getPivotPoint(a: Result) {
+  // complicated keys like ISO and BAE combine two rectangles
+  // so first identify the top-left most rectangle and then get that
+  // point
+
+  const {x, y, x2 = 0, y2 = 0} = a;
+  const isSecondRect = y2 === 0 ? x > x + x2 : y2 < 0;
+  return isSecondRect
+    ? {x: x + x2, y: y + y2}
+    : {
+        x,
+        y,
+      };
+}
+
+// New and improved algorithm: identify top and the leftmost corner of each pivot and
+// measure the distance between those two
+function calculateDelta2(a: Result, b: Result) {
+  const aPivotPoint = getPivotPoint(a);
+  const bPivotPoint = getPivotPoint(b);
+  return {
+    x: bPivotPoint.x - aPivotPoint.x,
+    y: bPivotPoint.y - aPivotPoint.y,
+  };
+}
+
+export function getBoundingBox(key: Result) {
   const {x2 = 0, y2 = 0, x, y, w = 1, h = 1, r = 0, rx = 0, ry = 0} = key;
   const {h2 = h, w2 = w} = key;
   const extraArgs: [number, number, number] = [rx, ry, r];
@@ -143,11 +169,11 @@ export function extractGroups(
             ...res,
             x: res.x - delta.x,
             y: res.y - delta.y,
-          })))(calculateDelta(zeroPivot, findPivot(results)))
+          })))(calculateDelta2(zeroPivot, findPivot(results)))
           .filter((r) => !r.d) // Remove decal keys
           .map((r) => resultToVIAKey(r, origin, colorMap)), // Resolve key colors and normalize position using origin
       }),
-      p
+      {}
     );
     return {
       ...p,
@@ -262,12 +288,49 @@ export function kleLayoutToVIALayout(kle: KLELayout): VIALayout {
             }
             return obj as InnerReduceState;
           } else if (typeof n === 'string') {
+            // Keys can currently be
+            // 1. Matrix
+            // 2. Matrix + Group
+            // 3. Decal
+            // 4. Encoder
+            // 5. Encoder + Group
+            // 6. Encoder + Matrix (Encoder with Click)
+            // 7. Encoder + Matrix + Group (Encoder with Click)
             const colorCountKey = `${c}:${t}`;
-            const labels = n.split('\n');
-            // Ignore row,col + requirement if key is a decal key
-            const [row, col] = d ? [0, 0] : extractPair(labels[0]);
-            const groupLabel = labels[3] || '-1,0';
-            const [group, option] = extractPair(groupLabel);
+            const labels: string[] = n.split('\n');
+            let group, option, row, col;
+            let currKey: any = {};
+            const encoderLabel = labels.filter(
+              (label) => label && ENCODER_REGEX.test(label)
+            )[0];
+            // Encoder key
+            if (encoderLabel !== undefined) {
+              currKey.ei = +encoderLabel.slice(1);
+              const firstLabel = labels[0];
+              const shortenedLabels = labels.filter((i) => i);
+              // this is eid + matrix + group
+              if (shortenedLabels.length === 3) {
+                [row, col] = extractPair(shortenedLabels[0]);
+                [group, option] = extractPair(shortenedLabels[1]);
+              } else if (shortenedLabels.length === 2 && firstLabel === '') {
+                // group + eid
+                [row, col] = [-1, -1];
+                [group, option] = extractPair(shortenedLabels[0]);
+              } else if (shortenedLabels.length === 2) {
+                // matrix + eid
+                [row, col] = extractPair(shortenedLabels[0]);
+                [group, option] = [-1, 0];
+              } else {
+                [row, col] = [-1, -1];
+                [group, option] = [-1, 0];
+              }
+            } else {
+              // Ignore row,col + requirement if key is a decal key
+              const isDecal = d;
+              [row, col] = isDecal ? [0, 0] : extractPair(labels[0]);
+              const groupLabel = labels[3] || '-1,0';
+              [group, option] = extractPair(groupLabel);
+            }
             const newColorCount = {
               ...colorCount,
               [colorCountKey]:
@@ -275,26 +338,29 @@ export function kleLayoutToVIALayout(kle: KLELayout): VIALayout {
                   ? 1
                   : colorCount[colorCountKey] + 1,
             };
-            const currKey = {
-              c,
-              t,
-              row,
-              col,
-              x: x + rx,
-              y,
-              r,
-              rx,
-              ry,
-              d,
-              h,
-              w,
-              w2,
-              y2,
-              x2,
-              h2,
-              group: {
-                key: group,
-                option,
+            currKey = {
+              ...currKey,
+              ...{
+                c,
+                t,
+                row,
+                col,
+                x: x + rx,
+                y,
+                r,
+                rx,
+                ry,
+                d,
+                h,
+                w,
+                w2,
+                y2,
+                x2,
+                h2,
+                group: {
+                  key: group,
+                  option,
+                },
               },
             };
 
@@ -378,6 +444,7 @@ export function kleLayoutToVIALayout(kle: KLELayout): VIALayout {
   const flatRes = res.flat();
   const defaultRes = filterGroups(flatRes);
   const boundingBoxes = defaultRes.map(getBoundingBox);
+
   const minX = Math.min(...boundingBoxes.map((b) => b.xStart));
   const minY = Math.min(...boundingBoxes.map((b) => b.yStart));
   const width = Math.max(...boundingBoxes.map((b) => b.xEnd)) - minX;

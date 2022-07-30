@@ -1,30 +1,50 @@
 import {kleLayoutToVIALayout} from './kle-parser';
-import validate from './validated-types/keyboard-definition.validator';
+import validateV3 from './validated-types/keyboard-definition-v3.validator';
 import validateV2 from './validated-types/keyboard-definition-v2.validator';
+import {KeyboardDefinitionV3, VIADefinitionV3} from './types.v3';
+import {VIALayout} from './types.common';
 import {
-  KeyboardDefinition,
   KeyboardDefinitionV2,
-  VIADefinition,
+  LightingTypeDefinitionV2,
   VIADefinitionV2,
   VIALightingTypeDefinition,
-  LightingTypeDefinitionV2,
-  VIALayout
-} from './types';
+} from './types.v2';
 import {LightingPreset} from './lighting-presets';
-export {VIADefinition, KeyboardDefinition};
 
-export function getVendorProductId({
+export {VIADefinitionV3, KeyboardDefinitionV3};
+
+const getHexHint = (value: string) => {
+  const borkedHexPattern = /^[Oo]x/;
+  return value.match(borkedHexPattern)
+    ? `Did you mean '${value.replace(borkedHexPattern, '0x')}' instead?`
+    : '';
+};
+
+export const getVendorProductId = ({
   productId,
-  vendorId
-}: Pick<KeyboardDefinitionV2, 'productId' | 'vendorId'>): number {
+  vendorId,
+}: Pick<KeyboardDefinitionV3, 'productId' | 'vendorId'>): number => {
   const parsedVendorId = parseInt(vendorId, 16);
   const parsedProductId = parseInt(productId, 16);
-  return parsedVendorId * 65536 + parsedProductId;
-}
 
-export function validateLayouts(
-  layouts: KeyboardDefinitionV2['layouts']
-): VIALayout {
+  if (isNaN(parsedVendorId)) {
+    throw new Error(
+      `vendorId could not be parsed: '${vendorId}'. ${getHexHint(vendorId)}`
+    );
+  }
+
+  if (isNaN(parsedProductId)) {
+    throw new Error(
+      `productId could not be parsed: '${productId}'. ${getHexHint(productId)}`
+    );
+  }
+
+  return parsedVendorId * 65536 + parsedProductId;
+};
+
+export const validateLayouts = (
+  layouts: KeyboardDefinitionV3['layouts']
+): VIALayout => {
   const {labels = [], keymap} = layouts;
   const viaLayout = kleLayoutToVIALayout(keymap);
   const missingLabels = labels.filter(
@@ -38,14 +58,14 @@ export function validateLayouts(
     );
   }
   return viaLayout;
-}
+};
 
-export function validateKeyBounds(
-  matrix: VIADefinitionV2['matrix'],
-  layouts: VIADefinitionV2['layouts']
-) {
+export const validateKeyBounds = (
+  matrix: VIADefinitionV3['matrix'],
+  layouts: VIADefinitionV3['layouts']
+) => {
   const {rows, cols} = matrix;
-  const optionKeys = Object.values(layouts.optionKeys).flatMap(group =>
+  const optionKeys = Object.values(layouts.optionKeys).flatMap((group) =>
     Object.values(group).flat()
   );
   const oobKeys = layouts.keys
@@ -58,11 +78,43 @@ export function validateKeyBounds(
         .join(',')}`
     );
   }
-}
+};
 
-export function keyboardDefinitionV2ToVIADefinitionV2(
+export const keyboardDefinitionV3ToVIADefinitionV3 = (
+  definition: KeyboardDefinitionV3
+): VIADefinitionV3 => {
+  const {
+    name,
+    menus,
+    keycodes,
+    customKeycodes,
+    matrix,
+    layouts,
+    firmwareVersion,
+  } = validateV3(definition);
+
+  validateLayouts(layouts);
+  const {keymap, ...partialLayout} = layouts;
+  const viaLayouts = {
+    ...partialLayout,
+    ...kleLayoutToVIALayout(layouts.keymap),
+  };
+  validateKeyBounds(matrix, viaLayouts);
+  return {
+    name,
+    vendorProductId: getVendorProductId(definition),
+    firmwareVersion: firmwareVersion ?? 0,
+    menus: menus ?? [],
+    keycodes: keycodes ?? [],
+    customKeycodes,
+    matrix,
+    layouts: viaLayouts,
+  };
+};
+
+export const keyboardDefinitionV2ToVIADefinitionV2 = (
   definition: KeyboardDefinitionV2
-): VIADefinitionV2 {
+): VIADefinitionV2 => {
   const {
     name,
     customFeatures,
@@ -70,14 +122,14 @@ export function keyboardDefinitionV2ToVIADefinitionV2(
     customKeycodes,
     lighting,
     matrix,
-    layouts
+    layouts,
   } = validateV2(definition);
 
   validateLayouts(layouts);
   const {keymap, ...partialLayout} = layouts;
   const viaLayouts = {
     ...partialLayout,
-    ...kleLayoutToVIALayout(layouts.keymap)
+    ...kleLayoutToVIALayout(layouts.keymap),
   };
   validateKeyBounds(matrix, viaLayouts);
   return {
@@ -88,49 +140,13 @@ export function keyboardDefinitionV2ToVIADefinitionV2(
     customFeatures,
     customKeycodes,
     customMenus,
-    vendorProductId: getVendorProductId(definition)
+    vendorProductId: getVendorProductId(definition),
   };
-}
+};
 
-export function getLightingDefinition(
+export const getLightingDefinition = (
   definition: LightingTypeDefinitionV2
-): VIALightingTypeDefinition {
-  if (typeof definition === 'string') {
-    return LightingPreset[definition];
-  } else {
-    return {...LightingPreset[definition.extends], ...definition};
-  }
-}
-
-export function keyboardDefinitionToVIADefinition(
-  definition: KeyboardDefinition
-): VIADefinition {
-  const {name, lighting, matrix} = validate(definition);
-  const layouts = Object.entries(definition.layouts).reduce(
-    (p, [k, v]) => ({...p, [k]: kleLayoutToVIALayout(v)}),
-    {}
-  );
-  return {
-    name,
-    lighting,
-    layouts,
-    matrix,
-    vendorProductId: getVendorProductId(definition)
-  };
-}
-
-export function generateVIADefinitionLookupMap(
-  definitions: KeyboardDefinition[]
-) {
-  return definitions
-    .map(keyboardDefinitionToVIADefinition)
-    .reduce((p, n) => ({...p, [n.vendorProductId]: n}), {});
-}
-
-export function generateVIADefinitionV2LookupMap(
-  definitions: KeyboardDefinitionV2[]
-) {
-  return definitions
-    .map(keyboardDefinitionV2ToVIADefinitionV2)
-    .reduce((p, n) => ({...p, [n.vendorProductId]: n}), {});
-}
+): VIALightingTypeDefinition =>
+  typeof definition === 'string'
+    ? LightingPreset[definition]
+    : {...LightingPreset[definition.extends], ...definition};

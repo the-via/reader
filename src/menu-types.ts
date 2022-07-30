@@ -42,7 +42,7 @@ export type Toggle = {
 
 export type Dropdown = {
   type: 'dropdown';
-  options: [string, number, ...number[]][];
+  options: string[] | [string, number, ...number[]][];
 };
 
 export type Range = {

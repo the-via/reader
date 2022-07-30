@@ -18,7 +18,7 @@ export declare const VIADefinitionV2Schema: {
             enum: number[];
             type: string;
         };
-        'Partial<VIALightingTypeDefinition>': {
+        "Partial<VIALightingTypeDefinition>": {
             defaultProperties: never[];
             properties: {
                 effects: {
@@ -64,10 +64,13 @@ export declare const VIADefinitionV2Schema: {
             };
             type: string;
         };
-        'Pick<Result,"x2"|"y2"|"h2"|"w2"|"h"|"w"|"x"|"y"|"r"|"rx"|"ry"|"row"|"col">': {
+        "Pick<Result,\"x2\"|\"y2\"|\"h2\"|\"w2\"|\"h\"|\"w\"|\"x\"|\"y\"|\"r\"|\"rx\"|\"ry\"|\"row\"|\"col\"|\"ei\">": {
             defaultProperties: never[];
             properties: {
                 col: {
+                    type: string;
+                };
+                ei: {
                     type: string;
                 };
                 h: {
@@ -310,17 +313,27 @@ export declare const VIADefinitionV2Schema: {
                                                             defaultProperties: never[];
                                                             properties: {
                                                                 options: {
-                                                                    items: {
-                                                                        additionalItems: {
-                                                                            type: string;
-                                                                        };
+                                                                    anyOf: ({
                                                                         items: {
                                                                             type: string;
-                                                                        }[];
-                                                                        minItems: number;
+                                                                            additionalItems?: undefined;
+                                                                            items?: undefined;
+                                                                            minItems?: undefined;
+                                                                        };
                                                                         type: string;
-                                                                    };
-                                                                    type: string;
+                                                                    } | {
+                                                                        items: {
+                                                                            additionalItems: {
+                                                                                type: string;
+                                                                            };
+                                                                            items: {
+                                                                                type: string;
+                                                                            }[];
+                                                                            minItems: number;
+                                                                            type: string;
+                                                                        };
+                                                                        type: string;
+                                                                    })[];
                                                                 };
                                                                 type: {
                                                                     enum: string[];
@@ -761,17 +774,27 @@ export declare const VIADefinitionV2Schema: {
                                                                                 defaultProperties: never[];
                                                                                 properties: {
                                                                                     options: {
-                                                                                        items: {
-                                                                                            additionalItems: {
-                                                                                                type: string;
-                                                                                            };
+                                                                                        anyOf: ({
                                                                                             items: {
                                                                                                 type: string;
-                                                                                            }[];
-                                                                                            minItems: number;
+                                                                                                additionalItems?: undefined;
+                                                                                                items?: undefined;
+                                                                                                minItems?: undefined;
+                                                                                            };
                                                                                             type: string;
-                                                                                        };
-                                                                                        type: string;
+                                                                                        } | {
+                                                                                            items: {
+                                                                                                additionalItems: {
+                                                                                                    type: string;
+                                                                                                };
+                                                                                                items: {
+                                                                                                    type: string;
+                                                                                                }[];
+                                                                                                minItems: number;
+                                                                                                type: string;
+                                                                                            };
+                                                                                            type: string;
+                                                                                        })[];
                                                                                     };
                                                                                     type: {
                                                                                         enum: string[];
@@ -1258,17 +1281,27 @@ export declare const VIADefinitionV2Schema: {
                                                                             defaultProperties: never[];
                                                                             properties: {
                                                                                 options: {
-                                                                                    items: {
-                                                                                        additionalItems: {
-                                                                                            type: string;
-                                                                                        };
+                                                                                    anyOf: ({
                                                                                         items: {
                                                                                             type: string;
-                                                                                        }[];
-                                                                                        minItems: number;
+                                                                                            additionalItems?: undefined;
+                                                                                            items?: undefined;
+                                                                                            minItems?: undefined;
+                                                                                        };
                                                                                         type: string;
-                                                                                    };
-                                                                                    type: string;
+                                                                                    } | {
+                                                                                        items: {
+                                                                                            additionalItems: {
+                                                                                                type: string;
+                                                                                            };
+                                                                                            items: {
+                                                                                                type: string;
+                                                                                            }[];
+                                                                                            minItems: number;
+                                                                                            type: string;
+                                                                                        };
+                                                                                        type: string;
+                                                                                    })[];
                                                                                 };
                                                                                 type: {
                                                                                     enum: string[];
@@ -1709,17 +1742,27 @@ export declare const VIADefinitionV2Schema: {
                                                                                                 defaultProperties: never[];
                                                                                                 properties: {
                                                                                                     options: {
-                                                                                                        items: {
-                                                                                                            additionalItems: {
-                                                                                                                type: string;
-                                                                                                            };
+                                                                                                        anyOf: ({
                                                                                                             items: {
                                                                                                                 type: string;
-                                                                                                            }[];
-                                                                                                            minItems: number;
+                                                                                                                additionalItems?: undefined;
+                                                                                                                items?: undefined;
+                                                                                                                minItems?: undefined;
+                                                                                                            };
                                                                                                             type: string;
-                                                                                                        };
-                                                                                                        type: string;
+                                                                                                        } | {
+                                                                                                            items: {
+                                                                                                                additionalItems: {
+                                                                                                                    type: string;
+                                                                                                                };
+                                                                                                                items: {
+                                                                                                                    type: string;
+                                                                                                                }[];
+                                                                                                                minItems: number;
+                                                                                                                type: string;
+                                                                                                            };
+                                                                                                            type: string;
+                                                                                                        })[];
                                                                                                     };
                                                                                                     type: {
                                                                                                         enum: string[];

@@ -29,9 +29,11 @@ var __spreadArrays = (this && this.__spreadArrays) || function () {
     return r;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.kleLayoutToVIALayout = exports.extractGroups = exports.getBoundingBox = exports.findPivot = exports.filterGroups = exports.rawKLEToKLELayout = void 0;
 var invariant = require('invariant');
 var inspect = require('util-inspect');
-var types_1 = require("./types");
+var types_common_1 = require("./types.common");
+var ENCODER_REGEX = /^[eE]\d+\s*$/;
 function rawKLEToKLELayout(kle) {
     var kleArr = kle.split(',\n');
     return kleArr.map(function (row) {
@@ -64,6 +66,29 @@ function calculateDelta(a, b) {
         y: b.y - a.y + Math.min(0, bY2) - Math.min(0, aY2),
     };
 }
+function getPivotPoint(a) {
+    // complicated keys like ISO and BAE combine two rectangles
+    // so first identify the top-left most rectangle and then get that
+    // point
+    var x = a.x, y = a.y, _a = a.x2, x2 = _a === void 0 ? 0 : _a, _b = a.y2, y2 = _b === void 0 ? 0 : _b;
+    var isSecondRect = y2 === 0 ? x > x + x2 : y2 < 0;
+    return isSecondRect
+        ? { x: x + x2, y: y + y2 }
+        : {
+            x: x,
+            y: y,
+        };
+}
+// New and improved algorithm: identify top and the leftmost corner of each pivot and
+// measure the distance between those two
+function calculateDelta2(a, b) {
+    var aPivotPoint = getPivotPoint(a);
+    var bPivotPoint = getPivotPoint(b);
+    return {
+        x: bPivotPoint.x - aPivotPoint.x,
+        y: bPivotPoint.y - aPivotPoint.y,
+    };
+}
 function getBoundingBox(key) {
     var _a = key.x2, x2 = _a === void 0 ? 0 : _a, _b = key.y2, y2 = _b === void 0 ? 0 : _b, x = key.x, y = key.y, _c = key.w, w = _c === void 0 ? 1 : _c, _d = key.h, h = _d === void 0 ? 1 : _d, _e = key.r, r = _e === void 0 ? 0 : _e, _f = key.rx, rx = _f === void 0 ? 0 : _f, _g = key.ry, ry = _g === void 0 ? 0 : _g;
     var _h = key.h2, h2 = _h === void 0 ? h : _h, _j = key.w2, w2 = _j === void 0 ? w : _j;
@@ -87,6 +112,7 @@ function getBoundingBox(key) {
         yEnd: Math.max.apply(Math, rotatedPoints.map(function (p) { return p.y; })),
     };
 }
+exports.getBoundingBox = getBoundingBox;
 function applyRotation(x, y, xOrigin, yOrigin, rotation) {
     var rad = (rotation * Math.PI) / 180;
     var _a = [x - xOrigin, y - yOrigin], normX = _a[0], normY = _a[1];
@@ -112,10 +138,10 @@ function extractGroups(keys, origin, colorMap) {
             var option = _a[0], results = _a[1];
             return (__assign(__assign({}, p), (_b = {}, _b[option] = (function (delta) {
                 return results.map(function (res) { return (__assign(__assign({}, res), { x: res.x - delta.x, y: res.y - delta.y })); });
-            })(calculateDelta(zeroPivot, findPivot(results)))
+            })(calculateDelta2(zeroPivot, findPivot(results)))
                 .filter(function (r) { return !r.d; }) // Remove decal keys
                 .map(function (r) { return resultToVIAKey(r, origin, colorMap); }), _b)));
-        }, p);
+        }, {});
         return __assign(__assign({}, p), (_b = {}, _b[group] = normalizedOptions, _b));
     }, {});
 }
@@ -132,15 +158,15 @@ function extractPair(pair) {
 }
 function resultToVIAKey(result, delta, colorMap) {
     var c = result.c, d = result.d, t = result.t, group = result.group, partialKey = __rest(result, ["c", "d", "t", "group"]);
-    return __assign(__assign({}, partialKey), { x: result.x - delta.x, y: result.y - delta.y, rx: result.rx - delta.x, ry: result.ry - delta.y, color: colorMap[c + ":" + t] || types_1.KeyColorType.Alpha });
+    return __assign(__assign({}, partialKey), { x: result.x - delta.x, y: result.y - delta.y, rx: result.rx - delta.x, ry: result.ry - delta.y, color: colorMap[c + ":" + t] || types_common_1.KeyColorType.Alpha });
 }
 function kleLayoutToVIALayout(kle) {
     var _a;
     var filteredKLE = kle.filter(function (elem) { return Array.isArray(elem); });
     var parsedKLE = filteredKLE.reduce(function (prev, kle) {
         var parsedRow = kle.reduce(function (_a, n) {
-            var _b;
-            var _c = _a.cursor, x = _c.x, y = _c.y, res = _a.res, c = _a.c, h = _a.h, t = _a.t, r = _a.r, d = _a.d, rx = _a.rx, ry = _a.ry, w = _a.w, y2 = _a.y2, x2 = _a.x2, w2 = _a.w2, h2 = _a.h2, colorCount = _a.colorCount;
+            var _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m;
+            var _o = _a.cursor, x = _o.x, y = _o.y, res = _a.res, c = _a.c, h = _a.h, t = _a.t, r = _a.r, d = _a.d, rx = _a.rx, ry = _a.ry, w = _a.w, y2 = _a.y2, x2 = _a.x2, w2 = _a.w2, h2 = _a.h2, colorCount = _a.colorCount;
             // Check if object and apply formatting
             if (typeof n !== 'string') {
                 var obj = {
@@ -181,16 +207,55 @@ function kleLayoutToVIALayout(kle) {
                 return obj;
             }
             else if (typeof n === 'string') {
+                // Keys can currently be
+                // 1. Matrix
+                // 2. Matrix + Group
+                // 3. Decal
+                // 4. Encoder
+                // 5. Encoder + Group
+                // 6. Encoder + Matrix (Encoder with Click)
+                // 7. Encoder + Matrix + Group (Encoder with Click)
                 var colorCountKey = c + ":" + t;
                 var labels = n.split('\n');
-                // Ignore row,col + requirement if key is a decal key
-                var _d = d ? [0, 0] : extractPair(labels[0]), row = _d[0], col = _d[1];
-                var groupLabel = labels[3] || '-1,0';
-                var _e = extractPair(groupLabel), group = _e[0], option = _e[1];
-                var newColorCount = __assign(__assign({}, colorCount), (_b = {}, _b[colorCountKey] = colorCount[colorCountKey] === undefined
+                var group = void 0, option = void 0, row = void 0, col = void 0;
+                var currKey = {};
+                var encoderLabel = labels.filter(function (label) { return label && ENCODER_REGEX.test(label); })[0];
+                // Encoder key
+                if (encoderLabel !== undefined) {
+                    currKey.ei = +encoderLabel.slice(1);
+                    var firstLabel = labels[0];
+                    var shortenedLabels = labels.filter(function (i) { return i; });
+                    // this is eid + matrix + group
+                    if (shortenedLabels.length === 3) {
+                        _b = extractPair(shortenedLabels[0]), row = _b[0], col = _b[1];
+                        _c = extractPair(shortenedLabels[1]), group = _c[0], option = _c[1];
+                    }
+                    else if (shortenedLabels.length === 2 && firstLabel === '') {
+                        // group + eid
+                        _d = [-1, -1], row = _d[0], col = _d[1];
+                        _e = extractPair(shortenedLabels[0]), group = _e[0], option = _e[1];
+                    }
+                    else if (shortenedLabels.length === 2) {
+                        // matrix + eid
+                        _f = extractPair(shortenedLabels[0]), row = _f[0], col = _f[1];
+                        _g = [-1, 0], group = _g[0], option = _g[1];
+                    }
+                    else {
+                        _h = [-1, -1], row = _h[0], col = _h[1];
+                        _j = [-1, 0], group = _j[0], option = _j[1];
+                    }
+                }
+                else {
+                    // Ignore row,col + requirement if key is a decal key
+                    var isDecal = d;
+                    _k = isDecal ? [0, 0] : extractPair(labels[0]), row = _k[0], col = _k[1];
+                    var groupLabel = labels[3] || '-1,0';
+                    _l = extractPair(groupLabel), group = _l[0], option = _l[1];
+                }
+                var newColorCount = __assign(__assign({}, colorCount), (_m = {}, _m[colorCountKey] = colorCount[colorCountKey] === undefined
                     ? 1
-                    : colorCount[colorCountKey] + 1, _b));
-                var currKey = {
+                    : colorCount[colorCountKey] + 1, _m));
+                currKey = __assign(__assign({}, currKey), {
                     c: c,
                     t: t,
                     row: row,
@@ -211,7 +276,7 @@ function kleLayoutToVIALayout(kle) {
                         key: group,
                         option: option,
                     },
-                };
+                });
                 // Reset carry properties
                 return {
                     h: 1,
@@ -268,9 +333,9 @@ function kleLayoutToVIALayout(kle) {
             inspect(colorCount, false, null, true));
     }
     var colorMap = (_a = {},
-        _a[colorCountKeys[0]] = types_1.KeyColorType.Alpha,
-        _a[colorCountKeys[1]] = types_1.KeyColorType.Mod,
-        _a[colorCountKeys[2]] = types_1.KeyColorType.Accent,
+        _a[colorCountKeys[0]] = types_common_1.KeyColorType.Alpha,
+        _a[colorCountKeys[1]] = types_common_1.KeyColorType.Mod,
+        _a[colorCountKeys[2]] = types_common_1.KeyColorType.Accent,
         _a);
     var flatRes = res.flat();
     var defaultRes = filterGroups(flatRes);
