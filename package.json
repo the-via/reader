@@ -39,7 +39,7 @@
     "replace": "^1.2.1",
     "typescript-json-validator": "2.4.2"
   },
-  "description": "\"Provides an API and typing for reading VIA keyboard definitions\"",
+  "description": "\"API and typing for reading VIA keyboard definitions\"",
   "bugs": {
     "url": "https://github.com/the-via/reader/issues"
   },
