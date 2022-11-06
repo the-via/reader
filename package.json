@@ -1,14 +1,21 @@
 {
-  "name": "via-reader",
+  "name": "@the-via/via-reader",
   "version": "1.0.0",
-  "repository": "git@github.com:the-via/reader.git",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/the-via/reader.git"
+  },
   "author": "Olivia <ofbriggs@gmail.com>",
   "license": "GPL-3.0",
   "private": true,
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "files": [
+    "dist/**/*"
+  ],
   "scripts": {
     "build": "yarn run validate && yarn fix-util && tsc",
+    "prepack": "npm run build",
     "fix-util": "replace \"import {inspect} from 'util';\" \"import inspect from 'util-inspect';\" ./src/validated-types -r --include=\"*.validator.ts\"",
     "validate": "typescript-json-validator src/validated-types/keyboard-definition-v3.ts KeyboardDefinitionV3 && typescript-json-validator src/validated-types/via-definition-v3.ts VIADefinitionV3 && typescript-json-validator src/validated-types/keyboard-definition-v2.ts KeyboardDefinitionV2 && typescript-json-validator src/validated-types/via-definition-v2.ts VIADefinitionV2"
   },
@@ -31,5 +38,15 @@
   "devDependencies": {
     "replace": "^1.2.1",
     "typescript-json-validator": "2.4.2"
-  }
+  },
+  "description": "\"Provides an API and typing for reading VIA keyboard definitions\"",
+  "bugs": {
+    "url": "https://github.com/the-via/reader/issues"
+  },
+  "homepage": "https://github.com/the-via/reader#readme",
+  "keywords": [
+    "via",
+    "qmk",
+    "keyboard"
+  ]
 }
