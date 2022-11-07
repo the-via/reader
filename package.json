@@ -7,7 +7,6 @@
   },
   "author": "Olivia <ofbriggs@gmail.com>",
   "license": "GPL-3.0",
-  "private": true,
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [
