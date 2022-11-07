@@ -1,5 +1,5 @@
 {
-  "name": "@the-via/via-reader",
+  "name": "@the-via/reader",
   "version": "1.0.0",
   "repository": {
     "type": "git",
@@ -25,18 +25,16 @@
     }
   },
   "dependencies": {
-    "@types/glob": "^7.2.0",
-    "@types/node": "^12.12.11",
-    "ajv": "^6.12.3",
-    "core-js": "^3.4.1",
-    "husky": "^3.1.0",
     "invariant": "^2.2.4",
-    "typescript": "3.9.4",
     "util": "^0.12.4",
     "util-inspect": "^0.1.8"
   },
   "devDependencies": {
+    "@types/glob": "^7.2.0",
+    "@types/node": "^12.12.11",
+    "husky": "^3.1.0",
     "replace": "^1.2.1",
+    "typescript": "3.9.4",
     "typescript-json-validator": "2.4.2"
   },
   "description": "\"API and typing for reading VIA keyboard definitions\"",
