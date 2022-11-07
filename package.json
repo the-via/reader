@@ -14,15 +14,10 @@
     "dist/**/*"
   ],
   "scripts": {
-    "build": "yarn run validate && yarn fix-util && tsc",
+    "build": "npm run validate && npm run fix-util && tsc",
     "prepack": "npm run build",
     "fix-util": "replace \"import {inspect} from 'util';\" \"import inspect from 'util-inspect';\" ./src/validated-types -r --include=\"*.validator.ts\"",
     "validate": "typescript-json-validator src/validated-types/keyboard-definition-v3.ts KeyboardDefinitionV3 && typescript-json-validator src/validated-types/via-definition-v3.ts VIADefinitionV3 && typescript-json-validator src/validated-types/keyboard-definition-v2.ts KeyboardDefinitionV2 && typescript-json-validator src/validated-types/via-definition-v2.ts VIADefinitionV2"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "tsc && git diff --quiet"
-    }
   },
   "dependencies": {
     "invariant": "^2.2.4",
@@ -32,7 +27,6 @@
   "devDependencies": {
     "@types/glob": "^7.2.0",
     "@types/node": "^12.12.11",
-    "husky": "^3.1.0",
     "replace": "^1.2.1",
     "typescript": "3.9.4",
     "typescript-json-validator": "2.4.2"
