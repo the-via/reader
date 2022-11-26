@@ -1,5 +1,5 @@
-const invariant = require('invariant');
-const inspect = require('util-inspect');
+import invariant from 'invariant';
+const inspect = JSON.stringify;
 import {
   Formatting,
   Cursor,
