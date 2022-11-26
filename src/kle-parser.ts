@@ -429,9 +429,7 @@ export function kleLayoutToVIALayout(kle: KLELayout): VIALayout {
   colorCountKeys.sort((a, b) => colorCount[b] - colorCount[a]);
   if (colorCountKeys.length > 3) {
     throw new Error(
-      'Please correct layout, too many colors:' +
-        '\n' +
-        inspect(colorCount, false, null, true)
+      'Please correct layout, too many colors:' + '\n' + inspect(colorCount)
     );
   }
 
