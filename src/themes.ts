@@ -1,17 +1,17 @@
 import {ThemeDefinition} from './types.common';
 export const THEMES: {[theme: string]: ThemeDefinition} = {
-  PBT_HEAVY_INDUSTRY: {
+  PROTOLIVIA: {
     alpha: {
-      c: '#f7f2ea',
-      t: '#000000',
+      c: '#505557',
+      t: '#aeb0b0',
     },
     mod: {
-      c: '#C2C7CA',
-      t: '#000000',
+      c: '#6b7173',
+      t: '#aeb0b0',
     },
     accent: {
-      c: '#FFC700',
-      t: '#000000',
+      c: '#afb0ae',
+      t: '#505557',
     },
   },
   OLIVIA: {
