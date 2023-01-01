@@ -1,6 +1,6 @@
 {
   "name": "@the-via/reader",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "repository": {
     "type": "git",
     "url": "git+ssh://git@github.com/the-via/reader.git"
