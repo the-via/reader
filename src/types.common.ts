@@ -31,7 +31,12 @@ export type OtherKLEProps = {[key: string]: any};
 export type KeyColor = string;
 export type LegendColor = string;
 
-export type MatrixPosition = {row: number; col: number; ei?: number};
+export type MatrixPosition = {
+  row: number;
+  col: number;
+  ei?: number;
+  li?: number;
+};
 
 export type Cursor = {x: number; y: number};
 export type Formatting = {c: KeyColor; t: LegendColor};

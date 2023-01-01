@@ -25,15 +25,17 @@ type InnerReduceState = Formatting &
     cursor: Cursor;
     colorCount: ColorCount;
     res: Result[];
+    a: number;
   };
 type OuterReduceState = {
   cursor: Cursor;
   colorCount: ColorCount;
-  prevRow: Formatting & Rotation;
+  prevRow: Formatting & Rotation & {a: number};
   res: Result[][];
 };
 
 const ENCODER_REGEX = /^[eE]\d+\s*$/;
+const LED_REGEX = /^[lL]\d+\s*$/;
 
 export function rawKLEToKLELayout(kle: string): KLELayout {
   const kleArr = kle.split(',\n');
@@ -209,6 +211,67 @@ function resultToVIAKey(
   };
 }
 
+/** Copied from ijprest/kle-serial
+ */
+const alignmentArr = [
+  [0, 6, 2, 8, 9, 11, 3, 5, 1, 4, 7, 10], // 0 = no centering
+  [1, 7, -1, -1, 9, 11, 4, -1, -1, -1, -1, 10], // 1 = center x
+  [3, -1, 5, -1, 9, 11, -1, -1, 4, -1, -1, 10], // 2 = center y
+  [4, -1, -1, -1, 9, 11, -1, -1, -1, -1, -1, 10], // 3 = center x & y
+  [0, 6, 2, 8, 10, -1, 3, 5, 1, 4, 7, -1], // 4 = center front (default)
+  [1, 7, -1, -1, 10, -1, 4, -1, -1, -1, -1, -1], // 5 = center front & x
+  [3, -1, 5, -1, 10, -1, -1, -1, 4, -1, -1, -1], // 6 = center front & y
+  [4, -1, -1, -1, 10, -1, -1, -1, -1, -1, -1, -1], // 7 = center front & x & y
+];
+
+const normalizeLabels = (labels: string, a: number = 0) => {
+  let normalizedLabels = [] as string[];
+  const labelArr = labels.split('\n');
+  labelArr.forEach((label, idx) => {
+    normalizedLabels[alignmentArr[a][idx]] = label.trim();
+  });
+
+  return normalizedLabels;
+};
+
+enum KeyDataIndex {
+  LED = 6,
+  ROWCOL = 0,
+  GROUP = 8,
+  ENCODER = 4,
+}
+
+const getKeyData = (normalizedLabels: string[], isDecal?: boolean) => {
+  let keyData = {} as any;
+  const fakeRowCol = [-1, -1];
+  const fakeGroupOption = [-1, 0];
+  if (
+    normalizedLabels[KeyDataIndex.ENCODER] &&
+    ENCODER_REGEX.test(normalizedLabels[KeyDataIndex.ENCODER])
+  ) {
+    keyData['ei'] = +normalizedLabels[KeyDataIndex.ENCODER].slice(1);
+  }
+  if (
+    normalizedLabels[KeyDataIndex.LED] &&
+    LED_REGEX.test(normalizedLabels[KeyDataIndex.LED])
+  ) {
+    keyData['li'] = +normalizedLabels[KeyDataIndex.LED].slice(1);
+  }
+  const groupLabel = normalizedLabels[KeyDataIndex.GROUP];
+  const [row, col] = isDecal
+    ? fakeRowCol
+    : extractPair(normalizedLabels[KeyDataIndex.ROWCOL]);
+  const [group, option] = groupLabel
+    ? extractPair(groupLabel)
+    : fakeGroupOption;
+  return {
+    ...keyData,
+    group: {key: group, option},
+    row,
+    col,
+  };
+};
+
 export function kleLayoutToVIALayout(kle: KLELayout): VIALayout {
   const filteredKLE = kle.filter((elem) => Array.isArray(elem)) as KLEElem[][];
   const parsedKLE = filteredKLE.reduce<OuterReduceState>(
@@ -226,6 +289,7 @@ export function kleLayoutToVIALayout(kle: KLELayout): VIALayout {
             rx,
             ry,
             w,
+            a,
             y2,
             x2,
             w2,
@@ -238,6 +302,7 @@ export function kleLayoutToVIALayout(kle: KLELayout): VIALayout {
           if (typeof n !== 'string') {
             let obj: InnerReduceState = {
               colorCount,
+              a,
               c,
               t,
               h,
@@ -280,6 +345,9 @@ export function kleLayoutToVIALayout(kle: KLELayout): VIALayout {
                 cursor: {...obj.cursor, x: x + n.x},
               };
             }
+            if (typeof n.a === 'number') {
+              obj = {...obj, a: n.a};
+            }
             if (typeof n.c === 'string') {
               obj = {...obj, c: n.c};
             }
@@ -300,37 +368,9 @@ export function kleLayoutToVIALayout(kle: KLELayout): VIALayout {
             const labels: string[] = n.split('\n');
             let group, option, row, col;
             let currKey: any = {};
-            const encoderLabel = labels.filter(
-              (label) => label && ENCODER_REGEX.test(label)
-            )[0];
-            // Encoder key
-            if (encoderLabel !== undefined) {
-              currKey.ei = +encoderLabel.slice(1);
-              const firstLabel = labels[0];
-              const shortenedLabels = labels.filter((i) => i);
-              // this is eid + matrix + group
-              if (shortenedLabels.length === 3) {
-                [row, col] = extractPair(shortenedLabels[0]);
-                [group, option] = extractPair(shortenedLabels[1]);
-              } else if (shortenedLabels.length === 2 && firstLabel === '') {
-                // group + eid
-                [row, col] = [-1, -1];
-                [group, option] = extractPair(shortenedLabels[0]);
-              } else if (shortenedLabels.length === 2) {
-                // matrix + eid
-                [row, col] = extractPair(shortenedLabels[0]);
-                [group, option] = [-1, 0];
-              } else {
-                [row, col] = [-1, -1];
-                [group, option] = [-1, 0];
-              }
-            } else {
-              // Ignore row,col + requirement if key is a decal key
-              const isDecal = d;
-              [row, col] = isDecal ? [0, 0] : extractPair(labels[0]);
-              const groupLabel = labels[3] || '-1,0';
-              [group, option] = extractPair(groupLabel);
-            }
+
+            const keyData = getKeyData(normalizeLabels(n, a), d);
+
             const newColorCount = {
               ...colorCount,
               [colorCountKey]:
@@ -340,11 +380,10 @@ export function kleLayoutToVIALayout(kle: KLELayout): VIALayout {
             };
             currKey = {
               ...currKey,
+              ...keyData,
               ...{
                 c,
                 t,
-                row,
-                col,
                 x: x + rx,
                 y,
                 r,
@@ -357,10 +396,6 @@ export function kleLayoutToVIALayout(kle: KLELayout): VIALayout {
                 y2,
                 x2,
                 h2,
-                group: {
-                  key: group,
-                  option,
-                },
               },
             };
 
@@ -370,6 +405,7 @@ export function kleLayoutToVIALayout(kle: KLELayout): VIALayout {
               w: 1,
               r,
               rx,
+              a,
               ry,
               c,
               d: false,
@@ -380,6 +416,7 @@ export function kleLayoutToVIALayout(kle: KLELayout): VIALayout {
             };
           }
           return {
+            a,
             c,
             t,
             h,
@@ -412,13 +449,14 @@ export function kleLayoutToVIALayout(kle: KLELayout): VIALayout {
           r: parsedRow.r,
           rx: parsedRow.rx,
           ry: parsedRow.ry,
+          a: parsedRow.a,
         },
         res: [...prev.res, parsedRow.res],
       };
     },
     {
       cursor: {x: 0, y: 0},
-      prevRow: {c: '#cccccc', t: '#000000', r: 0, rx: 0, ry: 0},
+      prevRow: {c: '#cccccc', t: '#000000', r: 0, rx: 0, ry: 0, a: 0},
       res: [],
       colorCount: {},
     }
