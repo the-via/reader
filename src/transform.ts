@@ -1,6 +1,6 @@
 import {kleLayoutToVIALayout} from './kle-parser';
-import validateV3 from './validated-types/keyboard-definition-v3.validator';
-import validateV2 from './validated-types/keyboard-definition-v2.validator';
+// import validateV3 from './validated-types/keyboard-definition-v3.validator';
+// import validateV2 from './validated-types/keyboard-definition-v2.validator';
 import {KeyboardDefinitionV3, VIADefinitionV3} from './types.v3';
 import {VIALayout} from './types.common';
 import {
@@ -10,6 +10,9 @@ import {
   VIALightingTypeDefinition,
 } from './types.v2';
 import {LightingPreset} from './lighting-presets';
+import Ajv from 'ajv';
+import {generateSchema, getProgramFromFiles, programFromConfig} from "typescript-json-schema"
+import { JSONSchemaType } from 'ajv/dist/core';
 
 export {VIADefinitionV3, KeyboardDefinitionV3};
 
@@ -83,7 +86,25 @@ export const validateKeyBounds = (
 export const keyboardDefinitionV3ToVIADefinitionV3 = (
   definition: KeyboardDefinitionV3
 ): VIADefinitionV3 => {
-  const {
+  // const {
+  //   name,
+  //   menus,
+  //   keycodes,
+  //   customKeycodes,
+  //   matrix,
+  //   layouts,
+  //   firmwareVersion,
+  // } = validateV3(definition);
+
+  const program = programFromConfig("tsconfig.json", ["types.v3.ts"]);
+  const schema = generateSchema(program, "KeyboardDefinitionV3") as JSONSchemaType<KeyboardDefinitionV3>;
+
+  const ajv = new Ajv();
+  const validate = ajv.compile(schema);
+
+  const isValid = validate(definition);
+
+    const {
     name,
     menus,
     keycodes,
@@ -91,7 +112,7 @@ export const keyboardDefinitionV3ToVIADefinitionV3 = (
     matrix,
     layouts,
     firmwareVersion,
-  } = validateV3(definition);
+  } = definition
 
   validateLayouts(layouts);
   const {keymap, ...partialLayout} = layouts;
@@ -115,6 +136,16 @@ export const keyboardDefinitionV3ToVIADefinitionV3 = (
 export const keyboardDefinitionV2ToVIADefinitionV2 = (
   definition: KeyboardDefinitionV2
 ): VIADefinitionV2 => {
+  // const {
+  //   name,
+  //   customFeatures,
+  //   customMenus,
+  //   customKeycodes,
+  //   lighting,
+  //   matrix,
+  //   layouts,
+  // } = validateV2(definition);
+
   const {
     name,
     customFeatures,
@@ -123,7 +154,7 @@ export const keyboardDefinitionV2ToVIADefinitionV2 = (
     lighting,
     matrix,
     layouts,
-  } = validateV2(definition);
+  } = definition
 
   validateLayouts(layouts);
   const {keymap, ...partialLayout} = layouts;

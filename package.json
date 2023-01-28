@@ -15,12 +15,14 @@
   "scripts": {
     "build": "npm run validate && npm run fix-util && tsc",
     "prepack": "npm run build",
+    "generate-schemas": "typescript-json-schema ./tsconfig.json KeyboardDefinitionV3 --out C:/temp/test.json --strictNullChecks",
     "fix-util": "replace \"import {inspect} from 'util';\" \"const inspect = JSON.stringify;\" ./src/validated-types -r --include=\"*.validator.ts\"",
     "validate": "typescript-json-validator src/validated-types/keyboard-definition-v3.ts KeyboardDefinitionV3 && typescript-json-validator src/validated-types/via-definition-v3.ts VIADefinitionV3 && typescript-json-validator src/validated-types/keyboard-definition-v2.ts KeyboardDefinitionV2 && typescript-json-validator src/validated-types/via-definition-v2.ts VIADefinitionV2"
   },
   "dependencies": {
+    "ajv": "^8.12.0",
     "invariant": "^2.2.4",
-    "typescript-json-validator": "^2.4.2"
+    "typescript-json-schema": "^0.55.0"
   },
   "devDependencies": {
     "@types/glob": "^7.2.0",
@@ -28,7 +30,7 @@
     "@types/node": "^12.12.11",
     "husky": "^8.0.2",
     "replace": "^1.2.2",
-    "typescript": "3.9.4"
+    "typescript": "4.9.4"
   },
   "description": "\"API and typing for reading VIA keyboard definitions\"",
   "bugs": {
