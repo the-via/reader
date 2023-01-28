@@ -13,7 +13,7 @@
     "dist/**/*"
   ],
   "scripts": {
-    "prebuild": "vitest run",
+    "postbuild": "vitest run",
     "build": "npm run validate && npm run fix-util && tsc",
     "prepack": "npm run build",
     "test": "vitest",
