@@ -29,7 +29,9 @@
     "husky": "^8.0.3",
     "replace": "^1.2.2",
     "typescript": "3.9.4",
-    "typescript-json-validator": "2.4.2"
+    "typescript-json-validator": "2.4.2",
+    "vite": "^4.0.4",
+    "vitest": "^0.28.3"
   },
   "description": "\"API and typing for reading VIA keyboard definitions\"",
   "bugs": {
