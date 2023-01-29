@@ -22,6 +22,18 @@ export type OptionalDimensions = Partial<{
   w2: number;
 }>;
 
+export type Ghosted = {
+  g: boolean;
+};
+
+export type Stepped = {
+  l: boolean;
+};
+
+export type Homing = {
+  n: boolean;
+};
+
 export type Decal = {
   d: boolean;
 };
@@ -43,7 +55,15 @@ export type Dimensions = {
   h: number;
 };
 export type KLEElem =
-  | Partial<KLEDimensions & Formatting & Decal & OptionalDimensions>
+  | Partial<
+      KLEDimensions &
+        OptionalDimensions &
+        Formatting &
+        Ghosted &
+        Stepped &
+        Homing &
+        Decal
+    >
   | string;
 export type ColorCount = {[key: string]: number};
 export type ParsedKLE = {
