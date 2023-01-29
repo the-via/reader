@@ -13,3 +13,15 @@ test('transform KeyboardDefinition to VIADefinition', async () => {
 
   expect(() => validateViaDefinitionV3(viaDefinition)).not.toThrow();
 });
+
+test('invalid label map fails', async () => {
+  const invalidLabelMapJson = await fs.promises.readFile(
+    './test/data/v3_invalid_label_map.json',
+    'utf-8'
+  );
+  const invalidLabelMap = JSON.parse(invalidLabelMapJson);
+
+  expect(() =>
+    keyboardDefinitionV3ToVIADefinitionV3(invalidLabelMap)
+  ).toThrow();
+});

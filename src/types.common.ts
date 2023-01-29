@@ -26,8 +26,6 @@ export type Decal = {
   d: boolean;
 };
 
-export type OtherKLEProps = {[key: string]: any};
-
 export type KeyColor = string;
 export type LegendColor = string;
 
@@ -45,8 +43,7 @@ export type Dimensions = {
   h: number;
 };
 export type KLEElem =
-  | (KLEDimensions & Formatting & Decal & OptionalDimensions)
-  | OtherKLEProps
+  | Partial<KLEDimensions & Formatting & Decal & OptionalDimensions>
   | string;
 export type ColorCount = {[key: string]: number};
 export type ParsedKLE = {
@@ -90,24 +87,11 @@ export enum KeyColorType {
   Accent = 'accent',
 }
 
-export type KLEFormattingObject = Partial<{
-  c: string;
-  t: string;
-  x: number;
-  y: number;
-  w: number;
-  a: number;
-  d: boolean;
-}>;
-
 export type KLEMeta = {
   name?: string;
 };
 
-export type KLELayoutDefinition = (
-  | KLEMeta
-  | (string | KLEFormattingObject)[]
-)[];
+export type KLELayoutDefinition = (KLEMeta | (string | KLEElem)[])[];
 
 export type KLELayout = (KLEMeta | KLEElem[])[];
 
