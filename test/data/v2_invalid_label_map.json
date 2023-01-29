@@ -25,6 +25,13 @@
           "g": true,
           "l": true,
           "n": true,
+          "f": 3,
+          "f2": 4,
+          "fa": [1, 2],
+          "p": "profile",
+          "sm": "5 pin",
+          "sb": "gateron",
+          "st": "linear",
           "a": 1
         },
         "0,0",

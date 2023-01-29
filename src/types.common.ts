@@ -38,6 +38,22 @@ export type Decal = {
   d: boolean;
 };
 
+export type TextSize = {
+  f: number; // default text size
+  f2: number;
+  fa: number[];
+};
+
+export type Profile = {
+  p: string;
+};
+
+export type SwitchInfo = {
+  sm: string; // switch mount
+  sb: string; // switch brand
+  st: string; // switch type
+};
+
 export type KeyColor = string;
 export type LegendColor = string;
 
@@ -62,7 +78,10 @@ export type KLEElem =
         Ghosted &
         Stepped &
         Homing &
-        Decal
+        Decal &
+        TextSize &
+        Profile &
+        SwitchInfo
     >
   | string;
 export type ColorCount = {[key: string]: number};
