@@ -1,6 +1,6 @@
 {
   "name": "@the-via/reader",
-  "version": "1.5.6",
+  "version": "1.5.7",
   "repository": {
     "type": "git",
     "url": "git+ssh://git@github.com/the-via/reader.git"
@@ -21,7 +21,8 @@
     "validate": "typescript-json-validator src/validated-types/keyboard-definition-v3.ts KeyboardDefinitionV3 --noExtraProps --defaultProps=false --strictNullChecks && typescript-json-validator src/validated-types/via-definition-v3.ts VIADefinitionV3 --noExtraProps --defaultProps=false --strictNullChecks && typescript-json-validator src/validated-types/keyboard-definition-v2.ts KeyboardDefinitionV2 --noExtraProps --defaultProps=false --strictNullChecks && typescript-json-validator src/validated-types/via-definition-v2.ts VIADefinitionV2 --noExtraProps --defaultProps=false --strictNullChecks"
   },
   "dependencies": {
-    "invariant": "^2.2.4"
+    "invariant": "^2.2.4",
+    "typescript-json-validator": "2.4.2"
   },
   "devDependencies": {
     "@types/glob": "^8.0.1",
@@ -30,7 +31,6 @@
     "husky": "^8.0.3",
     "replace": "^1.2.2",
     "typescript": "4.9.4",
-    "typescript-json-validator": "2.4.2",
     "vite": "^4.0.4",
     "vitest": "^0.28.3"
   },
