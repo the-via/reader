@@ -97,6 +97,7 @@ export type KLEFormattingObject = Partial<{
   y: number;
   w: number;
   a: number;
+  d: boolean;
 }>;
 
 export type KLEMeta = {
