@@ -65,15 +65,6 @@ export function findPivot(keys: Result[]): Result {
 
 type GroupOptionMap<A> = {[group: string]: {[option: string]: A[]}};
 
-function calculateDelta(a: Result, b: Result) {
-  // Find the left corner which can be modified by x2, y2
-  const [aX2 = 0, aY2 = 0, bX2 = 0, bY2 = 0] = [a.x2, a.y2, b.x2, b.y2];
-  return {
-    x: b.x - a.x + Math.min(0, bX2) - Math.min(0, aX2),
-    y: b.y - a.y + Math.min(0, bY2) - Math.min(0, aY2),
-  };
-}
-
 function getPivotPoint(a: Result) {
   // complicated keys like ISO and BAE combine two rectangles
   // so first identify the top-left most rectangle and then get that
@@ -245,22 +236,24 @@ const getKeyData = (normalizedLabels: string[], isDecal?: boolean) => {
   let keyData = {} as any;
   const fakeRowCol = [-1, -1];
   const fakeGroupOption = [-1, 0];
-  if (
-    normalizedLabels[KeyDataIndex.ENCODER] &&
-    ENCODER_REGEX.test(normalizedLabels[KeyDataIndex.ENCODER])
-  ) {
-    keyData['ei'] = +normalizedLabels[KeyDataIndex.ENCODER].slice(1);
+
+  const encoderLabel = normalizedLabels[KeyDataIndex.ENCODER];
+  if (encoderLabel && ENCODER_REGEX.test(encoderLabel)) {
+    keyData['ei'] = +encoderLabel.slice(1);
   }
-  if (
-    normalizedLabels[KeyDataIndex.LED] &&
-    LED_REGEX.test(normalizedLabels[KeyDataIndex.LED])
-  ) {
-    keyData['li'] = +normalizedLabels[KeyDataIndex.LED].slice(1);
+
+  const ledLabel = normalizedLabels[KeyDataIndex.LED];
+  if (ledLabel && LED_REGEX.test(ledLabel)) {
+    keyData['li'] = +ledLabel.slice(1);
   }
+
+  const rowColLabel = normalizedLabels[KeyDataIndex.ROWCOL];
+  const [row, col] =
+    isDecal || (keyData['ei'] !== undefined && !rowColLabel)
+      ? fakeRowCol
+      : extractPair(rowColLabel);
+
   const groupLabel = normalizedLabels[KeyDataIndex.GROUP];
-  const [row, col] = isDecal
-    ? fakeRowCol
-    : extractPair(normalizedLabels[KeyDataIndex.ROWCOL]);
   const [group, option] = groupLabel
     ? extractPair(groupLabel)
     : fakeGroupOption;
@@ -365,8 +358,6 @@ export function kleLayoutToVIALayout(kle: KLELayout): VIALayout {
             // 6. Encoder + Matrix (Encoder with Click)
             // 7. Encoder + Matrix + Group (Encoder with Click)
             const colorCountKey = `${c}:${t}`;
-            const labels: string[] = n.split('\n');
-            let group, option, row, col;
             let currKey: any = {};
 
             const keyData = getKeyData(normalizeLabels(n, a), d);

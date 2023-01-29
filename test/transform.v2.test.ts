@@ -25,3 +25,15 @@ test('invalid label map fails', async () => {
     keyboardDefinitionV2ToVIADefinitionV2(invalidLabelMap)
   ).toThrow();
 });
+
+test('can transform simple encoder', async () => {
+  const simpleEncoderJson = await fs.promises.readFile(
+    './test/data/v2_has_simple_encoder.json',
+    'utf-8'
+  );
+  const simpleEncoder = JSON.parse(simpleEncoderJson);
+
+  expect(() =>
+    keyboardDefinitionV2ToVIADefinitionV2(simpleEncoder)
+  ).not.toThrow();
+});
