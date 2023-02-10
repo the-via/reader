@@ -177,11 +177,16 @@ export function extractGroups(
 
 // Expects pairs to be in the format "x,y" else throws exception
 function extractPair(pair: string) {
+  if (!pair) {
+    throw new Error(
+      `'Row,col' pairs must be placed in the top-left legend in the KLE keymap provided in the definition.`
+    );
+  }
   const arr = pair.split(/[，,]/);
   invariant(arr.length === 2, `${pair} is not a pair`);
   const numArr = arr.map((v) => parseInt(v, 10));
   if (numArr.some((num) => Number.isNaN(num))) {
-    throw Error(`Invalid pair: ${pair}`);
+    throw new Error(`Invalid pair: ${pair}`);
   }
   return numArr;
 }

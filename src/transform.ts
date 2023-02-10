@@ -23,6 +23,10 @@ export const getVendorProductId = ({
   productId,
   vendorId,
 }: Pick<KeyboardDefinitionV3, 'productId' | 'vendorId'>): number => {
+  if (productId === '0xFEED' || vendorId === '0xFEED') {
+    throw new Error(`'0xFEED' is not a valid productId or vendorId.`);
+  }
+
   const parsedVendorId = parseInt(vendorId, 16);
   const parsedProductId = parseInt(productId, 16);
 

@@ -1,6 +1,9 @@
 import fs from 'fs';
 import {test, expect} from 'vitest';
-import {keyboardDefinitionV3ToVIADefinitionV3} from '../src';
+import {
+  getVendorProductId,
+  keyboardDefinitionV3ToVIADefinitionV3,
+} from '../src';
 import validateViaDefinitionV3 from '../src/validated-types/via-definition-v3.validator';
 
 test('transform KeyboardDefinition to VIADefinition', async () => {
@@ -23,7 +26,9 @@ test('invalid label map fails', async () => {
 
   expect(() =>
     keyboardDefinitionV3ToVIADefinitionV3(invalidLabelMap)
-  ).toThrow();
+  ).toThrowErrorMatchingInlineSnapshot(
+    '"\'Row,col\' pairs must be placed in the top-left legend in the KLE keymap provided in the definition."'
+  );
 });
 
 test('can transform simple encoder', async () => {
@@ -36,4 +41,11 @@ test('can transform simple encoder', async () => {
   expect(() =>
     keyboardDefinitionV3ToVIADefinitionV3(simpleEncoder)
   ).not.toThrow();
+});
+
+test(`Vendor/Product ID of '0xFEED' should fail`, () => {
+  expect(() => getVendorProductId({productId: '0xFEED', vendorId: '0x1234'}))
+    .toThrowErrorMatchingInlineSnapshot(`
+    "'0xFEED' is not a valid productId or vendorId."
+  `);
 });

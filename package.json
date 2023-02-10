@@ -16,6 +16,7 @@
     "build": "npm run validate && npm run fix-util && tsc",
     "prepack": "npm run build",
     "test": "vitest",
+    "test:update": "vitest -u",
     "test:ci": "vitest run",
     "fix-util": "replace \"import {inspect} from 'util';\" \"const inspect = JSON.stringify;\" ./src/validated-types -r --include=\"*.validator.ts\"",
     "validate": "typescript-json-validator src/validated-types/keyboard-definition-v3.ts KeyboardDefinitionV3 --noExtraProps --defaultProps=false --strictNullChecks && typescript-json-validator src/validated-types/via-definition-v3.ts VIADefinitionV3 --noExtraProps --defaultProps=false --strictNullChecks && typescript-json-validator src/validated-types/keyboard-definition-v2.ts KeyboardDefinitionV2 --noExtraProps --defaultProps=false --strictNullChecks && typescript-json-validator src/validated-types/via-definition-v2.ts VIADefinitionV2 --noExtraProps --defaultProps=false --strictNullChecks"

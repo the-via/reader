@@ -23,7 +23,7 @@ test('invalid label map fails', async () => {
 
   expect(() =>
     keyboardDefinitionV2ToVIADefinitionV2(invalidLabelMap)
-  ).toThrow();
+  ).toThrowErrorMatchingInlineSnapshot('"\'Row,col\' pairs must be placed in the top-left legend in the KLE keymap provided in the definition."');
 });
 
 test('can transform simple encoder', async () => {
