@@ -43,7 +43,7 @@ test('can transform simple encoder', async () => {
   ).not.toThrow();
 });
 
-test(`Vendor/Product ID of '0xFEED' should fail`, () => {
+test(`Vendor ID of '0xFEED' should fail`, () => {
   expect(() => getVendorProductId({productId: '0xFEED', vendorId: '0x1234'}))
     .toThrowErrorMatchingInlineSnapshot(`
     "'0xFEED' is not a valid vendorId."
@@ -52,4 +52,7 @@ test(`Vendor/Product ID of '0xFEED' should fail`, () => {
     .toThrowErrorMatchingInlineSnapshot(`
   "'0xFEED' is not a valid vendorId."
 `);
+  expect(() =>
+    getVendorProductId({productId: '0x1234', vendorId: '0xFEED'})
+  ).not.toThrow();
 });
