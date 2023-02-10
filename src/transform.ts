@@ -1,8 +1,6 @@
-import {kleLayoutToVIALayout} from './kle-parser';
 import validateV3 from './validated-types/keyboard-definition-v3.validator';
 import validateV2 from './validated-types/keyboard-definition-v2.validator';
 import {KeyboardDefinitionV3, VIADefinitionV3} from './types.v3';
-import {VIALayout} from './types.common';
 import {
   KeyboardDefinitionV2,
   LightingTypeDefinitionV2,
@@ -10,6 +8,7 @@ import {
   VIALightingTypeDefinition,
 } from './types.v2';
 import {LightingPreset} from './lighting-presets';
+import {validateKeyBounds, validateLayouts} from './validate';
 
 export {VIADefinitionV3, KeyboardDefinitionV3};
 
@@ -42,44 +41,6 @@ export const getVendorProductId = ({
   return parsedVendorId * 65536 + parsedProductId;
 };
 
-export const validateLayouts = (
-  layouts: KeyboardDefinitionV3['layouts']
-): VIALayout => {
-  const {labels = [], keymap} = layouts;
-  const viaLayout = kleLayoutToVIALayout(keymap);
-  const missingLabels = labels.filter(
-    (_, idx) =>
-      viaLayout.optionKeys[idx] === undefined ||
-      viaLayout.optionKeys[idx][0] === undefined
-  );
-  if (missingLabels.length > 0) {
-    throw new Error(
-      `The KLE is missing the group keys for: ${missingLabels.join(',')}`
-    );
-  }
-  return viaLayout;
-};
-
-export const validateKeyBounds = (
-  matrix: VIADefinitionV3['matrix'],
-  layouts: VIADefinitionV3['layouts']
-) => {
-  const {rows, cols} = matrix;
-  const optionKeys = Object.values(layouts.optionKeys).flatMap((group) =>
-    Object.values(group).flat()
-  );
-  const oobKeys = layouts.keys
-    .concat(optionKeys)
-    .filter(({row, col}) => row >= rows || col >= cols);
-  if (oobKeys.length !== 0) {
-    throw new Error(
-      `The following keys reference a row or column outside of dimension defined in the matrix property: ${oobKeys
-        .map(({row, col}) => `(${row},${col})`)
-        .join(',')}`
-    );
-  }
-};
-
 export const keyboardDefinitionV3ToVIADefinitionV3 = (
   definition: KeyboardDefinitionV3
 ): VIADefinitionV3 => {
@@ -93,11 +54,11 @@ export const keyboardDefinitionV3ToVIADefinitionV3 = (
     firmwareVersion,
   } = validateV3(definition);
 
-  validateLayouts(layouts);
+  const viaLayout = validateLayouts(layouts);
   const {keymap, ...partialLayout} = layouts;
   const viaLayouts = {
     ...partialLayout,
-    ...kleLayoutToVIALayout(layouts.keymap),
+    ...viaLayout,
   };
   validateKeyBounds(matrix, viaLayouts);
   return {
@@ -125,11 +86,11 @@ export const keyboardDefinitionV2ToVIADefinitionV2 = (
     layouts,
   } = validateV2(definition);
 
-  validateLayouts(layouts);
+  const viaLayout = validateLayouts(layouts);
   const {keymap, ...partialLayout} = layouts;
   const viaLayouts = {
     ...partialLayout,
-    ...kleLayoutToVIALayout(layouts.keymap),
+    ...viaLayout,
   };
   validateKeyBounds(matrix, viaLayouts);
   return {
