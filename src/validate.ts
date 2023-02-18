@@ -39,3 +39,20 @@ export const validateKeyBounds = (
     );
   }
 };
+
+export const validateCommonMenus = (
+  definition: VIADefinitionV3,
+  commonMenus: string[]
+) => {
+  const lookupFailedKeys = (definition.menus || []).filter((menu) => {
+    if (typeof menu === 'string') {
+      return !commonMenus.includes(menu);
+    }
+    return false;
+  });
+  if (lookupFailedKeys.length) {
+    throw Error(
+      `Common menus not for found for: ${lookupFailedKeys.join(', ')}`
+    );
+  }
+};
