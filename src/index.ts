@@ -14,3 +14,4 @@ export * from './menu-types';
 export * from './themes';
 export * from './types.guards';
 export * from './validate';
+export * from './common-menus';

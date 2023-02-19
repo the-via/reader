@@ -1,3 +1,4 @@
+import {commonMenus} from './common-menus';
 import {kleLayoutToVIALayout} from './kle-parser';
 import {VIALayout} from './types.common';
 import {KeyboardDefinitionV3, VIADefinitionV3} from './types.v3';
@@ -40,13 +41,10 @@ export const validateKeyBounds = (
   }
 };
 
-export const validateCommonMenus = (
-  definition: VIADefinitionV3,
-  commonMenus: string[]
-) => {
-  const lookupFailedKeys = (definition.menus || []).filter((menu) => {
+export const validateCommonMenus = (menus: VIADefinitionV3['menus']) => {
+  const lookupFailedKeys = (menus || []).filter((menu) => {
     if (typeof menu === 'string') {
-      return !commonMenus.includes(menu);
+      return !Object.keys(commonMenus).includes(menu);
     }
     return false;
   });

@@ -8,7 +8,11 @@ import {
   VIALightingTypeDefinition,
 } from './types.v2';
 import {LightingPreset} from './lighting-presets';
-import {validateKeyBounds, validateLayouts} from './validate';
+import {
+  validateCommonMenus,
+  validateKeyBounds,
+  validateLayouts,
+} from './validate';
 
 export {VIADefinitionV3, KeyboardDefinitionV3};
 
@@ -65,6 +69,8 @@ export const keyboardDefinitionV3ToVIADefinitionV3 = (
     ...viaLayout,
   };
   validateKeyBounds(matrix, viaLayouts);
+  validateCommonMenus(menus ?? []);
+
   return {
     name,
     vendorProductId: getVendorProductId(definition),
