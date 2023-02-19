@@ -56,3 +56,18 @@ test(`Vendor ID of '0xFEED' should fail`, () => {
     getVendorProductId({productId: '0xFEED', vendorId: '0x1234'})
   ).not.toThrow();
 });
+
+test('invalid common menu fails', async () => {
+  const invalidCommonMenuDefinitionJson = await fs.promises.readFile(
+    './test/data/v3_invalid_common_menu.json',
+    'utf-8'
+  );
+
+  const invalidCommonMenuDefinition = JSON.parse(
+    invalidCommonMenuDefinitionJson
+  );
+
+  expect(() =>
+    keyboardDefinitionV3ToVIADefinitionV3(invalidCommonMenuDefinition)
+  ).toThrowErrorMatchingInlineSnapshot('"Common menus not for found for: wt_rgb_backlight"');
+});

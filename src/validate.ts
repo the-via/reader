@@ -1,3 +1,4 @@
+import {commonMenus} from './common-menus';
 import {kleLayoutToVIALayout} from './kle-parser';
 import {VIALayout} from './types.common';
 import {KeyboardDefinitionV3, VIADefinitionV3} from './types.v3';
@@ -36,6 +37,20 @@ export const validateKeyBounds = (
       `The following keys reference a row or column outside of dimension defined in the matrix property: ${oobKeys
         .map(({row, col}) => `(${row},${col})`)
         .join(',')}`
+    );
+  }
+};
+
+export const validateCommonMenus = (menus: VIADefinitionV3['menus']) => {
+  const lookupFailedKeys = (menus || []).filter((menu) => {
+    if (typeof menu === 'string') {
+      return !Object.keys(commonMenus).includes(menu);
+    }
+    return false;
+  });
+  if (lookupFailedKeys.length) {
+    throw Error(
+      `Common menus not for found for: ${lookupFailedKeys.join(', ')}`
     );
   }
 };
