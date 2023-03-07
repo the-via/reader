@@ -162,9 +162,9 @@ export function extractGroups(
             ...res,
             x: res.x - delta.x,
             y: res.y - delta.y,
-          })))(calculateDelta2(zeroPivot, findPivot(results)))
-          .filter((r) => !r.d) // Remove decal keys
-          .map((r) => resultToVIAKey(r, origin, colorMap)), // Resolve key colors and normalize position using origin
+          })))(calculateDelta2(zeroPivot, findPivot(results))).map((r) =>
+          resultToVIAKey(r, origin, colorMap)
+        ), // Resolve key colors and normalize position using origin
       }),
       {}
     );
@@ -196,7 +196,7 @@ function resultToVIAKey(
   delta: {x: number; y: number},
   colorMap: {[x: string]: KeyColorType}
 ): VIAKey {
-  const {c, d, t, group, ...partialKey} = result;
+  const {c, t, group, ...partialKey} = result;
   return {
     ...partialKey,
     x: result.x - delta.x,
@@ -482,7 +482,7 @@ export function kleLayoutToVIALayout(kle: KLELayout): VIALayout {
   const width = Math.max(...boundingBoxes.map((b) => b.xEnd)) - minX;
   const height = Math.max(...boundingBoxes.map((b) => b.yEnd)) - minY;
   const keys = defaultRes
-    .filter((k) => k.group.key === -1 && !k.d) // Remove option keys and decals
+    .filter((k) => k.group.key === -1) // Remove option keys
     .map((k) => resultToVIAKey(k, {x: minX, y: minY}, colorMap));
   const optionKeys = extractGroups(flatRes, {x: minX, y: minY}, colorMap);
 

@@ -110,7 +110,7 @@ export type Result = {h: number; w: number} & Formatting &
   Decal &
   GroupMeta;
 
-export type VIAKey = Omit<Result, keyof Formatting | 'group' | 'd'> & {
+export type VIAKey = Omit<Result, keyof Formatting | 'group'> & {
   color: KeyColorType;
 };
 
