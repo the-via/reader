@@ -38,7 +38,7 @@ type NumNumArray = number | number[]; // needed to shoehorn wtrgb enable caps/hh
 
 export type Button = {
   type: 'button';
-  options?: number;
+  options?: [number];
 };
 
 export type Toggle = {
