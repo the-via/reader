@@ -35,6 +35,12 @@ type CommandDef = [string, number, number];
 
 // VIA controls
 type NumNumArray = number | number[]; // needed to shoehorn wtrgb enable caps/hhkb/etc lighting for now
+
+export type Button = {
+  type: 'button';
+  options?: [number];
+};
+
 export type Toggle = {
   type: 'toggle';
   options?: [NumNumArray, NumNumArray];
@@ -65,7 +71,7 @@ export type ColorPalette = {
 
 // An atomic unit that represents a renderable unit - usually a Control
 type Item<A> = Label & Conditional & ByteLength & A;
-type Control = Keycode | Color | Toggle | Dropdown | Range;
+type Control = Keycode | Color | Toggle | Dropdown | Range | Button;
 type UniqueControl = ColorPalette;
 // The standard VIA control
 export type VIAControlItem = Control & Item<BindableContent>;
