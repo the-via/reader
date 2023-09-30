@@ -83,6 +83,48 @@ export const THEMES: {[theme: string]: ThemeDefinition} = {
       t: '#c20018',
       c: '#cfa174',
     },
+  },  
+  BoW: {
+    alpha: {
+      c: '#FFFFFF',
+      t: '#000000',
+    },
+    mod: {
+      c: '#000000',
+      t: '#FFFFFF',
+    },
+    accent: {
+      t: '#FFFFFF',
+      c: '#000000',
+    },
+  },
+  WoB: {
+    alpha: {
+      c: '#000000',
+      t: '#FFFFFF',
+    },
+    mod: {
+      c: '#FFFFFF',
+      t: '#000000',
+    },
+    accent: {
+      t: '#000000',
+      c: '#FFFFFF',
+    },
+  },
+  EVA: {
+    alpha: {
+      c: '#67489e',
+      t: '#6ab751',
+    },
+    mod: {
+      c: '#FFFFFF',
+      t: '#6ab751',
+    },
+    accent: {
+      t: '#67489e',
+      c: '#6ab751',
+    },
   },
 };
 
