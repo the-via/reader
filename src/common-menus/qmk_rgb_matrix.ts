@@ -59,7 +59,7 @@ export const qmk_rgb_matrix: VIAMenu[] = [
               'Solid Reactive Multi Cross',
               'Solid Reactive Nexus',
               'Solid Reactive Multi Nexus',
-              'Spash',
+              'Splash',
               'Multi Splash',
               'Solid Splash',
               'Solid Multi Splash',
