@@ -31,4 +31,3 @@ for (const file of files) {
     }
     writeFileSync(fullPath, modifiedFile);
 }
-
