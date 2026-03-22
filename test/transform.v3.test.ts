@@ -1,5 +1,5 @@
 import fs from 'fs';
-import {test, expect} from 'vitest';
+import { test, expect } from 'vitest';
 import {
   getVendorProductId,
   keyboardDefinitionV3ToVIADefinitionV3,
@@ -27,7 +27,7 @@ test('invalid label map fails', async () => {
   expect(() =>
     keyboardDefinitionV3ToVIADefinitionV3(invalidLabelMap)
   ).toThrowErrorMatchingInlineSnapshot(
-    '"\'Row,col\' pairs must be placed in the top-left legend in the KLE keymap provided in the definition."'
+    '[Error: \'Row,col\' pairs must be placed in the top-left legend in the KLE keymap provided in the definition.]'
   );
 });
 
@@ -44,16 +44,12 @@ test('can transform simple encoder', async () => {
 });
 
 test(`Vendor ID of '0xFEED' should fail`, () => {
-  expect(() => getVendorProductId({productId: '0x1234', vendorId: '0xFEED'}))
-    .toThrowErrorMatchingInlineSnapshot(`
-    "'0xFEED' is not a valid vendorId."
-  `);
-  expect(() => getVendorProductId({productId: '0x1234', vendorId: '0xfeed'}))
-    .toThrowErrorMatchingInlineSnapshot(`
-  "'0xFEED' is not a valid vendorId."
-`);
+  expect(() => getVendorProductId({ productId: '0x1234', vendorId: '0xFEED' }))
+    .toThrowErrorMatchingInlineSnapshot("[Error: '0xFEED' is not a valid vendorId.]");
+  expect(() => getVendorProductId({ productId: '0x1234', vendorId: '0xfeed' }))
+    .toThrowErrorMatchingInlineSnapshot("[Error: '0xFEED' is not a valid vendorId.]");
   expect(() =>
-    getVendorProductId({productId: '0xFEED', vendorId: '0x1234'})
+    getVendorProductId({ productId: '0xFEED', vendorId: '0x1234' })
   ).not.toThrow();
 });
 
@@ -69,5 +65,5 @@ test('invalid common menu fails', async () => {
 
   expect(() =>
     keyboardDefinitionV3ToVIADefinitionV3(invalidCommonMenuDefinition)
-  ).toThrowErrorMatchingInlineSnapshot('"Common menus not for found for: wt_rgb_backlight"');
+  ).toThrowErrorMatchingInlineSnapshot('[Error: Common menus not for found for: wt_rgb_backlight]');
 });

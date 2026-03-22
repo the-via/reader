@@ -1,6 +1,6 @@
 import fs from 'fs';
-import {test, expect} from 'vitest';
-import {keyboardDefinitionV2ToVIADefinitionV2} from '../src';
+import { test, expect } from 'vitest';
+import { keyboardDefinitionV2ToVIADefinitionV2 } from '../src';
 import validateViaDefinitionV2 from '../src/validated-types/via-definition-v2.validator';
 
 test('transform KeyboardDefinition to VIADefinition', async () => {
@@ -23,7 +23,7 @@ test('invalid label map fails', async () => {
 
   expect(() =>
     keyboardDefinitionV2ToVIADefinitionV2(invalidLabelMap)
-  ).toThrowErrorMatchingInlineSnapshot('"\'Row,col\' pairs must be placed in the top-left legend in the KLE keymap provided in the definition."');
+  ).toThrowErrorMatchingInlineSnapshot('[Error: \'Row,col\' pairs must be placed in the top-left legend in the KLE keymap provided in the definition.]');
 });
 
 test('can transform simple encoder', async () => {
