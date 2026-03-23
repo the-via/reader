@@ -1,10 +1,8 @@
-export {isVIADefinitionV3} from './validated-types/via-definition-v3.validator';
-export {isVIADefinitionV2} from './validated-types/via-definition-v2.validator';
-export {
-  isKeyboardDefinitionV3,
-  ValidateFunction,
-} from './validated-types/keyboard-definition-v3.validator';
-export {isKeyboardDefinitionV2} from './validated-types/keyboard-definition-v2.validator';
+export { isVIADefinitionV3 } from './validated-types/via-definition-v3.validator';
+export { isVIADefinitionV2 } from './validated-types/via-definition-v2.validator';
+export { isKeyboardDefinitionV3 } from './validated-types/keyboard-definition-v3.validator';
+export { isKeyboardDefinitionV2 } from './validated-types/keyboard-definition-v2.validator';
+export { ValidateFunction } from 'ajv';
 export * from './transform';
 export * from './kle-parser';
 export * from './types.v3';
