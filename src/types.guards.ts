@@ -1,8 +1,8 @@
 import {VIAMenu} from './menu-types';
 
-export function isVIAMenu<ExtraControl = never>(
-  value: VIAMenu<ExtraControl> | string
-): value is VIAMenu<ExtraControl> {
-  const viaMenu = value as VIAMenu<ExtraControl>;
+export function isVIAMenu<ExtraItem = never>(
+  value: VIAMenu<ExtraItem> | string
+): value is VIAMenu<ExtraItem> {
+  const viaMenu = value as VIAMenu<ExtraItem>;
   return viaMenu.label !== undefined && viaMenu.content !== undefined;
 }

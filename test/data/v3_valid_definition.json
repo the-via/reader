@@ -138,7 +138,12 @@
               "content": ["id_layer_3_indicator_color", 0, 20]
             },
             {
-              "label": "Display Label",
+              "label": "Static Display Label",
+              "type": "label",
+              "content": ["Text from the definition"]
+            },
+            {
+              "label": "Bound Display Label",
               "type": "label",
               "content": ["id_display_label", 0, 21]
             }

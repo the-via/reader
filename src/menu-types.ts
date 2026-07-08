@@ -24,6 +24,7 @@ type Content<A> = {
 };
 
 type TextContent = Content<string>;
+type StaticDisplayContent = Content<[string]>;
 
 // Specifies the get-set command prefix
 // For fetching the current value: <CustomCommand> <BindableContent>
@@ -39,10 +40,6 @@ type NumNumArray = number | number[]; // needed to shoehorn wtrgb enable caps/hh
 export type Button = {
   type: 'button';
   options?: [number];
-};
-
-export type DisplayLabel = {
-  type: 'label';
 };
 
 export type Toggle = {
@@ -77,23 +74,26 @@ export type ColorPalette = {
 type Item<A> = Label & Conditional & ByteLength & A;
 type Control = Keycode | Color | Toggle | Dropdown | Range | Button;
 type UniqueControl = ColorPalette;
+export type DisplayLabel = Item<StaticDisplayContent | BindableContent> & {
+  type: 'label';
+};
 // The standard VIA control
-export type VIAControlItem<ExtraControl = never> = (Control | ExtraControl) &
-  Item<BindableContent>;
+export type VIAControlItem = Control & Item<BindableContent>;
 export type VIAUniqueControlItem = UniqueControl & Item<BindableContent>;
 // For displaying text like headers or static springs
 export type VIATextItem = Item<TextContent>;
 
 // VIA Groups
-export type VIAItem<ExtraControl = never> =
+export type VIAItem<ExtraItem = never> =
   | VIATextItem
-  | VIAControlItem<ExtraControl>
-  | VIAUniqueControlItem;
-export type VIAItemSlice<ExtraControl = never> = Group<VIAItem<ExtraControl>>;
-export type VIASubmenuSlice<ExtraControl = never> = Group<
-  VIASubmenu<ExtraControl>
+  | VIAControlItem
+  | VIAUniqueControlItem
+  | ExtraItem;
+export type VIAItemSlice<ExtraItem = never> = Group<VIAItem<ExtraItem>>;
+export type VIASubmenuSlice<ExtraItem = never> = Group<
+  VIASubmenu<ExtraItem>
 >;
-export type VIASubmenu<ExtraControl = never> = Label &
-  Group<VIAItem<ExtraControl> | VIAItemSlice<ExtraControl>>;
-export type VIAMenu<ExtraControl = never> = Label &
-  Group<VIASubmenu<ExtraControl> | VIASubmenuSlice<ExtraControl>>;
+export type VIASubmenu<ExtraItem = never> = Label &
+  Group<VIAItem<ExtraItem> | VIAItemSlice<ExtraItem>>;
+export type VIAMenu<ExtraItem = never> = Label &
+  Group<VIASubmenu<ExtraItem> | VIASubmenuSlice<ExtraItem>>;
