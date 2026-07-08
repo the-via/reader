@@ -24,6 +24,7 @@ type Content<A> = {
 };
 
 type TextContent = Content<string>;
+type StaticDisplayContent = Content<[string]>;
 
 // Specifies the get-set command prefix
 // For fetching the current value: <CustomCommand> <BindableContent>
@@ -73,6 +74,9 @@ export type ColorPalette = {
 type Item<A> = Label & Conditional & ByteLength & A;
 type Control = Keycode | Color | Toggle | Dropdown | Range | Button;
 type UniqueControl = ColorPalette;
+export type DisplayLabel = Item<StaticDisplayContent | BindableContent> & {
+  type: 'label';
+};
 // The standard VIA control
 export type VIAControlItem = Control & Item<BindableContent>;
 export type VIAUniqueControlItem = UniqueControl & Item<BindableContent>;
@@ -80,8 +84,16 @@ export type VIAUniqueControlItem = UniqueControl & Item<BindableContent>;
 export type VIATextItem = Item<TextContent>;
 
 // VIA Groups
-export type VIAItem = VIATextItem | VIAControlItem | VIAUniqueControlItem;
-export type VIAItemSlice = Group<VIAItem>;
-export type VIASubmenuSlice = Group<VIASubmenu>;
-export type VIASubmenu = Label & Group<VIAItem | VIAItemSlice>;
-export type VIAMenu = Label & Group<VIASubmenu | VIASubmenuSlice>;
+export type VIAItem<ExtraItem = never> =
+  | VIATextItem
+  | VIAControlItem
+  | VIAUniqueControlItem
+  | ExtraItem;
+export type VIAItemSlice<ExtraItem = never> = Group<VIAItem<ExtraItem>>;
+export type VIASubmenuSlice<ExtraItem = never> = Group<
+  VIASubmenu<ExtraItem>
+>;
+export type VIASubmenu<ExtraItem = never> = Label &
+  Group<VIAItem<ExtraItem> | VIAItemSlice<ExtraItem>>;
+export type VIAMenu<ExtraItem = never> = Label &
+  Group<VIASubmenu<ExtraItem> | VIASubmenuSlice<ExtraItem>>;

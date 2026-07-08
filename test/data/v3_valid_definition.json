@@ -136,6 +136,16 @@
               "type": "color",
               "showIf": "{id_layer_3_indicator_row_col.0} == 254",
               "content": ["id_layer_3_indicator_color", 0, 20]
+            },
+            {
+              "label": "Static Display Label",
+              "type": "label",
+              "content": ["Text from the definition"]
+            },
+            {
+              "label": "Bound Display Label",
+              "type": "label",
+              "content": ["id_display_label", 0, 21]
             }
           ]
         }

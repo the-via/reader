@@ -1,4 +1,4 @@
-import {VIAMenu} from './menu-types';
+import {DisplayLabel, VIAMenu} from './menu-types';
 import {
   VIAKey,
   MatrixInfo,
@@ -20,7 +20,7 @@ export type KeyboardDefinitionV3 = {
   productId: string;
   firmwareVersion?: number;
   matrix: MatrixInfo;
-  menus?: (VIAMenu | string)[];
+  menus?: (VIAMenu<DisplayLabel> | string)[];
   keycodes?: BuiltInKeycodeModule[];
   customKeycodes?: CustomKeycode[];
   layouts: {
@@ -37,7 +37,7 @@ export type VIADefinitionV3 = {
   vendorProductId: number;
   firmwareVersion: number;
   matrix: MatrixInfo;
-  menus: (VIAMenu | string)[];
+  menus: (VIAMenu<DisplayLabel> | string)[];
   keycodes: BuiltInKeycodeModule[];
   customKeycodes?: CustomKeycode[];
   layouts: {
