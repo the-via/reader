@@ -136,6 +136,11 @@
               "type": "color",
               "showIf": "{id_layer_3_indicator_row_col.0} == 254",
               "content": ["id_layer_3_indicator_color", 0, 20]
+            },
+            {
+              "label": "Display Label",
+              "type": "label",
+              "content": ["id_display_label", 0, 21]
             }
           ]
         }

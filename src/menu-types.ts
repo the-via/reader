@@ -41,6 +41,10 @@ export type Button = {
   options?: [number];
 };
 
+export type DisplayLabel = {
+  type: 'label';
+};
+
 export type Toggle = {
   type: 'toggle';
   options?: [NumNumArray, NumNumArray];
@@ -74,14 +78,22 @@ type Item<A> = Label & Conditional & ByteLength & A;
 type Control = Keycode | Color | Toggle | Dropdown | Range | Button;
 type UniqueControl = ColorPalette;
 // The standard VIA control
-export type VIAControlItem = Control & Item<BindableContent>;
+export type VIAControlItem<ExtraControl = never> = (Control | ExtraControl) &
+  Item<BindableContent>;
 export type VIAUniqueControlItem = UniqueControl & Item<BindableContent>;
 // For displaying text like headers or static springs
 export type VIATextItem = Item<TextContent>;
 
 // VIA Groups
-export type VIAItem = VIATextItem | VIAControlItem | VIAUniqueControlItem;
-export type VIAItemSlice = Group<VIAItem>;
-export type VIASubmenuSlice = Group<VIASubmenu>;
-export type VIASubmenu = Label & Group<VIAItem | VIAItemSlice>;
-export type VIAMenu = Label & Group<VIASubmenu | VIASubmenuSlice>;
+export type VIAItem<ExtraControl = never> =
+  | VIATextItem
+  | VIAControlItem<ExtraControl>
+  | VIAUniqueControlItem;
+export type VIAItemSlice<ExtraControl = never> = Group<VIAItem<ExtraControl>>;
+export type VIASubmenuSlice<ExtraControl = never> = Group<
+  VIASubmenu<ExtraControl>
+>;
+export type VIASubmenu<ExtraControl = never> = Label &
+  Group<VIAItem<ExtraControl> | VIAItemSlice<ExtraControl>>;
+export type VIAMenu<ExtraControl = never> = Label &
+  Group<VIASubmenu<ExtraControl> | VIASubmenuSlice<ExtraControl>>;
