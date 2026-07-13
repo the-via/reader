@@ -12,6 +12,7 @@ import {
   validateCommonMenus,
   validateKeyBounds,
   validateLayouts,
+  validateMenuConstraints,
 } from './validate';
 
 export {VIADefinitionV3, KeyboardDefinitionV3};
@@ -70,6 +71,7 @@ export const keyboardDefinitionV3ToVIADefinitionV3 = (
   };
   validateKeyBounds(matrix, viaLayouts);
   validateCommonMenus(menus ?? []);
+  validateMenuConstraints(menus ?? []);
 
   return {
     name,
@@ -103,6 +105,7 @@ export const keyboardDefinitionV2ToVIADefinitionV2 = (
     ...viaLayout,
   };
   validateKeyBounds(matrix, viaLayouts);
+  validateMenuConstraints(customMenus ?? []);
   return {
     name,
     lighting,

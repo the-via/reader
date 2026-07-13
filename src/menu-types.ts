@@ -32,7 +32,14 @@ type StaticDisplayContent = Content<[string]>;
 type BindableContent = Content<CommandDef>;
 
 // token_id, channel_id, command_id
-type CommandDef = [string, number, number];
+export type CommandDef = [string, number, number];
+
+export type RangeConstraint = {
+  operator: '<' | '<=' | '>' | '>=';
+  reference: string | CommandDef;
+  offset?: number;
+  onViolation?: 'clamp' | 'push';
+};
 
 // VIA controls
 type NumNumArray = number | number[]; // needed to shoehorn wtrgb enable caps/hhkb/etc lighting for now
@@ -56,6 +63,7 @@ export type Range = {
   type: 'range';
   options: [number, number];
   unit?: string;
+  constraints?: RangeConstraint[];
 };
 
 export type Keycode = {

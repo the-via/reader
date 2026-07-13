@@ -31,3 +31,48 @@ test('v3 definition fails', async () => {
 
   expect(() => validateKeyboardDefinitionV2(v3Definition)).toThrow();
 });
+
+test('range constraints use the shared menu schema', async () => {
+  const validDefinitionJson = await fs.promises.readFile(
+    './test/data/v2_valid_definition.json',
+    'utf-8'
+  );
+  const definition = JSON.parse(validDefinitionJson);
+  definition.customMenus = [
+    {
+      label: 'Thresholds',
+      content: [
+        {
+          label: 'General',
+          content: [
+            {
+              label: 'Actuation',
+              type: 'range',
+              options: [1, 255],
+              constraints: [
+                {
+                  operator: '>=',
+                  reference: ['id_release', 0, 2],
+                  offset: 50,
+                  onViolation: 'push'
+                }
+              ],
+              content: ['id_actuation', 0, 1]
+            },
+            {
+              label: 'Release',
+              type: 'range',
+              options: [1, 255],
+              content: ['id_release', 0, 2]
+            }
+          ]
+        }
+      ]
+    }
+  ];
+
+  expect(() => validateKeyboardDefinitionV2(definition)).not.toThrow();
+  definition.customMenus[0].content[0].content[0].constraints[0].operator =
+    '==';
+  expect(() => validateKeyboardDefinitionV2(definition)).toThrow();
+});

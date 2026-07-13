@@ -31,3 +31,46 @@ test('v2 definition fails', async () => {
 
   expect(() => validateKeyboardDefinitionV3(v2Definition)).toThrow();
 });
+
+test('constraints are accepted only on ranges', async () => {
+  const validDefinitionJson = await fs.promises.readFile(
+    './test/data/v3_valid_definition.json',
+    'utf-8'
+  );
+  const definition = JSON.parse(validDefinitionJson);
+  const controls = definition.menus[0].content[0].content;
+
+  controls[0].constraints = [
+    {
+      operator: '>=',
+      reference: 'id_effect_speed',
+      offset: 1,
+      onViolation: 'clamp',
+    },
+  ];
+  expect(() => validateKeyboardDefinitionV3(definition)).not.toThrow();
+
+  controls[1].constraints = controls[0].constraints;
+  expect(() => validateKeyboardDefinitionV3(definition)).toThrow();
+});
+
+test('constraints reject unsupported operators and behaviors', async () => {
+  const validDefinitionJson = await fs.promises.readFile(
+    './test/data/v3_valid_definition.json',
+    'utf-8'
+  );
+  const definition = JSON.parse(validDefinitionJson);
+  const range = definition.menus[0].content[0].content[0];
+
+  range.constraints = [
+    {
+      operator: '==',
+      reference: 'id_effect_speed'
+    }
+  ];
+  expect(() => validateKeyboardDefinitionV3(definition)).toThrow();
+
+  range.constraints[0].operator = '>=';
+  range.constraints[0].onViolation = 'ignore';
+  expect(() => validateKeyboardDefinitionV3(definition)).toThrow();
+});
