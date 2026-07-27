@@ -1,4 +1,4 @@
-import {DisplayLabel, VIAMenu} from './menu-types';
+import {CommandDef, DisplayLabel, VIAMenu} from './menu-types';
 import {
   VIAKey,
   MatrixInfo,
@@ -14,8 +14,15 @@ export enum BuiltInKeycodeModule {
 
 export const defaultKeycodes: BuiltInKeycodeModule[] = [];
 
+export type DynamicDefinitionName = {
+  options: [string, ...string[]];
+  content: CommandDef;
+};
+
+export type DefinitionName = string | DynamicDefinitionName;
+
 export type KeyboardDefinitionV3 = {
-  name: string;
+  name: DefinitionName;
   vendorId: string;
   productId: string;
   firmwareVersion?: number;
@@ -33,7 +40,7 @@ export type KeyboardDefinitionV3 = {
 };
 
 export type VIADefinitionV3 = {
-  name: string;
+  name: DefinitionName;
   vendorProductId: number;
   firmwareVersion: number;
   matrix: MatrixInfo;

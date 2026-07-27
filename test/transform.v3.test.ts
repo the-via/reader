@@ -17,6 +17,23 @@ test('transform KeyboardDefinition to VIADefinition', async () => {
   expect(() => validateViaDefinitionV3(viaDefinition)).not.toThrow();
 });
 
+test('preserves a dynamic definition name', async () => {
+  const validDefinitionJson = await fs.promises.readFile(
+    './test/data/v3_valid_definition.json',
+    'utf-8'
+  );
+  const definition = JSON.parse(validDefinitionJson);
+  definition.name = {
+    options: ['Default Board', 'Alternate Board'],
+    content: ['id_board_variant', 0, 5],
+  };
+
+  const viaDefinition = keyboardDefinitionV3ToVIADefinitionV3(definition);
+
+  expect(viaDefinition.name).toEqual(definition.name);
+  expect(() => validateViaDefinitionV3(viaDefinition)).not.toThrow();
+});
+
 test('invalid label map fails', async () => {
   const invalidLabelMapJson = await fs.promises.readFile(
     './test/data/v3_invalid_label_map.json',

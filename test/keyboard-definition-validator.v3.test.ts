@@ -12,6 +12,40 @@ test('valid definition passes', async () => {
   expect(() => validateKeyboardDefinitionV3(validDefinition)).not.toThrow();
 });
 
+test('dynamic definition name passes', async () => {
+  const validDefinitionJson = await fs.promises.readFile(
+    './test/data/v3_valid_definition.json',
+    'utf-8'
+  );
+  const definition = JSON.parse(validDefinitionJson);
+  definition.name = {
+    options: ['Default Board', 'Alternate Board'],
+    content: ['id_board_variant', 0, 5],
+  };
+
+  expect(() => validateKeyboardDefinitionV3(definition)).not.toThrow();
+});
+
+test('dynamic definition name requires options and a custom command', async () => {
+  const validDefinitionJson = await fs.promises.readFile(
+    './test/data/v3_valid_definition.json',
+    'utf-8'
+  );
+  const definition = JSON.parse(validDefinitionJson);
+
+  definition.name = {
+    options: [],
+    content: ['id_board_variant', 0, 5],
+  };
+  expect(() => validateKeyboardDefinitionV3(definition)).toThrow();
+
+  definition.name = {
+    options: ['Default Board'],
+    content: ['id_board_variant', 0],
+  };
+  expect(() => validateKeyboardDefinitionV3(definition)).toThrow();
+});
+
 test('invalid definition fails', async () => {
   const invalidDefinitionJson = await fs.promises.readFile(
     './test/data/v3_invalid_definition.json',
