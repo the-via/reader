@@ -29,5 +29,18 @@ for (const file of files) {
         modifiedFile = modifiedFile.replaceAll(toReplace, replaceWith);
 
     }
+    if (
+        file === "keyboard-definition-v3.validator.ts" ||
+        file === "via-definition-v3.validator.ts"
+    ) {
+        modifiedFile = modifiedFile.replace(
+            'import addFormats from "ajv-formats";',
+            'import addFormats from "ajv-formats";\nimport {addKeycodeModuleExclusion} from "../validate";',
+        );
+        modifiedFile = modifiedFile.replace(
+            /ajv\.compile\((\w+Schema)\)/,
+            "ajv.compile(addKeycodeModuleExclusion($1))",
+        );
+    }
     writeFileSync(fullPath, modifiedFile);
 }

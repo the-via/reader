@@ -9,6 +9,10 @@ import {
 
 export enum BuiltInKeycodeModule {
   QMKLighting = 'qmk_lighting',
+  QMKBacklightKeycodes = 'qmk_backlight_keycodes',
+  QMKRGBLightKeycodes = 'qmk_rgblight_keycodes',
+  QMKRGBMatrixKeycodes = 'qmk_rgb_matrix_keycodes',
+  QMKBacklightRGBLightKeycodes = 'qmk_backlight_rgblight_keycodes',
   WTLighting = 'wt_lighting',
 }
 

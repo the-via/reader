@@ -1,7 +1,11 @@
 import {commonMenus} from './common-menus';
 import {kleLayoutToVIALayout} from './kle-parser';
 import {VIALayout} from './types.common';
-import {KeyboardDefinitionV3, VIADefinitionV3} from './types.v3';
+import {
+  BuiltInKeycodeModule,
+  KeyboardDefinitionV3,
+  VIADefinitionV3,
+} from './types.v3';
 import {CommandDef, VIAMenu, VIAControlItem} from './menu-types';
 
 export const validateLayouts = (
@@ -54,6 +58,47 @@ export const validateCommonMenus = (menus: VIADefinitionV3['menus']) => {
       `Common menus not for found for: ${lookupFailedKeys.join(', ')}`
     );
   }
+};
+
+export const addKeycodeModuleExclusion = <
+  Schema extends Record<string, unknown>,
+>(
+  schema: Schema
+): Schema => {
+  const schemaWithRules = schema as Schema & {allOf?: unknown[]};
+  const existingRules = schemaWithRules.allOf ?? [];
+  schemaWithRules.allOf = [
+    ...existingRules,
+    {
+      not: {
+        required: ['keycodes'],
+        properties: {
+          keycodes: {
+            allOf: [
+              {
+                type: 'array',
+                contains: {
+                  const: BuiltInKeycodeModule.QMKLighting,
+                },
+              },
+              {
+                type: 'array',
+                contains: {
+                  enum: [
+                    BuiltInKeycodeModule.QMKBacklightKeycodes,
+                    BuiltInKeycodeModule.QMKRGBLightKeycodes,
+                    BuiltInKeycodeModule.QMKRGBMatrixKeycodes,
+                    BuiltInKeycodeModule.QMKBacklightRGBLightKeycodes,
+                  ],
+                },
+              },
+            ],
+          },
+        },
+      },
+    },
+  ];
+  return schema;
 };
 
 type RangeItem = Extract<VIAControlItem, {type: 'range'}>;
