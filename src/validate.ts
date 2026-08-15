@@ -129,24 +129,78 @@ const collectRangeItems = (value: unknown, ranges: Map<string, RangeItem>) => {
   }
 };
 
-const canRangesSatisfyConstraint = (
-  range: RangeItem,
-  reference: RangeItem,
+type ConstraintNode = string | symbol;
+
+type DifferenceConstraint = {
+  from: ConstraintNode;
+  to: ConstraintNode;
+  maximumDifference: number;
+};
+
+const RANGE_BOUND_ORIGIN = Symbol('rangeBoundOrigin');
+
+const makeConstraintEdge = (
+  id: string,
+  referenceId: string,
   operator: '<' | '<=' | '>' | '>=',
   offset: number
-) => {
-  const [min, max] = range.options;
-  const [referenceMin, referenceMax] = reference.options;
+): DifferenceConstraint => {
   switch (operator) {
     case '>':
-      return max > referenceMin + offset;
+      return {
+        from: id,
+        to: referenceId,
+        maximumDifference: -(offset + 1),
+      };
     case '>=':
-      return max >= referenceMin + offset;
+      return {from: id, to: referenceId, maximumDifference: -offset};
     case '<':
-      return min < referenceMax + offset;
+      return {
+        from: referenceId,
+        to: id,
+        maximumDifference: offset - 1,
+      };
     case '<=':
-      return min <= referenceMax + offset;
+      return {from: referenceId, to: id, maximumDifference: offset};
   }
+};
+
+const constraintsAreSatisfiable = (
+  ranges: Map<string, RangeItem>,
+  constraints: DifferenceConstraint[]
+): boolean => {
+  const distances = new Map<ConstraintNode, number>([[RANGE_BOUND_ORIGIN, 0]]);
+  const edges = [...constraints];
+
+  ranges.forEach((range, id) => {
+    const [min, max] = range.options;
+    distances.set(id, 0);
+    edges.push(
+      {from: RANGE_BOUND_ORIGIN, to: id, maximumDifference: max},
+      {from: id, to: RANGE_BOUND_ORIGIN, maximumDifference: -min}
+    );
+  });
+
+  // Each edge encodes `to <= from + maximumDifference`. If it can still be
+  // relaxed after one pass per node, the graph contains an impossible cycle.
+  for (let pass = 0; pass < distances.size; pass++) {
+    let changed = false;
+    for (const {from, to, maximumDifference} of edges) {
+      const candidate = distances.get(from)! + maximumDifference;
+      if (candidate < distances.get(to)!) {
+        distances.set(to, candidate);
+        changed = true;
+        if (pass === distances.size - 1) {
+          return false;
+        }
+      }
+    }
+    if (!changed) {
+      return true;
+    }
+  }
+
+  return true;
 };
 
 export const validateMenuConstraints = (
@@ -159,6 +213,7 @@ export const validateMenuConstraints = (
     }
   });
 
+  const differenceConstraints: DifferenceConstraint[] = [];
   ranges.forEach((range, id) => {
     range.constraints?.forEach((constraint) => {
       const referenceId =
@@ -189,18 +244,15 @@ export const validateMenuConstraints = (
         );
       }
 
-      if (
-        !canRangesSatisfyConstraint(
-          range,
-          reference,
-          constraint.operator,
-          offset
-        )
-      ) {
-        throw new Error(
-          `Range constraint on '${id}' cannot be satisfied within the declared ranges.`
-        );
-      }
+      differenceConstraints.push(
+        makeConstraintEdge(id, referenceId, constraint.operator, offset)
+      );
     });
   });
+
+  if (!constraintsAreSatisfiable(ranges, differenceConstraints)) {
+    throw new Error(
+      'Range constraints cannot be satisfied within the declared ranges.'
+    );
+  }
 };

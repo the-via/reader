@@ -28,6 +28,31 @@ const makeMenus = (constraints: unknown): VIAMenu[] =>
     },
   ] as VIAMenu[];
 
+const makeRangeMenus = (
+  ranges: Array<{
+    id: string;
+    options: [number, number];
+    constraints?: unknown;
+  }>
+): VIAMenu[] =>
+  [
+    {
+      label: 'Thresholds',
+      content: [
+        {
+          label: 'General',
+          content: ranges.map(({id, options, constraints}, index) => ({
+            label: id,
+            type: 'range',
+            options,
+            constraints,
+            content: [id, 0, index],
+          })),
+        },
+      ],
+    },
+  ] as VIAMenu[];
+
 describe('validateMenuConstraints', () => {
   test('accepts an identifier reference', () => {
     expect(() =>
@@ -88,5 +113,116 @@ describe('validateMenuConstraints', () => {
         makeMenus([{operator: '>=', reference: 'id_release', offset: 0.5}])
       )
     ).toThrow('must be an integer');
+  });
+
+  test('accepts a globally satisfiable cascade with reciprocal constraints', () => {
+    const menus = makeRangeMenus([
+      {
+        id: 'shallowRelease',
+        options: [1, 100],
+        constraints: [
+          {
+            operator: '<=',
+            reference: 'shallowPress',
+            offset: -30,
+            onViolation: 'push',
+          },
+        ],
+      },
+      {
+        id: 'shallowPress',
+        options: [1, 100],
+        constraints: [
+          {
+            operator: '>=',
+            reference: 'shallowRelease',
+            offset: 30,
+            onViolation: 'push',
+          },
+          {
+            operator: '<=',
+            reference: 'deepRelease',
+            offset: -30,
+            onViolation: 'push',
+          },
+        ],
+      },
+      {
+        id: 'deepRelease',
+        options: [1, 100],
+        constraints: [
+          {
+            operator: '>=',
+            reference: 'shallowPress',
+            offset: 30,
+            onViolation: 'push',
+          },
+          {
+            operator: '<=',
+            reference: 'deepPress',
+            offset: -30,
+            onViolation: 'push',
+          },
+        ],
+      },
+      {
+        id: 'deepPress',
+        options: [1, 100],
+        constraints: [
+          {
+            operator: '>=',
+            reference: 'deepRelease',
+            offset: 30,
+            onViolation: 'push',
+          },
+        ],
+      },
+    ]);
+
+    expect(() => validateMenuConstraints(menus)).not.toThrow();
+  });
+
+  test('rejects a cascade whose cumulative offsets exceed the ranges', () => {
+    const menus = makeRangeMenus([
+      {id: 'a', options: [1, 100]},
+      {
+        id: 'b',
+        options: [1, 100],
+        constraints: [{operator: '>=', reference: 'a', offset: 40}],
+      },
+      {
+        id: 'c',
+        options: [1, 100],
+        constraints: [{operator: '>=', reference: 'b', offset: 40}],
+      },
+      {
+        id: 'd',
+        options: [1, 100],
+        constraints: [{operator: '>=', reference: 'c', offset: 40}],
+      },
+    ]);
+
+    expect(() => validateMenuConstraints(menus)).toThrow(
+      'cannot be satisfied within the declared ranges'
+    );
+  });
+
+  test('rejects a contradictory constraint cycle', () => {
+    const menus = makeRangeMenus([
+      {
+        id: 'a',
+        options: [1, 100],
+        constraints: [{operator: '>=', reference: 'b', offset: 1}],
+      },
+      {
+        id: 'b',
+        options: [1, 100],
+        constraints: [{operator: '>=', reference: 'a', offset: 1}],
+      },
+    ]);
+
+    expect(() => validateMenuConstraints(menus)).toThrow(
+      'cannot be satisfied within the declared ranges'
+    );
   });
 });
